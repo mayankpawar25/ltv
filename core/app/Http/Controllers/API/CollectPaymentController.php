@@ -172,9 +172,15 @@ class CollectPaymentController extends Controller
                 return response()->json($data, $status);
             }
 
-            $threads = PaymentCollectionDescription::where('payment_collection_id',$collection_payment_id)->get();
+            /*
+            if($check_collection_id->staff_user_id != auth()->user()->id){
+                $data['msg'] = 'You are not assigned for this task';
+                $data['status'] = false;
+                $status = 401;
+                return response()->json($data, $status);   
+            }
 
-            // echo auth()->user()->id.'=='.$check_collection_id->staff_user_id.' '.count($threads).' '.\Config::get('constants.THREAD_COUNT');
+            $threads = PaymentCollectionDescription::where('payment_collection_id',$collection_payment_id)->get();
 
             if(auth()->user()->level == 1 && auth()->user()->id == $check_collection_id->staff_user_id && count($threads) % (\Config::get('constants.THREAD_COUNT')-1) == 0){
 
@@ -189,6 +195,7 @@ class CollectPaymentController extends Controller
                     return response()->json($data, $status);   
                 }
             }
+            */
 
             $feedback = new PaymentCollectionDescription;
             $feedback->feedback = $request->feedback;
