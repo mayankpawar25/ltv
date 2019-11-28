@@ -174,9 +174,9 @@ class CollectPaymentController extends Controller
 
             $threads = PaymentCollectionDescription::where('payment_collection_id',$collection_payment_id)->get();
 
-            echo auth()->user()->id.'=='.$check_collection_id->staff_user_id.' '.count($threads);
+            echo auth()->user()->id.'=='.$check_collection_id->staff_user_id.' '.count($threads).' '.\Config::get('constants.THREAD_COUNT')-1;
 
-            if(auth()->user()->id == $check_collection_id->staff_user_id && count($threads) % \Config::get('constants.THREAD_COUNT')-1 == 0){
+            if(auth()->user()->id == $check_collection_id->staff_user_id && count($threads) % (\Config::get('constants.THREAD_COUNT')-1) == 0){
                 if($request->payment_type == ''){
                     $data['msg'] = 'Please Assign to Level 2 Salesman';
                     $data['status'] = false;
