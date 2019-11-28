@@ -1,0 +1,126 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+
+.toggle.btn {
+    min-width: 59px;
+    min-height: 36px;
+	height:36px !important;
+}
+.form-element label{
+line-height: 20px !important;
+}
+.check-round .toggle{
+	border-radius:25px;
+}
+
+.base-bg{
+background-color: #329688 !important;
+}
+
+.submit-btn {
+	background-color: #329688 !important;
+}
+.btn-success{
+	color:#fff !important;
+}
+
+.btn .icon, .btn .fa {
+ 
+    margin-right: 0px;
+}
+.product-upload-form .btn-wrapper .submit-btn {
+    
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    background-color: #2a9cf5;
+    border: none;
+    -webkit-transition: all 0.3s ease-in;
+    -moz-transition: all 0.3s ease-in;
+    -o-transition: all 0.3s ease-in;
+    transition: all 0.3s ease-in;
+    cursor: pointer;
+	width: 230px;
+border-radius: 30px;
+height: 60px;
+}
+.m-auto{
+	margin:0px auto;
+}
+.badge {
+    font-size: 11px;
+}
+.btn-warning {
+    color: #fff;
+}
+.btn-warning:hover {
+    color: #fff;
+}
+
+.four-boot .dropdown .dropdown-menu .dropdown-item.selected[data-four-boot-item]::after {
+    content: "\2713";
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    float: right;
+    margin-right: -15px;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__rendered {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    line-height: 1.5;
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+    display: inline-block;
+    overflow: hidden;
+    padding-left: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.select2-container--bootstrap .select2-selection {
+    border-radius: .25rem;
+    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    -o-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    color: #495057;
+    font-size: 1rem;
+    outline: 0;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+    color: #495057;
+    background: #e9ecef;
+    border: 1px solid #6c757d;
+    border-radius: .25rem;
+    cursor: default;
+    float: left;
+    margin: -webkit-calc(.375rem - 1px) 0 0 .375rem;
+    margin: calc(.375rem - 1px) 0 0 .375rem;
+    padding: 0 .375rem;
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice__remove {
+    color: #6c757d;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 700;
+    margin-right: .1875rem;
+}
+
+
