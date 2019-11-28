@@ -172,7 +172,7 @@ class CollectPaymentController extends Controller
                 return response()->json($data, $status);
             }
 
-            $threads = PaymentCollectionDescription::where('payment_collection_id',$paymentcollection->id)->get();
+            $threads = PaymentCollectionDescription::where('payment_collection_id',$collection_payment_id)->get();
 
             if(auth()->user()->id == $check_collection_id->staff_user_id && count($threads) % \Config::get('constants.THREAD_COUNT')-1 == 0){
                 if($request->payment_type == ''){
