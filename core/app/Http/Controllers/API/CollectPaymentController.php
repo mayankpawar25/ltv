@@ -183,13 +183,12 @@ class CollectPaymentController extends Controller
                 if($request->payment_type == ''){
                     $data['msg'] = 'Please Assign to Level 2 Salesman';
                     $data['level_two'] = $salesman;
+                    $data['count'] = count($threads);
                     $data['status'] = false;
                     $status = 401;
                     return response()->json($data, $status);   
                 }
             }
-
-            exit('fail');
 
             $feedback = new PaymentCollectionDescription;
             $feedback->feedback = $request->feedback;
