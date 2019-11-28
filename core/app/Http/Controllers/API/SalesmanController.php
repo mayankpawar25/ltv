@@ -698,7 +698,8 @@ class SalesmanController extends Controller
             foreach ($data as $key => $row)
             {
                 $causer = $row->causer()->withTrashed()->get()->first();
-                $rec[ $key]['time'] =    \Carbon\Carbon::parse($row->created_at)->diffForHumans();
+                $rec[$key]['time'] =    \Carbon\Carbon::parse($row->created_at)->diffForHumans();
+                // $rec[ $key]['time'] =    \Carbon\Carbon::parse($row->created_at)->diffForHumans();
                 //$rec[ $key]['name'] =    $causer->first_name . " " . $causer->last_name ;
                 $rec[ $key]['description'] =   strip_tags($row->description) . " ". strip_tags($row->getExtraProperty('item'));
                 $rec[ $key]['created_at'] =  $row->created_at;

@@ -164,7 +164,6 @@ class CollectPaymentController extends Controller
     /* Collection Feedback */
     public function addfeedback(Request $request,$collection_payment_id=""){
         if($collection_payment_id!=''){
-
             $check_collection_id = PaymentCollection::find($collection_payment_id);
             if(empty($check_collection_id)){
                 $data['msg'] = 'Check Collection Id';
@@ -172,6 +171,19 @@ class CollectPaymentController extends Controller
                 $status = 401;
                 return response()->json($data, $status);
             }
+
+            $threads = PaymentCollectionDescription::where('payment_collection_id',$paymentcollection->id)->get();
+
+            if(auth()->user()->id == $check_collection_id->staff_user_id && count($threads) % \Config::get('constants.THREAD_COUNT')-1 == 0){
+                if($request->payment_type == ''){
+                    $data['msg'] = 'Please Assign to Level 2 Salesman';
+                    $data['status'] = false;
+                    $status = 401;
+                    return response()->json($data, $status);   
+                }
+            }
+
+            exit('fail');
 
             $feedback = new PaymentCollectionDescription;
             $feedback->feedback = $request->feedback;
@@ -248,7 +260,7 @@ class CollectPaymentController extends Controller
             $salesman = $salesman->whereNotNull('level')->get();
         }else{
           if(count($datas['threads']) > 0){
-            if(count($datas['threads']) % \Config::get('constants.THREAD_COUNT') == 0){
+            if(count($datas['threads']) % \Config::get('constants.THREAD_COUNT')-1 == 0){
               $salesman = $salesman->where('level',2)->get();
             }else{
               $salesman = $salesman->where('level',1)->get();
