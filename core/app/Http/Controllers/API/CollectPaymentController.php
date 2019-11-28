@@ -176,9 +176,13 @@ class CollectPaymentController extends Controller
 
             echo auth()->user()->id.'=='.$check_collection_id->staff_user_id.' '.count($threads).' '.\Config::get('constants.THREAD_COUNT');
 
-            if(auth()->user()->id == $check_collection_id->staff_user_id && count($threads) % (\Config::get('constants.THREAD_COUNT')-1) == 0){
+            if(auth()->user()->level == 1 && auth()->user()->id == $check_collection_id->staff_user_id && count($threads) % (\Config::get('constants.THREAD_COUNT')-1) == 0){
+
+                $salesman = StaffUser::where('role_id',1)->where('level',2)->get();
+
                 if($request->payment_type == ''){
                     $data['msg'] = 'Please Assign to Level 2 Salesman';
+                    $data['level_two'] = $salesman;
                     $data['status'] = false;
                     $status = 401;
                     return response()->json($data, $status);   
