@@ -87,7 +87,7 @@ div.dataTables_wrapper div.dataTables_filter {
                 <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('assigned_to') }}</strong> </span></p>
                 @endif
               </div>
-            @elseif(count($threads)!=0 && count($threads) % (\Config::get('constants.THREAD_COUNT')-1) == 0)
+            @elseif($collections->counter % \Config::get('constants.THREAD_COUNT') == 0)
               <div class="form-group">
                 <label>Assigned To </label>
                 <select name="assigned_to" class="salesman_select form-control select2">

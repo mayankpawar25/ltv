@@ -265,21 +265,16 @@ class CollectPaymentController extends Controller
         }*/
         $paymentcollection  = PaymentCollection::find($request->payment_collection_id);
         $datas['threads']  = PaymentCollectionDescription::where('payment_collection_id',$paymentcollection->id)->get();
-       
 
         $salesman = StaffUser::where('role_id',1);
         if($paymentcollection->assigned->level == 2){
             $salesman = $salesman->whereNotNull('level')->get();
         }else{
-          if(count($datas['threads']) > 0){
-            if(count($datas['threads']) % (\Config::get('constants.THREAD_COUNT')-1) == 0){
+            if($paymentcollection->counter % \Config::get('constants.THREAD_COUNT') == 0){
               $salesman = $salesman->where('level',2)->get();
             }else{
               $salesman = $salesman->where('level',1)->get();
             }
-          }else{
-            $salesman = $salesman->where('level',1)->get();
-          }
         }
 
         $datas['salesmans'] = $salesman;

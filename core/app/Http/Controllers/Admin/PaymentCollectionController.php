@@ -89,12 +89,8 @@ class PaymentCollectionController extends Controller
                    'status'=> 0,
                  ) 
             );
-         
-         /* print_r($data);
-            die;*/
-          $resp = DB::table('payment_collections')->insert($data);
-       return redirect('admin/collection')->with('message', 'Payment Collection Add Successfully!');
-
+      $resp = DB::table('payment_collections')->insert($data);
+      return redirect('admin/collection')->with('message', 'Payment Collection Add Successfully!');
   }
 
   public function show(Request $request,$id){
@@ -105,12 +101,8 @@ class PaymentCollectionController extends Controller
     if(auth()->user()->level == 2 || auth()->user()->is_administrator){
         $salesman = $salesman->whereNotNull('level')->get();
     }else{
-      if(count($data['threads']) > 0){
-        if(count($data['threads']) % (\Config::get('constants.THREAD_COUNT')-1) == 0){
-          $salesman = $salesman->where('level',2)->get();
-        }else{
-          $salesman = $salesman->where('level',1)->get();
-        }
+      if($paymentcollection->counter % \Config::get('constants.THREAD_COUNT') == 0){
+        $salesman = $salesman->where('level',2)->get();
       }else{
         $salesman = $salesman->where('level',1)->get();
       }
@@ -212,6 +204,9 @@ class PaymentCollectionController extends Controller
     $update->collected_amount   = $request->amount;
     $update->balance_amount     = $update->amount - $request->amount;
     $update->status             = $request->status;
+
+    $update->counter = (auth()->user()->level == 1)?($update->counter+1):1;
+
     $update->save();
 
     $description = sprintf('New Payment Collection Updated');
