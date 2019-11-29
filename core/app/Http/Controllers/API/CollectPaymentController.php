@@ -235,7 +235,7 @@ class CollectPaymentController extends Controller
                     ->leftjoin('staff_users', 't.staff_user_id', '=', 'staff_users.id')
                     ->where('staff_users.id',Auth::id())
                     ->where('t.new_date',(new Carbon(now()))->format('Y-m-d'))
-                    ->select('t.id','t.name','t.mobile_no','t.staff_user_id as assigned_to','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
+                    ->select('t.id','t.name','t.mobile_no','t.staff_user_id as assigned_to','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name','t.counter')
                     ->get();
         if(!$collection->isEmpty()){
             $data['collection_list'] = $collection;
