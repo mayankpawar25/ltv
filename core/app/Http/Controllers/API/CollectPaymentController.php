@@ -163,10 +163,6 @@ class CollectPaymentController extends Controller
 
     /* Collection Feedback */
     public function addfeedback(Request $request,$collection_payment_id=""){
-
-        echo json_encode(auth()->user()->level);
-        exit;
-
         if($collection_payment_id!=''){
             $check_collection_id = PaymentCollection::find($collection_payment_id);
             if(empty($check_collection_id)){
@@ -218,7 +214,9 @@ class CollectPaymentController extends Controller
                 $collection->status = $request->status;
                 $collection->staff_user_id = $request->assigned_to;
                 $collection->counter = (auth()->user()->level == 1)?($collection->counter+1):1;
-                $collection->save();
+                echo json_encode($collection);
+                exit;
+                // $collection->save();
 
                 $data['msg'] = 'Feedback submitted successfully';
                 $data['status'] = true;
