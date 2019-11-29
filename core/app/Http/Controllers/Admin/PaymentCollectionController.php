@@ -106,7 +106,7 @@ class PaymentCollectionController extends Controller
         $salesman = $salesman->whereNotNull('level')->get();
     }else{
       if(count($data['threads']) > 0){
-        if(count($data['threads']) % \Config::get('constants.THREAD_COUNT') == 0){
+        if(count($data['threads']) % (\Config::get('constants.THREAD_COUNT')-1) == 0){
           $salesman = $salesman->where('level',2)->get();
         }else{
           $salesman = $salesman->where('level',1)->get();
