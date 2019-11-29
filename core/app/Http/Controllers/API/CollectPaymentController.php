@@ -164,7 +164,7 @@ class CollectPaymentController extends Controller
     /* Collection Feedback */
     public function addfeedback(Request $request,$collection_payment_id=""){
 
-        echo json_encode(auth()->user());
+        echo json_encode(auth()->user()->level);
         exit;
 
         if($collection_payment_id!=''){
