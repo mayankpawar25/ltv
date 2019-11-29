@@ -214,9 +214,7 @@ class CollectPaymentController extends Controller
                 $collection->status = $request->status;
                 $collection->staff_user_id = $request->assigned_to;
                 $collection->counter = (auth()->user()->level == 1)?($collection->counter+1):1;
-                echo json_encode($collection);
-                exit;
-                // $collection->save();
+                $collection->save();
 
                 $data['msg'] = 'Feedback submitted successfully';
                 $data['status'] = true;
