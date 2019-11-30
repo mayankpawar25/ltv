@@ -50,6 +50,9 @@ class PaymentCollectionController extends Controller
                 $button .= '&nbsp;&nbsp;';*/
 
                 if(!empty(auth()->user()->is_administrator)){
+                  $button.= '<a href="'.route('collection.edit',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</a>';
+                $button .= '&nbsp;&nbsp';
+                $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
                     $button .= '&nbsp;&nbsp;';
                      if($data->status == 0){
                       $button .= '<button type="button" name="status" id="'.$data->id.'" class="status btn btn-success btn-sm" data-status="'.$data->status.'">Closed</button>';
@@ -113,65 +116,84 @@ class PaymentCollectionController extends Controller
     return view('admin.paymentCollection.show',$data);
   }
 
-     /*Update City Status (Active / Inactive)*/
-    public function UpdateStatus($id,$status){
-        if($status == 1)
-        {
-            $data = array( 
-                   'status' => 1, 
-               );
-        }else if($status == 2){
-             $data = array( 
-                   'status' => 1, 
-               );
-        }else {
-             $data = array( 
-                   'status' => 1, 
-               );
-        }
-        PaymentCollection::where('id',$id)->update($data);
-    }
-     /*Edit City*/
+     
+  public function UpdateStatus($id,$status){
+      if($status == 1)
+      {
+          $data = array( 
+                 'status' => 1, 
+             );
+      }else if($status == 2){
+           $data = array( 
+                 'status' => 1, 
+             );
+      }else {
+           $data = array( 
+                 'status' => 1, 
+             );
+      }
+      PaymentCollection::where('id',$id)->update($data);
+  }
+   
 
-    public function edit(Request $request,$token){
-        $data['city']  = city::find($token);
-         return view('admin.city.edit',$data);
-    }
+  public function edit(Request $request,$token){
+        //= PaymentCollection::find($token);
+      $data['collection']= DB::table('payment_collections As t')
+                  ->leftjoin('staff_users', 't.staff_user_id', '=', 'staff_users.id')
+                 ->where('t.id',$token)
+                  ->select('t.id','t.name','t.mobile_no','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name','t.staff_user_id')
+                  ->first();
 
-    /*Edit City DropDown*/
-    public function EditCityDropdownList(Request $request,$token){
-        $html = '';
-        $city_id = City::find($token);
-        $states = State::where('status',1)->get();
-          foreach ($states as $state) {
-        $selected = ($city_id->state_id == $state->id) ? 'selected' : '';
-            $html .= '<option  value="'.$state->id.' " '.$selected.'>'.$state->name.'</option>';
-        }
-        return response()->json(['html' => $html]);
-    }
+     /* print_r($data['collection']);
+      die;*/
+       $data['salesman'] = StaffUser::where('role_id',1)->where('level',1)->get();
+                
+       return view('admin.paymentCollection.edit',$data);
+  }
 
-    /*Update City*/
+  /*Edit City DropDown*/
+  public function EditCityDropdownList(Request $request,$token){
+      $html = '';
+      $city_id = City::find($token);
+      $states = State::where('status',1)->get();
+        foreach ($states as $state) {
+      $selected = ($city_id->state_id == $state->id) ? 'selected' : '';
+          $html .= '<option  value="'.$state->id.' " '.$selected.'>'.$state->name.'</option>';
+      }
+      return response()->json(['html' => $html]);
+  }
+
+   
   public function update(Request $request,$token){
-
-      $rules = array(
-          'name'  => 'required',
-          'state_id'  => 'required',
-         );
-
-      $dt = $this->validator($request->all(),$rules)->validate();
+     $rules = array(
+           'name' => 'required',
+           'mobile_no' => 'required',
+            /*'alternate_no' => 'required',*/
+            'collection_date' => 'required',
+            'amount' => 'required',
+            );
+        $this->validator($request->all(),$rules)->validate();
       
              $data = array( 
-                 'name' => strip_tags($request->input('name')),
-                 'state_id' => strip_tags($request->input('state_id')),
-                 
-               );
+             
+                  'name' => strip_tags($request->input('name')),
+                  'mobile_no' => strip_tags($request->input('mobile_no')),
+                  'alternate_no' => strip_tags($request->input('alternate_no')),
+                  'collection_date' => date("Y-m-d", strtotime($request->input('collection_date'))),
+                  'new_date' => date("Y-m-d", strtotime($request->input('collection_date'))),
+                  'amount' => strip_tags($request->input('amount')),
+                  'staff_user_id' => strip_tags($request->input('staff_user_id')),
+               
+            );
    
+   /* print_r($data);
+    die;*/
       //dd($data);
-      $resp = City::where('id',$token)->update($data);
+      $resp = PaymentCollection::where('id',$token)->update($data);
       if($resp == 1){
-          return redirect('admin/cities')->with('success','City updated Succesfully');
+          return redirect('admin/collection')->with('success','Payment Collection Details Change Succesfully');
       }else{
-          return redirect('admin/cities')->with('error','Something went wrong!!');
+          return redirect('admin/collection')->with('error','Something went wrong!!');
       }
   }
 
@@ -217,5 +239,15 @@ class PaymentCollectionController extends Controller
 
   }
     /* Author : 225 */
+
+
+     public function destroy($id)
+    {
+        $product = PaymentCollection::find($id);
+        $product->delete();
+
+        return redirect()->back()->with('status', 'New brand deleted successfully.')->with('alert', 'alert-success');
+
+    }
 
 }
