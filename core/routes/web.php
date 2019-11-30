@@ -9,7 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
+/*Route::get('/', function () {
     return redirect('admin');
 });
 
@@ -26,7 +26,7 @@ Route::get('/contact', function () {
 });
 Route::get('/shop', function () {
     return redirect('admin');
-});
+});*/
 
 Route::get('qrcode', 'QrcodeController@generateQrCode')->name('generateqrcode');
 
@@ -113,24 +113,24 @@ Route::post('/ad/increaseAdView', 'User\AdController@increaseAdView')->name('ad.
 Route::post('review/submit', 'ProductController@reviewsubmit')->name('user.review.submit');
 
 #=========== User Routes =============#
-// Route::group(['middleware' => 'guest'], function() {
-// 		Route::get('/login', 'User\LoginController@login')->name('login');
-// 		Route::post('/authenticate', 'User\LoginController@authenticate')->name('user.authenticate');
+Route::group(['middleware' => 'guest'], function() {
+		Route::get('/login', 'User\LoginController@login')->name('login');
+		Route::post('/authenticate', 'User\LoginController@authenticate')->name('user.authenticate');
 
-// 		Route::get('auth/{provider}', 'User\LoginController@redirectToProvider');
+		Route::get('auth/{provider}', 'User\LoginController@redirectToProvider');
 
-//     	Route::get('auth/{provider}/callback', 'User\LoginController@handleProviderCallback');
+    	Route::get('auth/{provider}/callback', 'User\LoginController@handleProviderCallback');
 
 
-// 		Route::get('/register', 'User\RegController@showregform')->name('user.showregform');
-// 		Route::post('/register', 'User\RegController@register')->name('user.register');
+		Route::get('/register', 'User\RegController@showregform')->name('user.showregform');
+		Route::post('/register', 'User\RegController@register')->name('user.register');
 
-// 		// Password Reset Routes
-// 	    Route::get('/showEmailForm', 'User\ForgotPasswordController@showEmailForm')->name('user.showEmailForm');
-// 	    Route::post('/sendResetPassMail', 'User\ForgotPasswordController@sendResetPassMail')->name('user.sendResetPassMail');
-// 	    Route::get('/reset/{code}', 'User\ForgotPasswordController@resetPasswordForm')->name('user.resetPasswordForm');
-// 	    Route::post('/resetPassword', 'User\ForgotPasswordController@resetPassword')->name('user.resetPassword');
-// });
+		// Password Reset Routes
+	    Route::get('/showEmailForm', 'User\ForgotPasswordController@showEmailForm')->name('user.showEmailForm');
+	    Route::post('/sendResetPassMail', 'User\ForgotPasswordController@sendResetPassMail')->name('user.sendResetPassMail');
+	    Route::get('/reset/{code}', 'User\ForgotPasswordController@resetPasswordForm')->name('user.resetPasswordForm');
+	    Route::post('/resetPassword', 'User\ForgotPasswordController@resetPassword')->name('user.resetPassword');
+});
 
 
 Route::group(['middleware' => 'auth'], function() {
@@ -1596,12 +1596,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 				'store' => 'collection.store',
 				'show' => 'collection.show',
 				'edit'  => 'collection.edit',
-				'update' => 'collection.update',
 				'destroy'=> 'collection.destroy',
 		]
 	]);
 	 /* Payment Collection  Active/Inactive*/
 	 Route::get('/updatepaymentstatus/{id}/{status}', 'Admin\PaymentCollectionController@UpdateStatus');
+
+	 Route::post('/collection/update/{id}/', 'Admin\PaymentCollectionController@update')->name('collection.update');
+
+	  /* Payment Collection  Delete Section*/
+	 Route::get('/destroy/{id}', 'Admin\PaymentCollectionController@destroy');
 	 
 	Route::post('{collection_id?}/paymentdescription/{thread_id?}', 'Admin\PaymentCollectionController@createPaymentThread')->name('admin.payment.adddescription');
 
