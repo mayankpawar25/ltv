@@ -58,9 +58,11 @@ div.dataTables_wrapper div.dataTables_filter {
               <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('feedback') }}</strong> </span></p>
               @endif
             </div>
+            @if(auth()->user()->level == 1 || auth()->user()->is_administrator)
             <div class="form-group">
               <label>Collect Payment : <input type="checkbox" class="collect_payment_checkbox" value="{{ old('collect_payment_checkbox') }}" name="collect_payment_checkbox" ></label>
             </div>
+            @endif
             <div class="form-group payment_collection d-none">
               <label>Payment Type<span class="text-danger">*</span></label>
               <select name="payment_type" class="form-control">
