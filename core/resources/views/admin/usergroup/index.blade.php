@@ -2,20 +2,32 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+ <!--    <div class="app-title">
         <div>
-           <h1>User Group Management</h1>
+           <h1></h1>
         </div>
-     </div>
+     </div>-->
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <h3 class="tile-title float-left">User Group List</h3>
-              <div class="float-right icon-btn">
-                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
+           <div class="main-content">
+             <div class="row">
+             <div class="col-md-6">
+              <h5 class="pull-left">User Group List</h5>
+             
+             </div>
+             
+              <div class="col-md-6 text-right">
+             
+               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
                    <i class="fa fa-plus"></i> Add User Group
                  </button>
-              </div>
+             </div>
+             
+             </div>
+             
+             
+               
+                <hr />
               <p style="clear:both;margin:0px;"></p>
               <div class="col-md-12">
                 @if ($errors->any())
@@ -32,7 +44,7 @@
                 @if (count($cats) == 0)
                   <h2 class="text-center">NO CATEGORY FOUND</h2>
                 @else
-                  <table class="table">
+                  <table class="table table-bordered">
                      <thead>
                         <tr>
                            <th scope="col">SL</th>
@@ -56,7 +68,7 @@
                                  @endif
                                </td>
                                <td>
-                                 <button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit"><span data-toggle="modal" data-target="#editModal{{$cat->id}}" ><i class="fas fa-pencil-alt"></i></span></button>
+                                 <button type="button" class="btn btn-success btn-sm float-right"><span data-toggle="modal" data-target="#editModal{{$cat->id}}" ><i class="fas fa-pencil-alt"></i></span></button>
                                </td>
                             </tr>
                             @includeif('admin.usergroup.partials.edit')

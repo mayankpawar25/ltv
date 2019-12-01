@@ -33,19 +33,19 @@
 <!--script vj-->
 		
        
-        <!-- materialize  -->
-        <script src="{{asset('assets/admin/plugins/materialize/js/materialize.min.js')}}" type="text/javascript"></script>
-        <!-- metismenu-master -->
+         
+<!--        <script src="{{asset('assets/admin/plugins/materialize/js/materialize.min.js')}}" type="text/javascript"></script>
+        
         <script src="{{asset('assets/admin/plugins/metismenu-master/dist/metisMenu.min.js')}}" type="text/javascript"></script>
-        <!-- SlimScroll -->
+     
         <script src="{{asset('assets/admin/plugins/slimScroll/jquery.slimscroll.min.js')}}" type="text/javascript"></script>
-        <!-- m-custom-scrollbar -->
+     
         <script src="{{asset('assets/admin/plugins/malihu-custom-scrollbar/jquery.mCustomScrollbar.concat.min.js')}}" type="text/javascript"></script>
-        <!-- scroll -->
+     
         <script src="{{asset('assets/admin/plugins/simplebar/dist/simplebar.js')}}" type="text/javascript"></script>
-        <!-- custom js -->
+        
         <script src="{{asset('assets/admin/dist/js/custom.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/admin/dist/js/main.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/admin/dist/js/main.js')}}" type="text/javascript"></script>-->
         
 <!--script end-->
 

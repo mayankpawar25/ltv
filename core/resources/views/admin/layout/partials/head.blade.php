@@ -18,9 +18,9 @@
   <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/main.css')}}">
   <!-- Font-icon css-->
   
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
 
-
-  {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
+  {{-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
   <!-- Font-icon 5 css-->
   <link rel="stylesheet" href="{{asset('assets/admin/css/fontawesome-5.css')}}">
 
@@ -37,30 +37,7 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
  
- <!--vj-->
-  
-		<link href="{{asset('assets/admin/plugins/jquery-ui-1.12.1/jquery-ui.min.css')}}" rel="stylesheet" type="text/css" />
-        <!-- materialize css -->
-        <link href="{{asset('assets/admin/plugins/materialize/css/materialize.min.css')}}" rel="stylesheet">
-        <!-- Bootstrap css-->
-        <link href="{{asset('assets/admin/plugins/materialize/css/materialize.min.css')}}" rel="stylesheet">
-        <!-- Animation Css -->
-        <link href="{{asset('assets/admin/plugins/animate/animate.css')}}" rel="stylesheet" />
-        <!-- Material Icons CSS -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!-- Font Awesome -->
-        <link href="{{asset('assets/admin/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css" />
-        <!-- Monthly css -->
-        <!-- <link href="assets/plugins/monthly/monthly.css" rel="stylesheet" type="text/css" />-->
-        <!-- simplebar scroll css -->
-        <link href="{{asset('assets/admin/plugins/simplebar/dist/simplebar.css')}}" rel="stylesheet" type="text/css" />
-        <!-- mCustomScrollbar css -->
-        <link href="{{asset('assets/admin/plugins/malihu-custom-scrollbar/jquery.mCustomScrollbar.css')}}" rel="stylesheet" type="text/css" />
-        <!-- custom CSS -->
-        <link href="{{asset('assets/admin/dist/css/stylematerial.css')}}" rel="stylesheet">
-        
-        <!--css end-->
-
+ 
 
   @stack('styles')
   {{-- NICedit CDN --}}

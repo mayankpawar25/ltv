@@ -6,33 +6,35 @@
 
 @section('content')
 <main class="app-content">
-	<div class="app-title">
+	<!--<div class="app-title">
 		<div>
 			<h1><i class="fa fa-dashboard"></i>Ledger</h1>
 		</div>
-	<!--	<ul class="app-breadcrumb breadcrumb">
+		<ul class="app-breadcrumb breadcrumb">
 			<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
 			<li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-		</ul>-->
-	</div>
+		</ul>
+	</div>-->
 	<div class="row">
     <div class="col-md-3">
       <form action="{{ route('admin.transaction.add') }}" method="post">
         {{ csrf_field() }}
-        <div class="tile">
-          <div class="card-header"><strong>Add Payment</strong></div>
+        <div class="main-content">
+          <div class="">
+          <h5>Add Payment</h5></div>
+          <hr />
           <input type="hidden" name="client_id" value="{{ $client_id }}">
           <input type="hidden" name="client_type_id" value="{{ $client_type_id }}">
           <div class="form-group">
-            <label><strong>Amount : </strong></label>
+            <label>Amount: </label>
             <input type="number" name="amount" class="form-control">
           </div>
           <div class="form-group">
-            <label><strong>Transaction Id : </strong></label>
+            <label>Transaction Id:</label>
             <input type="text" name="transaction_id" class="form-control">
           </div>
           <div class="form-group">
-            <label><strong>Payment Mode : </strong></label>
+            <label>Payment Mode:</label>
             <select class="form-control" name="payment_mode">
             @forelse($payment_modes as $payment_mode)
               <option value="{{ $payment_mode->id }}">{{ $payment_mode->name }}</option>
@@ -42,22 +44,24 @@
             </select>
           </div>
           <div class="form-group">
-            <label><strong>Remarks : </strong></label>
+            <label>Remarks: </label>
             <input type="textarea" name="remarks" class="form-control">
           </div>
-          <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-sm">Save Records</button>
+          <div class="text-right">
+          <hr />
+            <button type="submit" class="btn btn-success">Save Records</button>
           </div>
-          <div class="card-footer"></div>
+          
         </div>
       </form>
     </div>
 		<div class="col-md-9">
-			<div class="tile">
-      	<div class="card-header"><strong>Ledger</strong></div>
+			<div class="main-content">
+      	<div class=""><h5>Ledger</h5></div>
+        <hr />
       	<div class="">
-          	<div class="table-responsive">
-              	<table class="table table-default" id="datatableOne">
+          	<div class="">
+              	<table class="table table-bordered" id="datatableOne">
                   	<thead>
                       	<tr>
                           <th>S.No.</th>

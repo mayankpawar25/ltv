@@ -638,10 +638,11 @@ function action_links($edit_url, $delete_url, $additional_links = NULL)
         
         ob_start();
         ?>
-        <div class="row bottom-toolbar">
-            <div  class="col-md-12">
+        <div class=" text-right">
+            <hr>
+            <div  class="text-right">
                 <div style="text-align: right;">
-                    <input type="submit" class="btn btn-primary" value="<?php echo $text; ?>"/>
+                    <input type="submit" class="btn btn-success" value="<?php echo $text; ?>"/>
 
                 </div>
             </div>

@@ -3,7 +3,7 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     <!--<div class="app-title">
         <div>
            <h3 class="page-title uppercase bold">
              @if (request()->path() == 'admin/orders/all')
@@ -32,10 +32,41 @@
            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
         </ul>
-     </div>
+     </div>-->
      <div class="row">
         <div class="col-md-12">
-            <div class="tile">
+            <div class="main-content">
+            <h5 class="">
+             @if (request()->path() == 'admin/orders/all')
+               All
+             @elseif (request()->path() == 'admin/orders/confirmation/pending')
+                 Pending
+             @elseif (request()->path() == 'admin/orders/confirmation/accepted')
+                 Accepted
+             @elseif (request()->path() == 'admin/orders/confirmation/rejected')
+                 Rejected
+             @elseif (request()->path() == 'admin/orders/delivery/pending')
+                 Delivery Pending
+             @elseif (request()->path() == 'admin/orders/delivery/inprocess')
+                 Delivery Inprocess
+             @elseif (request()->path() == 'admin/orders/delivered')
+                 Delivered
+             @elseif (request()->path() == 'admin/orders/cashondelivery')
+                 Cash on Delivery
+             @elseif (request()->path() == 'admin/orders/advance')
+                 Advance Paid
+             @endif
+             Orders
+           </h5>
+           <hr />
+              
+              @if (count($orders) == 0)
+                <div class="text-center">
+                <img src="{{asset('assets/admin/images/no-data.jpg')}}" />
+                
+                 <h3>NO ORDER FOUND !</h3>
+                 </div>
+              @else
               <div class="row mb-4">
                 <div class="col-md-3 offset-md-9">
                   <form method="get"
@@ -65,9 +96,6 @@
                   </form>
                 </div>
               </div>
-              @if (count($orders) == 0)
-                <h1 class="text-center"> NO ORDER FOUND !</h1>
-              @else
                 <table class="table table-bordered" style="width:100%;">
                   <thead>
                     <tr>

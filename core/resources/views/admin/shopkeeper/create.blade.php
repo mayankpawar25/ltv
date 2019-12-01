@@ -9,19 +9,18 @@
 
 @section('content')
 <main class="app-content">
-  <div class="app-title">
+  <!--<div class="app-title">
     <div>
       <h1><i class="fa fa-dashboard"></i>Add Dealer</h1>
     </div>
-   <!-- <ul class="app-breadcrumb breadcrumb">
-      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-    </ul>-->
-  </div>
+   
+  </div>-->
   <div class="row">
     <div class="col-md-12">
-      <div class="tile">
-        <div class="col-sm-12">
+      <div class="main-content">
+      <h5>Add Dealer</h5>
+      <hr />
+        <div class="">
           <form class="product-upload-form" action="{{ route('admin.shopkeeper.store') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="shop-form">
             <input type="hidden" name="user_role" value="{{ $user_role }}">
             {{csrf_field()}}
@@ -158,7 +157,7 @@
                   </select>
                 </div>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-12">
                 <div class="form-group">
                   <label>Address: </label>
                   <textarea type="text" rows="2" name="address" class="form-control" id="address_by_lat_long">{{ old('address') }}</textarea>
@@ -202,8 +201,12 @@
             <div class="row">
               <div class="col-sm-3">
                 <label>Owner Pic</label>
-                <div class="form-group">                          
-                  <input type="file" name="owner_pic" accept="image/*">
+                <div class="form-group"> 
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="owner_pic" value="" accept="image/*">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>                         
+                  <!--<input type="file" name="owner_pic" accept="image/*">-->
                   <img src="" id="owner_pic" style="width:100px;height:100px;display:none;">
                   @if($errors->has('owner_pic'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('owner_pic') }}</strong></span></p>
@@ -212,8 +215,12 @@
               </div>
               <div class="col-sm-3">
                 <label>Shop Pic</label>
-                <div class="form-group">                          
-                  <input type="file" name="shop_pic" accept="image/*">
+                <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="shop_pic" accept="image/*">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>                           
+                  <!--<input type="file" name="shop_pic" accept="image/*">-->
                   <img src="" id="shop_pic" style="width:100px;height:100px;display:none;">
                   @if($errors->has('shop_pic'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('shop_pic') }}</strong></span></p>
@@ -222,8 +229,12 @@
               </div>
               <div class="col-sm-3">
                 <label>Logo</label>
-                <div class="form-group">                          
-                  <input type="file" name="logo" accept="image/*"> 
+                <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="logo" accept="image/*">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>                    
+                  <!--<input type="file" name="logo" accept="image/*"> -->
                   <img src="" id="logo" style="width:100px;height:100px;display:none;">
                   @if($errors->has('logo'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('logo') }}</strong></span></p>
@@ -232,8 +243,12 @@
               </div>
               <div class="col-sm-3">
                 <label>Banner</label>
-                <div class="form-group">                          
-                  <input type="file" name="banner" accept="image/*">
+                <div class="form-group"> 
+                 <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile" name="banner" accept="image/*">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>                             
+                  <!--<input type="file" name="banner" accept="image/*">-->
                   <img src="" id="banner" style="width:100px;height:100px;display:none;">
                   @if($errors->has('banner'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('banner') }}</strong></span></p>
@@ -242,9 +257,10 @@
               </div>
             </div>
             <hr />
-            <p><strong>Documents</strong></p>
+             
             <div class="row">
               <div class="col-sm-3">
+              <label>Select document </label>
                 <select class="form-control" name="doc_type[]">
                   <option>-- Select Document Type --</option>
                   <option value="gumasta">Gumasta</option>
@@ -256,22 +272,31 @@
                 </select>
               </div>
               <div class="col-sm-3">
-                <div class="form-group">                          
-                  <input type="file" name="doc[]" onchange="imagePreview(this,'preview')">
-                  <img src="" style="width:100px;height:100px;display:none;" id="preview">
+                <div class="form-group"> 
+                 <label>document </label>
+                 <div class="custom-file">
+                
+                    <input type="file" class="custom-file-input" id="customFile" name="doc[]" onchange="imagePreview(this,'preview')">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                  </div>                            
+                 <!-- <input type="file" name="doc[]" onchange="imagePreview(this,'preview')">-->
+                  
                 </div>
               </div>
               <div class="col-sm-3">
-                <button type="button" class="btn btn-danger btn-sm" id="add_more_docs"><strong><i class="fa fa-plus"></i></strong> </button>
+              <label class="pull-left">Add / remove</label>
+                <br />
+                <button type="button" class="btn btn-success fa-fix btn-sm pull-left" id="add_more_docs"><strong><i class="fa fa-plus"></i></strong> </button>
               </div>
+              <div class="col-md-3"><img src="" style="width:100px; margin-bottom:8px; height:100px;margin-bottom:8px; display:none;" id="preview"></div>
             </div>
             <span id="put_clone_here"></span>
            <!-- <div class="form-group">
               <button type="submit" class="btn btn-success">Save</button>
             </div>-->
             <hr />
-            	<div class="btn-wrapper mt-4 d-block text-center">
-	                          	<input type="submit" class="submit-btn" value="Save">
+            	<div class="text-right">
+	                          	<input type="submit" class="btn btn-success" value="Save">
 	                      	</div>
             
           </form>
@@ -324,11 +349,12 @@
       html += '</div>';
       html += '<div class="col-sm-3">';
       html += '<div class="form-group">                          ';
-      html += '<input type="file" name="doc[]" onchange="imagePreview(this,\'preview'+count+'\')">';
-      html += '<img src="" style="width:100px;height:100px;display:none;" id="preview'+count+'">'
-      html += '</div>';
-      html += '</div>';
-      html += '<div class="col-sm-3"><button type="button" onclick="remove('+count+')"><i class="fa fa-trash"></i></button></div>';
+      html += '<div class="custom-file"><input type="file" class="custom-file-input" id="customFile" name="doc[]" onchange="imagePreview(this,\'preview'+count+'\')" accept=""><label class="custom-file-label" for="customFile">Choose file</label></div>';
+     
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="col-sm-3"><button type="button" class="btn btn-danger btn-sm fa-fix" onclick="remove('+count+')"><i class="fa fa-trash"></i></button></div>';
+	 html += '<div class="col-sm-3"><img src="" style="width:100px;height:100px;margin-bottom:8px; display:none;" id="preview'+count+'"></div>';
       html += '</div>';
       $('#put_clone_here').append(html);
     });

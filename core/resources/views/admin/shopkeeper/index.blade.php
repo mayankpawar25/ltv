@@ -71,7 +71,7 @@ div#data_filter {
   		<div class="col-lg-12">
       	<div class="sellers-product-inner">
           	<div class="bottom-content table-responsive">
-              	<table class="table table-default" id="data">
+              	<table class="table table-bordered w-100" id="data">
                   	<thead>
                       	<tr>
                           <th>Name</th>
@@ -123,7 +123,7 @@ div#data_filter {
                   					<span class="badge badge-success">Active</span>
                   				@endif
                   			</td>
-                  			<td>
+                  			<td class="text-right">
   		                    <span class="btn-group float-right">
                             <a href="{{ route('admin.shopkeeper.show',$user->id) }}" class="btn btn-primary btn-sm " data-toggle="tooltip" title="View"><span class="fa fa-eye"></span></a>
                             

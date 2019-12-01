@@ -86,7 +86,7 @@ $mytime = Carbon\Carbon::now();
         </div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="widget-small info coloured-icon"><i class="icon fa fa-times fa-3x"></i>
+        <div class="widget-small danger coloured-icon"><i class="icon fa fa-times fa-3x"></i>
           <a class="info" href="{{route('admin.bannedUsers')}}">
             <h4>BANNED USERS</h4>
             <p><b>{{\App\User::where('status', 'blocked')->count()}}</b></p>
@@ -94,7 +94,7 @@ $mytime = Carbon\Carbon::now();
         </div>
       </div>
       <div class="col-md-6 col-lg-4">
-        <div class="widget-small warning coloured-icon"><i class="icon fa fa-check fa-3x"></i>
+        <div class="widget-small success coloured-icon"><i class="icon fa fa-check fa-3x"></i>
           <a class="info" href="{{route('admin.verifiedUsers')}}">
             <h4>VERIFIED USERS</h4>
             <p><b>{{\App\User::where('email_verified', 1)->where('sms_verified', 1)->count()}}</b></p>
@@ -124,7 +124,7 @@ $mytime = Carbon\Carbon::now();
       $task_date = $mytime->toDateString();  
       if(empty(auth()->user()->is_administrator)){ ?>
       <div class="col-md-6 col-lg-4">
-        <div class="widget-small danger coloured-icon"><i class="icon fa fa-envelope fa-3x"></i>
+        <div class="widget-small info coloured-icon"><i class="icon fa fa-envelope fa-3x"></i>
           <a class="info" href="{{route('admin.salesmans.task',auth()->user()->id)}}">
            <h4>Salesman Task</h4>
             <p><b>{{\App\Task::where('task_date', $task_date)->where('salesman_id',auth()->user()->id)->count()}}</b></p>
@@ -133,7 +133,7 @@ $mytime = Carbon\Carbon::now();
       </div>
       <?php }else { ?>
        <div class="col-md-6 col-lg-4">
-        <div class="widget-small danger coloured-icon"><i class="icon fa fa-envelope fa-3x"></i>
+        <div class="widget-small info coloured-icon"><i class="icon fa fa-envelope fa-3x"></i>
           <a class="info" href="{{route('admin.tasks.salesmanlist')}}">
            <h4>Salesman Task</h4>
            </a>
