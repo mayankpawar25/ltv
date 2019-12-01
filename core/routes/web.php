@@ -1599,15 +1599,20 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 				'destroy'=> 'collection.destroy',
 		]
 	]);
-	 /* Payment Collection  Active/Inactive*/
-	 Route::get('/updatepaymentstatus/{id}/{status}', 'Admin\PaymentCollectionController@UpdateStatus');
 
-	 Route::post('/collection/update/{id}/', 'Admin\PaymentCollectionController@update')->name('collection.update');
+	Route::post('/paginate', 'Admin\PaymentCollectionController@paginate')->name('datatable_payment_collection');
+	
+	/* Payment Collection  Active/Inactive*/
+	Route::get('/updatepaymentstatus/{id}/{status}', 'Admin\PaymentCollectionController@UpdateStatus');
+
+	Route::post('/collection/update/{id}/', 'Admin\PaymentCollectionController@update')->name('collection.update');
 
 	  /* Payment Collection  Delete Section*/
-	 Route::get('/destroy/{id}', 'Admin\PaymentCollectionController@destroy');
+	Route::get('/destroy/{id}', 'Admin\PaymentCollectionController@destroy');
 	 
 	Route::post('{collection_id?}/paymentdescription/{thread_id?}', 'Admin\PaymentCollectionController@createPaymentThread')->name('admin.payment.adddescription');
+
+
 
 });// Admin Routes End
 

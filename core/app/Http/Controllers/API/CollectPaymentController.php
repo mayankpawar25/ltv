@@ -265,7 +265,10 @@ class CollectPaymentController extends Controller
             $status = 401;
         }*/
         $paymentcollection  = PaymentCollection::find($request->payment_collection_id);
-        $datas['threads']  = PaymentCollectionDescription::where('payment_collection_id',$paymentcollection->id)->get();
+        $threads = PaymentCollectionDescription::where('payment_collection_id',$paymentcollection->id)->get();
+        foreach($threads as $thread){
+            $thread->salesman = $thread->assigned->first_name.' '.$thread->assigned->last_name;
+        }
 
         $salesman = StaffUser::where('role_id',1);
         if($paymentcollection->assigned->level == 2){
@@ -278,6 +281,7 @@ class CollectPaymentController extends Controller
             }
         }
 
+        $datas['threads'] = $threads;
         $datas['salesmans'] = $salesman;
         //$data['collections'] = $paymentcollection;
         if(!empty($datas['threads'])){
