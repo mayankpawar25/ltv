@@ -27,6 +27,7 @@ Route::get('/contact', function () {
 Route::get('/shop', function () {
     return redirect('admin');
 });*/
+Route::post('/paginate', 'Admin\AreaController@paginate')->name('datatables_area');
 
 Route::get('qrcode', 'QrcodeController@generateQrCode')->name('generateqrcode');
 
@@ -1211,7 +1212,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 
     // Credit Note
     Route::prefix('credit-notes')->group(function (){
-
+    
 	    Route::get('/', 'CreditNoteController@index')->name('credit_note_list');
 	    Route::post('/list', 'CreditNoteController@paginate')->name('datatables_credit_note')->middleware('perm:[credit_notes_view|credit_notes_view_own],is_multiple');
 	    Route::get('/create', 'CreditNoteController@create')->name('add_credit_note_page')->middleware('perm:credit_notes_create');
@@ -1517,7 +1518,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 
 	Route::get('/import/download/sample', 'Admin\AreaController@download_sample_area_import_file')->name('download_sample_area_import_file');
     Route::get('/delete/{id}', 'Admin\AreaController@destroy')->name('area.delete');
-    Route::post('/paginate', 'Admin\AreaController@paginate')->name('datatables_area');
 
     Route::get('/import_page', 'Admin\AreaController@import_page')->name('area.import_page');
 

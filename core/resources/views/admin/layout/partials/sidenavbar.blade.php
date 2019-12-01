@@ -604,6 +604,10 @@
         is-expanded
       @elseif (request()->segment(2)== 'cities')
         is-expanded
+       @elseif (request()->path() == 'admin/area')
+        is-expanded
+      @elseif (request()->segment(2)== 'admin/import_page')
+        is-expanded
      
       @endif">
       <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-map icons"></i><span class="app-menu__label">Location</span><i class="treeview-indicator fa fa-angle-right"></i></a>
