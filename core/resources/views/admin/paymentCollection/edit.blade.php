@@ -3,15 +3,7 @@
 {{-- Content Body --}}
 @section('content')
  <main class="app-content">
-<div class="app-title">
-        <div>
-           <h1><i class="fa fa-dashboard"></i> Payment Collection</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-</div>
+ 
   </div>
 </div>
 <style type="text/css" media="screen">
@@ -38,14 +30,18 @@ div.dataTables_wrapper div.dataTables_filter {
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
-      <div class="card">
+      <div class="main-content">
+      <h5>Edit Collections </h5>
+      <hr />
       <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.update', $collection->id) }}">
-        {{ csrf_field() }}
-        <div class="card-body">
-          <h4 class="card-title m-b-0">Payment Collect
+        <h4 class="card-title m-b-0">
             <div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
           </h4>
-          <div class="form-group">
+        {{ csrf_field() }}
+        
+        <div class="row">
+        <div class="col-md-3">
+        <div class="form-group">
             <label>Customer Name <span class="text-danger">*</span></label>
            <input type="text" placeholder="Customer Name" name="name" class="form-control" value="{{$collection->name}}">
           </div>
@@ -54,7 +50,10 @@ div.dataTables_wrapper div.dataTables_filter {
             @endif
           </div>
 
-          <div class="form-group">
+        </div>
+        
+         <div class="col-md-3">
+         <div class="form-group">
             <label>Mobile No <span class="text-danger">*</span></label>
            <input type="text" placeholder="Customer Mobile No" name="mobile_no" class="form-control" value="{{$collection->mobile_no}}">
           </div>
@@ -63,6 +62,11 @@ div.dataTables_wrapper div.dataTables_filter {
             @endif
           </div>
 
+        </div>
+        
+        
+         <div class="col-md-3">
+        
           <div class="form-group">
             <label>Alternate Number No <span class="text-danger">*</span></label>
            <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{$collection->alternate_no}}">
@@ -71,8 +75,11 @@ div.dataTables_wrapper div.dataTables_filter {
             <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('alternate_no') }}</strong> </span></p>
             @endif
           </div>
-
-           <div class="form-group">
+        </div>
+        
+        
+         <div class="col-md-3">
+         <div class="form-group">
             <label>Collection Date <span class="text-danger">*</span></label>
            <input type="text" placeholder="Collection Date" name="collection_date" class="form-control initially_empty_datepicker" value="{{$collection->collection_date}}">
           </div>
@@ -80,9 +87,11 @@ div.dataTables_wrapper div.dataTables_filter {
             <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('collection_date') }}</strong> </span></p>
             @endif
           </div>
-
-
-           <div class="form-group">
+        </div>
+        
+        
+         <div class="col-md-3">
+          <div class="form-group">
             <label>Collection Amount <span class="text-danger">*</span></label>
            <input type="text" placeholder="Amount" name="amount" class="form-control" value="{{ $collection->amount }}">
           </div>
@@ -90,7 +99,11 @@ div.dataTables_wrapper div.dataTables_filter {
             <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('amount') }}</strong> </span></p>
             @endif
           </div>
-
+        </div>
+        
+        
+         <div class="col-md-3">
+        
           <label>Select Salesman: </label>
           <div class="form-group">
               <select name="staff_user_id" id="salesman_select" class="salesman_select form-control select2">
@@ -100,14 +113,29 @@ div.dataTables_wrapper div.dataTables_filter {
                   @endforelse
                 </select>
           </div>
-        
-
-        
-          
-
-         
         </div>
-        <div class="card-footer">
+        
+        
+         <div class="col-md-3">
+        
+        </div>
+        
+        
+         <div class="col-md-3">
+        
+        </div>
+        
+        
+       
+        
+        
+        
+        
+        </div>
+        
+        
+        <div class="text-right">
+        <hr />
             <button type="submit" class="btn btn-success"> Submit </button>
           </div>
           </form>
