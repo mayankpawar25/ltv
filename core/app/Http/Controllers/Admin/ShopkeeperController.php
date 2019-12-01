@@ -95,9 +95,6 @@ class ShopkeeperController extends Controller
 
         $number_of_records  = $q->get()->count();
 
-
-
-
         if($search_key)
         {
             $query->where(function ($k) use ($search_key) {
@@ -105,10 +102,25 @@ class ShopkeeperController extends Controller
                 ->orWhere('shopname', 'like', $search_key.'%')
                 ->orWhere('email', 'like', $search_key.'%')
                 ->orWhere('mobile', 'like', $search_key.'%')
+                ->orWhere('phone', 'like', $search_key.'%')
                 ->orwhereHas('usergroup',function ($q) use ($search_key){
-                    $q->leftJoin('shopkeepers', 'shopkeepers.usergroup_id', '=', 'user_groups.id')
-                        ->where('user_groups.name', 'like', $search_key.'%');
+                    $q->where('user_groups.name', 'like', $search_key.'%');
+                })
+                ->orwhereHas('country',function ($q) use ($search_key){
+                    $q->where('countries.name', 'like', $search_key.'%');
+                })
+                ->orwhereHas('state',function ($q) use ($search_key){
+                    $q->where('states.name', 'like', $search_key.'%');
+                })
+                ->orwhereHas('city',function ($q) use ($search_key){
+                    $q->where('cities.name', 'like', $search_key.'%');
+                })
+                ->orwhereHas('zipcode',function ($q) use ($search_key){
+                    $q->where('zipcodes.area_name', 'like', $search_key.'%');
                 });
+
+
+
             });
         }
 
@@ -659,6 +671,9 @@ class ShopkeeperController extends Controller
         $columns = Shopkeeper::column_sequence_for_import();
         foreach ($columns as $key=>$name){
             $activeSheet->setCellValue($key.'1' , str_replace("_", " ", ucfirst($name) ))->getStyle($key.'1')->getFont()->setBold(true);
+            if($name=='status'){
+                $activeSheet->setCellValue($key.'2' , 'Active or Inactive')->getStyle($key.'1')->getFont()->setBold(true);
+            }
         }
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"'); /*-- $filename is  Xlsx filename ---*/
@@ -669,11 +684,11 @@ class ShopkeeperController extends Controller
     public function import(Request $request){
         $validator = Validator::make($request->all(), [        
             'file'        => 'required|max:1000|mimes:csv,xlsx',
-            'assigned_to' => 'required',
-            'status'      => 'required',
+            // 'assigned_to' => 'required',
+            // 'status'      => 'required',
             'usergroup'   => 'required',
             'is_verified' => 'required',
-            'password'    => 'required',
+            // 'password'    => 'required',
         ]);
         if ($validator->fails()) {
             return  redirect()->back()
@@ -743,14 +758,16 @@ class ShopkeeperController extends Controller
                             $cells['mobile']        = $cells['mobile'];
                             $cells['phone']         = $cells['alternate_number'];
                             $cells['address']       = $cells['address'];
-                            $cells['password']      = Hash::make($request->password);
-                            $cells['salesman_id']   = $request->assigned_to;
-                            $cells['status']        = $request->status;
+                            $cells['password']      = Hash::make($cells['password']);
+                            // $cells['password']      = Hash::make($request->password);
+                            $cells['salesman_id']   = ($request->assigned_to)?$request->assigned_to:auth()->user()->id;
                             $cells['usergroup_id']  = $request->usergroup;
                             $cells['is_verified']   = $request->is_verified;
                             // $cells['assigned_to']   = $request->assigned_to;
                             $cells['folder']        = time();
                             // $cells['created_by']    = auth()->user()->id;                
+                            $cells['status']        = (strtolower($cells['status'])=='active')?'1':'0';
+
 
                             if($cells['country']){
                                 $country = Country::firstOrCreate(['name' => $cells['country'] ]);
@@ -771,6 +788,7 @@ class ShopkeeperController extends Controller
                                 $area = Zipcode::firstOrCreate(['area_name' => $cells['area'],'city_id' => $cells['city_id'],'state_id' => $cells['state_id'],'country_id'=>$cells['country_id'] ]);
                                 $cells['zipcode_id']   = $area->id;
                             }
+
 
                             // Create the Customer
                             $check_for_update = Shopkeeper::where('mobile',$cells['mobile'])->first();
@@ -799,7 +817,7 @@ class ShopkeeperController extends Controller
                         }
                         catch (\Exception  $e)
                         {   
-                            // dd($e);
+                            dd($e);
                             DB::rollback();
                             $col = $next_column_after_highest.$indexOfRow;         
                             $this->write_error_messages_in_spreadsheet($extension, $spreadsheet, $col , __('form.system_error') , $path);
@@ -811,10 +829,10 @@ class ShopkeeperController extends Controller
                 $download_link = gen_url_for_attachment_download($file);
                 $message = sprintf(__('form.import_download_file_message'), anchor_link(__('form.file'), $download_link));
                 session()->flash('download_file_to_see_unimported_rows', $message);
-                session()->flash('message',(__('( Inserted Lead ='.$insert.' Updated Lead = '.$update.')')));
+                session()->flash('message',(__('( Inserted Dealers ='.$insert.' Updated Dealers = '.$update.')')));
                 return redirect()->route('admin.shopkeeper.import_page');
             }else{
-                session()->flash('message', __('form.success_add').__('( Inserted Lead ='.$insert.' Updated Lead = '.$update.')'));
+                session()->flash('message', __('form.success_add').__('( Inserted Dealers ='.$insert.' Updated Dealers = '.$update.')'));
                 return redirect()->route('admin.shopkeeper.import_page');
             }
         }else{

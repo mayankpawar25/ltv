@@ -8,6 +8,7 @@ class State extends Model
 {
    	use SoftDeletes;
    	protected $dates = ['deleted_at'];
+   	protected $fillable = ['name'];
    	public function country(){
       return $this->belongsTo('App\Country');
     }

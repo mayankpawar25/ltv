@@ -36,17 +36,25 @@
                <th class="bold">
                   Alternate Contact Number
                </th>
-               <th class="bold"> @lang('form.country')</th>
-               <th class="bold"> @lang('form.city')</th>
-               <th class="bold"> @lang('form.state')</th>
-               <th class="bold"> Area</th>
                <th class="bold"> @lang('form.address')</th>
+               <th class="bold"> @lang('form.country')</th>
+               <th class="bold"> @lang('form.state')</th>
+               <th class="bold"> @lang('form.city')</th>
+               <th class="bold"> Area</th>
+               <th class="bold"> Password</th>
+               <th class="bold"> Status</th>
             </tr>
          </thead>
          <tbody>
             <tr>
-               @for($i = 1; $i <= 10; $i++)
+               @for($i = 1; $i <= 12; $i++)
+               @if($i==11)
+               <td>********</td>
+               @elseif($i==12)
+               <td>Active / Inactive</td>
+               @else
                <td>@lang('form.sample_data')</td>
+               @endif
                @endfor                        
             </tr>
          </tbody>
@@ -75,21 +83,15 @@
       {{ csrf_field()  }}
       <div class="form-row">
          <div class="form-group col-md-3">
-            <label>@lang('form.password') </label>
-            <input type="password" class="form-control form-control-sm" name="password" autocomplete="off">
-            <div class="invalid-feedback d-block">@php if($errors->has('password')) { echo $errors->first('password') ; } @endphp
-            </div>
-         </div>
-         <div class="form-group col-md-3">
             <label for="assigned_to">@lang('form.assigned_to')</label>
             <?php echo form_dropdown("assigned_to", $data['assigned_to_list'], old_set("assigned_to", NULL, $rec), "class='form-control form-control-sm selectpicker'") ?>
             <div class="invalid-feedback d-block">@php if($errors->has('assigned_to')) { echo $errors->first('assigned_to') ; } @endphp</div>
-         </div>
+         </div><!-- 
          <div class="form-group col-md-3">
             <label for="status">@lang('form.status')</label>
             <?php echo form_dropdown("status", $data['status'], old_set("status", NULL, $rec), "class='form-control form-control-sm selectpicker'") ?>
             <div class="invalid-feedback d-block">@php if($errors->has('status')) { echo $errors->first('status') ; } @endphp</div>
-         </div>
+         </div> -->
          <div class="form-group col-md-3">
             <label for="usergroup">User Group</label>
             <?php echo form_dropdown("usergroup", $data['usergroup'], old_set("usergroup", NULL, $rec), "class='form-control form-control-sm selectpicker'") ?>
@@ -105,7 +107,7 @@
             </select>
          </div>
          
-         <div class="form-group col-md-6">
+         <div class="form-group col-md-3">
             <label>@lang('form.select_file')</label>
             <input type="file" class="form-control-file" name="file">
             <div class="invalid-feedback d-block">@php if($errors->has('file')) { echo $errors->first('file') ; } @endphp</div>

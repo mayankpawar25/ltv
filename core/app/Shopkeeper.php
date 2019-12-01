@@ -48,6 +48,22 @@ class Shopkeeper extends Authenticatable
     	return $this->belongsTo('App\UserGroup');
     }
 
+    public function country(){
+      return $this->belongsTo('App\Country');
+    }
+
+    public function state(){
+      return $this->belongsTo('App\State');
+    }
+
+    public function city(){
+      return $this->belongsTo('App\City');
+    }
+
+    public function zipcode(){
+      return $this->belongsTo('App\Zipcode');
+    }
+
     static function column_sequence_for_import()
     {
         return [
@@ -65,6 +81,9 @@ class Shopkeeper extends Authenticatable
            'H' => 'state', 
            'I' => 'city',
            'J' => 'area',
+           'K' => 'password',
+           'L' => 'status',
+
            
         ];
     }
