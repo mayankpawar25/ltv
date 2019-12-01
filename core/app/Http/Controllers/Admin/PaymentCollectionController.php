@@ -67,13 +67,13 @@ class PaymentCollectionController extends Controller
     
 
     // If the user has permission to view only the ones that are created by himself;
-    if(!check_perm('shopkeepers_view') && check_perm('shopkeepers_view_own'))
+    if(!check_perm('collections_view') && check_perm('collections_view_own'))
     {
         $q->where(function($k){
-            $k->where('salesman_id', auth()->user()->id);
+            $k->where('staff_user_id', auth()->user()->id);
         });
         $query->where(function($k){
-            $k->where('salesman_id', auth()->user()->id);
+            $k->where('staff_user_id', auth()->user()->id);
         });                   
         
     }

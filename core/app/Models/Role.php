@@ -285,7 +285,7 @@ class Role extends Model
                 ],
 
                 [
-                    'name'          => 'Payment Collection', 
+                    'name'          => 'Collection', 
                     'view'          => $myClass->gen_checkbox('collections'.'_view'),
                     'view_own'      => '', 
                     'create'        => $myClass->gen_checkbox('collections'.'_create'),
