@@ -460,7 +460,6 @@ function a_links($main_text, array $option_links)
             $newTab = (isset($link['new_tab']) && $link['new_tab'] == TRUE) ? 'target="_blank"' : '';
             $data .= ' <a '.$newTab.' class="'.$link['action_class'].'" href="'.$link['action_link'].'">'.$link['action_text'].'</a>';    
         }
-        
     }
     $data .= '</div></div>';
 

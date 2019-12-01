@@ -167,15 +167,15 @@ class AreaController extends Controller
         //
 
         $rec = [];
-        echo json_encode($data);
-        exit;
+        // echo json_encode($data);
+        // exit;
         if (count($data) > 0)
         {   $i = 0;
             foreach ($data as $key => $row)
             {   
                 $rec[] = array(
                     // ++$i,
-                    a_links(anchor_link($row->area_name,route('#',$row->id)), [
+                    a_links(anchor_link($row->area_name,route('area.edit', $row->id)), [
                         [
                             'action_link' => route('area.edit', $row->id), 
                             'action_text' => __('form.edit'), 'action_class' => '',
@@ -190,7 +190,8 @@ class AreaController extends Controller
                     $row->city->state->country->name,
                     $row->city->state->name,
                     $row->city->name,
-                    ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>'
+                    ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>',
+                    anchor_link('Edit',route('area.edit', $row->id)).' '.anchor_link('Delete',route('area.delete', $row->id))
                 );
             }
         }
