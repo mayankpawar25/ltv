@@ -87,7 +87,7 @@ div#data_filter {
       </div>
       
       @if(check_perm('leads_view'))
-       <div class="form-group col-md-3">
+       <div class="form-group col-md-2">
          <label>@lang('form.assigned_to')</label>
          <?php
             echo form_dropdown('assigned_to', $data['assigned_to_list'] , [], "class='form-control four-boot'");

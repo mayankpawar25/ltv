@@ -137,16 +137,16 @@ class PaymentCollectionController extends Controller
           $close_btn = '';
           $open_close_badge = ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">closed</span>';
           if(auth()->user()->is_administrator){
-<<<<<<< HEAD
+
             if($row->status==0 || $row->status==2){
-              $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'">Close</button>';
+              $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'"><i class="icon-check icons"></i></button>';
             }
             if($row->status == '2'){
               $open_close_badge ='<span class="badge badge-success">closed by Salesman</span>';
             }
-=======
-            $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'"><i class="icon-check icons"></i></button>';
->>>>>>> design
+
+            //$close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'"><i class="icon-check icons"></i></button>';
+
           }
 
 
@@ -162,13 +162,13 @@ class PaymentCollectionController extends Controller
               $row->collected_amount,
               $row->balance_amount,
               $row->assigned->first_name.' '.$row->assigned->last_name,
-<<<<<<< HEAD
+
               $open_close_badge,
-              '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm">Delete</button>'.' '.$close_btn,
-=======
-              ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">closed</span>',
+              
+
+             
               '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.''.$close_btn,
->>>>>>> design
+
           );
         }
     }

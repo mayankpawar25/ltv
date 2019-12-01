@@ -202,7 +202,7 @@
 					<strong>Status</strong>
 				</div>
 				<div class="card-body">
-					<div class="col-sm-12">
+					<div class="">
 						<div class="form-group">
 							<strong>Email</strong> : @if($shopkeeper->email_verified==0)
 								<span class="badge badge-danger">Unverified</span>
@@ -249,10 +249,8 @@
 							{{-- @endif --}}
 						</div>
 					</div>
-					<div class="col-sm-12">
-						
-					</div>
-					<div class="col-sm-12">
+					 
+					<div class="">
 						<strong>Status : </strong>
 							@if($shopkeeper->status==0)
 								@if($shopkeeper->is_verified==1)
@@ -297,7 +295,7 @@
 					<form action="{{ route('admin_verify',$shopkeeper->id) }}" method="post" accept-charset="utf-8">
 						{{ csrf_field() }}
 						<div class="form-group">
-							<label><input type="checkbox" name="admin_check[check]" class="" value="1" {{ ($check==1)?'checked':'' }}> Admin Check : 
+							<label><input type="checkbox" name="admin_check[check]" class="" value="1" {{ ($check==1)?'checked':'' }}> Admin Check  
 								<!--<span class="fa {{ ($check==1)?'fa-check':'fa-window-close' }}"></span>--></label>
 						</div>
 						<div class="form-group">

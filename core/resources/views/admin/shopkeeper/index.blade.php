@@ -71,7 +71,7 @@ div#data_filter {
           </div>
        </div>
       </div>
-  		<div class="">
+  		<div class="col-md-12">
       	<div class="sellers-product-inner">
           	<div class="bottom-content table-responsive">
               	<table class="table table-bordered w-100" id="data">
