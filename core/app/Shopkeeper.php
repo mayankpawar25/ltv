@@ -64,6 +64,10 @@ class Shopkeeper extends Authenticatable
       return $this->belongsTo('App\Zipcode');
     }
 
+     public function salesman(){
+      return $this->belongsTo('App\Models\StaffUser');
+    }
+
     static function column_sequence_for_import()
     {
         return [

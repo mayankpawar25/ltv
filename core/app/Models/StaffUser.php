@@ -69,6 +69,11 @@ class StaffUser extends Authenticatable
         return $this->hasMany('App\Models\StaffUser'::class, 'reporting_boss', 'id');
     }
 
+    public function salesman()
+    {
+        return $this->hasMany('App\Shopkeeper'::class, 'salesman_id', 'id');
+    }
+
     public function teams()
     {
         return $this->belongsToMany('App\Models\Team'::class, 'user_teams', 'user_id', 'team_id');

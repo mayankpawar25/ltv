@@ -45,12 +45,30 @@
 							{{ ($shopkeeper->phone) }}
 						</div>
 						<div class="col-sm-12">
+							<label><strong>Country</strong> : </label>
+							
+							{{ $shopkeeper->country->name }}
+							
+						</div>
+						<div class="col-sm-12">
+							<label><strong>City</strong> : </label>
+							{{ $shopkeeper->city->name }}
+						</div>
+						<div class="col-sm-12">
+							<label><strong>Area</strong> : </label>
+							{{ $shopkeeper->Zipcode->area_name }}
+						</div>
+						<div class="col-sm-12">
 							<label><strong>Address</strong> : </label>
 							{{ strtolower($shopkeeper->address) }}
 						</div>
 						<div class="col-sm-12">
 							<label><strong>Group</strong> : </label>
 							{{ (!empty($shopkeeper->usergroup))?$shopkeeper->usergroup->name:'' }}
+						</div>
+						<div class="col-sm-12">
+							<label><strong>Salesman</strong> : </label>
+							{{ $shopkeeper->salesman->first_name }} {{ $shopkeeper->salesman->last_name }}
 						</div>
 					</div>
 					<br>
