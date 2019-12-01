@@ -175,7 +175,7 @@ class AreaController extends Controller
             {   
                 $rec[] = array(
                     // ++$i,
-                    a_links(anchor_link($row->area_name,route('#',$row->id)), [
+                    a_links(anchor_link($row->area_name,route('area.edit', $row->id)), [
                         [
                             'action_link' => route('area.edit', $row->id), 
                             'action_text' => __('form.edit'), 'action_class' => '',
