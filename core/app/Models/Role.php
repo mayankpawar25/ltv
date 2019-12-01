@@ -287,7 +287,7 @@ class Role extends Model
                 [
                     'name'          => 'Collection', 
                     'view'          => $myClass->gen_checkbox('collections'.'_view'),
-                    'view_own'      => '', 
+                    'view_own'      => $myClass->gen_checkbox('collections'.'view_own'), 
                     'create'        => $myClass->gen_checkbox('collections'.'_create'),
                     'edit'          => $myClass->gen_checkbox('collections'.'_edit'),
                     'delete'        => $myClass->gen_checkbox('collections'.'_delete'),

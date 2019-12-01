@@ -44,25 +44,13 @@ div.dataTables_wrapper div.dataTables_filter {
         <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('admin.payment.adddescription',$collections->id) }}">
           {{ csrf_field() }}
           <div class="card-body">
-            <div class="form-group">
-              <label>Next Calling Date <span class="text-danger">*</span></label>
-              <input type="text" placeholder="Next Calling Date" name="next_calling_date" class="form-control initially_empty_datepicker" >
-              @if ($errors->has('next_calling_date'))
-              <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('next_calling_date') }}</strong> </span></p>
-              @endif
-            </div>
-            <div class="form-group">
-              <label>Feedback<span class="text-danger">*</span></label>
-              <textarea name="feedback" class="form-control" placeholder="Feedback"></textarea>
-              @if ($errors->has('feedback'))
-              <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('feedback') }}</strong> </span></p>
-              @endif
-            </div>
             @if(auth()->user()->level == 1 || auth()->user()->is_administrator)
             <div class="form-group">
               <label>Collect Payment : <input type="checkbox" class="collect_payment_checkbox" value="{{ old('collect_payment_checkbox') }}" name="collect_payment_checkbox" ></label>
-            </div>
+            </div><!-- Collect Payment Checkbox -->
             @endif
+           
+
             <div class="form-group payment_collection d-none">
               <label>Payment Type<span class="text-danger">*</span></label>
               <select name="payment_type" class="form-control">
@@ -70,11 +58,29 @@ div.dataTables_wrapper div.dataTables_filter {
                 <option value="full">Full</option>
                 <option value="partial">Partial</option>
               </select>
-            </div>
+            </div><!-- Payment Type -->
+
             <div class="form-group payment_collection d-none">
               <label>Amount</label>
               <input type="text" name="amount" class="form-control" placeholder="Amount">
-            </div>
+            </div><!-- Amount -->
+
+            <div class="form-group">
+              <label>Next Calling Date <span class="text-danger">*</span></label>
+              <input type="text" placeholder="Next Calling Date" name="next_calling_date" class="form-control initially_empty_datepicker" >
+              @if ($errors->has('next_calling_date'))
+              <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('next_calling_date') }}</strong> </span></p>
+              @endif
+            </div><!-- Next Calling Date -->
+
+            <div class="form-group">
+              <label>Feedback<span class="text-danger">*</span></label>
+              <textarea name="feedback" class="form-control" placeholder="Feedback"></textarea>
+              @if ($errors->has('feedback'))
+              <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('feedback') }}</strong> </span></p>
+              @endif
+            </div><!-- Feedback -->
+
             @if(auth()->user()->level == 2 || auth()->user()->is_administrator)
               <div class="form-group">
                 <label>Assigned To </label>
@@ -105,18 +111,21 @@ div.dataTables_wrapper div.dataTables_filter {
               </div>
             @else
               <input type="hidden" name="assigned_to" value="{{$collections->staff_user_id}}">
-            @endif
+            @endif<!-- Assigned To -->
+
             <div class="form-group payment_collection {{ (auth()->user()->is_administrator)?'':'d-none' }}">
               <label>Status </label>
               <select name="status" id="status" class="form-control select2">
-                <!-- <option value="0">Open</option> -->
-               <!--  @if(auth()->user()->is_administrator)
+                <!-- <option value="0" selected>Open</option> -->
+                <!-- @if(auth()->user()->is_administrator)
                 <option value="1">Closed</option>
                 @endif -->
                 <option value="2">Closed</option>
               </select>
-            </div>
+            </div><!-- Status -->
+
           </div>
+
           <div class="card-footer">            
             @if($collections->staff_user_id == auth()->user()->id)
               @php $disable2 = ''; @endphp
@@ -460,6 +469,7 @@ function getImg(data, type, full, meta) {
 
     $(document).on('click','.collect_payment_checkbox',function(){
         if($(this).is(':checked')){
+          $('input[name=next_calling_date]').val("<?php echo date('d-m-Y'); ?>");
           $('.payment_collection').removeClass('d-none');
         }else{
           $('.payment_collection').addClass('d-none')
