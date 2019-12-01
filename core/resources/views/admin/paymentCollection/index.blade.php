@@ -29,14 +29,31 @@ div.dataTables_wrapper div.dataTables_filter {
     text-align: right;
     width: auto;
 }
-/*div#admins-table_filter {
+div#admins-table_filter {
     display: none;
-}*/
+}
 
 </style>
-<div class="container-fluid">
-  <div class="row">
-    <?php // if(!empty(auth()->user()->is_administrator)){  ?>
+<main class="">
+  <div class="main-content">
+    <div class="row">
+      <div class="col-md-6">
+         <h5>Dealers</h5>
+      </div>
+      <div class="col-md-6">
+         <div class="float-md-right">
+            @if(check_perm('customers_create'))
+              <a class="btn btn-primary btn-sm" href="{{ route('admin.shopkeeper.create') }}">Add Payment Collection</a>
+            @endif
+
+            @if(auth()->user()->is_administrator)
+              <a class="btn btn-primary btn-sm" href="{{ route('payment_collection_import_page') }}">Import</a>
+            @endif
+         </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
       <div class="col-3 d-none">
         <div class="card">
         <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.store') }}">
@@ -108,10 +125,8 @@ div.dataTables_wrapper div.dataTables_filter {
             </form>
         </div>
       </div>
-    <?php // }else{ ?>
       <div class="col-md-12">
-    <?php // }  ?>
-      <div class="card">
+      <div class="">
           <div class="card-body"> @if(Session::has('message'))
             <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
             @endif
@@ -145,8 +160,9 @@ div.dataTables_wrapper div.dataTables_filter {
           </div>
       </div>
     </div>
+    </div>
   </div>
-</div>
+</main>
 <div id="confirmModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -185,80 +201,78 @@ div.dataTables_wrapper div.dataTables_filter {
 </div>
 </main>
 <!-- Status --> 
-
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
 <script>
 $(function() {
-    console.log('I m here');
     dataTable = $('#admins-table').DataTable({
-        dom: 'lfBfrtip',
-        buttons: [
-                  {
-                    extend: 'copyHtml5',
-                    exportOptions: {
-                        columns: ':visible'
-                    }
-                  },{
-                    extend: 'excelHtml5',
-                    exportOptions: {
+      dom: 'lfBfrtip',
+      buttons: [
+                {
+                  extend: 'copyHtml5',
+                  exportOptions: {
                       columns: ':visible'
-                    }
-                  },{
-                    extend: 'print',
-                    exportOptions: {
-                      columns: ':visible'
-                    }
-                  },
-                ],
-        "language": {
-            "lengthMenu": '_MENU_ ',
-            "search": '',
-            "searchPlaceholder": "{{ __('form.search') }}"
-        },
-        responsive: true,
-        processing: true,
-        serverSide: true,
-        //iDisplayLength: 5
-        "lengthMenu": [ [10, 50, 100,150,200,250,300,350,450,500,-1], [10, 50, 100,150,200,250,300,350,450,500,'All'] ],
-        pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
-        ordering: true,
-        "columnDefs": [
-          { className: "text-right", "targets": [10] },
-          { "name": "name",   "targets": 0 },
-          { "name": "mobile_no",  "targets": 1 },
-          { "name": "alternate_no", "targets": 2 },
-          { "name": "collection_date",  "targets": 3 },
-          { "name": "new_date",  "targets": 4 },
-          { "name": "amount",  "targets": 5 },
-          { "name": "collected_amount",  "targets": 6 },
-          { "name": "balance_amount",  "targets": 7},
-          { "name": "assigned_to",  "targets": 8},
-          { "name": "status",  "targets": 9,orderable:false},
-          { "name": "action",  "targets": 10,orderable:false},
-          // { "name": "status",  "targets": 11,orderable:false},
-          /*{targets: -5, visible: false},
-          {targets: -6, visible: false},
-          {targets: -7, visible: false},
-          {targets: -8, visible: false},
-          {targets: -9, visible: false},
-          {targets: -10, visible: false},*/
-        ],
-        "ajax": {
-            "url": '{!! route("datatable_payment_collection") !!}',
-            "type": "POST",
-            'headers': {
-              'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            "data": function (d) {
-                // d.status_id   = $("select[name=status_id]").val();
-                // d.is_verified = $('select[name=is_verified]').val();
-                // d.groups = $('select[name=groups]').val();
-            }
-        }
-    }).
-    on('mouseover', 'tr', function() {
+                  }
+                },{
+                  extend: 'excelHtml5',
+                  exportOptions: {
+                    columns: ':visible'
+                  }
+                },{
+                  extend: 'print',
+                  exportOptions: {
+                    columns: ':visible'
+                  }
+                },
+                'colvis'
+              ],
+      "language": {
+          "lengthMenu": '_MENU_ ',
+          "search": '',
+          "searchPlaceholder": "{{ __('form.search') }}"
+      },
+      responsive: true,
+      processing: true,
+      serverSide: true,
+      //iDisplayLength: 5
+      "lengthMenu": [ [10, 50, 100,150,200,250,300,350,450,500,-1], [10, 50, 100,150,200,250,300,350,450,500,'All'] ],
+      pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
+      ordering: true,
+      "columnDefs": [
+        { className: "text-right", "targets": [10] },
+        { "name": "name",   "targets": 0 },
+        { "name": "mobile_no",  "targets": 1 },
+        { "name": "alternate_no", "targets": 2 },
+        { "name": "collection_date",  "targets": 3 },
+        { "name": "new_date",  "targets": 4 },
+        { "name": "amount",  "targets": 5 },
+        { "name": "collected_amount",  "targets": 6 },
+        { "name": "balance_amount",  "targets": 7},
+        { "name": "assigned_to",  "targets": 8,orderable:false},
+        { "name": "status",  "targets": 9,orderable:false},
+        { "name": "action",  "targets": 10,orderable:false},
+        // { "name": "status",  "targets": 11,orderable:false},
+        /*{targets: -5, visible: false},
+        {targets: -6, visible: false},
+        {targets: -7, visible: false},
+        {targets: -8, visible: false},
+        {targets: -9, visible: false},
+        {targets: -10, visible: false},*/
+      ],
+      "ajax": {
+          "url": '{!! route("datatable_payment_collection") !!}',
+          "type": "POST",
+          'headers': {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          "data": function (d) {
+              d.status_id   = $("select[name=status_id]").val();
+              d.staff_user_id = $('select[name=staff_user_id]').val();
+              // d.groups = $('select[name=groups]').val();
+          }
+      }
+    }).on('mouseover', 'tr', function() {
         jQuery(this).find('div.row-options').show();
-    }).
-    on('mouseout', 'tr', function() {
+    }).on('mouseout', 'tr', function() {
         jQuery(this).find('div.row-options').hide();
     });
 
@@ -267,6 +281,30 @@ $(function() {
         dataTable.draw();
     });
 });
+
+var user_id;
+/*Delete Option*/
+/*Start*/
+$(document).on('click', '.delete', function(){
+  user_id = $(this).attr('id');
+  $('#confirmModal').modal('show');
+});
+$('#ok_button').click(function(){
+  $.ajax({
+    url:"{{ url('admin/destroy') }}/"+user_id,
+    beforeSend:function(){
+      $('#ok_button').text('Deleting...');
+    },
+    success:function(data)
+    {
+      setTimeout(function(){
+        $('#confirmModal').modal('hide');
+        $('#admins-table').DataTable().ajax.reload();
+      }, 2000);
+    }
+  })
+});
+/*End Delete Option*/
 
 </script> 
 @endsection

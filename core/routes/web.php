@@ -1599,6 +1599,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 				'destroy'=> 'collection.destroy',
 		]
 	]);
+	/* Import Collection Route */
+	Route::get('import', 'Admin\PaymentCollectionController@import_page')->name('payment_collection_import_page');
+
+	Route::post('collection/import', 'Admin\PaymentCollectionController@import')->name('payment_collection_import');
+
+	Route::get('/import/download/sample', 'Admin\PaymentCollectionController@download_sample_collection_import_file')->name('download_sample_collection_import_file');
+
+	/* Import Collection Route */
 
 	Route::post('/paginate', 'Admin\PaymentCollectionController@paginate')->name('datatable_payment_collection');
 	
