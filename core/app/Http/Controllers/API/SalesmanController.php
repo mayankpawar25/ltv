@@ -702,7 +702,7 @@ class SalesmanController extends Controller
                 // $rec[ $key]['time'] =    \Carbon\Carbon::parse($row->created_at)->diffForHumans();
                 //$rec[ $key]['name'] =    $causer->first_name . " " . $causer->last_name ;
                 $rec[ $key]['description'] =   strip_tags($row->description) . " ". strip_tags($row->getExtraProperty('item'));
-                $rec[ $key]['created_at'] =  data('Y-m-d H:i:s:u',strtotime($row->created_at));
+                $rec[ $key]['created_at'] =  date('Y-m-d H:i:s:u',strtotime($row->created_at));
             }
             $output = array(
                 "notificationlist" => $rec,
