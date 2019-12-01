@@ -137,8 +137,8 @@ class PaymentCollectionController extends Controller
     {
         foreach ($data as $key => $row){
           $rec[] = array(
-              // anchor_link($row->name,route('admin.shopkeeper.show',$row->id)),
-              $row->name,
+              anchor_link($row->name,route('collection.show',$row->id)),
+              // $row->name,
               $row->mobile_no,
               $row->alternate_no,
               $row->collection_date,
