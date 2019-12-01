@@ -64,7 +64,7 @@ div.dataTables_wrapper div.dataTables_filter {
           </div>
 
           <div class="form-group">
-            <label>Alternate Number No <span class="text-danger">*</span></label>
+            <label>Alternate Number No</label>
            <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{old('alternate_no')}}">
           </div>
           <div class=" {{ $errors->has('alternate_no') ? ' has-error' : '' }}"> @if ($errors->has('alternate_no'))
@@ -73,8 +73,8 @@ div.dataTables_wrapper div.dataTables_filter {
           </div>
 
            <div class="form-group">
-            <label>Collection Date <span class="text-danger">*</span></label>
-           <input type="text" placeholder="Collection Date" name="collection_date" class="form-control initially_empty_datepicker" value="{{old('collection_date')}}">
+            <label>Creation Date <span class="text-danger">*</span></label>
+           <input type="text" placeholder="Creation Date" name="collection_date" class="form-control initially_empty_datepicker" value="{{old('collection_date')}}">
           </div>
           <div class=" {{ $errors->has('collection_date') ? ' has-error' : '' }}"> @if ($errors->has('collection_date'))
             <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('collection_date') }}</strong> </span></p>
@@ -91,7 +91,7 @@ div.dataTables_wrapper div.dataTables_filter {
             @endif
           </div>
 
-          <label>Select Salesman: </label>
+          <label>Salesman: </label>
           <div class="form-group">
               <select name="staff_user_id" id="salesman_select" class="salesman_select form-control select2">
                   @forelse($salesman as $salesman)
@@ -358,7 +358,6 @@ $('#admins-table').DataTable({
                     mobile_regex: true,
                 },
                 alternate_no: {
-                    required: true,
                     mobile_regex: true,
                 },
                 collection_date: {

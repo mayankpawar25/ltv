@@ -46,7 +46,7 @@ div.dataTables_wrapper div.dataTables_filter {
           <div class="card-body">
             @if(auth()->user()->level == 1 || auth()->user()->is_administrator)
             <div class="form-group">
-              <label>Collect Payment : <input type="checkbox" class="collect_payment_checkbox" value="{{ old('collect_payment_checkbox') }}" name="collect_payment_checkbox" ></label>
+              <label>Collect Payment : <input type="checkbox" class="collect_payment_checkbox" value="1" name="collect_payment_checkbox" ></label>
             </div><!-- Collect Payment Checkbox -->
             @endif
            
@@ -65,9 +65,9 @@ div.dataTables_wrapper div.dataTables_filter {
               <input type="text" name="amount" class="form-control" placeholder="Amount">
             </div><!-- Amount -->
 
-            <div class="form-group">
+            <div class="form-group next_calling_date">
               <label>Next Calling Date <span class="text-danger">*</span></label>
-              <input type="text" placeholder="Next Calling Date" name="next_calling_date" class="form-control initially_empty_datepicker" >
+              <input type="text" placeholder="Next Calling Date" name="next_calling_date" class="form-control initially_empty_datepicker" value="{{old('next_calling_date')}}">
               @if ($errors->has('next_calling_date'))
               <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('next_calling_date') }}</strong> </span></p>
               @endif
@@ -75,7 +75,7 @@ div.dataTables_wrapper div.dataTables_filter {
 
             <div class="form-group">
               <label>Feedback<span class="text-danger">*</span></label>
-              <textarea name="feedback" class="form-control" placeholder="Feedback"></textarea>
+              <textarea name="feedback" class="form-control" placeholder="Feedback">{{old('feedback')}}</textarea>
               @if ($errors->has('feedback'))
               <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('feedback') }}</strong> </span></p>
               @endif
@@ -112,17 +112,7 @@ div.dataTables_wrapper div.dataTables_filter {
             @else
               <input type="hidden" name="assigned_to" value="{{$collections->staff_user_id}}">
             @endif<!-- Assigned To -->
-
-            <div class="form-group payment_collection {{ (auth()->user()->is_administrator)?'':'d-none' }}">
-              <label>Status </label>
-              <select name="status" id="status" class="form-control select2">
-                <option value="0" selected>Open</option>
-                <!-- @if(auth()->user()->is_administrator)
-                <option value="1">Closed</option>
-                @endif -->
-                <option value="2">Closed</option>
-              </select>
-            </div><!-- Status -->
+            <input type="hidden" name="status" value="0">
 
           </div>
 
@@ -171,10 +161,10 @@ div.dataTables_wrapper div.dataTables_filter {
                 <label><strong>Alternate No : </strong>{{ $collections->alternate_no }}</label>
               </div>
               <div class="form-group">
-                <label><strong>Collection Date : </strong>{{ date('d M Y',strtotime($collections->collection_date)) }}</label>
+                <label><strong>Creation Date : </strong>{{ date('d M Y',strtotime($collections->collection_date)) }}</label>
               </div>
               <div class="form-group">
-                <label><strong>Calling Date : </strong>{{ date('d M Y',strtotime($collections->new_date)) }}</label>
+                <label><strong>Collection Due Date : </strong>{{ date('d M Y',strtotime($collections->new_date)) }}</label>
               </div>
               <div class="form-group">
                 <label><strong>Assigned to : </strong>{{ $collections->assigned->first_name .' '.$collections->assigned->last_name }}</label>
@@ -213,8 +203,8 @@ div.dataTables_wrapper div.dataTables_filter {
                       <th>Next Calling Date</th>
                       <th>Feedback</th>
                       <th>Payment Type</th>
-                      <th>Amount</th>
-                      <th>Balance</th>
+                      <th>Collected Amount</th>
+                      <th>Balance Amount</th>
                       <th>Status</th>
                       <th>Assigned To</th>
                       <th>Created date</th>
@@ -301,126 +291,51 @@ div.dataTables_wrapper div.dataTables_filter {
 
 <script>
 
-$(document).ready( function () {
-  /*Change Date*/
-  function getDate(data, type, full, meta) {
-     var d = new Date(data),
-         month = '' + (d.getMonth() + 1),
-         day = '' + d.getDate(),
-         year = d.getFullYear();
+/*Active Otion*/
+var brand_status;
 
-     if (month.length < 2) month = '0' + month;
-     if (day.length < 2) day = '0' + day;
-
-     return [day, month, year].join('-');
- }
-
- /* function getDate(data, type, full, meta){
-    var date = new Date(data);
-    var newDate = date;
-    return newDate;
-  }*/
-function getImg(data, type, full, meta) {
- return '<img  src="'+data+'"  width="100px" height="50px"/>';
-    }
-    
-    function getStatus(data, type, full, meta) {
-        if(data == 0){
-            return 'Inactive';
-        }else{
-            return 'Active';
-        }
-    }
-
-/*$('#admins-table').DataTable({
-      //dom: 'Bfrtip',
-      stripHtml: false,
-      "lengthMenu": [ [10, 50, 100,150,200,250,300,350,450,500, -1], [10, 50, 100,150,200,250,300,350,450,500, "All"] ],
-      processing: true,
-      serverSide: true,
-      "pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},
-      ajax: "{{ route('collection.index') }}",
-       columns: [
-            { data: 'id', name: 'id' },
-            { data: 'name', name: 'name' },
-            { data: 'mobile_no', name: 'mobile_no' },
-            { data: 'alternate_no', name: 'alternate_no' },
-            { data: 'collection_date', name: 'collection_date',render: getDate },
-            { data: 'amount', name: 'amount' },
-            { data: 'salesman_id', name: 'salesman_id' },
-            { data: 'status', name: 'status',render: getStatus },
-            { data: 'action',name: 'action',orderable: false}
-         ]
-    });
-*/
-   var user_id;
-   /*Delete Option*/
-   /*Start*/
-  /* $(document).on('click', '.delete', function(){
-       user_id = $(this).attr('id');
-        $('#confirmModal').modal('show');
-   });
-   $('#ok_button').click(function(){
-    $.ajax({
-     url:"{{ url('admin/destroy') }}/"+user_id,
-     beforeSend:function(){
-      $('#ok_button').text('Deleting...');
-     },
-     success:function(data)
-     {
-      setTimeout(function(){
-       $('#confirmModal').modal('hide');
-       $('#admins-table').DataTable().ajax.reload();
-      }, 2000);
-     }
-    })
-   });*/
-   /*End Delete Option*/
-
-   /*Active Otion*/
-   var brand_status;
     $(document).on('click', '.status', function(){
-       $('#status_button').text('Ok');
-       user_id = $(this).attr('id');
-       brand_status = $(this).attr('data-status');
-       $('#statusconfirmModal').modal('show');
-   });
+      $('#status_button').text('Ok');
+      user_id = $(this).attr('id');
+      brand_status = $(this).attr('data-status');
+      $('#statusconfirmModal').modal('show');
+    });
     $('#status_button').click(function(){
       $.ajax({
-        url:"{{ url('admin/updatecitystatus') }}/"+user_id+"/"+brand_status,
+        url:"{{ url('admin/updatepaymentstatus') }}/"+user_id+"/"+brand_status,
        beforeSend:function(){
         $('#status_button').text('Changing Status...');
        },
        success:function(data)
        {
+        console.log(data);
         setTimeout(function(){
+
          $('#statusconfirmModal').modal('hide');
          $('#admins-table').DataTable().ajax.reload();
         }, 2000);
        }
       })
-     });
- });
-
-   $(document).ready( function () {
-   $(".select2").select2();
-    $.ajax({
-         url: "{{ url('admin/citydropdown') }}",
-         method: 'GET',
-         success: function(data) {
-             $('#state').html(data.html);
-         }
-     });
-  });
-
-     
- $( document ).ready( function () {
-    /* Form Velidation */
-    $.validator.setDefaults( {
-        submitHandler: function (form) {
-           form.submit();
-        }
     });
+
+    $(document).ready( function () {
+      $(".select2").select2();
+      $.ajax({
+           url: "{{ url('admin/citydropdown') }}",
+           method: 'GET',
+           success: function(data) {
+               $('#state').html(data.html);
+           }
+       });
+    });
+
+    $( document ).ready( function () {
+      /* Form Velidation */
+      $.validator.setDefaults( {
+          submitHandler: function (form) {
+             form.submit();
+          }
+      });
       $( "#loginform" ).validate( {
         rules: {
             state_id: {
@@ -451,29 +366,32 @@ function getImg(data, type, full, meta) {
       });
     });
 
-    /* Salesman List */
-   /* var level = 1;
-    $(document).ready(function($) {
-      $(".select2").select2();
-      $.ajax({
-        url: "{{ route('get.salesman') }}",
-        headers: {
-          'X-CSRF-TOKEN': $('input[name="_token"]').val()
-        },
-        method: 'POST',
-        success: function(data) {
-          $('#salesman_select').html(data.html);
-        }
-      });
-    });*/
-
     $(document).on('click','.collect_payment_checkbox',function(){
-        if($(this).is(':checked')){
-          $('input[name=next_calling_date]').val("<?php echo date('d-m-Y'); ?>");
-          $('.payment_collection').removeClass('d-none');
-        }else{
-          $('.payment_collection').addClass('d-none')
-        }
+      if($(this).is(':checked')){
+        $('input[name=next_calling_date]').val("<?php echo date('d-m-Y'); ?>");
+        $('.next_calling_date').addClass('d-none');
+        $('.payment_collection').removeClass('d-none');
+        $('input[name=status]').val('2');
+        $('select[name=assigned_to]').attr('disabled',true);
+      }else{
+        $('input[name=amount]').val('');
+        $('input[name=next_calling_date]').val("");
+        $('.next_calling_date').removeClass('d-none');
+        $('.payment_collection').addClass('d-none');
+        $('input[name=status]').val('0');
+        $('select[name=payment_type]').val('');
+        $('select[name=assigned_to]').attr('disabled',false);
+      }
+    });
+
+    $(document).on('change','select[name=payment_type]',function(){
+      var type = $(this).val();
+      var amount = '{{ $collections->amount }}';
+      if(type == 'full'){
+        $('input[name=amount]').val(amount);
+      }else{
+        $('input[name=amount]').val('');
+      }
     });
 
 
