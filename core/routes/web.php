@@ -28,7 +28,7 @@ Route::get('/shop', function () {
     return redirect('admin');
 });*/
 Route::post('/paginate', 'Admin\AreaController@paginate')->name('datatables_area');
-
+Route::get('/import/download/sample', 'Admin\AreaController@download_sample_area_import_file')->name('download_sample_area_import_file');
 Route::get('qrcode', 'QrcodeController@generateQrCode')->name('generateqrcode');
 
 //Payment IPN
@@ -1516,7 +1516,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	      ]
 	]);
 
-	Route::get('/import/download/sample', 'Admin\AreaController@download_sample_area_import_file')->name('download_sample_area_import_file');
+	
     Route::get('/delete/{id}', 'Admin\AreaController@destroy')->name('area.delete');
 
     Route::get('/import_page', 'Admin\AreaController@import_page')->name('area.import_page');
