@@ -116,7 +116,7 @@ div.dataTables_wrapper div.dataTables_filter {
             <div class="form-group payment_collection {{ (auth()->user()->is_administrator)?'':'d-none' }}">
               <label>Status </label>
               <select name="status" id="status" class="form-control select2">
-                <!-- <option value="0" selected>Open</option> -->
+                <option value="0" selected>Open</option>
                 <!-- @if(auth()->user()->is_administrator)
                 <option value="1">Closed</option>
                 @endif -->
