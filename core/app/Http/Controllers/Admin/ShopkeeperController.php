@@ -152,10 +152,12 @@ class ShopkeeperController extends Controller
                     (!empty($row->usergroup))?$row->usergroup->name:'-',
                     ($row->is_verified==0)?'<span class="badge badge-warning">Not Verified</span>':(($row->is_verified==1)?'<span class="badge badge-primary">Verified</span>':'<span class="badge badge-primary">Not Interested</span>'),
                     ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>',
-                    anchor_link('<button class="btn btn-sm btn-primary"><span class="fa fa-credit-card" data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'1'])).' '.
-                    anchor_link('<button class="btn btn-sm btn-warning"><span class="fa fa-shopping-cart" data-toggle="tooltip" title="Orders"></span></button>',route('admin.orders.all',$row->id)).' '.
-                    anchor_link('<button class="btn btn-sm btn-success"><span class="fa fa-edit" data-toggle="tooltip" title="Edit"></span></button>',route('admin.shopkeeper.edit',$row->id),'','shopkeepers_edit').' '.
-                    anchor_link('<button class="btn btn-sm btn-danger"><span class="fa fa-trash" data-toggle="tooltip" title="Delete"></span></button>',route('admin.shopkeeper.delete',$row->id),'','shopkeepers_delete'),
+                    
+				    anchor_link('<button class="btn btn-sm btn-primary pull-right"><span class="icon-eye icons " data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'1'])).' '.
+                    anchor_link('<button class="btn btn-sm btn-warning pull-right"><span class="icon-basket" data-toggle="tooltip" title="Orders"></span></button>',route('admin.orders.all',$row->id)).' '.
+                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('admin.shopkeeper.edit',$row->id),'','shopkeepers_edit').' '.
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('admin.shopkeeper.delete',$row->id),'','shopkeepers_delete'),
+					  
 
                     /*a_links('Action',[
                         [
