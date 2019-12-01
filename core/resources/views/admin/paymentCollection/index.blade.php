@@ -141,9 +141,9 @@ div#admins-table_filter {
                     <th>Customer Name</th>
                     <th>Customer Mobile No</th>
                     <th>Alternate No</th>
-                    <th>Collection date</th>
-                    <th>Calling date</th>
-                    <th>Amount</th>
+                    <th>Creation date</th>
+                    <th>Collection due date</th>
+                    <th>Due Amount</th>
                     <th>Collected Amount</th>
                     <th>Balance Amount</th>
                     <th>Salesman</th>
@@ -301,6 +301,32 @@ $('#ok_button').click(function(){
     }
   })
 });
+  
+
+/*Active Otion*/
+var brand_status;
+$(document).on('click', '.status', function(){
+     $('#status_button').text('Ok');
+     user_id = $(this).attr('id');
+     brand_status = $(this).attr('data-status');
+     $('#statusconfirmModal').modal('show');
+});
+$('#status_button').click(function(){
+  $.ajax({
+    url:"{{ url('admin/updatepaymentstatus') }}/"+user_id+"/"+brand_status,
+   beforeSend:function(){
+    $('#status_button').text('Changing Status...');
+   },
+   success:function(data)
+   {
+    setTimeout(function(){
+     $('#statusconfirmModal').modal('hide');
+     $('#admins-table').DataTable().ajax.reload();
+    }, 2000);
+   }
+  })
+});
+
 /*End Delete Option*/
 
 </script> 

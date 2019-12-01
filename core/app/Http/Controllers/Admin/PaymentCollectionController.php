@@ -97,8 +97,8 @@ class PaymentCollectionController extends Controller
         $k->where('name', 'like', $search_key.'%')
         ->orWhere('mobile_no', 'like', $search_key.'%')
         ->orWhere('alternate_no', 'like', $search_key.'%')
-        ->orWhere('collection_date', 'like', $search_key.'%')
-        ->orWhere('new_date', 'like', $search_key.'%')
+        ->orWhere('collection_date', 'like', date('Y-m-d', strtotime($search_key)).'%')
+        ->orWhere('new_date', 'like', date('Y-m-d', strtotime($search_key)).'%')
         ->orWhere('amount', 'like', $search_key.'%')
         ->orWhere('collected_amount', 'like', $search_key.'%')
         ->orWhere('balance_amount', 'like', $search_key.'%')
@@ -134,19 +134,23 @@ class PaymentCollectionController extends Controller
     if (count($data) > 0)
     {
         foreach ($data as $key => $row){
+          $close_btn = '';
+          if(auth()->user()->is_administrator){
+            $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'">Close</button>';
+          }
           $rec[] = array(
               anchor_link($row->name,route('collection.show',$row->id)),
               // $row->name,
               $row->mobile_no,
               $row->alternate_no,
-              $row->collection_date,
-              $row->new_date,
+              date('d-m-Y',strtotime($row->collection_date)),
+              date('d-m-Y',strtotime($row->new_date)),
               $row->amount,
               $row->collected_amount,
               $row->balance_amount,
               $row->assigned->first_name.' '.$row->assigned->last_name,
-              ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">close</span>',
-              '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm">Delete</button>',
+              ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">closed</span>',
+              '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm">Delete</button>'.' '.$close_btn,
           );
         }
     }
@@ -165,7 +169,6 @@ class PaymentCollectionController extends Controller
     $rules = array(
       'name' => 'required',
       'mobile_no' => 'required',
-      'alternate_no' => 'required',
       'collection_date' => 'required',
       'amount' => 'required',
     );
@@ -185,6 +188,7 @@ class PaymentCollectionController extends Controller
 
     $description = sprintf('New Collection Added');
     log_activity($payment_collection, $description, anchor_link($payment_collection->name, route('collection.show', $payment_collection->id )).' '.'<br>Assigned To: '.$payment_collection->assigned->first_name.' '.$payment_collection->assigned->last_name  );
+    salesmanNotification($payment_collection->staff_user_id,'New Collection Added','Collection Assigned ');
 
     return redirect('admin/collection')->with('message', 'Collection Added Successfully!');
   }
@@ -296,12 +300,18 @@ class PaymentCollectionController extends Controller
 
   /* Author : 225 */
   public function createPaymentThread(Request $request,$collection_id="",$thread_id=""){
-
-    $rules = [ 
-      'next_calling_date' => 'required',
-      'feedback'          => 'required',
-      'assigned_to'       => 'required'
-    ];
+    if($request->collect_payment_checkbox == 1){
+      $rules = [ 
+        'next_calling_date' => 'required',
+        'feedback'          => 'required',
+      ];
+    }else{
+      $rules = [ 
+        'next_calling_date' => 'required',
+        'feedback'          => 'required',
+        'assigned_to'       => 'required'
+      ];
+    }
 
     $this->validator($request->all(),$rules)->validate();
     
@@ -313,12 +323,12 @@ class PaymentCollectionController extends Controller
     $thread->payment_type           = $request->payment_type;
     $thread->collect_amount         = ($request->amount) ? $request->amount:'0.00';
     $thread->balance_amount         = $update->amount - $request->amount;
-    $thread->assigned_to            = $request->assigned_to;
+    $thread->assigned_to            = ($request->assigned_to)?$request->assigned_to:$update->staff_user_id;
     $thread->status                 = $request->status;
     $thread->payment_collection_id  = $collection_id;
     $thread->save();
 
-    $update->staff_user_id      = $request->assigned_to;
+    $update->staff_user_id      = ($request->assigned_to)?$request->assigned_to:$update->staff_user_id;
     $update->new_date           = date('Y-m-d',strtotime($request->next_calling_date));
     $update->collected_amount   = $request->amount;
     $update->balance_amount     = $update->amount - $request->amount;
