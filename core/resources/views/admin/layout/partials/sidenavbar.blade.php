@@ -101,9 +101,8 @@
     @endif -->
 
     @if(is_menu_enable('shopkeepers'))
-    <li><a class="app-menu__item
-      @if(request()->path() == 'admin/shopkeeper/index') active
-      @elseif (request()->is('admin/options/*/index')) active
+    <li><a class="app-menu__item @if(request()->path() == 'admin/shopkeeper') active
+      @elseif (request()->is('admin/shopkeeper/create')) active
       @endif" href="{{route('admin.shopkeeper.index')}}"><i class="app-menu__icon icon-user icons"></i><span class="app-menu__label">Dealers </span></a></li>
     @endif
 
@@ -647,7 +646,7 @@
         @endif
 
         @if(is_menu_enable('crm_settings'))
-          <li><a class="treeview-item @if(request()->path() == 'admin/settings') active @endif" href="{{ route('settings_main_page') }}"><i class="fas fa-cog menu-icon"></i>CRM Settings</a></li>
+          <li><a class="treeview-item @if(request()->path() == 'admin/settings') active @endif" href="{{ route('settings_main_page') }}">CRM Settings</a></li>
         @endif
 
        
