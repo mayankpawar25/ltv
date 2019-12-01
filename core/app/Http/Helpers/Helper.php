@@ -452,14 +452,13 @@ function anchor_link($main_text, $link, $newTab = NULL, $permission = NULL)
 function a_links($main_text, array $option_links)
 {
     $data = $main_text."<div style='min-height: 25px;'><div class='row-options'>";
-
     foreach ($option_links as $link)
     {
-        if(isset($link['permission']) && check_perm($link['permission']))
-        {
-            $newTab = (isset($link['new_tab']) && $link['new_tab'] == TRUE) ? 'target="_blank"' : '';
-            $data .= ' <a '.$newTab.' class="'.$link['action_class'].'" href="'.$link['action_link'].'">'.$link['action_text'].'</a>';    
-        }
+            if(isset($link['permission']) && check_perm($link['permission']))
+            {
+                $newTab = (isset($link['new_tab']) && $link['new_tab'] == TRUE) ? 'target="_blank"' : '';
+                $data .= ' <a '.$newTab.' class="'.$link['action_class'].'" href="'.$link['action_link'].'">'.$link['action_text'].'</a>';    
+            }
         
     }
     $data .= '</div></div>';

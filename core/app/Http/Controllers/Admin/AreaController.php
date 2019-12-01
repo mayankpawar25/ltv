@@ -190,7 +190,8 @@ class AreaController extends Controller
                     $row->city->state->country->name,
                     $row->city->state->name,
                     $row->city->name,
-                    ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>'
+                    ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>',
+                    anchor_link('Edit',route('area.edit', $row->id)).' '.anchor_link('Delete',route('area.delete', $row->id))
                 );
             }
         }
