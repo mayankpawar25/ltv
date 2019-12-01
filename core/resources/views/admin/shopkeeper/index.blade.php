@@ -23,6 +23,9 @@ div.dataTables_wrapper div.dataTables_filter {
 div#data_filter {
     display: none;
 }
+#data tr td:last-child {
+	text-align: right;
+}
 
 </style>
 <main class="app-content">
@@ -68,7 +71,7 @@ div#data_filter {
           </div>
        </div>
       </div>
-  		<div class="col-lg-12">
+  		<div class="">
       	<div class="sellers-product-inner">
           	<div class="bottom-content table-responsive">
               	<table class="table table-bordered w-100" id="data">

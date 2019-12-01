@@ -35,18 +35,21 @@ div.dataTables_wrapper div.dataTables_filter {
 
 </style>
 <div class="container-fluid">
+ <div class="main-content">
+ <h5>Collections </h5>
+ <hr />
   <div class="row">
     <div class="col-3">
       <div class="card">
         <div class="card-header">
-          <h4>Collection Feedback</h4>
+        <strong>Collection Feedback</strong>
         </div>
         <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('admin.payment.adddescription',$collections->id) }}">
           {{ csrf_field() }}
           <div class="card-body">
             @if(auth()->user()->level == 1 || auth()->user()->is_administrator)
             <div class="form-group">
-              <label>Collect Payment : <input type="checkbox" class="collect_payment_checkbox" value="1" name="collect_payment_checkbox" ></label>
+              <label><input type="checkbox" class="collect_payment_checkbox" value="1" name="collect_payment_checkbox" > Collect Payment</label> 
             </div><!-- Collect Payment Checkbox -->
             @endif
            
@@ -116,7 +119,7 @@ div.dataTables_wrapper div.dataTables_filter {
 
           </div>
 
-          <div class="card-footer">            
+          <div class="text-right">            
             @if($collections->staff_user_id == auth()->user()->id)
               @php $disable2 = ''; @endphp
             @else
@@ -133,8 +136,13 @@ div.dataTables_wrapper div.dataTables_filter {
               @php $disable = ''; @endphp
               @php $disable2 = ''; @endphp
             @endif
-
+<hr />
+      <div class="col-sm-12 mb-2">
             <button type="submit" class="btn btn-success"  {{$disable}} {{$disable2}} > Submit </button>
+            </div>
+          
+
+
           </div>
         </form>
       </div>
@@ -143,14 +151,37 @@ div.dataTables_wrapper div.dataTables_filter {
       <div class="row">
         <div class="col-sm-12">
           <div class="card">
-            <div class="card-header">Collection Details
-              @if($collections->status == 0)
-                <span class="badge badge-danger">Open</span>
-              @else
-                <span class="badge badge-success">Closed</span>
-              @endif
+            <div class="card-header"><strong>Collection Details</strong>
+              
             </div>
             <div class="card-body"> 
+           <!-- <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+-->
               <div class="form-group">
                 <label><strong>Name : </strong>{{ $collections->name }}</label>
               </div>
@@ -248,6 +279,7 @@ div.dataTables_wrapper div.dataTables_filter {
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>
 <div id="confirmModal" class="modal fade" role="dialog">
