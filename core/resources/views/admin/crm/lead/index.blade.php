@@ -90,10 +90,19 @@
       <thead>
          <tr>
             <th>@lang("form.name")</th>
+            <th>@lang("form.position")</th>
             <th>@lang("form.company")</th>
+            <th>@lang("form.description")</th>
+            <th>@lang("form.country")</th>
+            <th>Pincode</th>
+            <th>@lang("form.city")</th>
+            <th>@lang("form.state")</th>
+            <th>@lang("form.address")</th>
             <th>@lang("form.email")</th>
+            <th>@lang("form.website")</th>
             <th>@lang("form.phone")</th>
             <th>@lang("form.tags")</th>
+            <th>@lang("form.alternate_number")</th>
             <th>@lang("form.assigned")</th>
             <th>@lang("form.status")</th>
             <th>@lang("form.source")</th>
@@ -105,6 +114,7 @@
 </div>
 </div>
 </div>
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
  <script>
         $(function() {
             dataTable = $('#data').DataTable({
@@ -113,8 +123,9 @@
                 //   $("div.toolbar")
                 //      .html('<button class="btn btn-light btn-sm" type="button" id="bulk_action">{{ __("form.bulk_action") }}</button>');           
                 // },  
-                dom: 'Bfrtip',
-                buttons: [
+               /* dom: 'Bfrtip',*/
+                dom: 'lfBfrtip',
+              /*  buttons: [
 
                     {
                         init: function(api, node, config) {
@@ -131,7 +142,26 @@
                             'print'
                         ]
                     }
-                ],
+                ],*/
+                 buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
+                  ],
                 "language": {
                     "lengthMenu": '_MENU_ ',
                     "search": '',
@@ -148,13 +178,28 @@
                 serverSide: true,
                 //iDisplayLength: 5
                 pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
-                ordering: false,
+               // ordering: false,
                 // "columnDefs": [
                 //     { className: "text-right", "targets": [2,4] },
                 //     { className: "text-center", "targets": [5] }
                 //
                 //
                 // ],
+                 ordering: true,
+                  "columnDefs": [
+                    { className: "text-right", "targets": [5] },
+                    { "name": "0",   "targets": 0 },
+                    { "name": "1",  "targets": 1 },
+                    { "name": "2", "targets": 2 },
+                    { "name": "3",  "targets": 3 },
+                    { "name": "4",  "targets": 4 },
+                    { "name": "5",  "targets": 5 },
+                    { "name": "6",  "targets": 6 ,orderable:false},
+                    { "name": "7",  "targets": 7,orderable:false},
+                    { "name": "8",  "targets": 8,orderable:false},
+                   /* { "name": "9",  "targets": 9 },*/
+                   
+                  ],
                 "ajax": {
                     "url": '{!! route("datatables_leads") !!}',
                     "type": "POST",

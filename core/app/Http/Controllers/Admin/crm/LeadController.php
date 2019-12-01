@@ -176,10 +176,19 @@ class LeadController extends Controller {
                             'permission' => 'leads_delete',
                         ]
                     ]),
+                    $row->position,
                     $row->company,
+                    $row->description,
+                    Country::find($row->country_id)->name,
+                    $row->zip_code,
+                    $row->city, 
+                    $row->state,
+                    $row->address, 
                     $row->email,
+                    $row->website,
                     $row->phone,
                     $row->get_tags_as_badges(true),
+                    $row->alternate_number,
                     (isset($row->assigned))? anchor_link($row->assigned->first_name . " ". $row->assigned->last_name, route('member_profile', $row->assigned->id)) : '',
                     $row->status->name,
                     (isset($row->source)) ? $row->source->name : '',
@@ -189,6 +198,8 @@ class LeadController extends Controller {
 
             }
         }
+      /*  print_r($rec);
+        die;*/
 
         $output = array(
             "draw" => intval(Input::get('draw')),
