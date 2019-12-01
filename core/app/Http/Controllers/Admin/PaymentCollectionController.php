@@ -185,6 +185,7 @@ class PaymentCollectionController extends Controller
 
     $description = sprintf('New Collection Added');
     log_activity($payment_collection, $description, anchor_link($payment_collection->name, route('collection.show', $payment_collection->id )).' '.'<br>Assigned To: '.$payment_collection->assigned->first_name.' '.$payment_collection->assigned->last_name  );
+    salesmanNotification($payment_collection->staff_user_id,'New Collection Added','Collection Assigned ');
 
     return redirect('admin/collection')->with('message', 'Collection Added Successfully!');
   }
