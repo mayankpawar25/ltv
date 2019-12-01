@@ -141,6 +141,19 @@ class LeadController extends Controller {
                 ->orWhere('company', 'like', $search_key.'%')
                 ->orWhere('email', 'like', $search_key.'%')
                 ->orWhere('phone', 'like', $search_key.'%')
+                ->orWhere('position', 'like', $search_key.'%')
+                ->orWhere('company', 'like', $search_key.'%')
+                ->orWhere('description', 'like', $search_key.'%')
+                ->orWhere('zip_code', 'like', $search_key.'%')
+                ->orWhere('city', 'like', $search_key.'%')
+                ->orWhere('state', 'like', $search_key.'%')
+                 ->orwhereHas('country',function ($q) use ($search_key){
+                    $q->where('countries.name', 'like', $search_key.'%');
+                })
+                ->orWhere('address', 'like', $search_key.'%')
+                ->orWhere('website', 'like', $search_key.'%')
+                ->orWhere('alternate_number', 'like', $search_key.'%')
+               
             ;
                 
         }

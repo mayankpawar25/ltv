@@ -1,6 +1,26 @@
 @extends('admin.layout.master')
 @section('title', __('form.leads'))
 @section('content')
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+
+</style>
 <div class="app-content">
 <div class="main-content">
    <div class="">
@@ -197,7 +217,16 @@
                     { "name": "6",  "targets": 6 ,orderable:false},
                     { "name": "7",  "targets": 7,orderable:false},
                     { "name": "8",  "targets": 8,orderable:false},
-                   /* { "name": "9",  "targets": 9 },*/
+                    {targets: -8, visible: false},
+                    {targets: -6, visible: false},
+                    {targets: -5, visible: false},
+                    {targets: -10, visible: false},
+                    {targets: -12, visible: false},
+                    {targets: -13, visible: false},
+                    {targets: -14, visible: false},
+                    {targets: -15, visible: false},
+                    {targets: -17, visible: false},
+                 
                    
                   ],
                 "ajax": {
