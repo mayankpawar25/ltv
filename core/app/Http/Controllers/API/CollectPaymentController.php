@@ -265,7 +265,7 @@ class CollectPaymentController extends Controller
             $status = 401;
         }*/
         $paymentcollection  = PaymentCollection::find($request->payment_collection_id);
-        $threads = PaymentCollectionDescription::where('payment_collection_id',$paymentcollection->id)->get();
+        $threads = PaymentCollectionDescription::where('payment_collection_id',$request->payment_collection_id)->get();
         foreach($threads as $thread){
             $thread->salesman = $thread->assigned->first_name.' '.$thread->assigned->last_name;
         }
