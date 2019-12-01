@@ -103,6 +103,7 @@
     @if(is_menu_enable('shopkeepers'))
     <li><a class="app-menu__item @if(request()->path() == 'admin/shopkeeper') active
       @elseif (request()->is('admin/shopkeeper/create')) active
+      @elseif (request()->is('admin/shopkeeper/import')) active
       @endif" href="{{route('admin.shopkeeper.index')}}"><i class="app-menu__icon icon-user icons"></i><span class="app-menu__label">Dealers </span></a></li>
     @endif
 
