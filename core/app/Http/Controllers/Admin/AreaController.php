@@ -167,8 +167,8 @@ class AreaController extends Controller
         //
 
         $rec = [];
-        echo json_encode($data);
-        exit;
+        // echo json_encode($data);
+        // exit;
         if (count($data) > 0)
         {   $i = 0;
             foreach ($data as $key => $row)
