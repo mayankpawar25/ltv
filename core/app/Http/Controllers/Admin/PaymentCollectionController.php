@@ -135,9 +135,18 @@ class PaymentCollectionController extends Controller
     {
         foreach ($data as $key => $row){
           $close_btn = '';
+          $open_close_badge = ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">closed</span>';
           if(auth()->user()->is_administrator){
-            $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'">Close</button>';
+            if($row->status==0 || $row->status==2){
+              $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'">Close</button>';
+            }
+            if($row->status == '2'){
+              $open_close_badge ='<span class="badge badge-success">closed by Salesman</span>';
+            }
           }
+
+
+
           $rec[] = array(
               anchor_link($row->name,route('collection.show',$row->id)),
               // $row->name,
@@ -149,7 +158,7 @@ class PaymentCollectionController extends Controller
               $row->collected_amount,
               $row->balance_amount,
               $row->assigned->first_name.' '.$row->assigned->last_name,
-              ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">closed</span>',
+              $open_close_badge,
               '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm">Edit</a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm">Delete</button>'.' '.$close_btn,
           );
         }

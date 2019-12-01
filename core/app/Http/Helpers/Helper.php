@@ -15,20 +15,15 @@ if (! function_exists('send_email')) {
         $settings = GS::first();
         $template = $settings->email_template;
         $from = $settings->email_sent_from;
-    		if($settings->email_notification == 1)
-    		{
-
-  			$headers = "From: $settings->website_title <$from> \r\n";
-  			$headers .= "Reply-To: $settings->website_title <$from> \r\n";
-  			$headers .= "MIME-Version: 1.0\r\n";
-  			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-
-  			$mm = str_replace("{{name}}",$name,$template);
-  			$message = str_replace("{{message}}",$message,$mm);
-
-  			mail($to, $subject, $message, $headers);
-
-    		}
+		if($settings->email_notification == 1){
+			$headers = "From: $settings->website_title <$from> \r\n";
+			$headers .= "Reply-To: $settings->website_title <$from> \r\n";
+			$headers .= "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+			$mm = str_replace("{{name}}",$name,$template);
+			$message = str_replace("{{message}}",$message,$mm);
+			mail($to, $subject, $message, $headers);
+		}
 
     }
 }
