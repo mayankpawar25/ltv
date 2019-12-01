@@ -580,13 +580,11 @@ class ShopkeeperController extends Controller
             $name = $resp->email .'/'.$resp->mobile;
             $subject = 'Welcome To Laptop True Value';
             $message = '';
-
             send_email( $to, $name, $subject, $message);
 
-            $to = $resp->mobile;
-
-            $message = 'Greetings from Laptop True Value. You have been added as a verified dealer with Laptop True Value. Your account has been activated. Your login name is '.$resp->email.' / '.$resp->mobile.'. Please download the app from playstore. link.   Please change password from Forgot Password section to start using app. Support:07120009990.';
-            send_sms( $to, $message);
+            // $to = $resp->mobile;
+            // $message = 'Greetings from Laptop True Value. You have been added as a verified dealer with Laptop True Value. Your account has been activated. Your login name is '.$resp->email.' / '.$resp->mobile.'. Please download the app from playstore. link.   Please change password from Forgot Password section to start using app. Support:07120009990.';
+            // send_sms( $to, $message);
         }
         return redirect()->route('admin.shopkeeper.show',$id)->with('success','Document Status successfully updated');
     }

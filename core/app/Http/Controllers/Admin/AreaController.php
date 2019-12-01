@@ -167,15 +167,15 @@ class AreaController extends Controller
         //
 
         $rec = [];
-        // echo json_encode($data);
-        // exit;
+        echo json_encode($data);
+        exit;
         if (count($data) > 0)
         {   $i = 0;
             foreach ($data as $key => $row)
             {   
                 $rec[] = array(
                     // ++$i,
-                    a_links(anchor_link($row->area_name,route('admin.shopkeeper.show',$row->id)), [
+                    a_links(anchor_link($row->area_name,route('#',$row->id)), [
                         [
                             'action_link' => route('area.edit', $row->id), 
                             'action_text' => __('form.edit'), 'action_class' => '',
