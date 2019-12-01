@@ -43,7 +43,7 @@ div#admins-table_filter {
       <div class="col-md-6">
          <div class="float-md-right">
             @if(check_perm('customers_create'))
-              <a class="btn btn-primary btn-sm" href="{{ route('admin.shopkeeper.create') }}">Add Payment Collection</a>
+              <a class="btn btn-primary btn-sm" href="{{ route('collection.create') }}">Add Payment Collection</a>
             @endif
 
             @if(auth()->user()->is_administrator)
