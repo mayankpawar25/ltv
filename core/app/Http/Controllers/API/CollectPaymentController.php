@@ -89,12 +89,6 @@ class CollectPaymentController extends Controller
         return response()->json($data, $status); 
     }
 
-    public function duplicatenotification($salesman_id,$title="LTV",$message="Payment Collection Module"){
-        $regId = StaffUser::find($salesman_id)->fcm_id;
-        // $regId = 'ea4xDar97mI:APA91bEroD0JooZX_FNBG94NOE9eZqDKg98FdTmnuh4PLh8TV7M86UMKc0UUc-uzWw_4J9odK9B7LrKjR4Sbj8aJxIq2PTMxKPCOeqApYlvbG4hNq0v0UZHfeAkiolXVBTc_bHG8UtPR';
-        $this->sendNotification($regId,$title,$message);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -302,6 +296,12 @@ class CollectPaymentController extends Controller
         return response()->json($data, $status); 
     }
 
+    public function duplicatenotification($salesman_id,$title="LTV",$message="Payment Collection Module"){
+        $regId = StaffUser::find($salesman_id)->fcm_id;
+        // $regId = 'eP835HRmBi8:APA91bEqO9kBmd6raR0Wf6h3rqtzfGmZXAfqpCkS1xCJr6n3HaqlFwwZXazC83ceUGN0G1qCCyMbE7lhTc85pOjEkchPVCIC-MNTN8cM0Ux39ol5FRZo3ahwwOfyYUgBi7WxSABlXpMH';
+        $this->sendNotification($regId,$title,$message);
+    }
+    
     /* Send Firebase Notification */
     public function sendNotification($regId,$title,$message){
 
@@ -330,9 +330,9 @@ class CollectPaymentController extends Controller
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-        // echo $response;
-        // exit;
-        return true;
+        echo $response;
+        exit;
+        // return true;
     }
     /* Send Firebase Notification */
 

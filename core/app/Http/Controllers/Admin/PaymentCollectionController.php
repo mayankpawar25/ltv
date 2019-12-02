@@ -202,7 +202,9 @@ class PaymentCollectionController extends Controller
 
     $description = sprintf('New Collection Added');
     log_activity($payment_collection, $description, anchor_link($payment_collection->name, route('collection.show', $payment_collection->id )).' '.'<br>Assigned To: '.$payment_collection->assigned->first_name.' '.$payment_collection->assigned->last_name  );
-    salesmanNotification($payment_collection->staff_user_id,'New Collection Added','Collection Assigned ');
+    // salesmanNotification($payment_collection->staff_user_id,'New Collection Added','Collection Assigned ');
+
+    $this->duplicatenotification($request->input('staff_user_id'),$title="LTV : Payment Collection",$message="New Collection Assigned");
 
     return redirect('admin/collection')->with('message', 'Collection Added Successfully!');
   }
@@ -563,5 +565,44 @@ class PaymentCollectionController extends Controller
         $writer->save($path);
     }
 
+    public function duplicatenotification($salesman_id,$title="LTV",$message="Payment Collection Module"){
+        $regId = StaffUser::find($salesman_id)->fcm_id;
+        // $regId = 'eP835HRmBi8:APA91bEqO9kBmd6raR0Wf6h3rqtzfGmZXAfqpCkS1xCJr6n3HaqlFwwZXazC83ceUGN0G1qCCyMbE7lhTc85pOjEkchPVCIC-MNTN8cM0Ux39ol5FRZo3ahwwOfyYUgBi7WxSABlXpMH';
+        $this->sendNotification($regId,$title,$message);
+    }
+    
+    /* Send Firebase Notification */
+    public function sendNotification($regId,$title,$message){
+
+        define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
+
+        $message = strip_tags($message);        
+        $title = strip_tags($title);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\r\n \"to\" : \"$regId\",\r\n \"collapse_key\" : \"type_a\",\r\n \"notification\" : {\r\n \"body\" : \"$message\",\r\n \"title\": \"$title\"\r\n },\r\n \"data\" : {\r\n \"body\" : \"$message\",\r\n \"title\": \"$title\",\r\n \"key_1\" : \"\" }\r\n}",
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: key=".FIREBASE_API_KEY,
+                "Cache-Control: no-cache",
+                "Content-Type: application/json",
+                "Postman-Token: 17dca3af-6994-4fe7-b8ec-68f99d13cfe8"
+            ),
+        ));
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        // echo $response;
+        // exit;
+        return true;
+    }
+    /* Send Firebase Notification */
 
 }
