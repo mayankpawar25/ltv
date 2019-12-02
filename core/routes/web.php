@@ -1622,6 +1622,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	 
 	Route::post('{collection_id?}/paymentdescription/{thread_id?}', 'Admin\PaymentCollectionController@createPaymentThread')->name('admin.payment.adddescription');
 
+	/*Datatable*/
+	Route::post('/attributelist', 'Admin\ProductattrController@paginate')->name('datatable_attribute');
+	Route::post('/brandlist', 'Admin\OptionController@paginate')->name('datatable_option');
+	Route::post('/couponlist', 'Admin\CouponController@paginate')->name('datatable_coupon');
+	/*Datatable*/
 
 
 });// Admin Routes End
