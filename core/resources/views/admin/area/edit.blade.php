@@ -3,15 +3,7 @@
 {{-- Content Body --}}
 @section('content')
  <main class="app-content">
-<div class="app-title">
-    <div>
-       <h1><i class="fa fa-dashboard"></i> Area</h1>
-    </div>
-    <ul class="app-breadcrumb breadcrumb">
-       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-       <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-    </ul>
-</div>
+ 
 <style type="text/css" media="screen">
 .dataTables_length, .dt-buttons {
     float: left;
@@ -30,21 +22,41 @@ div.dataTables_wrapper div.dataTables_filter {
 div#admins-table_filter {
     display: none;
 }
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: 
+#f2f2f2;
+color:  #333;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid 
+    #ddd;
+    border-radius: 3px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: 
+    #444;
+    line-height: 30px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 2px !important;
+}
 
 </style>
 
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3">
-			<div class="card">
+			<div class="main-content">
+            <h5>Edit Area</h5>
+            <hr />
 				<form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('area.update',$area->id) }}">
 					@method('PATCH')
 				   	{{ csrf_field() }}
-				   	<div class="card-header">
-						<h4 class="card-title m-b-0">Edit Area</h4>
-					</div>
-					<div class="card-body">
-						<div class="text-left">
+				   <!--	<div class="card-header">
+						<h4 class="card-title m-b-0"></h4>
+					</div>-->
+					<div class="">
+						<div class="form-group">
 							<div class=" {{ $errors->has('country') ? ' has-error' : '' }}">
 								<label for="firstname" class="control-label col-form-label">Country 
 									<span class="text-danger">*</span>
@@ -59,7 +71,7 @@ div#admins-table_filter {
 								@endif
 							</div>
 						</div>
-						<div class="text-left">
+						<div class="form-group">
 							<div class=" {{ $errors->has('state') ? ' has-error' : '' }}">
 								<label for="firstname" class="control-label col-form-label">State 
 									<span class="text-danger">*</span>
@@ -75,7 +87,7 @@ div#admins-table_filter {
 							</div>
 						</div>
 
-						<div class="text-left">
+						<div class="form-group">
 							<div class=" {{ $errors->has('city') ? ' has-error' : '' }}">
 								<label for="firstname" class="control-label col-form-label">City 
 									<span class="text-danger">*</span>
@@ -91,7 +103,7 @@ div#admins-table_filter {
 							</div>
 						</div>
 
-						<div class="text-left">
+						<div class="form-group">
 							<div class=" {{ $errors->has('name') ? ' has-error' : '' }}">
 								<label for="firstname" class="control-label col-form-label">Area 
 									<span class="text-danger">*</span>
@@ -108,7 +120,8 @@ div#admins-table_filter {
 						</div>
 
 					</div>
-					<div class="card-footer">
+					<div class="text-right">
+                    <hr />
 						<button type="submit" class="btn btn-success ">Submit</button>
 					</div>
 					
@@ -117,15 +130,17 @@ div#admins-table_filter {
 			
 		</div>
 		<div class="col-9">
-			<div class="card">
-				<div class="card-header">
-					<div class="card-title">Area List
+			<div class="main-content">
+            <h5>Area List</h5>
+            <hr />
+				<!--<div class="card-header">
+					<div class="card-title">
 						@if(auth()->user()->is_administrator)
 			              <a class="btn btn-primary btn-sm" href="{{ route('area.import_page') }}" style="float:right">Import</a>
 			            @endif
 					</div>
-				</div>
-				<div class="card-body">
+				</div>-->
+				<div class="">
 					@if(Session::has('error'))
 					<p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('error') }}</p>
 					@endif
@@ -140,7 +155,7 @@ div#admins-table_filter {
 					
 					<!--  <h5 class="card-title">States List</h5> -->
 					<div class="table-responsive">
-						<table class="table table-bordered table-striped display" id="data">
+						<table class="table table-bordered w-100" id="data">
 							<thead>
 								<tr>
 									<th>Name</th>

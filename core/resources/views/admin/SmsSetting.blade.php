@@ -2,18 +2,15 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>SMS Settings</h1>
-        </div>
-     </div>
+      
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <h3 class="tile-title ">Short Code</h3>
-              <div class="tile-body">
+           <div class="main-content" style="margin-bottom:30px">
+              <h5>Short Code</h5>
+              <hr />
+              <div class="">
                  <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-bordered w-100">
                        <thead>
                           <tr>
                              <th> # </th>
@@ -45,20 +42,24 @@
      </div>
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <div class="tile-body">
+           <div class="main-content">
+           <h5>SMS API</h5>
+           <hr />
+              <div class="">
                  <form role="form" method="POST" action="{{route('admin.UpdateSmsSetting')}}" >
                     {{csrf_field()}}
                     <div class="form-body">
                        <div class="form-group">
-                          <label for="">SMS API</label>
+                          <label for=""></label>
                           <input type="text" name="smsApi" id="smsapi" class="form-control" value="{{$gs->sms_api}}">
                           @if ($errors->has('smsApi'))
                             <span style="color:red;">{{$errors->first('smsApi')}}</span>
                           @endif
                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                    <div class="text-right">
+                    <button type="submit" class="btn btn-success">Update</button>
+                    </div>
                  </form>
               </div>
            </div>

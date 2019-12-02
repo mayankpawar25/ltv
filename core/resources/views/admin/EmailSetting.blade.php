@@ -11,18 +11,15 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>Email Setting</h1>
-        </div>
-     </div>
+      
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <h3 class="tile-title ">Short Code</h3>
-              <div class="tile-body">
+           <div class="main-content" style="margin-bottom:30px;">
+              <h5>Short Code</h5>
+              <hr />
+              <div class="">
                  <div class="table-responsive">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-bordered w-100">
                        <thead>
                           <tr>
                              <th> # </th>
@@ -74,8 +71,8 @@
                           @endif
                        </div>
                     </div>
-                    <div class="form-actions">
-                       <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                    <div class="text-right">
+                       <button type="submit" class="btn btn-success ">Update</button>
                     </div>
                  </form>
               </div>

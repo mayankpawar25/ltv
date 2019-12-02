@@ -14,6 +14,10 @@
 .check-round .toggle {
 	border-radius: 25px;
 }
+.toggle-group label {
+    line-height: 21px;
+    text-transform: uppercase !important;
+}
 .base-bg {
 	background-color: #329688 !important;
 }
@@ -433,6 +437,10 @@ border-color:
     #6c757d;
 	font-size:13px;
 }
+.help-block strong{
+	font-weight:400;
+}
+
 
  @media only screen and (max-width: 767px) {
 .sidebar-mini.sidenav-toggled .app-menu__label {

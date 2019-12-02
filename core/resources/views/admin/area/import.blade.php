@@ -8,7 +8,7 @@
          <h5>Import Area</h5>
       </div>
       <div class="col-md-6">
-         <a href="{{ route('download_sample_area_import_file') }}" class="btn btn-success btn-sm float-md-right">@lang('form.download_sample')</a>
+         <a href="{{ route('download_sample_area_import_file') }}" class="btn btn-primary btn-sm float-md-right">@lang('form.download_sample')</a>
       </div>
    </div>
    <hr>
@@ -53,9 +53,13 @@
    <form method="post" action="{{ route('area.import') }}" enctype="multipart/form-data">
       {{ csrf_field()  }}
       <div class="form-row">
-         <div class="form-group col-md-6">
+         <div class="form-group col-md-3">
             <label>@lang('form.select_file')</label>
-            <input type="file" class="form-control-file" name="file">
+            <div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFile" name="file">
+  <label class="custom-file-label" for="customFile">Choose file</label>
+</div>
+            <!--<input type="file" class="form-control-file" >-->
             <div class="invalid-feedback d-block">@php if($errors->has('file')) { echo $errors->first('file') ; } @endphp</div>
          </div>
 
