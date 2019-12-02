@@ -30,6 +30,7 @@ Route::get('citylist', 'API\LocationController@citiesDropdown');
 /* Zipcode Dropdown List*/
 Route::get('zipcodelist', 'API\LocationController@zipcodeDropdown');
 Route::get('/shopkeeper/pushnotification', 'API\OrderController@duplicatenotification');
+Route::get('/salesman/pushnotification/{salesman_id}', 'API\CollectPaymentController@duplicatenotification');
 
 
 /* Verification */

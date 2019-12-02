@@ -293,6 +293,14 @@ class Role extends Model
                     'delete'        => $myClass->gen_checkbox('collections'.'_delete'),
                 ],
                 [
+                    'name'          => 'Location', 
+                    'view'          => $myClass->gen_checkbox('locations'.'_view'),
+                    'view_own'      => '',
+                    'create'        => '',
+                    'edit'          => '',
+                    'delete'        => '',
+                ],
+                [
                     'name'          => 'Support Tickets', 
                     'view'          => $myClass->gen_checkbox('tickets'.'_view'),
 
