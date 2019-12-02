@@ -91,7 +91,8 @@ class CollectPaymentController extends Controller
 
     public function duplicatenotification($salesman_id,$title="LTV",$message="Payment Collection Module"){
         $regId = StaffUser::find($salesman_id)->fcm_id;
-        sendNotification($regId,$title,$message);
+        // $regId = 'ea4xDar97mI:APA91bEroD0JooZX_FNBG94NOE9eZqDKg98FdTmnuh4PLh8TV7M86UMKc0UUc-uzWw_4J9odK9B7LrKjR4Sbj8aJxIq2PTMxKPCOeqApYlvbG4hNq0v0UZHfeAkiolXVBTc_bHG8UtPR';
+        $this->sendNotification($regId,$title,$message);
     }
 
     /**
@@ -329,6 +330,8 @@ class CollectPaymentController extends Controller
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
+        // echo $response;
+        // exit;
         return true;
     }
     /* Send Firebase Notification */
