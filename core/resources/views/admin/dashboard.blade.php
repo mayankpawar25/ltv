@@ -61,15 +61,15 @@ $mytime = Carbon\Carbon::now();
 </script>
 <div class="row">
            <div class="col-md-12">
-               <div class="tile">
+               <div class="main-content" style="margin-bottom:30px;">
                 <div class="">
-                    <h3 class="tile-title">
-                      
-                      <a href="{{route('admin.tasks.create')}}" class="btn btn-success float-right"><i class="fa fa-plus"></i> Add Task</a>
-                    <p style="clear:both;margin-top:50px;"></p>
-                      </h3>
+                    <h5 class="mb-4">
+                      To Do List
+                      <a href="{{route('admin.tasks.create')}}" class="btn btn-primary float-right">Add Task</a>
+                   
+                      </h5>
                   </div>
-                   <h3 class="tile-title">To Do List</h3>
+                  <hr />
                     <div id='calendar' style="width: 100%;" ></div>
                </div>
            </div>

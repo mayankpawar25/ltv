@@ -138,7 +138,7 @@ div.dataTables_wrapper div.dataTables_filter {
                 @endif
                 <hr />
                 <div class="col-sm-12 mb-2">
-                  <button type="submit" class="btn btn-success"  {{$disable}} {{$disable2}} > Submit </button>
+                  <button type="submit" class="btn btn-success {{$disable}} {{$disable2}}"  {{$disable}} {{$disable2}} > Submit </button>
                 </div>
               </div>
             </form>
@@ -191,7 +191,7 @@ div.dataTables_wrapper div.dataTables_filter {
                 <div class="card-header"><strong>Feedback History</strong></div>
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-bordered table-striped display" id="admins-table">
+                    <table class="table table-bordered w-100" id="admins-table">
                       <thead>
                         <tr>
                           <th>Next Calling Date</th>
