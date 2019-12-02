@@ -104,7 +104,7 @@
         </tr>
         </thead>
     </table>
-
+<div class="clearfix"></div>
 </div>
 
 @section('innerPageJS')

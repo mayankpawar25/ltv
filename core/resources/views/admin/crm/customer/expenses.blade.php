@@ -1,7 +1,7 @@
 <div class="main-content">
    <h5>@lang('form.expenses')</h5>
    <hr>
-   <table class="table table-expenses dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+   <table class="table table-bordered table-expenses dataTable no-footer dtr-inline collapsed" width="100%" id="data">
       <thead>
          <tr>
             <th>@lang("form.category")</th>
@@ -18,6 +18,7 @@
          </tr>
       </thead>
    </table>
+   <div class="clearfix"></div>
 </div>
 
 @section('innerPageJS')

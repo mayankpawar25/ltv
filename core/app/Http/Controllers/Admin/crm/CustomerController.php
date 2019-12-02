@@ -137,7 +137,7 @@ class CustomerController extends Controller {
                     ' <input '.$checked.' data-id="'.$row->id.'" class="tgl tgl-ios customer_status" id="cb'.$row->id.'" type="checkbox"/><label class="tgl-btn" for="cb'.$row->id.'"></label>',
                     $row->get_groups_as_badges(true),
                     date("d-m-Y", strtotime($row->created_at)),
-                    anchor_link('<button class="btn btn-sm"><span class="fa fa-credit-card" data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'3']))
+                    anchor_link('<button class="btn btn-primary btn-sm"><span class="icon icon-eye" data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'3']))
 
                 );
 
