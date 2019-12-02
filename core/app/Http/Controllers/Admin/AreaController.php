@@ -244,6 +244,7 @@ class AreaController extends Controller
         }
         if(isset($worksheet) && $worksheet){
             $errors = [];
+            $insert=0;
             foreach ($worksheet->getRowIterator() as $indexOfRow=>$row){
                if($indexOfRow > 1){             
                     $cellIterator = $row->getCellIterator();
@@ -292,11 +293,14 @@ class AreaController extends Controller
                             {                       
                                 $city = City::firstOrCreate(['name' => $cells['city'] ]);
                                 $cells['city_id']   = $city->id;
-                            }                            
-                            // Create the Customer
+                            }
 
-                            $customer  = Zipcode::create($cells);
-                            
+                            $customer = Zipcode::firstOrCreate(['area_name' => $cells['area_name'],'country_id'=>$cells['country_id'],'state_id'=>$cells['state_id'],'city_id'=>$cells['city_id']]);
+
+                            // $customer  = Zipcode::firstOrCreate($cells);
+                            if($customer){
+                                $insert++;
+                            }
                             // dd($cells,$customer);
 
                             // disable activity logging
@@ -320,10 +324,10 @@ class AreaController extends Controller
                 $download_link = gen_url_for_attachment_download($file);
                 dd($download_link);
                 $message = sprintf(__('form.import_download_file_message'), anchor_link(__('form.file'), $download_link));
-                session()->flash('download_file_to_see_unimported_rows', $message);   
+                session()->flash('download_file_to_see_unimported_rows', $message.' '.'Total Area Import:'.$insert);   
                 return redirect()->route('area.import_page')->with('danger', $message);
             }else{
-                session()->flash('message', __('form.success_add'));
+                session()->flash('message', __('form.success_add').' '.'Total Area Import:'.$insert);
                 return redirect()->route('area.import_page')->with('success', __('form.success_add'));
             }
         }else{
