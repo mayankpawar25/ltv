@@ -25,17 +25,32 @@ div#data_filter {
 
 </style>
   <main class="app-content">
-     <div class="app-title">
+    <div class="main-content">
+
+     <!-- <div class="app-title">
         <div>
            <h1>Product Attribute Management</h1>
         </div>
+     </div> -->
+      <div class="row">
+       
+          <div class="col-md-6">
+            <h5 class="float-left">Product Attribute Management</h5>
+          </div>
+          <div class="col-md-6">
+           <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">
+                  <i class="fa fa-plus"></i> Add Product Attribute
+                </button>
+          </div>
+       
      </div>
+          <hr>
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <h3 class="tile-title">&nbsp;&nbsp;&nbsp;&nbsp; <button class="btn btn-success float-right" data-toggle="modal" data-target="#addModal">
+           <div class="">
+             <!--  <h3 class="tile-title">&nbsp;&nbsp;&nbsp;&nbsp; <button class="btn btn-success float-right" data-toggle="modal" data-target="#addModal">
                   <i class="fa fa-plus"></i> Add Product Attribute
-                </button></h3>
+                </button></h3> -->
               
               <p style="clear:both;margin:0px;"></p>
                 {{-- 
@@ -130,6 +145,7 @@ div#data_filter {
            </div>
         </div>
      </div>
+   </div>
   </main>
 
   @includeif('admin.product_attribute.partials.add')

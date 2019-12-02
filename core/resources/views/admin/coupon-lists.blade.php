@@ -26,16 +26,15 @@ div#data_filter {
 </style>
   <main class="app-content">
     <div class="main-content">
-     <div class="app-title">
-        <div class="row" style="width:100%">
-          <div class="col-md-6">
-            <h1 class="float-left">Coupon Lists</h1>
+     <div class="row">
+       <div class="col-md-6">
+            <h5 class="float-left">Coupon Lists</h5>
           </div>
           <div class="col-md-6">
-            <a href="{{route('admin.coupon.create')}}" class="btn btn-success float-right"><i class="fa fa-plus"></i> Add Coupon</a>
+            <a href="{{route('admin.coupon.create')}}" class="btn btn-primary float-right"><i class="fa fa-plus"></i> Add Coupon</a>
           </div>
-        </div>
      </div>
+       <hr>
 
      <div class="row">
       {{-- 

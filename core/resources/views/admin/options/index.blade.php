@@ -25,15 +25,30 @@ div#data_filter {
 
 </style>
   <main class="app-content">
-     <div class="app-title">
+   <!--   <div class="app-title">
         <div>
            <h1>Option Management</h1>
         </div>
+     </div> -->
+     <div class="main-content">
+       <div class="row">
+       <div class="col-md-6">
+            <h5 class="float-left">Option Management - All Options of <mark><strong>{{$pa->name}}</strong></mark></h5>
+          </div>
+          <div class="col-md-6">
+            <a class="btn btn-warning float-right" href="{{route('admin.productattr.index')}}">
+                  <i class="fa fa-list"></i> All Product Attributes
+                </a> &nbsp;
+                <a class="btn btn-primary float-right" data-toggle="modal" data-target="#addSub{{$pa->id}}">
+                  <i class="fa fa-plus"></i> Add Option
+                </a>
+          </div>
      </div>
+       <hr>
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <h3 class="tile-title ">All Options of <mark><strong>{{$pa->name}}</strong></mark>
+           <div class="">
+            <!--   <h3 class="tile-title ">All Options of <mark><strong>{{$pa->name}}</strong></mark>
               
                <a class="btn btn-warning float-right" href="{{route('admin.productattr.index')}}">
                   <i class="fa fa-list"></i> All Product Attributes
@@ -41,7 +56,7 @@ div#data_filter {
                 <a class="btn btn-success float-right" data-toggle="modal" data-target="#addSub{{$pa->id}}">
                   <i class="fa fa-plus"></i> Add Option
                 </a>
-              </h3>
+              </h3> -->
                
               <p style="clear:both;margin:0px;"></p>
               {{--  
@@ -122,6 +137,7 @@ div#data_filter {
            </div>
         </div>
      </div>
+   </div>
   </main>
 
   @includeif('admin.options.partials.add')
