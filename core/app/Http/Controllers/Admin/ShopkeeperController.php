@@ -12,6 +12,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Input;
+use Mail;
 
 use App\GeneralSetting as GS;
 use App\Http\Controllers\Controller;
@@ -575,6 +576,14 @@ class ShopkeeperController extends Controller
         $resp->status = $status_id;
         $resp->save();
 
+        Mail::send('admin.template.email',['email'=>$resp->email,'name'=>$resp->name], function ($message) {
+            $message->from('contact@domainname.com','Company Name');
+            $message->to($resp->email);
+            $message->subject('Contact form submitted on domainname.com');
+
+            dd($message);
+
+        });
         if($resp->status == 1){
             $to = $resp->email;
             $name = $resp->email .'/'.$resp->mobile;
