@@ -5,11 +5,9 @@
     <li><a class="app-menu__item @if(request()->path() == 'admin/dashboard') active @endif" href="{{route('admin.dashboard')}}"><i class="app-menu__icon fas fa-tachometer-alt"></i><span class="app-menu__label">Dashboard</span></a></li>
 
      <!-- E-commerce -->
-<<<<<<< HEAD
-    <!--  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
-=======
+
+
   @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
->>>>>>> user
     <li class="treeview
       @if (request()->path() == 'admin/product/index')
         is-expanded
