@@ -3,18 +3,28 @@
 {{-- Content Body --}}
 @section('content')
  <main class="app-content">
-<div class="app-title">
-        <div>
-           <h1><i class="fa fa-dashboard"></i> Cities List</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-</div>
-  </div>
-</div>
+  
+ 
 <style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#admins-table_filter {
+    display: none;
+}
+
+ 
 .dataTables_length, .dt-buttons {
     float: left;
     width: 100%;
@@ -37,13 +47,15 @@ div#admins-table_filter {
 <div class="container-fluid">
   <div class="row">
     <div class="col-3">
-          <div class="card">
+          <div class="main-content">
+          <h5>Add City</h5>
+          <hr />
       <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('cities.store') }}">
         {{ csrf_field() }}
-        <div class="card-body">
-          <h4 class="card-title m-b-0">Add City
+        <div class="">
+         <!-- <h4 class="card-title m-b-0">
             <div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
-          </h4>
+          </h4>-->
           <p class="text-muted "></p>
           <div class="form-group">
             <label>State Name <span class="text-danger">*</span></label>
@@ -58,7 +70,8 @@ div#admins-table_filter {
   <input type="text" placeholder="City Name" name="name" class="form-control" value="{{ old('name') }}">
   </div>
         </div>
-        <div class="card-footer">
+        <div class="text-right">
+        <hr />
             <button type="submit" class="btn btn-success"> Submit </button>
           </div>
           </form>
@@ -68,8 +81,11 @@ div#admins-table_filter {
     </div>
     <div class="col-md-9">
        
-    <div class="card">
-        <div class="card-body"> @if(Session::has('message'))
+    <div class="main-content">
+       <h5>Cities List</h5>
+       <hr />
+       
+        <div class=""> @if(Session::has('message'))
           <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
           @endif
           @if(Session::has('success'))
@@ -78,8 +94,8 @@ div#admins-table_filter {
           @if(Session::has('error'))
           <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('error') }}</p>
           @endif
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped display" id="admins-table">
+          <div class="">
+            <table class="table table-bordered w-100" id="admins-table">
               <thead>
                 <tr>
                   <th>Id</th>

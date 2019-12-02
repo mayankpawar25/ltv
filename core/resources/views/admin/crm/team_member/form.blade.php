@@ -149,7 +149,7 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
          
            <div class="col-md-6">
          <div class="form-group">
-         <label>Collection Person Level (if any)</label><br />
+         <label>Assign Collection duty (if any)</label><br />
 
           
                        &nbsp;<input type="checkbox" class=""  name="level" value="1" {{ (isset($rec->level) && $rec->level == 1)?'checked':'' }}>
@@ -210,48 +210,84 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
               </div>
          
          </div>
-         
-          
-           <!-- KYC -->
-           <div class="col-md-7">
+         </div>
+          <hr>
+          <div class="row">
+          <div class="col-md-12">
            <h6>Kyc Section</h6>
-            <div class="form-row">
-                 <div class="form-group col-md-6">
+           </div>
+          <div class="col-md-3">
+          <div class="form-group">
                     <label for="bank_account_no">@lang('form.bank_account_no')</label>
                     <input type="text" class="form-control form-control-sm" id="bank_account_no" name="bank_account_no" value="{{ old_set('bank_account_no', NULL, $rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('bank_account_no')) { echo $errors->first('bank_account_no') ; } @endphp</div>
                  </div>
-                 <div class="form-group col-md-6">
+          
+          </div>
+          
+          <div class="col-md-3">
+          <div class="form-group">
                     <label for="bank_ifsc_code">@lang('form.bank_ifsc_code')</label>
                     <input type="text" class="form-control form-control-sm"  name="bank_ifsc_code" value="{{ old_set('bank_ifsc_code', NULL, $rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('bank_ifsc_code')) { echo $errors->first('bank_ifsc_code') ; } @endphp</div>
                  </div>
-              </div>
-            <div class="form-group">
-                 <label for="bank_address">@lang('form.bank_address')</label>
-                 <textarea id="bank_address" name="bank_address" class="form-control form-control-sm " >{{ old_set('bank_address', NULL, $rec) }}</textarea>
-                 <div class="invalid-feedback d-block">@php if($errors->has('bank_address')) { echo $errors->first('bank_address') ; } @endphp</div>
-              </div>
-
-               <div class="form-group">
-                 <label for="bank_address">@lang('form.other_details')</label>
-                 <textarea id="other_details" name="other_details" class="form-control form-control-sm " >{{ old_set('other_details', NULL, $rec) }}</textarea>
-                 <div class="invalid-feedback d-block">@php if($errors->has('other_details')) { echo $errors->first('other_details') ; } @endphp</div>
-              </div>
-            
-           </div>
-           <div class="col-md-5">
-             <h6>&nbsp;</h6>
-             <div class="form-group">
+          
+          </div>
+          
+          <div class="col-md-3">
+          <div class="form-group">
                  <label for="adharcard_no">Adharcard No </label>
                  <input type="text" class="form-control form-control-sm" id="adharcard_no" name="adharcard_no" value="{{ old_set('adharcard_no', NULL, $rec) }}">
                  <div class="invalid-feedback d-block">@php if($errors->has('adharcard_no')) { echo $errors->first('adharcard_no') ; } @endphp</div>
               </div>
-                <div class="form-group">
+          
+          </div>
+          
+          <div class="col-md-3">
+          <div class="form-group">
                  <label for="pancard_no">Pan Card No </label>
                  <input type="text" class="form-control form-control-sm" id="pancard_no" name="pancard_no" value="{{ old_set('pancard_no', NULL, $rec) }}">
                  <div class="invalid-feedback d-block">@php if($errors->has('pancard_no')) { echo $errors->first('pancard_no') ; } @endphp</div>
               </div>
+          
+          </div>
+          
+          <div class="col-md-6">
+          <div class="form-group">
+                 <label for="bank_address">@lang('form.bank_address')</label>
+                 <textarea id="bank_address" name="bank_address" class="form-control form-control-sm " >{{ old_set('bank_address', NULL, $rec) }}</textarea>
+                 <div class="invalid-feedback d-block">@php if($errors->has('bank_address')) { echo $errors->first('bank_address') ; } @endphp</div>
+              </div>
+          </div>
+          
+           <div class="col-md-6">
+          <div class="form-group">
+                 <label for="bank_address">@lang('form.other_details')</label>
+                 <textarea id="other_details" name="other_details" class="form-control form-control-sm " >{{ old_set('other_details', NULL, $rec) }}</textarea>
+                 <div class="invalid-feedback d-block">@php if($errors->has('other_details')) { echo $errors->first('other_details') ; } @endphp</div>
+              </div>
+          </div>
+          
+          </div>
+          
+          
+          
+           <!-- KYC -->
+           <div class="col-md-7">
+          
+            <div class="form-row">
+                 
+                 
+              </div>
+            
+
+               
+            
+           </div>
+           <div class="col-md-5">
+             <h6>&nbsp;</h6>
+             
+                
            </div>
            <!-- KYC -->
         </div>

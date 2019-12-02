@@ -2,7 +2,7 @@
 @section('title', __('form.teams'))
 @section('content')
 <div class="app-content">
-    <div class="tile">
+    <div class="main-content">
       <div class="tile-body">
         <div class="row">
           <div class="col-md-6">
@@ -33,7 +33,7 @@
                   <input type="hidden" name="id" value="">
                   <div class="form-group">
                    <label>@lang('form.name') <span class="required">*</span></label>
-                   <input type="text" class="form-control form-control-sm" name="name">
+                   <input type="text" class="form-control " name="name">
                    <div class="error name"></div>
                  </div>
                  <div class="form-group ">
@@ -52,13 +52,13 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('form.close')</button>
-              <button type="button" class="btn btn-primary" id="submitForm">@lang('form.submit')</button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">@lang('form.close')</button>
+              <button type="button" class="btn btn-success" id="submitForm">@lang('form.submit')</button>
             </div>
           </div>
         </div>
       </div>
-      <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+      <table class="table table-bordered" cellspacing="0" width="100%" id="data">
         <thead>
           <tr>
             <th>@lang("form.name")</th>
@@ -68,8 +68,23 @@
         </thead>
       </table>
     </div>
+    <div class="clearfix"></div>
   </div>
 </div>
+<style>
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+ 
+    margin-top: 5px;
+
+}
+.select2-container--bootstrap .select2-selection--multiple .select2-selection__choice {
+
+  
+margin:0 2px;
+}
+</style>
+
+
 @endsection
 
 

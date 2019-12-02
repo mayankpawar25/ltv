@@ -3,9 +3,11 @@
 @section('content')
 <div class="app-content">
     <div class="main-content">
+    <h5>Activity Log</h5>
+    <hr />
         <!-- <a class="btn btn-danger btn-sm" href="{{ route('customer_contacts') }}">@lang('form.delete_logs')</a>     
             <hr> -->
-        <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+        <table class="table  table-bordered" cellspacing="0" width="100%" id="data">
             <thead>
                 <tr>
                     <th>@lang('form.date_time')</th>                          
