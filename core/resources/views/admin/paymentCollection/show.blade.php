@@ -60,7 +60,7 @@ div.dataTables_wrapper div.dataTables_filter {
                 <!-- Payment Type -->
                 
                 <div class="form-group payment_collection d-none">
-                  <label>Amount</label>
+                  <label>Due Amount</label>
                   <input type="text" name="amount" class="form-control" placeholder="Amount">
                 </div>
                 <!-- Amount -->
@@ -170,9 +170,9 @@ div.dataTables_wrapper div.dataTables_filter {
                       <td>{{ $collections->assigned->first_name .' '.$collections->assigned->last_name }}</td>
                     </tr>
                     <tr>
-                      <td><strong> Amount </strong></td>
+                      <td><strong> Due Amount </strong></td>
                       <td>{{ $collections->amount }}</td>
-                      <td><strong> Closing Balance </strong></td>
+                      <td><strong> Balance Amount </strong></td>
                       <td>{{ $collections->balance_amount }}</td>
                     </tr>
                     <tr>
@@ -222,7 +222,7 @@ div.dataTables_wrapper div.dataTables_filter {
                       </tr>
                       @empty
                       <tr>
-                        <td colspan=5 align="center">No Data Available</td>
+                        <td colspan=8 align="center">No Data Available</td>
                       </tr>
                       @endforelse
                         </tbody>
