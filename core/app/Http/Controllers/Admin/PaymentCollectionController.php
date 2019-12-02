@@ -136,6 +136,7 @@ class PaymentCollectionController extends Controller
         foreach ($data as $key => $row){
           $close_btn = '';
           $open_close_badge = ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">closed</span>';
+          $action = '<a href="'.route('collection.show',$row->id).'" class="btn btn-success btn-sm"><i class="icon-eye icons"></i></a>';
           if(auth()->user()->is_administrator){
 
             if($row->status==0 || $row->status==2){
@@ -144,9 +145,8 @@ class PaymentCollectionController extends Controller
             if($row->status == '2'){
               $open_close_badge ='<span class="badge badge-success">closed by Salesman</span>';
             }
-
-            //$close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'"><i class="icon-check icons"></i></button>';
-
+            
+            $action = '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.''.$close_btn;
           }
 
 
@@ -162,12 +162,8 @@ class PaymentCollectionController extends Controller
               $row->collected_amount,
               $row->balance_amount,
               $row->assigned->first_name.' '.$row->assigned->last_name,
-
               $open_close_badge,
-              
-
-             
-              '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.''.$close_btn,
+              $action,
 
           );
         }

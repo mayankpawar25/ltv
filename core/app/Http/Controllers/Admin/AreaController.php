@@ -187,8 +187,8 @@ class AreaController extends Controller
                             'permission' => 'area_delete',
                         ]
                     ]),
-                    $row->city->state->country->name,
-                    $row->city->state->name,
+                    $row->country->name,
+                    $row->state->name,
                     $row->city->name,
                     ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>',
                     anchor_link('Edit',route('area.edit', $row->id)).' '.anchor_link('Delete',route('area.delete', $row->id))
