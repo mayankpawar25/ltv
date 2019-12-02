@@ -28,8 +28,15 @@
 </style>
 <div class="app-content">
 <div id="contacts" v-cloak>
-   <div class="white-background">
-      <div class="row">
+  <!-- <div class="main-content" style="margin-bottom:30px;">
+      
+      <div class="clearfix"></div>
+   </div>-->
+    
+   <div class="row">
+      <div  v-bind:class="layout.left_pane" >
+         <div class="main-content" v-bind:class="{ 'scroller': (layout.left_pane == 'col-md-5') }" >
+            <div class="row">
          <div class="col-md-6">
             <h5>@lang('form.customer_contacts')</h5>
          </div>
@@ -47,11 +54,9 @@
             </div>
          </div>
       </div>
-   </div>
-   <br>
-   <div class="row">
-      <div  v-bind:class="layout.left_pane" >
-         <div class="main-content" v-bind:class="{ 'scroller': (layout.left_pane == 'col-md-5') }" >
+      <hr />
+            
+            
             <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
                <thead>
                   <tr>
@@ -63,6 +68,7 @@
                   </tr>
                </thead>
             </table>
+            <div class="clearfix"></div>
          </div>
       </div>
       <div  v-bind:class="layout.right_pane">
