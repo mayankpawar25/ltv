@@ -670,6 +670,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	Route::get('/usergroup/index', 'Admin\UserGroupController@index')->name('admin.usergroup.index');
 	Route::post('/usergroup/store', 'Admin\UserGroupController@store')->name('admin.usergroup.store');
 	Route::post('/usergroup/update', 'Admin\UserGroupController@update')->name('admin.usergroup.update');
+	Route::post('/usergrouplist', 'Admin\UserGroupController@paginate')->name('datatable_usergroup');
 
 	
 
