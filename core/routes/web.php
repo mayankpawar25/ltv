@@ -712,7 +712,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 
 	});
 
-
+	Route::post('/notifications/unread', 'Admin\AdminController@get_unread_notifications')->name('get_unread_notifications');
 
  	Route::get('/members/profile/{member}', 'UserController@profile')->name('member_profile');
 
@@ -1442,7 +1442,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 
 		Route::get('/salesman/', 'Admin\TasksController@salesmanList')->name('admin.tasks.salesmanlist');
 		Route::get('/salesman/{id}', 'Admin\TasksController@salesmanTasklist')->name('admin.salesmans.task');
-    	Route::get('/{salesman_id?}/arrival/', 'Admin\TasksController@myarrivals')->name('admin.tasks.arrivals');
+    	Route::get('/arrival/{salesman_id?}/', 'Admin\TasksController@myarrivals')->name('admin.tasks.arrivals');
     	Route::get('/json', 'Admin\TasksController@jsonView')->name('admin.json');
 
 
