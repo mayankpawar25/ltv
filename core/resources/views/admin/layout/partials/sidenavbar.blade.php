@@ -5,7 +5,7 @@
     <li><a class="app-menu__item @if(request()->path() == 'admin/dashboard') active @endif" href="{{route('admin.dashboard')}}"><i class="app-menu__icon fas fa-tachometer-alt"></i><span class="app-menu__label">Dashboard</span></a></li>
 
      <!-- E-commerce -->
-  <!--  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
+    <!--  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
     <li class="treeview
       @if (request()->path() == 'admin/product/index')
         is-expanded
@@ -69,7 +69,7 @@
     @endif -->
     <!-- E-commerce -->
     
-  <!--   <li><a class="app-menu__item @if(request()->path() == 'admin/charge/index') active @endif" href="{{route('admin.charge.index')}}"><i class="app-menu__icon fas fa-money-bill-alt"></i><span class="app-menu__label">Charge Settings</span></a></li>  -->
+    <!-- <li><a class="app-menu__item @if(request()->path() == 'admin/charge/index') active @endif" href="{{route('admin.charge.index')}}"><i class="app-menu__icon fas fa-buromobelexperteoney-bill-alt"></i><span class="app-menu__label">Charge Settings</span></a></li> -->
 
     @if(is_menu_enable('user_groups'))
     <li><a class="app-menu__item
@@ -78,8 +78,8 @@
       @endif" href="{{route('admin.usergroup.index')}}"><i class="app-menu__icon icon-people icons "></i><span class="app-menu__label">User Groups</span></a></li>
     @endif
 
-  <!--   @if(is_menu_enable('coupons'))
-      <li><a class="app-menu__item @if(request()->path() == 'admin/coupon/index') active @endif" href="{{route('admin.coupon.index')}}"><i class="app-menu__icon fas fa-dollar-sign"></i><span class="app-menu__label">Coupon Settings</span></a></li>
+    <!--   @if(is_menu_enable('coupons'))
+    <li><a class="app-menu__item @if(request()->path() == 'admin/coupon/index') active @endif" href="{{route('admin.coupon.index')}}"><i class="app-menu__icon fas fa-dollar-sign"></i><span class="app-menu__label">Coupon Settings</span></a></li>
     @endif -->
 
     <!-- @if(is_menu_enable('category_managements'))
@@ -93,7 +93,7 @@
       @endif" href="{{route('admin.productattr.index')}}"><i class="app-menu__icon fab fa-product-hunt"></i><span class="app-menu__label">Product Attributes</span></a></li>
     @endif -->
 
-   <!--  @if(is_menu_enable('products'))
+    <!--  @if(is_menu_enable('products'))
     <li><a class="app-menu__item
       @if(request()->path() == 'admin/product/index') active
       @elseif (request()->is('admin/options/*/index')) active
@@ -108,7 +108,7 @@
       @endif" href="{{route('admin.shopkeeper.index')}}"><i class="app-menu__icon icon-user icons"></i><span class="app-menu__label">Dealers </span></a></li>
     @endif
 
-   <!--  @if(is_menu_enable('job_cards'))
+    <!--  @if(is_menu_enable('job_cards'))
     <li><a class="app-menu__item
       @if(request()->path() == 'admin/jobcardtemplate/index') active
       @elseif (request()->is('admin/options/*/index')) active
@@ -118,11 +118,12 @@
     <!-- Payment Collections -->
     @if(is_menu_enable('collections'))
     <li><a class="app-menu__item @if(request()->path() == 'admin/collection') active
-       @elseif (request()->is('admin/collection/create')) active
-       @elseif (request()->is('admin/import')) active
+      @elseif (request()->is('admin/collection/create')) active
+      @elseif (request()->is('admin/import')) active
       @elseif (request()->is('admin/collection/*')) active
-     @endif" href="{{route('collection.index')}}"><i class="app-menu__icon icon-credit-card icons"></i><span class="app-menu__label">Collections</span></a></li>
+      @endif" href="{{route('collection.index')}}"><i class="app-menu__icon icon-credit-card icons"></i><span class="app-menu__label">Collections</span></a></li>
     @endif
+
     <!-- Payment Collections -->
 
      <!--  <li class="treeview
@@ -166,7 +167,7 @@
       </li> -->
 
       <!-- Orders -->
-   <!-- @if(is_menu_enable('orders'))
+    <!-- @if(is_menu_enable('orders'))
     <li class="treeview
       @if(request()->path() == 'admin/orders/all')
         is-expanded
@@ -498,7 +499,7 @@
     <!-- Team & Members -->
 
     <!-- Sales -->
- <!--  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
+    <!--  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
     <li class="treeview
       @if (request()->path() == 'admin/proposals')
         is-expanded
@@ -544,7 +545,7 @@
     <!-- <li><a class="app-menu__item @if(request()->path() == 'admin/salesscores') active @endif" href="{{route('admin.salesman.salesscore')}}"><i class="app-menu__icon fas fa-exchange-alt"></i><span class="app-menu__label">Sales Score</span></a></li> -->
 
    
-   <!--  @if(is_menu_enable('tickets'))
+    <!--  @if(is_menu_enable('tickets'))
     <li class="treeview
       @if (request()->path() == 'admin/tickets')
         is-expanded
@@ -558,7 +559,7 @@
     @endif -->
 
     <!-- Report -->
-     @if(is_menu_enable(['sales_report','leads_report' ,'activity_log']))
+    @if(is_menu_enable(['sales_report','leads_report' ,'activity_log']))
     <li class="treeview
       @if (request()->path() == 'admin/reports/sales')
         is-expanded
@@ -572,14 +573,14 @@
       @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-graph icons"></i><span class="app-menu__label">Reports </span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
 
-       <!--  @if(is_menu_enable('sales_report'))
+        <!--  @if(is_menu_enable('sales_report'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/sales' || request()->path() == 'admin/reports/sales') active @endif" href="{{route('report_sales_page')}}"> Sales Report</a></li>
         @endif -->
 
-      <!--  @if(is_menu_enable('expenses'))
+        <!--  @if(is_menu_enable('expenses'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/expenses' || request()->path() == 'admin/reports/expenses') active @endif" href="{{route('report_expenses_page')}}"> Expense Report</a></li>
         @endif
--->
+        -->
         @if(is_menu_enable('leads_report'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/leads' || request()->path() == 'admin/reports/leads') active @endif" href="{{route('lead_report_page')}}"> Leads Report</a></li>
         @endif
@@ -595,7 +596,7 @@
 
 
     <!-- Location -->
-
+    @if(is_menu_enable('locations'))
     <li class="treeview
       @if (request()->path() == 'admin/countries')
         is-expanded
@@ -617,8 +618,6 @@
       @endif">
       <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-map icons"></i><span class="app-menu__label">Location</span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
-
-         
         <li><a class="treeview-item @if(request()->path() == 'admin/countries' || request()->segment(2)== 'countries') active @endif" href="{{route('countries.index')}}">Countries</a></li>
 
         <li><a class="treeview-item @if(request()->path() == 'admin/states' || request()->segment(2)== 'states') active @endif" href="{{route('states.index')}}">States</a></li>
@@ -629,6 +628,7 @@
        
        </ul>
     </li>
+    @endif
     <!-- Location -->
 
     <!-- Setup -->
