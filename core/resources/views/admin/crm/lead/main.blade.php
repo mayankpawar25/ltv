@@ -71,6 +71,9 @@ legend.scheduler-border {
 }
 </style>
   <div class="app-content">
+  <div class="main-content">
+  <h5>Lead Detail</h5>
+  <hr />
         <div class="row">
           <div class="col-md-9">
               @include('admin.crm.lead.partials.overview')
@@ -109,12 +112,14 @@ legend.scheduler-border {
                  @elseif($group_name == 'reminders')
                     @include('admin.crm.lead.reminder')   
                  @endif
+                 <div class="clearfix"></div>
               </div>
           </div>
           <div class="col-md-3">
               @include('admin.crm.lead.partials.social_links')
               @include('admin.crm.lead.partials.smart_summary')
           </div>
+        </div>
         </div>
   </div>
 
@@ -163,7 +168,7 @@ legend.scheduler-border {
 
          // Log Touch
 
-          $('input[name=date]').daterangepicker({
+          $('input[name=date]').datepicker({
 
             singleDatePicker: true,
             showDropdowns: true,

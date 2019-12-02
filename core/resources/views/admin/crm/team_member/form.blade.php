@@ -18,126 +18,158 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
           {{ method_field('PATCH') }}
           @endif
         <div class="row">
-           <div class="col-md-7">
-             
-              <div class="form-row">
-                 <div class="form-group col-md-5">
+    <div class="col-md-3">
+        <div class="form-group ">
                     <label>@lang('form.first_name') <span class="required">*</span></label>
                     <input type="text" class="form-control form-control-sm @php if($errors->has('first_name')) { echo 'is-invalid'; } @endphp " name="first_name" value="{{ old_set('first_name', NULL, $rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('first_name')) { echo $errors->first('first_name') ; } @endphp</div>
                  </div>
-                 <div class="form-group col-md-5">
+        </div>
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label>@lang('form.last_name') <span class="required">*</span></label>
                     <input type="text" class="form-control form-control-sm @php if($errors->has('last_name')) { echo 'is-invalid'; } @endphp " name="last_name" value="{{ old_set('last_name', NULL, $rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('last_name')) { echo $errors->first('last_name') ; } @endphp</div>
                  </div>
-                 <div class="form-group col-md-2">
+        </div>
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label for="default_language_id">@lang('form.gender')</label>
                     <div class="select2-wrapper">
                        <?php echo form_dropdown("gender_id", $data['gender_id_list'], old_set("gender_id", NULL, $rec), "class='form-control form-control-sm selectPickerWithoutSearch '") ?>
                     </div>
                     <div class="invalid-feedback d-block">@php if($errors->has('gender_id')) { echo $errors->first('gender_id') ; } @endphp</div>
                  </div>
-              </div>
-              <div class="form-row">
-                 <div class="form-group col-md-5">
+        </div>
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label>@lang('form.job_title') <span class="required">*</span></label>
                     <input type="text" class="form-control form-control-sm @php if($errors->has('job_title')) { echo 'is-invalid'; } @endphp " name="job_title" value="{{ old_set('job_title', NULL, $rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('job_title')) { echo $errors->first('job_title') ; } @endphp</div>
                  </div>
-                 <div class="form-group col-md-4">
+        </div>
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label>@lang('form.reporting_boss')</label>
                     <div class="select2-wrapper">
                        <?php echo form_dropdown("reporting_boss", $data['reporting_boss_id_list'], old_set("reporting_boss", NULL, $rec), "class='form-control form-control-sm selectpicker' ") ?>
                     </div>
                     <div class="invalid-feedback d-block">@php if($errors->has('reporting_boss')) { echo $errors->first('reporting_boss') ; } @endphp</div>
                  </div>
-                 <div class="form-group col-md-3">
+        </div>
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label>@lang('form.joining_date')</label>
                     <input type="text" class="form-control form-control-sm datepicker  @php if($errors->has('joining_date')) { echo 'is-invalid'; } @endphp" name="joining_date" value="{{ old_set('joining_date', NULL,$rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('joining_date')) { echo $errors->first('joining_date') ; } @endphp</div>
                  </div>
-              </div>
-              <div class="form-row">
-                 <div class="form-group col-md-6">
+        </div>
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label>@lang('form.teams')</label>
                     <div class="select2-wrapper">
                        <?php echo form_dropdown("team_id[]", $data['team_id_list'], old_set("team_id", NULL, $rec), "class='form-control form-control-sm four-boot' multiple='multiple'") ?>
                     </div>
                     <div class="invalid-feedback d-block">@php if($errors->has('team_id')) { echo $errors->first('team_id') ; } @endphp</div>
                  </div>
-                 <div class="form-group col-md-6">
+        </div>
+        
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label>@lang('form.date_of_birth')</label>
                     <input type="text" class="form-control form-control-sm initially_empty_datepicker  @php if($errors->has('birth_date')) { echo 'is-invalid'; } @endphp" name="birth_date" value="{{ old_set('birth_date', NULL,$rec) }}">
                     <div class="required">@php if($errors->has('birth_date')) { echo $errors->first('birth_date') ; } @endphp</div>
                  </div>
-              </div>
-              <div class="form-row">
-                 <div class="form-group col-md-6">
+        </div>
+        
+        <div class="col-md-3">
+        <div class="form-group">
                     <label for="phone">@lang('form.salary')</label>
                     <input type="text" class="form-control form-control-sm" id="salary" name="salary" value="{{ old_set('salary', NULL, $rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('salary')) { echo $errors->first('salary') ; } @endphp</div>
                  </div>
-                 <div class="form-group col-md-6">
+        </div>
+        
+         <div class="col-md-3">
+         <div class="form-group">
                     <label for="phone">@lang('form.salary_term')</label>
                     <input type="text" class="form-control form-control-sm" placeholder="@lang('form.salary_term_example')" name="salary_term" value="{{ old_set('salary_term', NULL, $rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('salary_term')) { echo $errors->first('salary_term') ; } @endphp</div>
                  </div>
-              </div>
-              <div class="form-group">
+         </div>
+         
+           <div class="col-md-3">
+         <div class="form-group">
                  <label>@lang('form.skills')</label>
                  <div class="select2-wrapper">
                     <?php echo form_dropdown("skill_id[]", $data['skill_id_list'], old_set("skill_id", NULL, $rec), "class='form-control form-control-sm four-boot' multiple='multiple'") ?>
                  </div>
                  <div class="invalid-feedback d-block">@php if($errors->has('skill_id')) { echo $errors->first('skill_id') ; } @endphp</div>
               </div>
-               <div class="form-group">
+         </div>
+         
+           <div class="col-md-3">
+         <div class="form-group">
                  <label>@lang('form.unique_code') </label>
                  <input type="text" class="form-control form-control-sm @php if($errors->has('code')) { echo 'is-invalid'; } @endphp " 
                     name="code" placeholder="@lang('form.member_code_example')" value="{{ old_set('code', NULL, $rec) }}">
                  <div class="invalid-feedback d-block">@php if($errors->has('code')) { echo $errors->first('code') ; } @endphp</div>
               </div>
-           </div>
-           <div class="col-md-5">
-            <div class="form-group">
+         </div>
+         
+           <div class="col-md-3">
+         <div class="form-group">
                  <label>@lang('form.departments')</label>
                  <div class="select2-wrapper">
                     <?php echo form_dropdown("department_id[]", $data['department_id_list'], old_set("department_id", NULL, $rec), "class='form-control form-control-sm four-boot' multiple='multiple'") ?>
                  </div>
                  <div class="invalid-feedback d-block">@php if($errors->has('department')) { echo $errors->first('department') ; } @endphp</div>
               </div>
-
-              <div class="form-row">
-                 <div class="form-group col-md-6">
+         </div>
+         
+           <div class="col-md-3">
+         <div class="form-group">
                     <label>@lang('form.user_role')</label>
                     <div class="select2-wrapper">
                        <?php echo form_dropdown("role_id", $data['user_roles_id_list'], old_set("role_id", NULL, $rec), "class='form-control form-control-sm selectPickerWithoutSearch' ") ?>
+                        <input type="checkbox" class="mb-1" id="" name="is_administrator" value="1" {{ (old_set('is_administrator', NULL, $rec)) ? 'checked' : '' }}>
+                        
+                       <label class="" for="customCheck1">@lang('form.is_administrator')</label>
                     </div>
                     <div class="invalid-feedback d-block">@php if($errors->has('role_id')) { echo $errors->first('role_id') ; } @endphp</div>
                  </div>
-                  <div class="form-check form-check-inline">
-                    <div class="custom-control custom-checkbox">
-                       <input type="checkbox" class="custom-control-input" id="customCheck1" name="is_administrator" value="1" {{ (old_set('is_administrator', NULL, $rec)) ? 'checked' : '' }}>
-                       <label class="custom-control-label" for="customCheck1">@lang('form.is_administrator')</label>
+         </div>
+         
+           <div class="col-md-6">
+         <div class="form-group">
+         <label>Collection Person Level (if any)</label><br />
+
+          
+                       &nbsp;<input type="checkbox" class=""  name="level" value="1" {{ (isset($rec->level) && $rec->level == 1)?'checked':'' }}>
+                       <label class="" for="customCheck2">@lang('form.level_one')</label>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <input type="checkbox" class=""  name="level" value="2" {{ (isset($rec->level) && $rec->level == 2)?'checked':'' }}>
+                       <label class="" for="customCheck3">@lang('form.level_two')</label>
                     </div>
-                 </div>
-              </div>
-              <div class="form-row">
-                <div class="form-check form-check-inline">
-                    <div class="custom-control custom-checkbox">
-                       <input type="radio" class="custom-control-input" id="customCheck2" name="level" value="1" {{ (isset($rec->level) && $rec->level == 1)?'checked':'' }}>
-                       <label class="custom-control-label" for="customCheck2">@lang('form.level_one')</label>
-                       <input type="radio" class="custom-control-input" id="customCheck3" name="level" value="2" {{ (isset($rec->level) && $rec->level == 2)?'checked':'' }}>
-                       <label class="custom-control-label" for="customCheck3">@lang('form.level_two')</label>
-                    </div>
-                 </div>
-              </div>
-              <div class="form-group">
+         </div>
+         
+           <div class="col-md-3">
+         <div class="form-group">
                  <label>@lang('form.email') <span class="required">*</span></label>
                  <input type="text" class="form-control form-control-sm @php if($errors->has('email')) { echo 'is-invalid'; } @endphp" id="email" name="email" value="{{ old_set('email', NULL, $rec) }}">
                  <div class="invalid-feedback d-block">@php if($errors->has('email')) { echo $errors->first('email') ; } @endphp</div>
               </div>
-              <div class="form-group">
+         </div>
+         
+         <div class="col-md-3">
+         <div class="form-group">
                  <label>@lang('form.password')</label>
                  <div class="input-group input-group-sm">
                     <input type="password" class="form-control form-control-sm @php if($errors->has('password')) { echo 'is-invalid'; } @endphp" name="password">
@@ -149,22 +181,37 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
                  <small class="form-text text-muted">{{ (isset($rec->id)) ? __('form.team_member_password_note_edit') : __('form.team_member_password_note_add') }}</small>
                  <div class="invalid-feedback d-block">@php if($errors->has('password')) { echo $errors->first('password') ; } @endphp</div>
               </div>
-              <div class="form-group">
+         
+         </div>
+         
+          <div class="col-md-3">
+         
+         <div class="form-group">
                  <label for="phone">@lang('form.phone')</label>
                  <input type="text" class="form-control form-control-sm" id="phone" name="phone" value="{{ old_set('phone', NULL, $rec) }}">
                  <div class="invalid-feedback d-block">@php if($errors->has('phone')) { echo $errors->first('phone') ; } @endphp</div>
               </div>
-              <div class="form-group">
+         </div>
+         
+          <div class="col-md-3">
+         <div class="form-group">
                  <label for="phone">@lang('form.alternate_no')</label>
                  <input type="text" class="form-control form-control-sm" id="alternate_no" name="alternate_no" value="{{ old_set('alternate_no', NULL, $rec) }}">
                  <div class="invalid-feedback d-block">@php if($errors->has('alternate_no')) { echo $errors->first('alternate_no') ; } @endphp</div>
               </div>
-              <div class="form-group">
+         
+         </div>
+         
+          <div class="col-md-12">
+         <div class="form-group">
                  <label for="address">@lang('form.address')</label>
                  <textarea id="address" name="address" class="form-control form-control-sm " >{{ old_set('address', NULL, $rec) }}</textarea>
                  <div class="invalid-feedback d-block">@php if($errors->has('address')) { echo $errors->first('address') ; } @endphp</div>
               </div>
-           </div>
+         
+         </div>
+         
+          
            <!-- KYC -->
            <div class="col-md-7">
            <h6>Kyc Section</h6>

@@ -1,17 +1,27 @@
-<div class="content-header">
+<div class="card">
+<div class="card-header">
    <div class="row">
-      <div class="col-md-4">@lang('form.lead')</div>      
-      <div class="col-md-8">
+      <div class="col-md-2"><strong>@lang('form.lead')</strong></div>      
+      <div class="col-md-10">
          <div class="float-md-right">
-            <button type="button" class="btn btn-sm btn-light" data-toggle="modal" data-target="#logTouchModal"> <i class="fas fa-address-book"></i> @lang('form.log_touch')</button>
+            <button type="button" class="btn btn-sm btn-primary mr-1" data-toggle="modal" data-target="#logTouchModal"> <i class="fas fa-address-book"></i> @lang('form.log_touch')</button>
 
-            @if(check_perm('leads_edit'))
+            
+            <div class="btn-group mr-1">
+               @if(isset($rec->customer_id) && $rec->customer_id)
+               <a href="{{ route('view_customer_page', $rec->customer_id ) }}" class="btn btn-primary btn-sm "><i class="fas fa-user"></i> @lang('form.edit_customer_profile')</a>
+               @elseif(isset($rec->id) && !$rec->customer_id && ($rec->lead_status_id != LEAD_STATUS_CUSTOMER) )
+               <a href="{{ route('add_customer_page', $rec->id ) }}" class="btn btn-primary btn-sm  "><i class="fas fa-user"></i> @lang('form.convert_to_customer')</a>
+               @endif
+               
+            </div>
+             @if(check_perm('leads_edit'))
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-               <a class="btn btn-light btn-sm" href="{{ route('edit_lead_page', $rec->id) }}" >
-               <i class="far fa-edit"></i> @lang('form.edit')  
+               <a class="btn btn-primary btn-sm mr-2 " href="{{ route('edit_lead_page', $rec->id) }}" >
+               <i class="far fa-edit"></i> <!--@lang('form.edit')-->  
                </a>
                <div class="btn-group" role="group">
-                  <button id="btnGroupDrop1" type="button" class="btn btn-light btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle mr-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   @lang('form.more')
                   </button>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1"> 
@@ -27,19 +37,12 @@
                   </div>
                </div>
             </div>
-            @endif  
-            <div class="btn-group">
-               @if(isset($rec->customer_id) && $rec->customer_id)
-               <a href="{{ route('view_customer_page', $rec->customer_id ) }}" class="btn btn-light btn-sm"><i class="fas fa-user"></i> @lang('form.edit_customer_profile')</a>
-               @elseif(isset($rec->id) && !$rec->customer_id && ($rec->lead_status_id != LEAD_STATUS_CUSTOMER) )
-               <a href="{{ route('add_customer_page', $rec->id ) }}" class="btn btn-light btn-sm"><i class="fas fa-user"></i> @lang('form.convert_to_customer')</a>
-               @endif
-            </div>
+            @endif 
          </div>
       </div>
    </div>
 </div>
-<div class="white-background" style="margin-bottom: 20px;">
+<div class="card-body" style="margin-bottom: 20px;">
    <div class="row">
       <div class="col-md-8">
          <div class="row">
@@ -122,4 +125,5 @@
    </div>
 
 
+</div>
 </div>
