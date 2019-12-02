@@ -5,7 +5,7 @@
     <li><a class="app-menu__item @if(request()->path() == 'admin/dashboard') active @endif" href="{{route('admin.dashboard')}}"><i class="app-menu__icon fas fa-tachometer-alt"></i><span class="app-menu__label">Dashboard</span></a></li>
 
      <!-- E-commerce -->
-  <!--  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
+  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
     <li class="treeview
       @if (request()->path() == 'admin/product/index')
         is-expanded
@@ -19,8 +19,6 @@
         is-expanded
       @elseif (request()->path() == 'admin/productattr/index')
         is-expanded
-      @elseif (request()->path() == 'admin/options/*/index')
-        is-expanded
       @elseif (request()->path() == 'admin/coupon/index')
         is-expanded
       @elseif (request()->path() == 'admin/coupon/create')
@@ -28,6 +26,8 @@
       @elseif (request()->path() == 'admin/usergroup/index')
         is-expanded
      @elseif (request()->path() == 'admin/usergroup/index')
+        is-expanded
+      @elseif (request()->is('admin/customers/*'))
         is-expanded
       @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">E-commerce </span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
@@ -47,7 +47,7 @@
          @if(is_menu_enable('product_attr'))
         <li><a class="app-menu__item
           @if(request()->path() == 'admin/productattr/index') active
-          @elseif (request()->is('admin/options/*/index')) active
+           @elseif (request()->is('admin/options/*/index')) active
           @endif" href="{{route('admin.productattr.index')}}"><i class="app-menu__icon fab fa-product-hunt"></i><span class="app-menu__label">Attributes</span></a></li>
          @endif
 
@@ -60,13 +60,12 @@
        @if(is_menu_enable('user_groups'))
       <li><a class="app-menu__item
         @if(request()->path() == 'admin/usergroup/index') active
-        @elseif (request()->is('admin/options/*/index')) active
-        @endif" href="{{route('admin.usergroup.index')}}"><i class="app-menu__icon fab fa-product-hunt"></i><span class="app-menu__label">User Groups</span></a></li>
+         @endif" href="{{route('admin.usergroup.index')}}"><i class="app-menu__icon icon-people icons "></i><span class="app-menu__label">User Groups</span></a></li>
       @endif
 
       </ul>
     </li>
-    @endif -->
+    @endif
     <!-- E-commerce -->
     
   <!--   <li><a class="app-menu__item @if(request()->path() == 'admin/charge/index') active @endif" href="{{route('admin.charge.index')}}"><i class="app-menu__icon fas fa-money-bill-alt"></i><span class="app-menu__label">Charge Settings</span></a></li>  -->
@@ -74,8 +73,7 @@
     @if(is_menu_enable('user_groups'))
     <li><a class="app-menu__item
       @if(request()->path() == 'admin/usergroup/index') active
-      @elseif (request()->is('admin/options/*/index')) active
-      @endif" href="{{route('admin.usergroup.index')}}"><i class="app-menu__icon icon-people icons "></i><span class="app-menu__label">User Groups</span></a></li>
+       @endif" href="{{route('admin.usergroup.index')}}"><i class="app-menu__icon icon-people icons "></i><span class="app-menu__label">User Groups</span></a></li>
     @endif
 
   <!--   @if(is_menu_enable('coupons'))
@@ -639,8 +637,6 @@
       @elseif (request()->path() == 'admin/EmailSetting')
         is-expanded
       @elseif (request()->path() == 'admin/SmsSetting')
-        is-expanded
-      @elseif (request()->path() == 'admin/settings')
         is-expanded
       @endif">
       <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-equalizer icons"></i><span class="app-menu__label"> Setup</span><i class="treeview-indicator fa fa-angle-right"></i></a>
