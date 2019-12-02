@@ -117,7 +117,11 @@
 
     <!-- Payment Collections -->
     @if(is_menu_enable('collections'))
-    <li><a class="app-menu__item @if(request()->path() == 'admin/collection') active @endif" href="{{route('collection.index')}}"><i class="app-menu__icon icon-credit-card icons"></i><span class="app-menu__label">Collections</span></a></li>
+    <li><a class="app-menu__item @if(request()->path() == 'admin/collection') active
+       @elseif (request()->is('admin/collection/create')) active
+       @elseif (request()->is('admin/import')) active
+      @elseif (request()->is('admin/collection/*')) active
+     @endif" href="{{route('collection.index')}}"><i class="app-menu__icon icon-credit-card icons"></i><span class="app-menu__label">Collections</span></a></li>
     @endif
     <!-- Payment Collections -->
 
