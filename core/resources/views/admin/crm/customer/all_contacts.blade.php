@@ -25,6 +25,9 @@
    color: orange;
 }
 
+p{
+	margin-bottom:5px !important;
+}
 </style>
 <div class="app-content">
 <div id="contacts" v-cloak>
@@ -34,13 +37,19 @@
    </div>-->
     
    <div class="row">
+      
+      <div  v-bind:class="layout.right_pane">
+         <div class="white-background" v-if="Object.keys(records).length > 0">
+            @include('admin.crm.customer.contacts.profile')
+         </div>
+      </div>
       <div  v-bind:class="layout.left_pane" >
          <div class="main-content" v-bind:class="{ 'scroller': (layout.left_pane == 'col-md-5') }" >
             <div class="row">
-         <div class="col-md-6">
+         <div class="col-md-5">
             <h5>@lang('form.customer_contacts')</h5>
          </div>
-         <div class="col-md-6">
+         <div class="col-md-7">
             <div class="float-md-right">
                @if(check_perm('customers_create'))
                <a class="btn btn-primary btn-sm" href="{{ route('add_customer_page') }}">@lang('form.new_customer')</a>      
@@ -71,14 +80,10 @@
             <div class="clearfix"></div>
          </div>
       </div>
-      <div  v-bind:class="layout.right_pane">
-         <div class="white-background" v-if="Object.keys(records).length > 0">
-            @include('admin.crm.customer.contacts.profile')
-         </div>
-      </div>
    </div>
 </div>
 </div>
+
 @endsection
 @section('onPageJs')
 
@@ -208,7 +213,7 @@ $(function () {
 
                     $scope = this;
 
-                    if($scope.layout.left_pane == 'col-md-5')
+                    if($scope.layout.left_pane == 'col-md-9')
                     {
                         $scope.layout = {
                             left_pane : 'hide-content',
@@ -219,8 +224,8 @@ $(function () {
                     else
                     {
                         $scope.layout = {
-                            left_pane : 'col-md-5',
-                            right_pane : 'col-md-7'
+                            left_pane : 'col-md-9',
+                            right_pane : 'col-md-3'
                         };
 
                     }
@@ -233,8 +238,8 @@ $(function () {
                     if($val == 'col-md-5')
                     {
                         $scope.layout = {
-                            left_pane : 'col-md-5',
-                            right_pane : 'col-md-7'
+                            left_pane : 'col-md-9',
+                            right_pane : 'col-md-3'
                         };
 
                     }
@@ -268,8 +273,8 @@ $(function () {
 
 
                     $scope.layout = {
-                        left_pane  : 'col-md-5',
-                        right_pane : 'col-md-7'
+                        left_pane  : 'col-md-9',
+                        right_pane : 'col-md-3'
                     };
 
                     

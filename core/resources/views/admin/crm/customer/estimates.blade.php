@@ -1,7 +1,7 @@
 <div class="main-content">
    <h5>@lang('form.estimates')</h5>
    <hr>
-   <table class="table table-estimates dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+   <table class="table table-bordered table-estimates dataTable no-footer dtr-inline collapsed" width="100%" id="data">
       <thead>
          <tr>
             <th>@lang("form.estimate_#")</th>
@@ -16,6 +16,7 @@
          </tr>
       </thead>
    </table>
+   <div class="clearfix"></div>
 </div>
 
 @section('innerPageJS')

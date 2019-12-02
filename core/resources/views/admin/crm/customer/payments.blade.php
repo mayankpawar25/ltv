@@ -1,7 +1,7 @@
 <div class="main-content">
    <h5>@lang('form.payments')</h5>
    <hr>
-   <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+   <table class="table table-bordered table-striped table-bordered" cellspacing="0" width="100%" id="data">
       <thead>
          <tr>
             <th>@lang("form.payment_#")</th>
@@ -14,6 +14,7 @@
          </tr>
       </thead>
    </table>
+   <div class="clearfix"></div>
 </div>
 @section('innerPageJS')
 

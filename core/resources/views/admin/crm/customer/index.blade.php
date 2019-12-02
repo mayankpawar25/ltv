@@ -63,7 +63,7 @@
     </div>
     @endif
     @if(check_perm('customers_view_own'))
-    <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+    <table class="table table-bordered w-100" cellspacing="0" width="100%" id="data">
       <thead>
          <tr>
             <th>@lang("form.name")</th>
@@ -83,6 +83,14 @@
     <div class="clearfix"></div>
   </div>
 </div>
+
+<style>
+table tr td:last-child{
+	text-align:right;
+}
+
+</style>
+
 @endsection
 @section('onPageJs')
 

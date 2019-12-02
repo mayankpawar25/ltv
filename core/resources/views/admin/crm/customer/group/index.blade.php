@@ -46,7 +46,7 @@
 
         <hr>
 
-        <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+        <table class="table w-100 table-bordered" cellspacing="0" width="100%" id="data">
             <thead>
             <tr>
                 <th>@lang("form.name")</th>
@@ -54,6 +54,7 @@
             </tr>
             </thead>
         </table>
+        <div class="clearfix"></div>
     </div>
 </div>
 @endsection

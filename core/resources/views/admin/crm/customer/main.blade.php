@@ -18,10 +18,10 @@ $page_title = (isset($rec->id)) ? __('form.customer') . " : " .$rec->name : __('
 <div class="app-content">
    <div class="main-content" style="margin-bottom: 20px;">
       <div class="row" style="margin-bottom: 10px;">
-         <div class="col-md-9">
+         <div class="col-md-12">
             <h5>@lang('form.customer'): {{ $rec->name }}</h5>
          </div>
-         <div class="col-md-3">
+        <!-- <div class="col-md-3">
             @if(check_perm('customers_edit'))
             <div class="dropdown float-md-right">
                <a class="btn btn-light btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -32,7 +32,7 @@ $page_title = (isset($rec->id)) ? __('form.customer') . " : " .$rec->name : __('
                </div>
             </div>
             @endif 
-         </div>
+         </div>-->
       </div>
       <ul class="nav project-navigation">
          <li class="nav-item">

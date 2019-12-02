@@ -39,8 +39,8 @@
                                 @endphp
                             @endif
                             </div>
-                            <div class="col-md-3">
-                            <div class="form-group  {{ $class }}">
+                            <div class="col-md-3 {{ $class }}">
+                            <div class="form-group  ">
                                 <label for="assigned_to">@lang('form.assigned_to')</label>
                                 <?php echo form_dropdown("assigned_to", $data['assigned_to_list'], old_set("assigned_to", NULL, $rec), "class='form-control  selectpicker'") ?>
                                 <div class="invalid-feedback">@php if($errors->has('assigned_to')) { echo $errors->first('assigned_to') ; } @endphp</div>
