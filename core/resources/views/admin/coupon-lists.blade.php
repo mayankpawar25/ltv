@@ -25,6 +25,7 @@ div#data_filter {
 
 </style>
   <main class="app-content">
+    <div class="main-content">
      <div class="app-title">
         <div class="row" style="width:100%">
           <div class="col-md-6">
@@ -109,6 +110,7 @@ div#data_filter {
                   </div>
               </div>
      </div>
+     </div>
   </main>
   <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
 <script type="text/javascript">
@@ -150,9 +152,10 @@ div#data_filter {
           { className: "text-right", "targets": [3] },
           { "name": "coupon_code",   "targets": 0 },
           { "name": "coupon_type", "targets": 1 },
-          { "name": "coupon_min_amount",  "targets": 2 ,orderable:false},
-          { "name": "valid_till",  "targets": 3 ,orderable:false},
-          { "name": "action",  "targets": 4,orderable:false },
+          { "name": "coupon_amount", "targets": 2 },
+          { "name": "coupon_min_amount",  "targets": 3 },
+          { "name": "valid_till",  "targets": 4},
+          { "name": "action",  "targets": 5,orderable:false },
          ],
         "ajax": {
             "url": '{!! route("datatable_coupon") !!}',

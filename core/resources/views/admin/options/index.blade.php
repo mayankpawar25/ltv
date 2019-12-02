@@ -102,7 +102,7 @@ div#data_filter {
                       @includeif('admin.options.partials.edit')
                @endforeach
                 @endif
-                <div class="col-md-12">
+                <div class="">
                 <div class="sellers-product-inner">
                     <div class="bottom-content">
                         <table class="table table-bordered w-100" id="data">
@@ -117,6 +117,7 @@ div#data_filter {
                         </table>
                     </div>
                   </div>
+                  <div class="clearfix"></div>
               </div>
            </div>
         </div>

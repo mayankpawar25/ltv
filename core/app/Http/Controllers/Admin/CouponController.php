@@ -38,8 +38,11 @@ class CouponController extends Controller
         if($search_key)
         {
             $query->where(function ($k) use ($search_key) {
-                $k->where('name', 'like', $search_key.'%')
-                ->orWhere('percentage', 'like', $search_key.'%');
+                $k->where('coupon_code', 'like', $search_key.'%')
+                ->orWhere('coupon_type', 'like', $search_key.'%')
+                ->orWhere('coupon_min_amount', 'like', $search_key.'%')
+                ->orWhere('valid_till', 'like', $search_key.'%')
+                 ->orWhere('coupon_amount', 'like', $search_key.'%');
 
             });
         }

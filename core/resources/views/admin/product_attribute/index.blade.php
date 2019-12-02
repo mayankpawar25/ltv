@@ -108,7 +108,7 @@ div#data_filter {
                           @endforeach
                     
                 @endif
-               <div class="col-md-12">
+               <div class="">
                 <div class="sellers-product-inner">
                     <div class="bottom-content">
                         <table class="table table-bordered w-100" id="data">
@@ -124,6 +124,7 @@ div#data_filter {
                         </table>
                     </div>
                   </div>
+                  <div class="clearfix"></div>
               </div>
 
            </div>
