@@ -27,8 +27,10 @@ Route::get('/contact', function () {
 Route::get('/shop', function () {
     return redirect('admin');
 });*/
+
 Route::get('/import/download/sample', 'Admin\AreaController@download_sample_area_import_file')->name('download_sample_area_import_file');
 Route::post('/paginate', 'Admin\AreaController@paginate')->name('datatables_area');
+
 Route::get('qrcode', 'QrcodeController@generateQrCode')->name('generateqrcode');
 
 //Payment IPN
@@ -269,7 +271,6 @@ Route::group(['prefix' => 'vendor', 'middleware' => ['auth:vendor']], function (
   	Route::get('/import/download/sample', 'Admin\ShopkeeperController@download_sample_dealer_import_file')->name('download_sample_dealer_import_file');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permission','set_global_config']], function () {
-  		
   		
   	/* New Web Changes Added */
   	Route::get('/attachment/delete/{attachment}', 'AttachmentController@destroy')->name('remove_attachment');
@@ -1515,11 +1516,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	   		'update'	=> 'area.update',
 	      ]
 	]);
-
 	
     Route::get('/delete/{id}', 'Admin\AreaController@destroy')->name('area.delete');
 
     Route::get('/import_page', 'Admin\AreaController@import_page')->name('area.import_page');
+	Route::get('/import/download/area/', 'Admin\AreaController@download_sample_area_import_file')->name('download_sample_area_import_file');
 
     Route::post('/', 'Admin\AreaController@import')->name('area.import');
 

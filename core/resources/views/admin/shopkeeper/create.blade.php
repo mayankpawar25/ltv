@@ -33,6 +33,7 @@
                   @if($errors->has('owner_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('owner_name') }}</strong></span></p>
                   @endif
+                  <div class="clearfix"></div>
                 </div>
               </div>
               <div class="col-sm-3">

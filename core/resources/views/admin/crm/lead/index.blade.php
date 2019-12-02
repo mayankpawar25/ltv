@@ -87,7 +87,7 @@ div#data_filter {
       </div>
       
       @if(check_perm('leads_view'))
-       <div class="form-group col-md-3">
+       <div class="form-group col-md-2">
          <label>@lang('form.assigned_to')</label>
          <?php
             echo form_dropdown('assigned_to', $data['assigned_to_list'] , [], "class='form-control four-boot'");
@@ -132,6 +132,7 @@ div#data_filter {
    </table>
  </div>
 </div>
+<div class="clearfix"></div>
 </div>
 </div>
 <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
