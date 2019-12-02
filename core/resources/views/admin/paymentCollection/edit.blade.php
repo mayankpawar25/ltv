@@ -68,7 +68,7 @@ div.dataTables_wrapper div.dataTables_filter {
          <div class="col-md-3">
         
           <div class="form-group">
-            <label>Alternate Number No <span class="text-danger">*</span></label>
+            <label>Alternate Number No </label>
            <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{$collection->alternate_no}}">
           </div>
           <div class=" {{ $errors->has('alternate_no') ? ' has-error' : '' }}"> @if ($errors->has('alternate_no'))
@@ -386,7 +386,7 @@ $('#admins-table').DataTable({
                     mobile_regex: true,
                 },
                 alternate_no: {
-                    required: true,
+                   /* required: true,*/
                     mobile_regex: true,
                 },
                 collection_date: {
