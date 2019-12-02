@@ -640,6 +640,8 @@
         is-expanded
       @elseif (request()->path() == 'admin/SmsSetting')
         is-expanded
+      @elseif (request()->path() == 'admin/settings')
+        is-expanded
       @endif">
       <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-equalizer icons"></i><span class="app-menu__label"> Setup</span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
