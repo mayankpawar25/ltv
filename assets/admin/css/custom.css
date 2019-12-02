@@ -26,6 +26,11 @@
 .btn .icon, .btn .fa {
 	margin-right: 0px;
 }
+.multiple .dropdown-menu {
+	min-width:8.8rem;
+
+}
+
 .product-upload-form .btn-wrapper .submit-btn {
 	text-align: center;
 	font-weight: 700;
@@ -299,6 +304,8 @@
 }
 .dataTables_info {
 	font-size: 13px;
+	float:left;
+	width:50%;
 }
 .dataTables_length {
 	float: right !important;
@@ -384,6 +391,22 @@ background-color:
 }
 .card{
 	margin-bottom:30px;
+}
+
+.dtr-details{
+	list-style:none;
+	padding-left:15px;
+}
+.dtr-details li{
+	margin-bottom:15px;
+	border-bottom:1px solid #ddd;
+	padding-bottom:5px;
+}
+.invalid-feedback{
+	font-size:11px !important;
+}
+.select2-results__option--highlighted{
+	background-color:#f2f2f2;
 }
 
  @media only screen and (max-width: 767px) {

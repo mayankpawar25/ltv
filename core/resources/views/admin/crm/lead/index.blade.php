@@ -132,6 +132,7 @@ div#data_filter {
    </table>
  </div>
 </div>
+<div class="clearfix"></div>
 </div>
 </div>
 <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 

@@ -9,7 +9,7 @@
           
       </div>
       <div class="col-md-6">
-         <a href="{{ route('download_sample_collection_import_file') }}" class="btn btn-success btn-sm float-md-right">@lang('form.download_sample')</a>
+         <a href="{{ route('download_sample_collection_import_file') }}" class="btn btn-primary btn-sm float-md-right">@lang('form.download_sample')</a>
       </div>
    </div>
    <hr>
@@ -92,4 +92,10 @@
    </form>
 </div>
 </div>
+<style>
+.invalid-feedback {
+	font-size:85%;
+}
+
+</style>
 @endsection

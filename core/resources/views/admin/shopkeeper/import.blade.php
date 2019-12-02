@@ -122,4 +122,10 @@
    </form>
 </div>
 </div>
+<style>
+.invalid-feedback {
+ 
+    font-size: 81%;
+}
+</style>
 @endsection

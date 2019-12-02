@@ -18,8 +18,8 @@
              
               <div class="col-md-6 text-right">
              
-               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addModal">
-                   <i class="fa fa-plus"></i> Add User Group
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
+                   Add User Group
                  </button>
              </div>
              
@@ -68,7 +68,7 @@
                                  @endif
                                </td>
                                <td>
-                                 <button type="button" class="btn btn-success btn-sm float-right"><span data-toggle="modal" data-target="#editModal{{$cat->id}}" ><i class="fas fa-pencil-alt"></i></span></button>
+                                 <button type="button" class="btn btn-success btn-sm float-right"><span data-toggle="modal" data-target="#editModal{{$cat->id}}" ><i class="icon icon-pencil"></i></span></button>
                                </td>
                             </tr>
                             @includeif('admin.usergroup.partials.edit')
