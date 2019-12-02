@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\DB;
 use App\PaymentCollection;
 use App\PaymentCollectionDescription;
 use App\Models\StaffUser,App\Shopkeeper;
+use App\Notifications\CollectionReceived;
 use Validator;
 use Hash;
 use Auth;
 use Datatables;
 use Carbon\Carbon;
+use App\Currency;
   
 use Illuminate\Support\Facades\File;
 
@@ -21,6 +23,8 @@ use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
+
+use App\Notification;
 
 class PaymentCollectionController extends Controller
 {
@@ -202,11 +206,28 @@ class PaymentCollectionController extends Controller
 
     $description = sprintf('New Collection Added');
     log_activity($payment_collection, $description, anchor_link($payment_collection->name, route('collection.show', $payment_collection->id )).' '.'<br>Assigned To: '.$payment_collection->assigned->first_name.' '.$payment_collection->assigned->last_name  );
+
+    $currency           = $this->get_currency();
+    $formatted_amount   = format_currency($payment_collection->amount, TRUE, $currency['symbol']);
+
     // salesmanNotification($payment_collection->staff_user_id,'New Collection Added','Collection Assigned ');
+    $member = StaffUser::find($payment_collection->staff_user_id);
+
+    $message = array(
+      'message'   => sprintf(__('form.collection_received'),$payment_collection->amount,$payment_collection->name),
+      'url'       => route('collection.show',$payment_collection->id),
+    );
+
+    $notification = new Notification;
+    $notification->id = uniqid();
+    $notification->type = get_class($payment_collection);
+    $notification->notifiable_type = get_class($member);
+    $notification->notifiable_id = $member->id;
+    $notification->data = json_encode($message);
+    $notification->save();
 
     $this->duplicatenotification($request->input('staff_user_id'),$title="LTV : Payment Collection",$message="New Collection Assigned");
-
-    return redirect('admin/collection')->with('message', 'Collection Added Successfully!');
+    return redirect('admin/collection')->with('success', 'Collection Added Successfully!');
   }
   /* Add Collection */
 
@@ -604,5 +625,22 @@ class PaymentCollectionController extends Controller
         return true;
     }
     /* Send Firebase Notification */
+
+    function get_currency(){
+         // Get the currency iso code and symbol
+        if(isset($this->currency->code))
+        {
+            $data['symbol']    = $this->currency->symbol;
+            $data['iso']       = $this->currency->code;
+        }
+        else
+        {
+            $currency          = Currency::default()->get()->first();
+            $data['symbol']    = $currency->symbol;
+            $data['iso']       = $currency->code;
+        }
+
+        return $data;        
+    }
 
 }

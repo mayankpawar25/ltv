@@ -416,8 +416,8 @@ class Invoice extends Model
             $formatted_amount   = format_currency($amount, TRUE, $currency['symbol']);        
 
             // Send Notification to person who created the invoice
-            $member = User::find($invoice->created_by);
-            
+            $member = Models\StaffUser::find($invoice->created_by);
+
             if($member)
             {                                
                 $member->notify(new PaymentReceived($invoice->id, $invoice->number, $formatted_amount , $payment->id ));

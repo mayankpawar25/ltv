@@ -192,7 +192,7 @@ class TasksController extends Controller
     }
 
     public function jsonView(){
-        $tasks = Task::where('salesman_id',auth()->user()->id)->where('task_date',date('Y-m-d'))->get();
+        $tasks = Task::where('salesman_id',18)->where('task_date',date('Y-m-d'))->get();
         echo json_encode($tasks);
     }
 

@@ -1258,6 +1258,7 @@ return [
     'alternate_number' => 'Alternate Number',
     'level_one' => 'Level 1',
     'level_two' => 'Level 2',
+    'collection_received' => 'A collection of amount %s has been assigned to you.Collection id : %s',
     /* Author : 225 */
 
 ];

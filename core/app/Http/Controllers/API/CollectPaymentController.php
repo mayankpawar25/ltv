@@ -73,7 +73,7 @@ class CollectPaymentController extends Controller
         $message = sprintf(__('Payment Collect Successfully'), __('From Client'));
         // salesmanNotification(Auth::id(),$title,$message); 
         $salesman = StaffUser::find(Auth::id());
-        $this->duplicatenotification($request->assigned_to,'Payment Collection','Collection Feedback submitted successfully');
+        // $this->duplicatenotification($request->assigned_to,'Payment Collection','Collection Feedback submitted successfully');
         // $this->sendNotification($salesman->fcm_id,$title,$message);
         /*Notification*/
 

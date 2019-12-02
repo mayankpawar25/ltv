@@ -20,6 +20,7 @@
 
 {{-- Toastr JS --}}
 <script src="{{asset('assets/user/js/toastr.min.js')}}"></script>
+<script src="{{asset('assets/js/notification_on_top_bar.js')}}"></script>
 
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

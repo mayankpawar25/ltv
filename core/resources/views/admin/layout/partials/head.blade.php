@@ -50,7 +50,7 @@
 
     global_config = {
         csrf_token                      : "{{ csrf_token() }}",
-        url_get_unread_notifications    : "#", 
+        url_get_unread_notifications    : "{{ route('get_unread_notifications') }}", 
         lang_no_record_found            : "{{ __('form.no_record_found') }}",
         url_global_search               : "#",
         url_upload_attachment           : "#",

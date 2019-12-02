@@ -12,7 +12,7 @@ use App\Lead;
 use App\City;
 use App\State;
 use App\Shopkeeper,App\Product;
-
+use App\Models\StaffUser;
 use App\Proposal;
 use App\ProposalItem;
 use App\ProposalStatus;
@@ -1039,7 +1039,7 @@ class ProposalController extends Controller
                     $user_ids[1] = $proposal->assigned_to;
                 }
 
-                $notifiable_users = User::whereIn('id', $user_ids)->get();
+                $notifiable_users = StaffUser::whereIn('id', $user_ids)->get();
 
                 Notification::send($notifiable_users, new ProposalAccepted($proposal));
                 
@@ -1092,7 +1092,7 @@ class ProposalController extends Controller
                     $user_ids[1] = $proposal->assigned_to;
                 }
 
-                $notifiable_users = User::whereIn('id', $user_ids)->get();
+                $notifiable_users = StaffUser::whereIn('id', $user_ids)->get();
 
                 Notification::send($notifiable_users, new ProposalDeclined($proposal));
 
