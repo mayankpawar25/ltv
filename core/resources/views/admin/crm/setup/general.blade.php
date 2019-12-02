@@ -98,9 +98,7 @@
                </div>
             </div>
 
-
-
-            <?php echo bottom_toolbar(); ?>
+ 
          </div>
          <div class="col-md-6">
 
@@ -166,9 +164,15 @@
       <h5>@lang('form.company_logo')</h5>
       <hr>
       
-      <div class="form-group">
+      <div class="row">
+      <div class="col-md-4">
+       <div class="form-group">
           <label >@lang('form.upload_logo') ( @lang('form.company_logo_note') )</label>
-          <input type="file" class="form-control-file" name="company_logo">
+          <div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFile"  name="company_logo">
+  <label class="custom-file-label" for="customFile">Choose file</label>
+</div>
+          <!--<input type="file" class="form-control-file">-->
           <small class="form-text text-muted">@lang('form.logo_upload_note')</small>
           <div class="invalid-feedback d-block">@php if($errors->has('company_logo')) { echo $errors->first('company_logo') ; } @endphp</div>
       </div>
@@ -176,11 +180,16 @@
       @if(get_company_logo())
          <img src="{{ get_company_logo() }}">         
       @endif
-      <hr>
-
+      </div>
+       <div class="col-md-4">
       <div class="form-group">
+      
           <label >@lang('form.upload_logo') (@lang('form.company_logo_internal_note'))</label>
-          <input type="file" class="form-control-file" name="company_logo_internal">
+           <div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFile"  name="company_logo_internal">
+  <label class="custom-file-label" for="customFile">Choose file</label>
+</div>
+          <!--<input type="file" class="form-control-file" >-->
           <small class="form-text text-muted">@lang('form.logo_upload_note'), 
             <span class="text-success">@lang('form.transparent_logo_note')</span></small>
           <div class="invalid-feedback d-block">@php if($errors->has('company_logo_internal')) { echo $errors->first('company_logo_internal') ; } @endphp</div>
@@ -189,24 +198,48 @@
        @if(get_company_logo(NULL, TRUE))
          <img src="{{ get_company_logo(NULL, TRUE) }}">         
       @endif
-
-      <hr>
+      </div>
+      
+       <div class="col-md-4">
       <div class="form-group">
           <label >@lang('form.favicon')</label>
-          <input type="file" class="form-control-file" name="favicon">        
+         <br />
+<br />
+
+
+            <div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFile"  name="favicon">
+  <label class="custom-file-label" for="customFile">Choose file</label>
+</div>
+         <!-- <input type="file" class="form-control-file" >  -->      
           <div class="invalid-feedback d-block">@php if($errors->has('favicon')) { echo $errors->first('favicon') ; } @endphp</div>
       </div>
 
        @if(get_favicon())
          <img src="{{ get_favicon() }}">         
       @endif
+      </div>
+      
+      
+      </div>
+      
+      
+     
+     
+      
+ 
 
-    
-      <hr>
-      <small class="form-text text-muted float-md-right">Version : {{ get_software_version() }}</small>   
+    <div class="text-right">
+   
+    <?php echo bottom_toolbar(); ?>
+   </div>
+      
+     <!-- <small class="form-text text-muted float-md-right">Version : {{ get_software_version() }}</small>   -->
       <div class="clearfix"></div>  
       
    </div>
+   
+   
 </form>
 
 @endsection

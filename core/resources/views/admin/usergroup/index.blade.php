@@ -54,7 +54,7 @@ div#data_filter {
               <p style="clear:both;margin:0px;"></p>
              
 
-              <div class="col-md-12">
+              <div class="">
                 <div class="sellers-product-inner">
                     <div class="bottom-content">
                         <table class="table table-bordered w-100" id="data">
@@ -71,6 +71,7 @@ div#data_filter {
                     </div>
                   </div>
               </div>
+              <div class="clearfix"></div>
            </div>
         </div>
      </div>

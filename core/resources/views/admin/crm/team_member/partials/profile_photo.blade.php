@@ -12,7 +12,7 @@
 
       {{-- @if(check_perm('team_members_edit')) --}}
       <div class="card-text text-center">
-        <a class="text-center" href="{{ route('edit_team_member_page', $rec->id) }}">
+        <a class="btn btn-primary btn-sm " href="{{ route('edit_team_member_page', $rec->id) }}">
           <i class="far fa-edit"></i> {{ __('form.edit') . " ". __('form.profile') }}
         </a>
       </div>

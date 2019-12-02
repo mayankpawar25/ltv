@@ -14,6 +14,10 @@
 .check-round .toggle {
 	border-radius: 25px;
 }
+.toggle-group label {
+    line-height: 21px;
+    text-transform: uppercase !important;
+}
 .base-bg {
 	background-color: #329688 !important;
 }
@@ -26,10 +30,10 @@
 .btn .icon, .btn .fa {
 	margin-right: 0px;
 }
-.multiple .dropdown-menu {
+/*.multiple .dropdown-menu {
 	min-width:8.8rem;
 
-}
+}*/
 
 .product-upload-form .btn-wrapper .submit-btn {
 	text-align: center;
@@ -278,10 +282,25 @@
 	background-color: #03a9f4;
 	border-color: #03a9f4;
 }
-.btn-primary, .btn-success, .btn-danger, .btn-info, .btn-warning {
+.btn-primary, .btn-success, .btn-danger, .btn-info, .btn-warning, .btn-light {
 	text-transform: uppercase;
 	font-weight: 600;
 	border-radius: 4px !important;
+	
+}
+.btn-light {
+
+    color: 
+
+#444;
+
+background-color:
+#eee;
+
+border-color:
+
+    #e3e3e3;
+
 }
 .page-link {
  
@@ -408,6 +427,20 @@ background-color:
 .select2-results__option--highlighted{
 	background-color:#f2f2f2;
 }
+
+.btn-secondary {
+    color: 
+#fff;
+background-color:
+#6c757d;
+border-color:
+    #6c757d;
+	font-size:13px;
+}
+.help-block strong{
+	font-weight:400;
+}
+
 
  @media only screen and (max-width: 767px) {
 .sidebar-mini.sidenav-toggled .app-menu__label {

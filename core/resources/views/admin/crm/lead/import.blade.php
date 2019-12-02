@@ -8,10 +8,16 @@
          <h5>@lang('form.import_leads')</h5>
       </div>
       <div class="col-md-6">
-         <a href="{{ route('download_sample_lead_import_file') }}" class="btn btn-success btn-sm float-md-right">@lang('form.download_sample')</a>
+         <a href="{{ route('download_sample_lead_import_file') }}" class="btn btn-primary btn-sm float-md-right">@lang('form.download_sample')</a>
       </div>
    </div>
    <hr>
+    @if(Session::has('download_file_to_see_unimported_rows'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}"><?php echo Session::get('download_file_to_see_unimported_rows'); ?></p>
+   @endif
+   @if(Session::has('message'))
+      <p class="alert {{ Session::get('alert-class', 'alert-success') }}"><?php echo Session::get('message'); ?></p>
+   @endif
    <div style="font-size: 13px;">
       <p>@lang('form.import_csv_line_1')</p>
       <p>@lang('form.import_csv_line_2')</p>
@@ -46,37 +52,39 @@
          </tbody>
       </table>
    </div>
-   <br>
-   @if(Session::has('download_file_to_see_unimported_rows'))
-      <p class="alert {{ Session::get('alert-class', 'alert-info') }}"><?php echo Session::get('download_file_to_see_unimported_rows'); ?></p>
-   @endif
-   @if(Session::has('message'))
-      <p class="alert {{ Session::get('alert-class', 'alert-success') }}"><?php echo Session::get('message'); ?></p>
-   @endif
+ 
    <form method="post" action='' enctype="multipart/form-data">
       {{ csrf_field()  }}
       <div class="form-row">
-         <div class="form-group col-md-4">
+         <div class="form-group col-md-3">
             <label for="lead_status_id">@lang('form.status') <span class="required">*</span></label>
             <?php echo form_dropdown("lead_status_id", $data['lead_status_id_list'], old_set("lead_status_id", NULL, $rec), "class='form-control form-control-sm selectPickerWithoutSearch'") ?>
             <div class="invalid-feedback d-block">@php if($errors->has('lead_status_id')) { echo $errors->first('lead_status_id') ; } @endphp</div>
          </div>
-         <div class="form-group col-md-4">
+         <div class="form-group col-md-3">
             <label for="lead_source_id">@lang('form.source') <span class="required">*</span></label>
             <?php echo form_dropdown("lead_source_id", $data['lead_source_id_list'], old_set("lead_source_id", NULL, $rec), "class='form-control form-control-sm selectPickerWithoutSearch'") ?>
             <div class="invalid-feedback d-block">@php if($errors->has('lead_source_id')) { echo $errors->first('lead_source_id') ; } @endphp</div>
          </div>
-         <div class="form-group col-md-4">
+         <div class="form-group col-md-3">
             <label for="assigned_to">@lang('form.assigned_to')</label>
             <?php echo form_dropdown("assigned_to", $data['assigned_to_list'], old_set("assigned_to", NULL, $rec), "class='form-control form-control-sm selectpicker'") ?>
             <div class="invalid-feedback d-block">@php if($errors->has('assigned_to')) { echo $errors->first('assigned_to') ; } @endphp</div>
          </div>
-      </div>
-      <div class="form-group">
+         <div class="col-md-3">
+         <div class="form-group">
          <label>@lang('form.select_file')</label>
-         <input type="file" class="form-control-file" name="file">
+         <div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFile" name="file">
+  <label class="custom-file-label" for="customFile">Choose file</label>
+</div>
+        <!-- <input type="file" class="form-control-file" >-->
          <div class="invalid-feedback d-block">@php if($errors->has('file')) { echo $errors->first('file') ; } @endphp</div>
       </div>
+        </div>
+         
+      </div>
+      
       <?php echo bottom_toolbar(); ?>
    </form>
 </div>

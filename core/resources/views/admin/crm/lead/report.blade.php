@@ -2,20 +2,30 @@
 @section('title',  __('form.lead') . ' : ' . __('form.report') )
 @section('content')
 <div class="app-content">
-	<div class="main-content" style="margin-bottom: 20px;">
+	<div class="main-content" style="margin-bottom: 30px;">
    <div class="row">
    	<div class="col-md-12">
    		<h5>{{ __('form.lead') . ' : ' . __('form.report') }}</h5>
-   		<hr>
+   		 
    	</div>
-      <div class="col-md-6">
-         <canvas id="chart-area"></canvas>
-      </div>
-      <div class="col-md-6">
-         <canvas id="sources_conversion"></canvas>
-      </div>
+      
    </div>
 </div>
+<div class="row">
+<div class="col-md-6">
+         <div class="main-content" style="margin-bottom: 30px;">
+         <canvas id="chart-area"></canvas>
+         </div>
+      </div>
+      <div class="col-md-6">
+       <div class="main-content" style="margin-bottom: 30px;">
+         <canvas id="sources_conversion"></canvas>
+         </div>
+      </div>
+
+
+</div>
+
 <div class="main-content">
    <form>
       <div class="form-row">

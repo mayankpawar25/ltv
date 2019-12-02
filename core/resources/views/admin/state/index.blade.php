@@ -3,15 +3,7 @@
 {{-- Content Body --}}
 @section('content')
  <main class="app-content">
-<div class="app-title">
-        <div>
-           <h1><i class="fa fa-dashboard"></i> States List</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-</div>
+ 
 	</div>
 </div>
 <style type="text/css" media="screen">
@@ -40,14 +32,16 @@ div#admins-table_filter {
 			{{-- <div class="card">
 				<div class="card-body"> <a href="{{ url('/admin/states') }}" class="btn btn-warning btn-block">Add State</a> </div>
 			</div> --}}
-			<div class="card">
+			<div class="main-content">
+             <h5>Add State</h5>
+            <hr />
 				<form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('states.store') }}">
 					{{ csrf_field() }}
-					<div class="card-body">
+					<div class="">
 						
-						<h4 class="card-title m-b-0">Add State
+						<!--<h4 class="card-title m-b-0">
 						<div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
-						</h4>
+						</h4>-->
 						<p class="text-muted "></p>
 						<div class="form-group">
 							<label for="firstname" class="control-label col-form-label">Select Country<span class="text-danger">*</span></label>
@@ -68,15 +62,18 @@ div#admins-table_filter {
 						</div>
 					</div>
 				</div>
-				<div class="card-footer">
+				<div class="text-right">
+                <hr />
 					<button type="submit" class="btn btn-success ">Submit</button>
 				</div>
 			</form>
 		</div>
 	</div>
 	<div class="col-9">
-		<div class="card">
-			<div class="card-body">
+		<div class="main-content">
+			<div class="">
+            <h5>States List</h5>
+            <hr />
 				@if(Session::has('error'))
 				<p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('error') }}</p>
 				@endif
@@ -143,7 +140,26 @@ div#admins-table_filter {
 </div>
 </main>
 <!-- Status -->
-
+<style>
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: 
+#f2f2f2;
+color:  #333;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid 
+    #ddd;
+    border-radius: 3px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: 
+    #444;
+    line-height: 30px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 2px !important;
+}
+</style>
 
 <script type="text/javascript">
 $(document).ready( function () {

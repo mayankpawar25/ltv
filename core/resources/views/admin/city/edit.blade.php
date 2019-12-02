@@ -2,17 +2,8 @@
 {{-- Content Body --}}
 @section('content')
  <main class="app-content">
-<div class="app-title">
-        <div>
-           <h1><i class="fa fa-dashboard"></i> Edit City List</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-</div>
-  </div>
-</div>
+ 
+ 
 <style type="text/css" media="screen">
 .dataTables_length, .dt-buttons {
     float: left;
@@ -32,17 +23,39 @@ div#admins-table_filter {
     display: none;
 }
 
+ 
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: 
+#f2f2f2;
+color:  #333;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid 
+    #ddd;
+    border-radius: 3px;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: 
+    #444;
+    line-height: 30px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 2px !important;
+}
 </style>
+
 				<div class="container-fluid">
 					 
 					<div class="row">
 						
 						<div class="col-md-3">
-							 <div class="card">
+					<!--		 <div class="card">
         <div class="card-body"> <a href="{{ url('admin/cities') }}" class="btn btn-block btn-warning">Back to City List</a> </div>
-      </div>
-							<div class="card">
-								<div class="card-body">
+      </div>-->
+							<div class="main-content">
+                            <h5>Edit City </h5>
+                            <hr />
+								<div class="">
 									<form id="loginform" action="{{ route('cities.update',$city->id) }}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 										 @method('PATCH')
 										{{ csrf_field() }}
@@ -60,7 +73,9 @@ div#admins-table_filter {
 										</div>
 										
 																			
-										<div class="form-group">
+										<div class="text-right">
+                                        <hr />
+                                        <a href="{{ url('admin/cities') }}" class="btn btn-light">Cancel</a>
 											<input type="submit" name="save" value="Save" class="btn btn-success">
 										</div>
 									</form>
@@ -74,8 +89,12 @@ div#admins-table_filter {
         
         
       
-       <div class="card">
-        <div class="card-body"> @if(Session::has('message'))
+       <div class="main-content">
+        <div class=""> 
+        <h5>City List</h5>
+        <hr />
+        
+        @if(Session::has('message'))
           <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
           @endif
           @if(Session::has('success'))
@@ -85,7 +104,7 @@ div#admins-table_filter {
           <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('error') }}</p>
           @endif
           <div class="table-responsive">
-            <table class="table table-bordered table-striped display" id="admins-table">
+            <table class="table table-bordered w-100" id="admins-table">
               <thead>
                 <tr>
                   <th>Id</th>
@@ -107,6 +126,7 @@ div#admins-table_filter {
             </table>
           </div>
         </div>
+        <div class="clearfix"></div>
       </div>
     </div>
 </div>
@@ -123,11 +143,12 @@ div#admins-table_filter {
         <h2 class="modal-title">Confirmation</h2>
       </div>
       <div class="modal-body">
-        <h4 align="center" style="margin:0;">Are you sure you want to remove this data?</h4>
+        <h5 align="center" style="margin:0;">Are you sure you want to remove this data?</h5>
       </div>
       <div class="modal-footer">
+        
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
         <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -142,11 +163,12 @@ div#admins-table_filter {
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <h5 align="center" style="margin:0;"><strong>Are you sure you want to Change this status?</strong></h5>
+        <h5 align="center" style="margin:0;"> Are you sure you want to Change this status? </h5>
       </div>
       <div class="modal-footer">
-        <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+       
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+         <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
       </div>
     </div>
   </div>

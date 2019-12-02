@@ -1,19 +1,43 @@
 @extends('admin.layout.master')
 
 @section('content')
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+#data tr td:last-child {
+  text-align: right;
+}
+
+</style>
   <main class="app-content">
-     <div class="app-title">
-        <div class="row" style="width:100%">
-          <div class="col-md-6">
-            <h1 class="float-left">Coupon Lists</h1>
+    <div class="main-content">
+     <div class="row">
+       <div class="col-md-6">
+            <h5 class="float-left">Coupon Lists</h5>
           </div>
           <div class="col-md-6">
-            <a href="{{route('admin.coupon.create')}}" class="btn btn-success float-right"><i class="fa fa-plus"></i> Add Coupon</a>
+            <a href="{{route('admin.coupon.create')}}" class="btn btn-primary float-right"><i class="fa fa-plus"></i> Add Coupon</a>
           </div>
-        </div>
      </div>
+       <hr>
 
      <div class="row">
+      {{-- 
         <div class="col-md-12">
            <div class="tile">
               <div class="tile-body">
@@ -47,7 +71,7 @@
                             <form class="d-inline-block" action="{{route('admin.coupon.delete', $coupon->id)}}" method="post">
                               {{csrf_field()}}
                               <input type="hidden" name="coupon_id" value="{{$coupon->id}}">
-                               	
+                                
                               <button type="submit" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"><i class="fas fa-times"></i></button>
                             </form>
                             </span>
@@ -62,6 +86,100 @@
               </div>
            </div>
         </div>
+       --}}
+        
+
+          <div class="col-md-12">
+                <div class="sellers-product-inner">
+                    <div class="bottom-content">
+                        <table class="table table-bordered w-100" id="data">
+                            <thead>
+                                <tr>
+                                  <th>Code</th>
+                                  <th>Type</th>
+                                  <th>Amount</th>
+                                  <th>Minimum Amount</th>
+                                  <th>Valid Till</th>
+                                  <th class="text-right">Action</th>
+                                </tr>
+                            </thead>
+                          
+                        </table>
+                    </div>
+                  </div>
+              </div>
+     </div>
      </div>
   </main>
+  <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
+<script type="text/javascript">
+  $(function() {
+    dataTable = $('#data').DataTable({
+        dom: 'lfBfrtip',
+        buttons: [
+            {
+              extend: 'copyHtml5',
+              exportOptions: {
+                  columns: ':visible'
+              }
+            },{
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },{
+              extend: 'print',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            'colvis'
+        ],
+        "language": {
+            "lengthMenu": '_MENU_ ',
+            "search": '',
+            "searchPlaceholder": "{{ __('form.search') }}"
+        },
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        //iDisplayLength: 5
+        "lengthMenu": [ [10, 50, 100], [10, 50, 100] ],
+        pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
+        ordering: true,
+        "columnDefs": [
+          { className: "text-right", "targets": [3] },
+          { "name": "coupon_code",   "targets": 0 },
+          { "name": "coupon_type", "targets": 1 },
+          { "name": "coupon_amount", "targets": 2 },
+          { "name": "coupon_min_amount",  "targets": 3 },
+          { "name": "valid_till",  "targets": 4},
+          { "name": "action",  "targets": 5,orderable:false },
+         ],
+        "ajax": {
+            "url": '{!! route("datatable_coupon") !!}',
+            "type": "POST",
+            'headers': {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            "data": function (d) {
+                d.status_id   = $("select[name=status_id]").val();
+                d.is_verified = $('select[name=is_verified]').val();
+                d.groups = $('select[name=groups]').val();
+            }
+        }
+    }).
+    on('mouseover', 'tr', function() {
+        jQuery(this).find('div.row-options').show();
+    }).
+    on('mouseout', 'tr', function() {
+        jQuery(this).find('div.row-options').hide();
+    });
+
+    $('select').change(function(){
+        // console.log('change here');
+        dataTable.draw();
+    });
+  });
+</script>  
 @endsection

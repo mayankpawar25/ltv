@@ -142,7 +142,7 @@ $mytime = Carbon\Carbon::now();
       <?php } ?>
     </div>
 
-  <!--   <div class="row">
+     <!--<div class="row">
            <div class="col-md-12">
                <div class="tile">
                    <h3 class="tile-title">Product Upload Chart (Monthly)</h3>
@@ -151,7 +151,7 @@ $mytime = Carbon\Carbon::now();
                    </div>
                </div>
            </div>
-       </div> -->
+       </div>--> 
   </main>
 @endsection
 

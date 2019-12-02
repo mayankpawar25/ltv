@@ -20,7 +20,7 @@ class UserGroupController extends Controller
       return view('admin.usergroup.index', $data);
     }
 
-     public function paginate(){
+    public function paginate(){
 
         $order       = Input::get('order');
         $columns     = Input::get('columns');
@@ -64,7 +64,7 @@ class UserGroupController extends Controller
             foreach ($data as $key => $row)
             {   
                 $rec[] = array(
-                    anchor_link($row->name,route('admin.shopkeeper.show',$row->id)),
+                    $row->name,
                     $row->percentage,
                    ($row->status==0)?'<span class="badge badge-danger">Deactive</span>':'<span class="badge badge-success">Active</span>',
                    '<button type="button" class="btn btn-success btn-sm float-right"><span data-toggle="modal" data-target="#editModal'.$row->id.'" ><i class="icon icon-pencil"></i></span></button>'

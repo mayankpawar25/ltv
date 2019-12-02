@@ -3,15 +3,7 @@
 {{-- Content Body --}}
 @section('content')
  <main class="app-content">
-<div class="app-title">
-        <div>
-           <h1><i class="fa fa-dashboard"></i> Countries List</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-</div>
+ 
 <style type="text/css" media="screen">
 .dataTables_length, .dt-buttons {
     float: left;
@@ -40,12 +32,12 @@ div#admins-table_filter {
 					<div class="card-body"> <a href="{{ url('/admin/addcountry') }}" class="btn btn-warning btn-block">Add Country</a> </div>
 			</div> --}}
 
-			<div class="card">
+			<div class="main-content">
 				<form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('countries.store') }}">
 					   {{ csrf_field() }}
-					<div class="card-body">
-						<h4 class="card-title m-b-0">Add New Country <div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div></h4>
-
+					<div class="">
+						<h5 class="">Add New Country <!--<div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>--></h5>
+<hr />
 						<div class="text-left">
 							<div class=" {{ $errors->has('name') ? ' has-error' : '' }}">
 								<label for="firstname" class="control-label col-form-label">Enter Country Name 
@@ -95,7 +87,8 @@ div#admins-table_filter {
 						</div>
 
 					</div>
-					<div class="card-footer">
+					<div class="text-right">
+                    <hr />
 						<button type="submit" class="btn btn-success ">Submit</button>
 					</div>
 					
@@ -106,8 +99,10 @@ div#admins-table_filter {
 		<div class="col-9">
 			
 			
-			<div class="card">
-				<div class="card-body">
+			<div class="main-content">
+				<h5>Countries List</h5>
+                <hr />
+                <div class="">
 					
 					@if(Session::has('error'))
 					

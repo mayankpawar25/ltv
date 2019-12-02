@@ -80,6 +80,7 @@
       </thead>
     </table>
     @endif
+    <div class="clearfix"></div>
   </div>
 </div>
 @endsection
