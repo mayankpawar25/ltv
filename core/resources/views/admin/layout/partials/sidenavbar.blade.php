@@ -611,7 +611,7 @@
         is-expanded
        @elseif (request()->path() == 'admin/area')
         is-expanded
-      @elseif (request()->segment(2)== 'admin/import_page')
+      @elseif (request()->path()== 'admin/import_page')
         is-expanded
      
       @endif">
@@ -625,7 +625,7 @@
 
          <li><a class="treeview-item @if(request()->path() == 'admin/cities' || request()->segment(2)== 'cities') active @endif" href="{{route('cities.index')}}">Cities</a></li>
 
-         <li><a class="treeview-item @if(request()->path() == 'admin/area' || request()->segment(2)== 'area') active @endif" href="{{route('area.index')}}">Area</a></li>
+         <li><a class="treeview-item @if(request()->path() == 'admin/area' || request()->path() == 'admin/import_page') active @endif" href="{{route('area.index')}}">Area</a></li>
        
        </ul>
     </li>
