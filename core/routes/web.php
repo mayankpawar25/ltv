@@ -1627,6 +1627,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	Route::post('/brandlist', 'Admin\OptionController@paginate')->name('datatable_option');
 	Route::post('/couponlist', 'Admin\CouponController@paginate')->name('datatable_coupon');
 	Route::post('/categorylist', 'Admin\CategoryController@paginate')->name('datatable_category');
+	Route::post('/subcategorylist', 'Admin\SubcategoryController@paginate')->name('datatable_subcategory');
 	/*Datatable*/
 
 
