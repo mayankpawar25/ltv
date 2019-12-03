@@ -46,7 +46,12 @@ div#admins-table_filter {
     </div>
     <hr>
     <div class="row">
-       
+        <div class="form-group col-md-3">
+         <label>@lang('form.status')</label>
+         <?php
+            echo form_dropdown('status_id', $status , $status  , "class='form-control four-boot' multiple='multiple' ");
+            ?>
+        </div>
       <div class="col-md-12">
       <div class="">
           <div class=""> @if(Session::has('message'))
