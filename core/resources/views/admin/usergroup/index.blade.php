@@ -113,7 +113,7 @@ div#data_filter {
         processing: true,
         serverSide: true,
         //iDisplayLength: 5
-        "lengthMenu": [ [10, 50, 100], [10, 50, 100] ],
+        "lengthMenu": [ [10, 20, 50, 100], [10, 20, 50, 100] ],
         pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
         ordering: true,
         "columnDefs": [

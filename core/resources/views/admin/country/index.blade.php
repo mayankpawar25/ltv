@@ -214,7 +214,7 @@ $(document).ready( function () {
 $('#admins-table').DataTable({
 		dom: 'lfBfrtip',
 		stripHtml: false,
-		"lengthMenu": [ [10, 50, 100, -1], [10, 50, 100, "All"] ],
+		"lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
 		buttons: [
 		  {
 			  extend:    'copyHtml5',
