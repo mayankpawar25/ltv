@@ -35,34 +35,34 @@
       <ul class="treeview-menu">
 
          @if(is_menu_enable('products'))
-        <li><a class="app-menu__item
+        <li><a class="treeview-item
           @if(request()->path() == 'admin/product/index') active
           @elseif (request()->is('admin/options/*/index')) active
           @elseif (request()->is('admin/product/create')) active
-          @endif" href="{{route('admin.product.index')}}"><i class="app-menu__icon fab fa-product-hunt"></i><span class="app-menu__label">Products </span></a></li>
+          @endif" href="{{route('admin.product.index')}}"><span class="app-menu__label">Products </span></a></li>
          @endif
 
         @if(is_menu_enable('category_managements'))
-        <li><a class="app-menu__item @if(request()->path() == 'admin/category/index' || request()->is('admin/subcategory/*')) active @endif" href="{{route('admin.category.index')}}"><i class="app-menu__icon fab fa-buromobelexperte"></i><span class="app-menu__label">Categories</span></a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/category/index' || request()->is('admin/subcategory/*')) active @endif" href="{{route('admin.category.index')}}"><span class="app-menu__label">Categories</span></a></li>
         @endif
 
          @if(is_menu_enable('product_attr'))
-        <li><a class="app-menu__item
+        <li><a class="treeview-item
           @if(request()->path() == 'admin/productattr/index') active
            @elseif (request()->is('admin/options/*/index')) active
-          @endif" href="{{route('admin.productattr.index')}}"><i class="app-menu__icon fab fa-product-hunt"></i><span class="app-menu__label">Attributes</span></a></li>
+          @endif" href="{{route('admin.productattr.index')}}"><span class="app-menu__label">Attributes</span></a></li>
          @endif
 
         @if(is_menu_enable('coupons'))
-      <li><a class="app-menu__item @if(request()->path() == 'admin/coupon/index') active 
+      <li><a class="treeview-item @if(request()->path() == 'admin/coupon/index') active 
         @elseif (request()->is('admin/coupon/create')) active
-        @endif" href="{{route('admin.coupon.index')}}"><i class="app-menu__icon fas fa-dollar-sign"></i><span class="app-menu__label">Coupons</span></a></li>
+        @endif" href="{{route('admin.coupon.index')}}"><span class="app-menu__label">Coupons</span></a></li>
         @endif
 
        @if(is_menu_enable('user_groups'))
-      <li><a class="app-menu__item
+      <li><a class="treeview-item
         @if(request()->path() == 'admin/usergroup/index') active
-         @endif" href="{{route('admin.usergroup.index')}}"><i class="app-menu__icon icon-people icons "></i><span class="app-menu__label">User Groups</span></a></li>
+         @endif" href="{{route('admin.usergroup.index')}}"><span class="app-menu__label">User Groups</span></a></li>
       @endif
 
       </ul>
@@ -72,11 +72,11 @@
     
     <!-- <li><a class="app-menu__item @if(request()->path() == 'admin/charge/index') active @endif" href="{{route('admin.charge.index')}}"><i class="app-menu__icon fas fa-buromobelexperteoney-bill-alt"></i><span class="app-menu__label">Charge Settings</span></a></li> -->
 
-    @if(is_menu_enable('user_groups'))
+    <!-- @if(is_menu_enable('user_groups'))
     <li><a class="app-menu__item
       @if(request()->path() == 'admin/usergroup/index') active
        @endif" href="{{route('admin.usergroup.index')}}"><i class="app-menu__icon icon-people icons "></i><span class="app-menu__label">User Groups</span></a></li>
-    @endif
+    @endif -->
 
     <!--   @if(is_menu_enable('coupons'))
     <li><a class="app-menu__item @if(request()->path() == 'admin/coupon/index') active @endif" href="{{route('admin.coupon.index')}}"><i class="app-menu__icon fas fa-dollar-sign"></i><span class="app-menu__label">Coupon Settings</span></a></li>
