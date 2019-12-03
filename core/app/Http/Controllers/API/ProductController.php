@@ -183,6 +183,13 @@ class ProductController extends Controller
                 }
 
                 $rproducts = Product::where('subcategory_id', $product->subcategory_id)->where('deleted', 0)->inRandomOrder()->limit(10)->get();
+                foreach ($rproducts as $key => $rproduct) {
+                    foreach ($rproduct->previewimages as $rkey => $rvalue) {
+                        $rvalue->image = asset('assets/user/img/products/'.$rvalue->image);
+                        $rvalue->big_image = asset('assets/user/img/products/'.$rvalue->big_image);
+                    }
+                }
+
                 $data['product_detail'] = $product;
                 $data['related_products'] = $rproducts;
                 $data['msg'] = "Product Detail";

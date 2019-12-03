@@ -2,10 +2,7 @@
 @extends('admin.layout.master')
 {{-- Content Body --}}
 @section('content')
- <main class="app-content">
- 
-  </div>
-</div>
+
 <style type="text/css" media="screen">
 .dataTables_length, .dt-buttons {
     float: left;
@@ -41,155 +38,100 @@ color:
 
 
 </style>
+<main class="app-content">
 <div class="container-fluid">
   <div class="row">
     <div class="col-12">
       <div class="main-content">
-<h5>Payment Collect </h5>
-<hr />
-
-      <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.store') }}">
-        {{ csrf_field() }}
-        <div class="">
-          <h4 class="card-title m-b-0"> 
-            <div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
-          </h4>
-          <div class="row">
-          <div class="col-md-3">
-          <div class="form-group">
-            <label>Customer Name <span class="text-danger">*</span></label>
-           <input type="text" placeholder="Customer Name" name="name" class="form-control" value="{{ old('name') }}">
-          </div>
-          <div class=" {{ $errors->has('name') ? ' has-error' : '' }}"> @if ($errors->has('name'))
-            <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('name') }}</strong> </span></p>
-            @endif
-          </div>
-          </div>
-          
-           <div class="col-md-3">
-           <div class="form-group">
-            <label>Mobile No <span class="text-danger">*</span></label>
-           <input type="text" placeholder="Customer Mobile No" name="mobile_no" class="form-control" value="{{ old('mobile_no') }}">
-          </div>
-          <div class=" {{ $errors->has('mobile_no') ? ' has-error' : '' }}"> @if ($errors->has('mobile_no'))
-            <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('mobile_no') }}</strong> </span></p>
-            @endif
-          </div>
-
-          </div>
-          
-           <div class="col-md-3">
-           <div class="form-group">
-            <label>Alternate Number No</label>
-           <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{old('alternate_no')}}">
-          </div>
-          <div class=" {{ $errors->has('alternate_no') ? ' has-error' : '' }}"> @if ($errors->has('alternate_no'))
-            <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('alternate_no') }}</strong> </span></p>
-            @endif
-          </div>
-          </div>
-          
-          <div class="col-md-3">
-          
-           <div class="form-group">
-            <label>Creation Date <span class="text-danger">*</span></label>
-           <input type="text" placeholder="Creation Date" name="collection_date" class="form-control initially_empty_datepicker" value="{{old('collection_date')}}">
-          </div>
-          <div class=" {{ $errors->has('collection_date') ? ' has-error' : '' }}"> @if ($errors->has('collection_date'))
-            <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('collection_date') }}</strong> </span></p>
-            @endif
-          </div>
-          </div>
-          
-          
-          <div class="col-md-3">
-           <div class="form-group">
-            <label>Collection Amount <span class="text-danger">*</span></label>
-           <input type="text" placeholder="Amount" name="amount" class="form-control" value="{{ old('amount') }}">
-          </div>
-          <div class=" {{ $errors->has('amount') ? ' has-error' : '' }}"> @if ($errors->has('amount'))
-            <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('amount') }}</strong> </span></p>
-            @endif
-          </div>
-          </div>
-          
-          <div class="col-md-3">
-             <label>Salesman: </label>
-          <div class="form-group">
-              <select name="staff_user_id" id="salesman_select" class="salesman_select form-control select2">
-                  @forelse($salesman as $salesman)
-               <option value="{{ $salesman->id }}" {{ ($salesman->id == old('staff_user_id'))?'selected':'' }}>{{ $salesman->first_name.' '.$salesman->last_name }} <sup>(Level : {{ $salesman->level }})</sup></option>
-                  @empty
-                  @endforelse
-                </select>
-          </div>
-          </div>
-          
-          <div class="col-md-3">
-          
-          </div>
-          
-          <div class="col-md-3">
-          
-          </div>
-          
-          
-          
-          </div>
-          
-          
-       
-         
-        </div>
-        <div class="text-right">
+        <h5>Payment Collect </h5>
         <hr />
+        <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.store') }}">
+          {{ csrf_field() }}
+          <div class="">
+            <h4 class="card-title m-b-0">
+              <div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
+            </h4>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Customer Name <span class="text-danger">*</span></label>
+                 <input type="text" placeholder="Customer Name" name="name" class="form-control" value="{{ old('name') }}">
+                </div>
+                <div class=" {{ $errors->has('name') ? ' has-error' : '' }}"> @if ($errors->has('name'))
+                  <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('name') }}</strong> </span></p>
+                  @endif
+                </div>
+              </div><!-- Name -->
+              
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Mobile No <span class="text-danger">*</span></label>
+                  <input type="text" placeholder="Customer Mobile No" name="mobile_no" class="form-control" value="{{ old('mobile_no') }}">
+                </div>
+                <div class=" {{ $errors->has('mobile_no') ? ' has-error' : '' }}">
+                  @if ($errors->has('mobile_no'))
+                  <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('mobile_no') }}</strong> </span></p>
+                  @endif
+                </div>
+              </div><!-- Mobile Number -->
+              
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Alternate Number No</label>
+                  <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{old('alternate_no')}}">
+                </div>
+                <div class=" {{ $errors->has('alternate_no') ? ' has-error' : '' }}"> @if ($errors->has('alternate_no'))
+                  <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('alternate_no') }}</strong> </span></p>
+                  @endif
+                </div>
+              </div><!-- Alternate Number No -->
+              
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Creation Date <span class="text-danger">*</span></label>
+                  <input type="text" placeholder="Creation Date" name="collection_date" class="form-control initially_empty_datepicker" value="{{old('collection_date')}}">
+                </div>
+                <div class=" {{ $errors->has('collection_date') ? ' has-error' : '' }}"> @if ($errors->has('collection_date'))
+                  <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('collection_date') }}</strong> </span></p>
+                  @endif
+                </div>
+              </div><!-- Creation Date -->
+
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label>Installments <span class="text-danger">*</span></label>
+                  <select class="form-control installments" name="installments">
+                    <option>-- select installments --</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
+                <div class=" {{ $errors->has('collection_date') ? ' has-error' : '' }}">
+                  @if($errors->has('collection_date'))
+                  <p class="text-danger">
+                    <span class="help-block"><strong>
+                    {{ $errors->first('collection_date') }}</strong></span>
+                  </p>
+                  @endif
+                </div>
+              </div><!-- Installments -->
+            </div>
+            <div id="putclonehere"></div>
+            <div class="row">
+              <div class="col-sm-6">
+                <strong>Total : </strong><p id="total_amount">0.00</p>
+              </div>
+            </div>
+          </div>
+          <div class="text-right">
+            <hr />
             <button type="submit" class="btn btn-success"> Submit </button>
           </div>
-          </form>
+        </form>
       </div>
-      
-      
-    </div>
-   
-    <!-- <div class="card">
-        <div class="card-body"> @if(Session::has('message'))
-          <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('message') }}</p>
-          @endif
-          @if(Session::has('success'))
-          <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
-          @endif 
-          @if(Session::has('error'))
-          <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('error') }}</p>
-          @endif
-          <div class="table-responsive">
-            <table class="table table-bordered table-striped display" id="admins-table">
-              <thead>
-                <tr>
-                  <th>Customer Name</th>
-                  <th>Customer Mobile No</th>
-                  <?php if(empty(auth()->user()->is_administrator)){  ?>
-                  <th>Alternate No</th>
-                  <?php  }?>
-                  <th>Collection date</th>
-                  <th>Calling date</th>
-                  <th>Amount</th>
-                  <th>Collected Amount</th>
-                  <th>Balance Amount</th>
-                  <th>Salesman</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-             
-            </table>
-          </div>
-        </div>
-      </div>
- -->
-
-
-
-
     </div>
   </div>
 </div>
@@ -229,12 +171,59 @@ color:
     </div>
   </div>
 </div>
+
+<div class="d-none clone-fields">
+
+  <div class="row">
+    
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Calling Date <span class="text-danger">*</span></label>
+        <input type="text" placeholder="Date" name="installment[date][]" class="date initially_empty_datepicker form-control" value="{{ old('date') }}">
+      </div>
+      <div class=" {{ $errors->has('amount') ? ' has-error' : '' }}"> @if ($errors->has('amount'))
+        <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('amount') }}</strong> </span></p>
+        @endif
+      </div>
+    </div><!-- Calling Date -->
+    
+    <div class="col-md-3">
+      <div class="form-group">
+        <label>Collection Amount <span class="text-danger">*</span></label>
+        <input type="text" placeholder="Amount" name="installment[amount][]" class="countamount form-control" value="{{ old('amount') }}">
+      </div>
+      <div class=" {{ $errors->has('amount') ? ' has-error' : '' }}"> @if ($errors->has('amount'))
+        <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('amount') }}</strong> </span></p>
+        @endif
+      </div>
+    </div><!-- Collection Amount -->
+
+    <div class="col-md-3">
+      <label>Salesman: </label>
+      <div class="form-group">
+        <select name="installment[staff_user_id][]" id="salesman_select" class="salesman_select form-control">
+          @forelse($salesman as $salesman)
+          <option value="{{ $salesman->id }}" {{ ($salesman->id == old('staff_user_id'))?'selected':'' }}>{{ $salesman->first_name.' '.$salesman->last_name }} <sup>(Level : {{ $salesman->level }})</sup></option>
+          @empty
+          @endforelse
+        </select>
+      </div>
+    </div><!-- Assigned To -->
+    
+    <div class="col-md-3"></div>
+  
+  </div>
+
+</div>
+
 </main>
 <!-- Status --> 
 
 <script>
 
 $(document).ready( function () {
+  console.log('I\'m here');
+});
   /*Change Date*/
   function getDate(data, type, full, meta) {
      var d = new Date(data),
@@ -283,174 +272,117 @@ $(document).ready( function () {
             return '<span class="badge badge-danger">Open</span>';
         }
     }
-
-$('#admins-table').DataTable({
-      //dom: 'Bfrtip',
-      stripHtml: false,
-      "lengthMenu": [ [10, 50, 100,150,200,250,300,350,450,500, -1], [10, 50, 100,150,200,250,300,350,450,500, "All"] ],
-      processing: true,
-      serverSide: true,
-      "pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},
-      ajax: "{{ route('collection.index') }}",
-       columns: [
-            /*{ data: 'id', name: 'id' },*/
-            { data: 'name', name: 'name' },
-            { data: 'mobile_no', name: 'mobile_no' },
-              <?php if(empty(auth()->user()->is_administrator)){  ?>
-            { data: 'alternate_no', name: 'alternate_no' },
-             <?php  }?>
-            { data: 'collection_date', name: 'collection_date',render: getDate },
-            { data: 'new_date', name: 'new_date',render: getDate },
-            { data: 'amount', name: 'amount' },
-            { data: 'collected_amount', name: 'collected_amount',render:collectionAmount },
-            { data: 'balance_amount', name: 'balance_amount',render:balanceAmount },
-            { data: 'salesman_first_name',name:'salesman_first_name',render:salesmanName},
-            { data: 'status', name: 'status',render: getStatus },
-            { data: 'action',name: 'action',orderable: false}
-         ]
+     
+    $(document).ready( function () {
+      /*Form Validation*/
+      $.validator.addMethod("mobile_regex", function(value, element) {
+        return this.optional(element) || /^\d{10}$/i.test(value);
+      }, "Please enter a valid Phone number.");
+      $.validator.setDefaults( {
+          submitHandler: function (form) {
+             form.submit();
+          }
+      } );
+      $( "#loginform" ).validate( {
+              rules: {
+                  name: {
+                      required: true,
+                  },
+                  mobile_no: {
+                      required: true,
+                      mobile_regex: true,
+                  },
+                  alternate_no: {
+                      mobile_regex: true,
+                  },
+                  collection_date: {
+                      required: true,
+                  },
+                  amount: {
+                      required: true,
+                  },
+                  staff_user_id: {
+                      required: true,
+                  },
+              },
+              messages: {
+                  name: {
+                      required: "Please Enter Customer Name.",
+                  },
+                  mobile_no: {
+                      required: "Please Enter Customer Mobile No.",
+                  },
+                  alternate_no: {
+                      required: "Please Enter Alternate Mobile No.",
+                  },
+                  collection_date: {
+                      required: "Please Select Collection Date .",
+                  },
+                  amount: {
+                      required: "Please Enter Collection Amount .",
+                  },
+                  staff_user_id: {
+                      required: "Please Select Salesman .",
+                  },
+              },
+              errorElement: "span",
+              errorClass: "text-danger help-block",
+              errorPlacement: function ( error, element ) {
+              if(element.parent('.form-group').length) {
+                    error.insertAfter(element.parent());
+                } else {
+                    error.insertAfter(element);
+                }
+             },
+          });
     });
 
-   var user_id;
-   /*Delete Option*/
-   /*Start*/
-  /* $(document).on('click', '.delete', function(){
-       user_id = $(this).attr('id');
-        $('#confirmModal').modal('show');
-   });
-   $('#ok_button').click(function(){
-    $.ajax({
-     url:"{{ url('admin/destroy') }}/"+user_id,
-     beforeSend:function(){
-      $('#ok_button').text('Deleting...');
-     },
-     success:function(data)
-     {
-      setTimeout(function(){
-       $('#confirmModal').modal('hide');
-       $('#admins-table').DataTable().ajax.reload();
-      }, 2000);
-     }
-    })
-   });*/
-   /*End Delete Option*/
+    $(document).on('change','.installments',function(){
+      $('#putclonehere').html('');
+      var total_installments = $(this).val();
+      var tds = $('.clone-fields').clone().html();
+      for (i = 0; i < total_installments; i++) {
+        $(tds).find('input.date').datepicker();
+        $('#putclonehere').append(tds);
+      }
+      reAssignVariableProuctsNames();
+      // $('.date').datepicker();
+      // $.each(function(index, el) {
+      //   console.log(index,el);
+      // });
+    });
 
-   /*Active Otion*/
-   var brand_status;
-    $(document).on('click', '.status', function(){
-       $('#status_button').text('Ok');
-       user_id = $(this).attr('id');
-       brand_status = $(this).attr('data-status');
-       $('#statusconfirmModal').modal('show');
-   });
-     $('#status_button').click(function(){
-      $.ajax({
-        url:"{{ url('admin/updatepaymentstatus') }}/"+user_id+"/"+brand_status,
-       beforeSend:function(){
-        $('#status_button').text('Changing Status...');
-       },
-       success:function(data)
-       {
-        console.log(data);
-        setTimeout(function(){
+  function reAssignVariableProuctsNames(){
+    $('#putclonehere .row').each(function(tr_index,tr_ele){
+      $(tr_ele).find('select, input').each(function(td_index, td_ele){
+        var elem_name = $(td_ele).attr('name');
+        var rest = elem_name.substring(0, elem_name.lastIndexOf("["));
+        var last = elem_name.substring(elem_name.lastIndexOf("["), elem_name.length);
+        var new_elem_name = rest+'['+tr_index+']';
+        // console.log(td_index,td_ele,elem_name,new_elem_name);
+        $(td_ele).attr('name',new_elem_name);
+        console.log($(td_ele).attr('name'));
+      });
+    });
+  }
 
-         $('#statusconfirmModal').modal('hide');
-         $('#admins-table').DataTable().ajax.reload();
-        }, 2000);
-       }
-      })
-     });
- });
 
-   $(document).ready( function () {
-   $(".select2").select2();
-    $.ajax({
-         url: "{{ url('admin/citydropdown') }}",
-         method: 'GET',
-         success: function(data) {
-             $('#state').html(data.html);
-         }
-     });
+    function reInitialize(){
+      $('#putclonehere').find('input.date').each(function(index, el) {
+        $('.date').datepicker();
+        console.log($(this));
+      });
+    }
+
+  $(document).on('blur','.countamount',function(){
+    var total_amount = 0.00;
+    $('.countamount').each(function(index, el) {
+      console.log(index,el);
+      total_amount = parseInt(total_amount) + parseInt(($(el).val())?$(el).val():0.00);
+    });
+    $('#total_amount').text('Rs. '+total_amount.toFixed(2));
   });
 
-     
- $( document ).ready( function () {
-   /*Form Velidation*/
-    $.validator.addMethod("mobile_regex", function(value, element) {
-      return this.optional(element) || /^\d{10}$/i.test(value);
-    }, "Please enter a valid Phone number.");
-    $.validator.setDefaults( {
-        submitHandler: function (form) {
-           form.submit();
-        }
-    } );
-     $( "#loginform" ).validate( {
-            rules: {
-                name: {
-                    required: true,
-                },
-                mobile_no: {
-                    required: true,
-                    mobile_regex: true,
-                },
-                alternate_no: {
-                    mobile_regex: true,
-                },
-                collection_date: {
-                    required: true,
-                },
-                amount: {
-                    required: true,
-                },
-                staff_user_id: {
-                    required: true,
-                },
-            },
-            messages: {
-                name: {
-                    required: "Please Enter Customer Name.",
-                },
-                mobile_no: {
-                    required: "Please Enter Customer Mobile No.",
-                },
-                alternate_no: {
-                    required: "Please Enter Alternate Mobile No.",
-                },
-                collection_date: {
-                    required: "Please Select Collection Date .",
-                },
-                amount: {
-                    required: "Please Enter Collection Amount .",
-                },
-                staff_user_id: {
-                    required: "Please Select Salesman .",
-                },
-            },
-            errorElement: "span",
-            errorClass: "text-danger help-block",
-            errorPlacement: function ( error, element ) {
-            if(element.parent('.form-group').length) {
-                  error.insertAfter(element.parent());
-              } else {
-                  error.insertAfter(element);
-              }
-           },
-        });
-    });
-
- /*Salesman List*/
-   /* $(document).ready(function($) {
-    $(".select2").select2();
-     $.ajax({
-        url: "{{ route('get.salesman.lavelone') }}",
-        headers: {
-          'X-CSRF-TOKEN': $('input[name="_token"]').val()
-        },
-        method: 'POST',
-        success: function(data) {
-          $('#salesman_select').html(data.html);
-        }
-      });
-    });*/
 </script> 
 @endsection
     
