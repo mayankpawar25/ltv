@@ -1210,4 +1210,16 @@ class UserController extends Controller
     return response()->json($success, $status);
   }
 
+   public function NotificationList(Request $request){
+   if($request->q == 'last'){
+        $resp = UserNotification::where('customer_id',Auth::id())->orderby('id','DESC')->first();
+    }else{
+      $resp = UserNotification::where('customer_id',Auth::id())->orderby('id','DESC')->get();
+    }
+    $data['notifications'] = $resp;
+    $data['msg'] = 'Notification List';
+    $data['status'] = true;
+    return response()->json($data, $this-> successStatus);
+  }
+
 }//End
