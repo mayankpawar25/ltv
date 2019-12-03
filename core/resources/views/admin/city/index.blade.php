@@ -194,7 +194,7 @@ function getImg(data, type, full, meta) {
 $('#admins-table').DataTable({
       dom: 'lfBfrtip',
       stripHtml: false,
-      "lengthMenu": [ [10, 50, 100,150,200,250,300,350,450,500, -1], [10, 50, 100,150,200,250,300,350,450,500, "All"] ],
+      "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500, -1], [10, 20, 50, 100,150,200,250,300,350,450,500, "All"] ],
       processing: true,
       serverSide: true,
       "pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},
