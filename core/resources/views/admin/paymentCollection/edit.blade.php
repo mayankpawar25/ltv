@@ -80,7 +80,7 @@ div.dataTables_wrapper div.dataTables_filter {
         
          <div class="col-md-3">
          <div class="form-group">
-            <label>Collection Date <span class="text-danger">*</span></label>
+            <label>Collection Due Date <span class="text-danger">*</span></label>
            <input type="text" placeholder="Collection Date" name="collection_date" class="form-control initially_empty_datepicker" value="{{$collection->collection_date}}">
           </div>
           <div class=" {{ $errors->has('collection_date') ? ' has-error' : '' }}"> @if ($errors->has('collection_date'))
@@ -92,7 +92,7 @@ div.dataTables_wrapper div.dataTables_filter {
         
          <div class="col-md-3">
           <div class="form-group">
-            <label>Collection Amount <span class="text-danger">*</span></label>
+            <label>Due Amount <span class="text-danger">*</span></label>
            <input type="text" placeholder="Amount" name="amount" class="form-control" value="{{ $collection->amount }}">
           </div>
           <div class=" {{ $errors->has('amount') ? ' has-error' : '' }}"> @if ($errors->has('amount'))
