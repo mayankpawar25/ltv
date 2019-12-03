@@ -440,13 +440,13 @@ function vue_click_link($main_text, $id, $route='#')
     return ' <a class="showInformation" data-id="'.$id.'" href="'.$route.'">'.$main_text.'</a>';
 }
 
-function anchor_link($main_text, $link, $newTab = NULL, $permission = NULL)
+function anchor_link($main_text, $link, $newTab = NULL, $permission = NULL,$class=NULL)
 {   
     $newTab = (isset($newTab) && $newTab == TRUE) ? 'target="_blank"' : '';
     if(check_perm($permission)):
-        return ' <a '.$newTab.' class="" href="'.$link.'">'.$main_text.'</a>';
+        return ' <a '.$newTab.' class="'.$class.'" href="'.$link.'">'.$main_text.'</a>';
     elseif($permission == NULL):
-        return ' <a '.$newTab.' class="" href="'.$link.'">'.$main_text.'</a>';
+        return ' <a '.$newTab.' class="'.$class.'" href="'.$link.'">'.$main_text.'</a>';
     endif;
 }
 function a_links($main_text, array $option_links)

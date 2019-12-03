@@ -39,7 +39,8 @@ class PaymentCollectionController extends Controller
   }
 
   public function index(Request $request){
-    return view('admin.paymentCollection.index');
+    $data['status'] = array('0'=>'Open','1'=>'Closed','2'=>'Closed By Salesman');
+    return view('admin.paymentCollection.index',$data);
   }
 
   public function paginate(){
@@ -56,7 +57,7 @@ class PaymentCollectionController extends Controller
 
     // Filtering Data
     if($status_id!=''){
-        $query->where('status', $status_id );
+        $query->whereIn('status', $status_id );
         $q->whereIn('status', $status_id );
     }
 
@@ -139,18 +140,24 @@ class PaymentCollectionController extends Controller
     {
         foreach ($data as $key => $row){
           $close_btn = '';
+          $carry_frwd_btn = '';
           $open_close_badge = ($row->status==0)?'<span class="badge badge-warning">open</span>':'<span class="badge badge-success">closed</span>';
           $action = '<a href="'.route('collection.show',$row->id).'" class="btn btn-success btn-sm"><i class="icon-eye icons"></i></a>';
           if(auth()->user()->is_administrator){
 
-            if($row->status==0 || $row->status==2){
+            if($row->status==1 || $row->status==2){
               $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'"><i class="icon-check icons"></i></button>';
             }
-            if($row->status == '2'){
+
+            if($row->status == 2){
               $open_close_badge ='<span class="badge badge-success">closed by Salesman</span>';
-            }
+              
+              $carry_frwd_btn = anchor_link('<i class="icon-share-alt"></i>',route('collection.forward',$row->id),TRUE,'','btn btn-sm btn-warning');
             
-            $action = '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.''.$close_btn;
+            }
+
+
+            $action = '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.$close_btn.$carry_frwd_btn;
           }
 
 
@@ -182,15 +189,29 @@ class PaymentCollectionController extends Controller
     return response()->json($output);
   }
 
+  public function collectionForward(Request $request,$id){
+    $data['carryfwd'] = true;
+    $data['collection'] = PaymentCollection::find($id);
+    $data['assigned_to'] = StaffUser::where('level',1)->get();
+    return view('admin.paymentCollection.carryfwd',$data);
+  }
+
   /* Add Collection */
   public function store(Request $request){
 
-    $rules = array(
+    $rules = 
+    [
       'name' => 'required',
       'mobile_no' => 'required',
-      'collection_date' => 'required',
-      // 'amount' => 'required',
-    );
+    ];
+
+    if($request->installment['date'][0] == null){
+      $rules['date']='required';
+    }
+
+    if($request->installment['amount'][0] == null){
+      $rules['amount']='required';
+    }
 
     $this->validator($request->all(),$rules)->validate();
 
@@ -207,7 +228,7 @@ class PaymentCollectionController extends Controller
       $payment_collection->name = strip_tags($request->name);
       $payment_collection->mobile_no = strip_tags($request->mobile_no);
       $payment_collection->alternate_no = strip_tags($request->alternate_no);
-      $payment_collection->collection_date = strip_tags($request->collection_date);
+      $payment_collection->collection_date = strip_tags(date('Y-m-d'));
       $payment_collection->new_date = date("Y-m-d", strtotime($installment['date']));
       $payment_collection->amount = strip_tags($installment['amount']);
       $payment_collection->balance_amount = strip_tags($installment['amount']);
@@ -221,7 +242,6 @@ class PaymentCollectionController extends Controller
         log_activity($payment_collection, $description, anchor_link($payment_collection->name, route('collection.show', $payment_collection->id )).' '.'<br>Assigned To: '.$payment_collection->assigned->first_name.' '.$payment_collection->assigned->last_name  );
         /* Activity Log */
 
-
         /* Add Notification */
         $member = StaffUser::find($payment_collection->staff_user_id);
         $message = array(
@@ -232,6 +252,12 @@ class PaymentCollectionController extends Controller
         /* Add Notification */
 
       }
+    }
+
+    if(isset($request->collection_id)){
+      $update = PaymentCollection::find($request->collection_id);
+      $update->status = 1;
+      $update->save();
     }
 
     /*$payment_collection = new PaymentCollection;
@@ -319,18 +345,16 @@ class PaymentCollectionController extends Controller
    
   public function update(Request $request,$id){
     $rules = array(
-           'name' => 'required',
-           'mobile_no' => 'required',
-            /*'alternate_no' => 'required',*/
-            'collection_date' => 'required',
-            'amount' => 'required',
-            );
+          'name' => 'required',
+          'mobile_no' => 'required',            
+          'collection_date' => 'required',
+          'amount' => 'required',
+        );
     $this->validator($request->all(),$rules)->validate();
     $payment_collection = PaymentCollection::find($id);
     $payment_collection->name = strip_tags($request->input('name'));
     $payment_collection->mobile_no = strip_tags($request->input('mobile_no'));
     $payment_collection->alternate_no = strip_tags($request->input('alternate_no'));
-    $payment_collection->collection_date = date("Y-m-d", strtotime($request->input('collection_date')));
     $payment_collection->new_date = date("Y-m-d", strtotime($request->input('collection_date')));
     $payment_collection->amount = strip_tags($request->input('amount'));
     $payment_collection->staff_user_id = strip_tags($request->input('staff_user_id'));

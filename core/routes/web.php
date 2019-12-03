@@ -576,7 +576,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 
 	/* Wholeseller / Distributor Create , Edit, Update, List */
   	Route::get('/shopkeeper', 'Admin\ShopkeeperController@index')->name('admin.shopkeeper.index');
-	Route::get('/shopkeeper/create/', 'Admin\ShopkeeperController@create')->name('admin.shopkeeper.create');
+	
+	Route::get('/shopkeeper/create/{convert_id?}', 'Admin\ShopkeeperController@create')->name('admin.shopkeeper.create');
+
 	Route::post('/shopkeeper/store', 'Admin\ShopkeeperController@store')->name('admin.shopkeeper.store');
 	Route::get('/shopkeeper/{user_id}/show', 'Admin\ShopkeeperController@show')->name('admin.shopkeeper.show');
 	Route::get('/shopkeeper/{customer_id}/edit', 'Admin\ShopkeeperController@edit')->name('admin.shopkeeper.edit');
@@ -1602,6 +1604,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 		]
 	]);
 	/* Import Collection Route */
+	Route::get('collection/add/{create_id}', 'Admin\PaymentCollectionController@collectionForward')->name('collection.forward');
+	
 	Route::get('import', 'Admin\PaymentCollectionController@import_page')->name('payment_collection_import_page');
 
 	Route::post('collection/import', 'Admin\PaymentCollectionController@import')->name('payment_collection_import');

@@ -46,17 +46,24 @@ color:
         <div class="main-content">
           <h5>Payment Collect </h5>
           <hr />
-          <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.store') }}">
+          <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.store') }}" onsubmit="checkamount();">
             {{ csrf_field() }}
+
+            <input type="hidden" name="collection_id" value="{{$collection->id}}">
+            <input type="hidden" name="balance_amount" value="{{$collection->balance_amount}}">
+            <input type="hidden" name="amount" class="total_amount" value="">
             <div class="">
               <h4 class="card-title m-b-0">
                 <div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
               </h4>
               <div class="row">
+                <div class="col-sm-12">
+                  <p><strong>Total Collection Amount: </strong>{{$collection->balance_amount}}</p>
+                </div>
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Customer Name <span class="text-danger">*</span></label>
-                   <input type="text" placeholder="Customer Name" name="name" class="form-control" value="{{ old('name') }}">
+                   <input type="text" placeholder="Customer Name" name="name" class="form-control" value="{{ $collection->name }}">
                   </div>
                   <div class=" {{ $errors->has('name') ? ' has-error' : '' }}"> @if ($errors->has('name'))
                     <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('name') }}</strong> </span></p>
@@ -67,7 +74,7 @@ color:
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Mobile No <span class="text-danger">*</span></label>
-                    <input type="text" placeholder="Customer Mobile No" name="mobile_no" class="form-control" value="{{ old('mobile_no') }}">
+                    <input type="text" placeholder="Customer Mobile No" name="mobile_no" class="form-control" value="{{ $collection->mobile_no }}">
                   </div>
                   <div class=" {{ $errors->has('mobile_no') ? ' has-error' : '' }}">
                     @if ($errors->has('mobile_no'))
@@ -79,7 +86,7 @@ color:
                 <div class="col-md-3">
                   <div class="form-group">
                     <label>Alternate Number No</label>
-                    <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{old('alternate_no')}}">
+                    <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{$collection->alternate_no}}">
                   </div>
                   <div class=" {{ $errors->has('alternate_no') ? ' has-error' : '' }}"> @if ($errors->has('alternate_no'))
                     <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('alternate_no') }}</strong> </span></p>
@@ -154,7 +161,7 @@ color:
         <label>Salesman: </label>
         <div class="form-group">
           <select name="installment[staff_user_id][]" id="salesman_select" class="salesman_select form-control">
-            @forelse($salesman as $salesman)
+            @forelse($assigned_to as $salesman)
             <option value="{{ $salesman->id }}" {{ ($salesman->id == old('staff_user_id'))?'selected':'' }}>{{ $salesman->first_name.' '.$salesman->last_name }} <sup>(Level : {{ $salesman->level }})</sup></option>
             @empty
             @endforelse
@@ -209,9 +216,6 @@ color:
 
 <script>
 
-$(document).ready( function () {
-  console.log('I\'m here');
-});
   /*Change Date*/
   function getDate(data, type, full, meta) {
      var d = new Date(data),
@@ -335,7 +339,6 @@ $(document).ready( function () {
       }
       reAssignVariableProuctsNames();
       $('input.date').datepicker();
-      console.log('date initiated');
     });
 
     $(document).on('change','.installments',function(){
@@ -368,18 +371,17 @@ $(document).ready( function () {
         var new_elem_name = rest+'['+tr_index+']';
         // console.log(td_index,td_ele,elem_name,new_elem_name);
         $(td_ele).attr('name',new_elem_name);
-        console.log($(td_ele).attr('name'));
+        // console.log($(td_ele).attr('name'));
       });
     });
   }
 
-
-    function reInitialize(){
-      $('#putclonehere').find('input.date').each(function(index, el) {
-        $('.date').datepicker();
-        console.log($(this));
-      });
-    }
+  var carryfwd = '{{$collection->balance_amount}}';
+  $(document).ready(function(){
+    $('#putclonehere').find('.countamount').val(carryfwd);
+    $('#total_amount').text('Rs. '+carryfwd);
+    $('.total_amount').val(carryfwd);
+  });
 
   $(document).on('blur','.countamount',function(){
     var total_amount = 0.00;
@@ -388,7 +390,13 @@ $(document).ready( function () {
       total_amount = parseInt(total_amount) + parseInt(($(el).val())?$(el).val():0.00);
     });
     $('#total_amount').text('Rs. '+total_amount.toFixed(2));
+    $('.total_amount').val(total_amount.toFixed(2));
   });
+
+  function checkamount(){
+    alert('form submit Onsubmit');
+    return false;
+  }
 
 </script> 
 @endsection

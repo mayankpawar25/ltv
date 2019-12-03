@@ -190,12 +190,42 @@ class ShopkeeperController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
-        $data['countries'] = Country::get();
+    public function create($lead=NULL){
+        $rec = [];
+        if($lead)
+        {
+            $rec = Lead::withTrashed()->find($lead);
+            if(!$rec)
+            {
+                abort(404);
+            }
+            $rec->lead_id = $rec->id;
+            if($rec->customer_id)
+            {
+                abort(404);
+            }
+            unset($rec->id);
+
+            if($rec->alternate_number){
+                $number = explode(',',$rec->alternate_number);
+            }
+
+            $rec->owner_name = ucwords($rec->first_name.' '.$rec->last_name);
+            $rec->shop_name  = ucwords($rec->company);
+            $rec->email      = $rec->email;
+            $rec->mobile     = $rec->phone;
+            $rec->phone      = ($number[0])?$number[0]:'';
+            $rec->country_id = $rec->country_id;
+            $rec->state_id   = State::where('name' ,$rec->state)->first()->id;
+            $rec->salesman_id = $rec->assigned_to;
+            // dd($rec);            
+        }
+        $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+        $data['salesman'] = StaffUser::whereNULL('inactive')->where('role_id',1)->whereNULL('is_administrator')->orderBy('name','ASC')->select(DB::raw('CONCAT(first_name, " ", last_name) AS name,id'))->pluck('name','id')->toArray();
         $data['usergroups'] = UserGroup::get();
         $data['user_role'] = 'shopkeeper';
         $data['tags'] = [];
-        return view('admin.shopkeeper.create',$data);
+        return view('admin.shopkeeper.create', compact('data'))->with('rec', $rec);
     }
 
     /**

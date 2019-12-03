@@ -21,15 +21,15 @@
       <h5>Add Dealer</h5>
       <hr />
         <div class="">
-          <form class="product-upload-form" action="{{ route('admin.shopkeeper.store') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="shop-form">
-            <input type="hidden" name="user_role" value="{{ $user_role }}">
+          <form class="product-upload-form" action="{{ (isset($rec->id)) ? route( 'patch_lead', $rec->id) : route('admin.shopkeeper.store') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="shop-form">
+            <input type="hidden" name="user_role" value="{{ $data['user_role'] }}">
             {{csrf_field()}}
             <h3 class="tile-title pull-left"><strong></strong></h3>
             <div class="row">
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Owner Name: </label>
-                  <input type="text" name="owner_name" class="form-control" value="{{ old('owner_name') }}">
+                  <input type="text" name="owner_name" class="form-control" value="{{ old_set('owner_name',NULL,$rec) }}">
                   @if($errors->has('owner_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('owner_name') }}</strong></span></p>
                   @endif
@@ -39,7 +39,7 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Shop Name: </label>
-                  <input type="text" name="shop_name" class="form-control"  value="{{ old('shop_name') }}">
+                  <input type="text" name="shop_name" class="form-control"  value="{{ old_set('shop_name',NULL,$rec) }}">
                   @if($errors->has('shop_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('shop_name') }}</strong></span></p>
                   @endif
@@ -48,7 +48,7 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Email: </label>
-                  <input type="text" name="email" class="form-control" value="{{ old('email') }}">
+                  <input type="text" name="email" class="form-control" value="{{ old_set('email',NULL,$rec) }}">
                   @if($errors->has('email'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('email') }}</strong></span></p>
                   @endif
@@ -57,7 +57,7 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Mobile: </label>
-                  <input type="text" name="mobile" class="form-control" value="{{ old('mobile') }}">
+                  <input type="text" name="mobile" class="form-control" value="{{ old_set('mobile',NULL,$rec) }}">
                   @if($errors->has('mobile'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('mobile') }}</strong></span></p>
                   @endif
@@ -66,7 +66,7 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Alternate Number: </label>
-                  <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
+                  <input type="text" name="phone" class="form-control" value="{{ old_set('phone',NULL,$rec) }}">
                   @if($errors->has('phone'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('phone') }}</strong></span></p>
                   @endif
@@ -84,12 +84,11 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <label>Country: </label>
-                  <select name="country" class="form-control select2">
-                    <option value="">-- Select Country --</option>
-                    @foreach($countries as $key => $country)
-                    <option value="{{ $country->id }}">{{ $country->name }}</option>
-                    @endforeach
-                  </select>
+
+                  <?php echo form_dropdown("country", $data['countries'], old_set("country_id", NULL, $rec), "class='form-control select2 '") ?>
+
+                  <?php // echo form_dropdown("country_id", $data['countries'], old_set("country_id", NULL, $rec), "class='form-control  selectpicker '") ?>
+
                   @if($errors->has('country'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('country') }}</strong></span></p>
                   @endif
@@ -140,7 +139,9 @@
               <div class="col-sm-3 {{ $class }}">
                <div class="form-group">
                   <label>Salesman: </label>
-                  <select name="salesman_id" id="salesman_select" class="salesman_select form-control select2"> </select>
+                  <!-- <select name="salesman_id" id="salesman_select" class="salesman_select form-control select2"> </select> -->
+                  <?php echo form_dropdown("salesman_id", $data['salesman'], old_set("salesman_id", NULL, $rec), "class='form-control select2 '") ?>
+                  
                 </div>
               </div>
               <div class="col-sm-3">
