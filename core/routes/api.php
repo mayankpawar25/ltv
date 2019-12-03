@@ -314,6 +314,9 @@ Route::post('/slider/user', 'API\UserController@slider');
 
 		
 		/* Test FCM */
+
+		/*User Notification*/
+		Route::post('/notificationList', 'API\UserController@NotificationList');
 	});
 	//Route::post('cartdetail', 'API\ProductController@cartDetail');
 

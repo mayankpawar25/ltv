@@ -26,6 +26,7 @@ use App\State;
 use App\Slider;
 use App\Zipcode;
 use App\Gateway as Gateway;
+use App\UserNotification;
 class UserController extends Controller 
 {
     public $successStatus = 200;
@@ -727,7 +728,7 @@ class UserController extends Controller
     /*return response()->json($success, $this-> successStatus); */
 
     $title = "New Order Placed";
-    $message = "Your order has been placed successfully! Our agent will contact with you later. Order ID:" . $order->unique_id;
+    $message = "Your order has been placed successfully. Order ID:" . $order->unique_id;
     
     //$this->sendNotification($user->fcm_id,$title,$message);
     /* Save Notification */
@@ -737,6 +738,14 @@ class UserController extends Controller
     $saveNotification->message = $message;
     $saveNotification->is_viewed = '0';
     $saveNotification->save();*/
+    /* Save Notification */
+    /* Save Notification */
+    $saveNotification = new UserNotification();
+    $saveNotification->customer_id = $user->id;
+    $saveNotification->title = $title;
+    $saveNotification->message = $message;
+    $saveNotification->is_viewed = '0';
+    $saveNotification->save();
     /* Save Notification */
 
     if ($request->payment_method == 1) {
