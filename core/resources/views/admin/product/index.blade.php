@@ -165,7 +165,7 @@ display: none;
         processing: true,
         serverSide: true,
         //iDisplayLength: 5
-        "lengthMenu": [ [10, 50, 100,150,200,250,300,350,450,500,-1], [10, 50, 100,150,200,250,300,350,450,500,'All'] ],
+        "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500,-1], [10, 20, 50, 100,150,200,250,300,350,450,500,'All'] ],
         pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
         ordering: true,
         "columnDefs": [
