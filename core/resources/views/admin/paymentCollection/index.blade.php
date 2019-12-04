@@ -87,7 +87,6 @@ div#admins-table_filter {
                     <th>{{__('form.action')}}</th>
                   </tr>
                 </thead>
-               
               </table>
             </div>
           </div>

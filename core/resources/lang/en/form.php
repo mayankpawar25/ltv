@@ -1298,7 +1298,7 @@ return [
     'collection_due_date' => 'Collection Due Date',
     'collected' => 'Collected',
     'balance' => 'Balance',
-    'calling_date' => 'Calling Date',
+    'calling_date' => 'Collection Date',
 
 
     /* Author : 225 */

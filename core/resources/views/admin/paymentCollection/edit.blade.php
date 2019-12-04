@@ -31,7 +31,7 @@ div.dataTables_wrapper div.dataTables_filter {
   <div class="row">
     <div class="col-12">
       <div class="main-content">
-      <h5>Edit Collections </h5>
+      <h5>{{ __('form.edit') }} {{ __('form.collection') }}</h5>
       <hr />
       <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.update', $collection->id) }}">
         <h4 class="card-title m-b-0">

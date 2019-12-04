@@ -29,12 +29,12 @@ div.dataTables_wrapper div.dataTables_filter {
 </style>
   <div class="container-fluid">
     <div class="main-content">
-      <h5>Collections </h5>
+      <h5>{{__('form.collection')}}</h5>
       <hr />
       
-       @if(Session::has('success'))
-                  <p class="alert {{ Session::get('alert-class', 'alert-success') }}"><?php echo Session::get('success'); ?></p>
-                  @endif
+        @if(Session::has('success'))
+          <p class="alert {{ Session::get('alert-class', 'alert-success') }}"><?php echo Session::get('success'); ?></p>
+        @endif
       <div class="row">
         <div class="col-3">
           <div class="card">
@@ -66,7 +66,7 @@ div.dataTables_wrapper div.dataTables_filter {
                 <!-- Amount -->
                 
                 <div class="form-group next_calling_date">
-                  <label>Next Calling Date <span class="text-danger">*</span></label>
+                  <label>Next Collection Date <span class="text-danger">*</span></label>
                   <input type="text" placeholder="Next Calling Date" name="next_calling_date" class="form-control initially_empty_datepicker" value="{{old('next_calling_date')}}">
                   @if ($errors->has('next_calling_date'))
                   <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('next_calling_date') }}</strong> </span></p>
@@ -194,7 +194,7 @@ div.dataTables_wrapper div.dataTables_filter {
                     <table class="table table-bordered w-100" id="admins-table">
                       <thead>
                         <tr>
-                          <th>Next Calling Date</th>
+                          <th>Date</th>
                           <th>Feedback</th>
                           <th>Payment Type</th>
                           <th>Collected Amount</th>
@@ -210,7 +210,7 @@ div.dataTables_wrapper div.dataTables_filter {
                       <tr>
                         <td>{{ date('d-m-Y',strtotime($thread->calling_date)) }}</td>
                         <td>{{ $thread->feedback }}</td>
-                        <td> @if($thread->payment_type) <span class='text text-success'>{{ucwords($thread->payment_type)}}</span> @else <span class='text text-danger'>None</span> @endif </td>
+                        <td> @if($thread->payment_type) <span class='text text-success'>{{ucwords($thread->payment_type)}}</span> @else <span class='text text-danger'> - </span> @endif </td>
                         <td>{{ $thread->collect_amount }}</td>
                         <td>{{ $thread->balance_amount }}</td>
                         <td> @if($thread->status==0) <span class='text text-danger'>Open</span> @elseif($thread->status==1) <span class='text text-success'>Closed</span></td>
