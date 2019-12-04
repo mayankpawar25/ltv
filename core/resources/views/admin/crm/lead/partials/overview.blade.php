@@ -8,8 +8,6 @@
 
             
             <div class="btn-group mr-1">
-               @if(isset($rec->dealer_id) && $rec->dealer_id)
-                  @lang('form.edit_dealer_profile')
                @if(isset($rec->customer_id) && $rec->customer_id)
                 <a href="{{ route('view_customer_page', $rec->customer_id ) }}" class="btn btn-primary btn-sm "><i class="fas fa-user"></i> @lang('form.edit_customer_profile')</a>
                @elseif(isset($rec->id) && !$rec->customer_id && ($rec->lead_status_id != LEAD_STATUS_CUSTOMER) )

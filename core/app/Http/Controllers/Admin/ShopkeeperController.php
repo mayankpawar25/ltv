@@ -218,7 +218,6 @@ class ShopkeeperController extends Controller
             $rec->country_id = $rec->country_id;
             $rec->state_id   = State::where('name' ,$rec->state)->first()->id;
             $rec->salesman_id = $rec->assigned_to;
-            // dd($rec);            
         }
         $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
         $data['salesman'] = StaffUser::whereNULL('inactive')->where('role_id',1)->whereNULL('is_administrator')->orderBy('name','ASC')->select(DB::raw('CONCAT(first_name, " ", last_name) AS name,id'))->pluck('name','id')->toArray();
