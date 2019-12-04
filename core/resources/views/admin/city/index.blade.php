@@ -121,7 +121,7 @@ color:  #333;
                   <th>Id</th>
                   <th>Name</th>
                   <th>State Name</th>
-                  <th>Status</th>
+                 <!--  <th>Status</th> -->
                   <th>Action</th>
                 </tr>
               </thead>
@@ -193,6 +193,25 @@ function getImg(data, type, full, meta) {
 
 $('#admins-table').DataTable({
       dom: 'lfBfrtip',
+        buttons: [
+            {
+              extend: 'copyHtml5',
+              exportOptions: {
+                  columns: ':visible'
+              }
+            },{
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },{
+              extend: 'print',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            'colvis'
+        ],
       stripHtml: false,
       "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500, -1], [10, 20, 50, 100,150,200,250,300,350,450,500, "All"] ],
       processing: true,
@@ -203,7 +222,7 @@ $('#admins-table').DataTable({
             { data: 'id', name: 'id' },
             { data: 'name', name: 'name' },
             { data: 'state_name', name: 'state_name' },
-            { data: 'status', name: 'status',render: getStatus },
+            /*{ data: 'status', name: 'status',render: getStatus },*/
             { data: 'action',name: 'action',orderable: false}
          ]
     });
