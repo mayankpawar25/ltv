@@ -12,7 +12,7 @@
                @elseif(isset($rec->dealer_id) && $rec->dealer_id)
                   <a href="{{ route('admin.shopkeeper.edit', $rec->dealer_id ) }}" class="btn btn-primary btn-sm "><i class="fas fa-user"></i> @lang('form.edit_dealer_profile')</a>
                @elseif(isset($rec->id) && !$rec->customer_id && !$rec->dealer_id && ($rec->lead_status_id != LEAD_STATUS_CUSTOMER) )
-                  @if(strtolower($rec->source->name)=='dealers')
+                  @if(strtolower($rec->source->name)=='dealers' || strtolower($rec->source->name)=='dealer')
                   <a href="{{ route('admin.shopkeeper.create', $rec->id ) }}" class="btn btn-primary btn-sm  "><i class="fas fa-user"></i> @lang('form.convert_to_dealer')</a>
                   @else
                   <a href="{{ route('add_customer_page', $rec->id ) }}" class="btn btn-primary btn-sm  "><i class="fas fa-user"></i> @lang('form.convert_to_customer')</a>
