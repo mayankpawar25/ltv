@@ -81,7 +81,7 @@ div.dataTables_wrapper div.dataTables_filter {
          <div class="col-md-3">
          <div class="form-group">
             <label>Collection Due Date <span class="text-danger">*</span></label>
-           <input type="text" placeholder="Collection Date" name="collection_date" class="form-control initially_empty_datepicker" value="{{$collection->new_date}}">
+           <input type="text" placeholder="Collection Date" name="collection_date" class="datepicker2 form-control" value="{{date('d-m-Y',strtotime($collection->new_date))}}">
           </div>
           <div class=" {{ $errors->has('collection_date') ? ' has-error' : '' }}"> @if ($errors->has('collection_date'))
             <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('collection_date') }}</strong> </span></p>
@@ -367,6 +367,7 @@ $('#admins-table').DataTable({
 
      
  $( document ).ready( function () {
+
    /*Form Velidation*/
     $.validator.addMethod("mobile_regex", function(value, element) {
       return this.optional(element) || /^\d{10}$/i.test(value);

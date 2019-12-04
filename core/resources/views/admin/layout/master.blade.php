@@ -20,7 +20,7 @@
     @yield('onPageJs')
 
   <script type="text/javascript">
-     $('.datepicker,.initially_empty_datepicker').datepicker({
+     $('.datepicker,.initially_empty_datepicker,.datepicker2').datepicker({
         autoclose: true,
         dateFormat: "dd-mm-yy"
   });

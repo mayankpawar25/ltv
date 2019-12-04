@@ -63,6 +63,9 @@
 
 <!-- Data Table Js -->
 <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script>
+<script src="{{asset('core/resources/js/daterangepicker.js')}}" type="text/javascript"></script>
+
+
 <!-- Data Table Js -->
  
 @if (session('success'))
