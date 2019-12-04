@@ -425,11 +425,12 @@ class UserController extends Controller
           $i = 0;
           if($p_value->attributes!='[]' || $p_value->attributes!='' || $p_value->attributes!='""'){
             $attributes = json_decode($p_value->attributes);
-            foreach ($attributes as $key => $attribute) {
-                $attr[$i]['name'] = $key;
-                $attr[$i]['options'] = (isset($attribute[0]))?$attribute[0]:'';
-                $i++;
-            }
+            if(!empty($attributes))
+              foreach ($attributes as $key => $attribute) {
+                  $attr[$i]['name'] = $key;
+                  $attr[$i]['options'] = (isset($attribute[0]))?$attribute[0]:'';
+                  $i++;
+              }
             $p_value->attributes = $attr;
           }
         }
