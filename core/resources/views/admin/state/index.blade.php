@@ -91,7 +91,7 @@ div#admins-table_filter {
 								<th>Id</th>
 								<th>Name</th>
 								<th>Country Name</th>
-								<th>Status</th>
+								<!-- <th>Status</th> -->
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -178,6 +178,25 @@ $('#admins-table').DataTable({
 	dom: 'lfBfrtip',
 	stripHtml: false,
 	"lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500, -1], [10, 20, 50, 100,150,200,250,300,350,450,500, "All"] ],
+	buttons: [
+            {
+              extend: 'copyHtml5',
+              exportOptions: {
+                  columns: ':visible'
+              }
+            },{
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },{
+              extend: 'print',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            'colvis'
+        ],
 	processing: true,
 	serverSide: true,
 	"pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},
@@ -186,7 +205,7 @@ $('#admins-table').DataTable({
 		 { data: 'id', name: 'id' },
 	      { data: 'name', name: 'name' },
 	      { data: 'country_name', name: 'country_name' },
-	      { data: 'status', name: 'status',render: getStatus },
+	      /*{ data: 'status', name: 'status',render: getStatus },*/
 	      { data: 'action',name: 'action',orderable: false}
 	]
 	});

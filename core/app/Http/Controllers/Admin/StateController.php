@@ -26,7 +26,7 @@ class StateController extends Controller
                         ->select('t.id', 't.name','countries.name as country_name','t.status')
                         ->get())   
 	                ->addColumn('action', function($data){
-                    $button = '<a href="'.route('states.edit',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $button = '<a href="'.route('states.edit',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>';
 	               
 	                $button .= '&nbsp;&nbsp;';
 	               /* $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';*/
