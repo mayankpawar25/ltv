@@ -67,7 +67,7 @@ div.dataTables_wrapper div.dataTables_filter {
                 
                 <div class="form-group next_calling_date">
                   <label>Next Collection Date <span class="text-danger">*</span></label>
-                  <input type="text" placeholder="Next Calling Date" name="next_calling_date" class="form-control initially_empty_datepicker" value="{{old('next_calling_date')}}">
+                  <input type="text" placeholder="Next Calling Date" name="next_calling_date" class="form-control datepicker2" value="{{old('next_calling_date')}}">
                   @if ($errors->has('next_calling_date'))
                   <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('next_calling_date') }}</strong> </span></p>
                   @endif </div>
