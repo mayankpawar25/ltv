@@ -32,7 +32,7 @@ $page_title = (isset($rec->id)) ? __('form.edit_dealer') . " : " .$rec->name : _
             <div class="row">
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>{{ __('form.name') }}:<span class="text-danger">*</span></label>
+                  <label>{{ __('form.owner_name') }}:<span class="text-danger">*</span></label>
                   <input type="text" name="owner_name" class="form-control" value="{{ old_set('owner_name',NULL,$rec) }}">
                   @if($errors->has('owner_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('owner_name') }}</strong></span></p>
@@ -42,7 +42,7 @@ $page_title = (isset($rec->id)) ? __('form.edit_dealer') . " : " .$rec->name : _
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>{{__('form.company')}}:<span class="text-danger">*</span></label>
+                  <label>{{__('form.shop_name')}}:<span class="text-danger">*</span></label>
                   <input type="text" name="shop_name" class="form-control"  value="{{ old_set('shop_name',NULL,$rec) }}">
                   @if($errors->has('shop_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('shop_name') }}</strong></span></p>
