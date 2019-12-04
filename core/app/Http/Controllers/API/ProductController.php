@@ -378,17 +378,17 @@ class ProductController extends Controller
 
      public function userWishlist(Request $request) {
         $favorits = Favorit::where('user_id', Auth::user()->id)->get();
-            foreach ($favorits as $k => $favorit) {
-                $product = Product::where('id',$favorit->product_id);
-                $productids = [];
-                $ptr = Product::orderBy('id', 'DESC');
-                $attr_search_product = $ptr->get();
-                if(!empty($productids)){
+           foreach ($favorits as $k => $favorit) {
+                $product = Product::select('*');
+                $productids[] = $favorit->product_id;
+
+               if(!empty($productids)){
+                   
                     $product->whereIn('id', $productids);
                 }
                 $products = $product->get();
             }
-            if(!$products->isEmpty()){
+           if(!$products->isEmpty()){
                 foreach ($products as $key => $value) {
                     foreach($value->previewimages as $images){
                         $images->image = asset('assets/user/img/products/'.$images->image);
