@@ -425,7 +425,7 @@ class LeadController extends Controller {
     {
         $validator = Validator::make($request->all(), [
             'medium'            =>  'required',
-            'date'              =>  'required|date_format:d/m/Y',
+            'date'              =>  'required|date_format:d-m-Y',
             'time'              =>  'required|date_format:h:i A',
             'resolution'        =>  'required',
 
@@ -470,7 +470,7 @@ class LeadController extends Controller {
         }
         else
         {
-            $lead->last_contacted       = date('Y-m-d H:i:s');
+            $lead->last_contacted       = $current_date->format('Y-m-d H:i:s');
             $lead->last_contacted_by    = auth()->user()->id;
             $lead->save();
         }
