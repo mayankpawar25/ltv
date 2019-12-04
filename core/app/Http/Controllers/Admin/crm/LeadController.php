@@ -422,7 +422,7 @@ class LeadController extends Controller {
     {
         $validator = Validator::make($request->all(), [
             'medium'            =>  'required',
-            'date'              =>  'required|date_format:d-m-Y',
+            'date'              =>  'required|date_format:d/m/Y',
             'time'              =>  'required|date_format:h:i A',
             'resolution'        =>  'required',
 
