@@ -44,7 +44,7 @@ color:
     <div class="row">
       <div class="col-12">
         <div class="main-content">
-          <h5>Add New Collection</h5>
+          <h5>{{__('form.add')}} {{__('form.new_collection')}}</h5>
           <hr />
           <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.store') }}">
             {{ csrf_field() }}
@@ -55,7 +55,7 @@ color:
               <div class="row">
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Customer Name <span class="text-danger">*</span></label>
+                    <label>{{__('form.customer_name')}}<span class="text-danger">*</span></label>
                    <input type="text" placeholder="Customer Name" name="name" class="form-control" value="{{ old('name') }}">
                   </div>
                   <div class=" {{ $errors->has('name') ? ' has-error' : '' }}"> @if ($errors->has('name'))
@@ -66,7 +66,7 @@ color:
                 
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Mobile No <span class="text-danger">*</span></label>
+                    <label>{{__('form.mobile')}}<span class="text-danger">*</span></label>
                     <input type="text" placeholder="Customer Mobile No" name="mobile_no" class="form-control" value="{{ old('mobile_no') }}">
                   </div>
                   <div class=" {{ $errors->has('mobile_no') ? ' has-error' : '' }}">
@@ -78,7 +78,7 @@ color:
                 
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Alternate Number No</label>
+                    <label>{{__('form.alt_number')}}</label>
                     <input type="text" placeholder="Alternate Mobile No" name="alternate_no" class="form-control" value="{{old('alternate_no')}}">
                   </div>
                   <div class=" {{ $errors->has('alternate_no') ? ' has-error' : '' }}"> @if ($errors->has('alternate_no'))
@@ -89,7 +89,7 @@ color:
 
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>Installments <span class="text-danger">*</span></label>
+                    <label>{{__('form.installments')}} <span class="text-danger">*</span></label>
                     <select class="form-control installments" name="installments">
                       <option>-- select installments --</option>
                       <option value="1" selected>1</option>
@@ -99,20 +99,21 @@ color:
                       <option value="5">5</option>
                     </select>
                   </div>
-                  <div class=" {{ $errors->has('collection_date') ? ' has-error' : '' }}">
-                    @if($errors->has('collection_date'))
-                    <p class="text-danger">
-                      <span class="help-block"><strong>
-                      {{ $errors->first('collection_date') }}</strong></span>
-                    </p>
-                    @endif
-                  </div>
                 </div><!-- Installments -->
               </div>
-              <div id="putclonehere"></div>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>{{__('form.calling_date')}}</th>
+                    <th>{{__('form.amount')}}</th>
+                    <th>{{__('form.assigned')}} {{__('form.to')}}</th>
+                  </tr>
+                </thead>
+                <tbody id="putclonehere"></tbody>
+              </table>
               <div class="row">
                 <div class="col-sm-6">
-                  <strong>Total : </strong><p id="total_amount">0.00</p>
+                  <strong>{{__('form.total')}} : </strong><p id="total_amount">0.00</p>
                 </div>
               </div>
             </div>
@@ -126,92 +127,57 @@ color:
     </div>
   </div>
 
-  <div class="d-none clone-fields">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="form-group">
-          <label>Calling Date <span class="text-danger">*</span></label>
-          <input type="text" placeholder="Date" name="installment[date][]" class="date form-control" value="{{ old('date') }}">
-        </div>
-        <div class=" {{ $errors->has('date') ? ' has-error' : '' }}"> @if ($errors->has('date'))
-          <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('date') }}</strong> </span></p>
-          @endif
-        </div>
-      </div><!-- Calling Date -->
-      
-      <div class="col-md-3">
-        <div class="form-group">
-          <label>Collection Amount <span class="text-danger">*</span></label>
-          <input type="text" placeholder="Amount" name="installment[amount][]" class="countamount form-control" value="{{ old('amount') }}">
-        </div>
-        <div class=" {{ $errors->has('amount') ? ' has-error' : '' }}"> @if ($errors->has('amount'))
-          <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('amount') }}</strong> </span></p>
-          @endif
-        </div>
-      </div><!-- Collection Amount -->
-
-      <div class="col-md-3">
-        <label>Salesman: </label>
-        <div class="form-group">
-          <select name="installment[staff_user_id][]" id="salesman_select" class="salesman_select form-control">
-            @forelse($salesman as $salesman)
+<table class="d-none">
+  <tbody class="clone-fields">
+    <tr>
+      <td>
+        <input type="text" placeholder="Date" name="installment[date][]" class="date form-control" value="{{ old('date') }}">
+      </td>
+      <td>
+        <input type="text" placeholder="Amount" name="installment[amount][]" class="countamount form-control" value="{{ old('amount') }}">
+      </td>
+      <td>
+        <select name="installment[staff_user_id][]" id="salesman_select" class="salesman_select form-control">
+          @forelse($salesman as $salesman)
             <option value="{{ $salesman->id }}" {{ ($salesman->id == old('staff_user_id'))?'selected':'' }}>{{ $salesman->first_name.' '.$salesman->last_name }} <sup>(Level : {{ $salesman->level }})</sup></option>
-            @empty
-            @endforelse
-          </select>
-        </div>
-      </div><!-- Assigned To -->
-      
-      <div class="col-md-3"></div>
-    
-    </div>
-  </div>
+          @empty
+          @endforelse
+        </select>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="row d-none">
+  <div class="col-md-3">
 
+    <div class=" {{ $errors->has('date') ? ' has-error' : '' }}"> @if ($errors->has('date'))
+      <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('date') }}</strong> </span></p>
+      @endif
+    </div>
+  </div><!-- Calling Date -->
+
+  <div class="col-md-3">
+    <div class="form-group">
+
+    </div>
+    <div class=" {{ $errors->has('amount') ? ' has-error' : '' }}"> @if ($errors->has('amount'))
+      <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('amount') }}</strong> </span></p>
+      @endif
+    </div>
+  </div><!-- Collection Amount -->
+
+  <div class="col-md-3">
+    <label>{{__('form.assigned')}} {{__('form.to')}}: </label>
+    <div class="form-group">
+
+    </div>
+  </div><!-- Assigned To -->
+
+  <div class="col-md-3"></div>
+
+</div>
 </main>
-  
-<div id="confirmModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title">Confirmation</h2>
-      </div>
-      <div class="modal-body">
-        <h4 align="center" style="margin:0;">Are you sure you want to remove this data?</h4>
-      </div>
-      <div class="modal-footer">
-        <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Status -->
-
-<div id="statusconfirmModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Confirmation</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <h5 align="center" style="margin:0;"><strong>Are you sure you want to Change this status?</strong></h5>
-      </div>
-      <div class="modal-footer">
-        <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Status -->
-
 <script>
-
-$(document).ready( function () {
-  console.log('I\'m here');
-});
   /*Change Date*/
   function getDate(data, type, full, meta) {
      var d = new Date(data),
@@ -329,6 +295,7 @@ $(document).ready( function () {
       $('#putclonehere').html('');
       var total_installments = 1;
       var tds = $('.clone-fields').clone().html();
+      console.log(tds);
       for (i = 0; i < total_installments; i++) {
         $(tds).find('input.date').datepicker();
         $('#putclonehere').append(tds);

@@ -54,7 +54,7 @@
   </tr>
   <tr>
     <td>Area</td>
-    <td>{{ $shopkeeper->Zipcode->area_name }}</td>
+    <td>{{ (!empty($shopkeeper->area))?$shopkeeper->area->area_name:'' }}</td>
   </tr>
   <tr>
     <td>Address</td>
@@ -253,12 +253,8 @@
 					<div class="">
 						<strong>Status : </strong>
 							@if($shopkeeper->status==0)
-								@if($shopkeeper->is_verified==1)
-									@if(auth()->user()->is_administrator)
+								@if($shopkeeper->is_verified==1 && auth()->user()->is_administrator)
 										<a href="{{ route('admin.shopkeeper.status',[$shopkeeper->id,'1']) }}"><span class="btn btn-sm btn-warning">Inactive</span></a>
-									@else
-										<a href="#"><span class="btn btn-sm btn-warning">Inactive</span></a>
-									@endif
 								@else
 									<a href="#"><span class="btn btn-sm btn-warning">Inactive</span></a>
 								@endif

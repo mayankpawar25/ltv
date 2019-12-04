@@ -10,7 +10,7 @@ use App\SalesmanNotification;
 
 if (! function_exists('send_email')) {
 
-    function send_email( $to, $name, $subject, $message)
+    function send_email( $to, $name, $subject, $message,$type="")
     {
         $settings = GS::first();
         $template = $settings->email_template;
