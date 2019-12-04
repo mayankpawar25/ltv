@@ -3,6 +3,29 @@
 
 @section('title', __('form.settings') . " : " .__('form.leads_statuses'))
 @section('setting_page')
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+#data tr td:last-child {
+    text-align: right;
+}
+
+</style>
 <div class="app-content">
 
 <div class="app-title">    
@@ -66,8 +89,8 @@
 
             dataTable = $('#data').DataTable({
 
-                dom: 'Bfrtip',
-                buttons: [
+                dom: 'lfBfrtip',
+                /*buttons: [
 
                     {
                         init: function(api, node, config) {
@@ -84,6 +107,25 @@
                             'print'
                         ]
                     }
+                ],*/
+                buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
                 ],
 
                 "language": {
@@ -102,7 +144,7 @@
                 serverSide: true,
                 //iDisplayLength: 5
                 //pageLength: {{ data_table_page_length() }},
-                pageLength: 10,
+                pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
                 ordering: false,
                 // "columnDefs": [
                 //     { className: "text-right", "targets": [2,4] },
