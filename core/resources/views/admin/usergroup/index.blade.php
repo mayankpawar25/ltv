@@ -42,7 +42,7 @@ div#data_filter {
               <div class="col-md-6 text-right">
              
                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-                   Add User Group
+                   New User Group
                  </button>
              </div>
              

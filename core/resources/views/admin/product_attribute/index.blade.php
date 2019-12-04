@@ -39,7 +39,7 @@ div#data_filter {
           </div>
           <div class="col-md-6">
            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">
-                  <i class="fa fa-plus"></i> Add Product Attribute
+                 New Product Attribute
                 </button>
           </div>
        
