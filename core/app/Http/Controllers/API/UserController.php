@@ -423,7 +423,7 @@ class UserController extends Controller
         foreach($products as $p_key => $p_value){
           $attr = [];
           $i = 0;
-          if($p_value->attributes!='[]' || $p_value->attributes!=''){
+          if($p_value->attributes!='[]' || $p_value->attributes!='' || $p_value->attributes!='""'){
             $attributes = json_decode($p_value->attributes);
             foreach ($attributes as $key => $attribute) {
                 $attr[$i]['name'] = $key;
