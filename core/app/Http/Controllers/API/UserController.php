@@ -420,11 +420,11 @@ class UserController extends Controller
         $products = $value->orderedproducts;
         $value->total_products = count($value->orderedproducts);
 
-        foreach($products as $p_key => $p_value){
+        /*foreach($products as $p_key => $p_value){
           $attr = [];
           $i = 0;
           if($p_value->attributes!='[]' || $p_value->attributes!='' || $p_value->attributes!='""'){
-            $attributes = json_decode($p_value->attributes);
+            $attributes = json_decode(str_replace('\','', $p_value->attributes));
             if(!empty($attributes))
               foreach ($attributes as $key => $attribute) {
                   $attr[$i]['name'] = $key;
@@ -433,7 +433,7 @@ class UserController extends Controller
               }
             $p_value->attributes = $attr;
           }
-        }
+        } */
 
         /* Status */
         if($value->approve == '1'){
@@ -451,7 +451,6 @@ class UserController extends Controller
         }
         /* Status */
       }
-      exit;
 
       $data['order_history'] = $order_history;
       $data['msg'] = "Order History";
@@ -678,7 +677,7 @@ class UserController extends Controller
       $op->product_name = $cart->title;
       $op->product_price = $cart->price;
       //$op->offered_product_price = $cart->current_price;
-      $op->attributes = json_encode($cart->attributes);
+      $op->attributes = $cart->attributes;
 
       if ($request->coupon_code) {
         //$csession = session('coupon_code');
