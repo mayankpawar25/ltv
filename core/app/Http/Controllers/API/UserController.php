@@ -409,7 +409,7 @@ class UserController extends Controller
     }else{
       $order_history = Order::where(['user_id' => Auth::id()])->orderby('id','DESC')->get();
     }
-    
+
     if($order_history->isEmpty()){
       $data['order_history'] = [];
       $data['msg'] = "No Order Found";
@@ -417,9 +417,22 @@ class UserController extends Controller
       $status = 401;
     }else{
       foreach ($order_history as $key => $value) {
-        $value->orderedproducts;
+        $products = $value->orderedproducts;
         $value->total_products = count($value->orderedproducts);
         
+        foreach($products as $p_key => $p_value){
+          $attr = [];
+          $i = 0;
+          $attributes = json_decode($p_value->attributes);
+          foreach ($attributes as $key => $attribute) {
+              $attr[$i]['name'] = $key;
+              $attr[$i]['options'] = $attribute[0];
+              $i++;
+          }
+          $p_value->attributes = $attr;
+        }
+
+
         /* Status */
         if($value->approve == '1'){
           if($value->shipping_status == '0'){

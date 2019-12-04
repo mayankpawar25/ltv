@@ -899,6 +899,7 @@ define("DISCOUNT_METHOD_FIXED", 2);
 
 // Lead Statuses
 define("LEAD_STATUS_CUSTOMER", 1);
+define("LEAD_STATUS_DEALER", 6);
 
 // Invoice Statuses
 define("INVOICE_STATUS_PAID", 1);

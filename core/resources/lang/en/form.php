@@ -261,8 +261,13 @@ return [
     'lead_information' => 'Lead Information',
     'general_information' => 'General Information',
     'convert_to_customer' => 'Convert to Customer',
+    'convert_to_dealer' => 'Convert to Dealer',
     'edit_customer_profile' => 'Edit Customer Profile',
+    'edit_dealer_profile' => 'Edit Dealer Profile',
     'new_lead' => 'New Lead',
+
+    // Dealer
+    'dealer' => 'Dealer',
 
     // Tasks
     'task' => 'Task',

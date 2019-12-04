@@ -38,7 +38,7 @@ div#admins-table_filter {
       <div class="col-md-6">
          <div class="float-md-right">
             @if(auth()->user()->is_administrator)
-              <a class="btn btn-primary btn-sm" href="{{ route('collection.create') }}">Add Payment Collection</a>
+              <a class="btn btn-primary btn-sm" href="{{ route('collection.create') }}">New Collection</a>
               <a class="btn btn-primary btn-sm" href="{{ route('payment_collection_import_page') }}">Import</a>
             @endif
          </div>

@@ -44,7 +44,7 @@ color:
     <div class="row">
       <div class="col-12">
         <div class="main-content">
-          <h5>Payment Collect </h5>
+          <h5>Add New Collection</h5>
           <hr />
           <form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('collection.store') }}">
             {{ csrf_field() }}

@@ -33,15 +33,12 @@ class LeadController extends Controller {
     function index()
     {
         $data                   = lead::dropdown_for_filtering() + lead::statistics();
+        $data['default_lead_status_id_list'] = array_keys($data['lead_status_id_list']);
+        // $data['leads'] = Lead::get()
 
-       $data['default_lead_status_id_list'] = array_keys($data['lead_status_id_list']);
-
-       // $data['leads'] = Lead::get()
-
-
-       // Remove customer from the selected statuses
-       unset($data['default_lead_status_id_list'][LEAD_STATUS_CUSTOMER]);
-     
+        // Remove customer from the selected statuses
+        unset($data['default_lead_status_id_list'][LEAD_STATUS_DEALER]);
+        unset($data['default_lead_status_id_list'][LEAD_STATUS_CUSTOMER]);
         return view('admin.crm.lead.index', compact('data'));
     }
 

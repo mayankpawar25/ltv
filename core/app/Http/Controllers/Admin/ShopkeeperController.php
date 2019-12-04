@@ -191,7 +191,13 @@ class ShopkeeperController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create($lead=NULL){
+
         $rec = [];
+
+        $data['states'] = ["" => __('form.nothing_selected')];
+        $data['cities'] = ["" => __('form.nothing_selected')];
+        $data['areas']  = ["" => __('form.nothing_selected')];
+
         if($lead)
         {
             $rec = Lead::withTrashed()->find($lead);
@@ -205,7 +211,7 @@ class ShopkeeperController extends Controller
                 abort(404);
             }
             unset($rec->id);
-
+            $number = [];
             if($rec->alternate_number){
                 $number = explode(',',$rec->alternate_number);
             }
@@ -214,14 +220,20 @@ class ShopkeeperController extends Controller
             $rec->shop_name  = ucwords($rec->company);
             $rec->email      = $rec->email;
             $rec->mobile     = $rec->phone;
-            $rec->phone      = ($number[0])?$number[0]:'';
+            $rec->phone      = (isset($number[0]))?$number[0]:'';
             $rec->country_id = $rec->country_id;
             $rec->state_id   = State::where('name' ,$rec->state)->first()->id;
+            $rec->city_id    = City::where('name' ,$rec->city)->first()->id;
             $rec->salesman_id = $rec->assigned_to;
+            $rec->address     = ucwords($rec->address);
+            $data['states']  = ["" => __('form.nothing_selected')]  + State::where('country_id' ,$rec->country_id)->orderBy('name','ASC')->pluck('name','id')->toArray();
+            $data['cities']  = ["" => __('form.nothing_selected')]  + City::where('state_id' ,$rec->state_id)->orderBy('name','ASC')->pluck('name','id')->toArray();
+            $data['areas']  = ["" => __('form.nothing_selected')]  + Zipcode::where('city_id' ,$rec->city_id)->orderBy('area_name','ASC')->pluck('area_name','id')->toArray();
+
         }
         $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
         $data['salesman'] = StaffUser::whereNULL('inactive')->where('role_id',1)->whereNULL('is_administrator')->orderBy('name','ASC')->select(DB::raw('CONCAT(first_name, " ", last_name) AS name,id'))->pluck('name','id')->toArray();
-        $data['usergroups'] = UserGroup::get();
+        $data['usergroups'] = ["" => __('form.nothing_selected')]  + UserGroup::orderBy('name','ASC')->pluck('name','id')->toArray();
         $data['user_role'] = 'shopkeeper';
         $data['tags'] = [];
         return view('admin.shopkeeper.create', compact('data'))->with('rec', $rec);
@@ -254,8 +266,7 @@ class ShopkeeperController extends Controller
         $shop_pic = '';
         $logo = '';
         $banner = '';
-        /* print_r($request->all());
-        die; */
+
         $shopkeeper = new Shopkeeper;
         $shopkeeper->name = $request->owner_name;
         $shopkeeper->shopname = $request->shop_name;
@@ -284,6 +295,23 @@ class ShopkeeperController extends Controller
         $shopkeeper->salesman_id  = (isset($request->salesman_id)) ? $request->salesman_id : NULL;
         $shopkeeper->folder = $current_time;
         $shopkeeper->save();
+
+        // If Lead was converted to Customer then Update Lead Status
+        if(isset($request->lead_id) && $request->lead_id)
+        {                
+            $lead                   = Lead::withTrashed()->find($request->lead_id);
+
+            if($lead)
+            {
+                $lead->dealer_id        = $shopkeeper->id;
+                $lead->lead_status_id   = LEAD_STATUS_DEALER;
+                $lead->is_lost          = NULL;
+                $lead->deleted_at       = NULL;
+                $lead->save();
+            }
+            
+        }
+
         /* Path Create for Uploading */
         if (!file_exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
@@ -342,6 +370,7 @@ class ShopkeeperController extends Controller
             // save or do whatever you like
             $background->save($banner_location);
         }
+
         $documents = [];
         if($request->file('doc')){
             $imgs = $request->file('doc');
@@ -385,7 +414,7 @@ class ShopkeeperController extends Controller
         $update->save();
         /* Generate Qr-Code */
 
-        return redirect()->route('admin.shopkeeper.create')->with('success','Successfully added shopkeeper');
+        return redirect()->route('admin.shopkeeper.index')->with('success','Successfully added Dealer');
 
     }
 
@@ -407,13 +436,24 @@ class ShopkeeperController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id){
-        $data['shopkeeper'] = Shopkeeper::find($id);
         $data['user_role'] = 'shopkeeper';
-        $data['usergroups'] = UserGroup::get();
-        $data['salesmans'] = StaffUser::get();
-        $data['countries'] = Country::get();
-        $data['tags'] = Country::get();
-        return view('admin.shopkeeper.edit',$data);
+
+        $shopkeeper = Shopkeeper::findorfail($id);
+        $shopkeeper->owner_name = ucwords($shopkeeper->name);
+        $shopkeeper->shop_name  = ucwords($shopkeeper->shopname);
+
+        $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+        $data['states']  = ["" => __('form.nothing_selected')]  + State::where('country_id' ,$shopkeeper->country_id)->orderBy('name','ASC')->pluck('name','id')->toArray();
+        $data['cities']  = ["" => __('form.nothing_selected')]  + City::where('state_id' ,$shopkeeper->state_id)->orderBy('name','ASC')->pluck('name','id')->toArray();
+        $data['areas']  = ["" => __('form.nothing_selected')]  + Zipcode::where('city_id' ,$shopkeeper->city_id)->orderBy('area_name','ASC')->pluck('area_name','id')->toArray();
+        $data['salesman'] = StaffUser::whereNULL('inactive')->where('role_id',1)->whereNULL('is_administrator')->orderBy('name','ASC')->select(DB::raw('CONCAT(first_name, " ", last_name) AS name,id'))->pluck('name','id')->toArray();
+        $data['usergroups'] = ["" => __('form.nothing_selected')]  + UserGroup::orderBy('name','ASC')->pluck('name','id')->toArray();
+
+        // $data                       = $customer->dropdowns();
+        // $customer['group_id']       = $customer->groups()->pluck('group_id')->toArray();
+        return view('admin.shopkeeper.create', compact('data'))->with('rec',$shopkeeper);
+
+        // return view('admin.shopkeeper.edit',$data);
     }
 
     /**
@@ -549,7 +589,7 @@ class ShopkeeperController extends Controller
         $shopkeeper->save();
         /* Update Document and Images for User */
 
-        return redirect()->route('admin.shopkeeper.index')->with('success','Successfully updated shopkeeper');
+        return redirect()->route('admin.shopkeeper.index')->with('success','Successfully updated Dealer');
     }
 
     /**
@@ -561,7 +601,7 @@ class ShopkeeperController extends Controller
     public function destroy($id){
         $resp = Shopkeeper::find($id);
         $resp->delete();
-        return redirect()->route('admin.shopkeeper.index')->with('success','Shopkeeper deleted');
+        return redirect()->route('admin.shopkeeper.index')->with('success','Dealer deleted');
     }
 
     public function documentVerification(Request $request){

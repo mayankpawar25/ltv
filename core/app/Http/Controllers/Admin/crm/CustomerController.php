@@ -234,8 +234,6 @@ class CustomerController extends Controller {
         try {      
 
             $obj  = User::create($request->all());
-
-            //$obj->groups()->attach($request->group_id);
     
             // Customer's Primary Contact
             $password           = ($request->contact_password) ? $request->contact_password : DEFAULT_USER_PASSWORD;
@@ -253,7 +251,6 @@ class CustomerController extends Controller {
                 'smart_summary'                             => ($request->smart_summary) ?? NULL,
 
             ]);
-
 
             // If Lead was converted to Customer then Update Lead Status
             if(isset($request->lead_id) && $request->lead_id)

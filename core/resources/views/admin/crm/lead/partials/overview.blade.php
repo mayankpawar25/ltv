@@ -6,12 +6,17 @@
          <div class="float-md-right">
             <button type="button" class="btn btn-sm btn-primary mr-1" data-toggle="modal" data-target="#logTouchModal"> <i class="fas fa-address-book"></i> @lang('form.log_touch')</button>
 
-            
             <div class="btn-group mr-1">
                @if(isset($rec->customer_id) && $rec->customer_id)
                 <a href="{{ route('view_customer_page', $rec->customer_id ) }}" class="btn btn-primary btn-sm "><i class="fas fa-user"></i> @lang('form.edit_customer_profile')</a>
-               @elseif(isset($rec->id) && !$rec->customer_id && ($rec->lead_status_id != LEAD_STATUS_CUSTOMER) )
+               @elseif(isset($rec->dealer_id) && $rec->dealer_id)
+                  <a href="{{ route('admin.shopkeeper.edit', $rec->dealer_id ) }}" class="btn btn-primary btn-sm "><i class="fas fa-user"></i> @lang('form.edit_dealer_profile')</a>
+               @elseif(isset($rec->id) && !$rec->customer_id && !$rec->dealer_id && ($rec->lead_status_id != LEAD_STATUS_CUSTOMER) )
+                  @if(strtolower($rec->source->name)=='dealers')
+                  <a href="{{ route('admin.shopkeeper.create', $rec->id ) }}" class="btn btn-primary btn-sm  "><i class="fas fa-user"></i> @lang('form.convert_to_dealer')</a>
+                  @else
                   <a href="{{ route('add_customer_page', $rec->id ) }}" class="btn btn-primary btn-sm  "><i class="fas fa-user"></i> @lang('form.convert_to_customer')</a>
+                  @endif
                @endif
                
             </div>
@@ -50,8 +55,8 @@
                <?php profile_photo_upload_html($rec->photo); ?>
             </div>
             <div class="col-md-9 pl-1" >
-               <h4>{{ $rec->first_name . " ". $rec->last_name }} <i class="fas fa-star {{ ($rec->is_important) ? 'star-important' : '' }}" data-toggle="tooltip" data-placement="top" title="{{ ($rec->is_important) ? __('form.unmark_as_important') : __('form.mark_as_important') }}"></i></h4>
-               <div>{{ $rec->position }}, {{ $rec->company }}</div>
+               <h4>{{ ucwords($rec->first_name . " ". $rec->last_name) }} <i class="fas fa-star {{ ($rec->is_important) ? 'star-important' : '' }}" data-toggle="tooltip" data-placement="top" title="{{ ($rec->is_important) ? __('form.unmark_as_important') : __('form.mark_as_important') }}"></i></h4>
+               <div>{{ ($rec->position)?$rec->position.',':'' }}{{ ucwords($rec->company) }}</div>
                <div>{{ $rec->city }}, {{ $rec->state }}, {{ (isset($rec->country->name)) ? $rec->country->name : '' }}</div>
                <div class="quick-preview">
                   <table>
@@ -118,6 +123,9 @@
                @endif
                @if($rec->customer_id)
                <span class="badge badge-success">{{ __('form.customer')}}</span>
+               @endif
+               @if($rec->dealer_id)
+               <span class="badge badge-success">{{ __('form.dealer')}}</span>
                @endif
             </div>
          </fieldset>
