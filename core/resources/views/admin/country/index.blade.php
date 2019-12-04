@@ -130,7 +130,7 @@ div#admins-table_filter {
 									<th>Name</th>
 									<!-- <th>ISO Code</th>
 									<th>Country Code</th> -->
-									<th>Status</th>
+									<!-- <th>Status</th> -->
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -190,7 +190,7 @@ div#admins-table_filter {
 </div>
 </main>
 <!-- Status -->
-
+ <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
 <script>
 /****************************************
 *       Basic Table                   *
@@ -215,25 +215,25 @@ $('#admins-table').DataTable({
 		dom: 'lfBfrtip',
 		stripHtml: false,
 		"lengthMenu": [ [10, 20, 50, 100, -1], [10, 20, 50, 100, "All"] ],
-		buttons: [
-		  {
-			  extend:    'copyHtml5',
-			  text:      '<i class="fas fa-copy"></i>',
-			  titleAttr: 'Copy'
-		  },
-
-		  {
-			  extend:    'excelHtml5',
-			  text:      '<i class="fas fa-file-excel"></i>',
-			  titleAttr: 'Excel'
-	       },
-
-		   {
-			  extend:    'pdfHtml5',
-			  text:      '<i class="fas fa-file-pdf"></i>',
-			  titleAttr: 'PDF'
-		  }
-		  ],
+		   buttons: [
+            {
+              extend: 'copyHtml5',
+              exportOptions: {
+                  columns: ':visible'
+              }
+            },{
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },{
+              extend: 'print',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            'colvis'
+        ],
 		processing: true,
 		serverSide: true,
 		"pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},
@@ -243,7 +243,7 @@ $('#admins-table').DataTable({
 			{ data: 'name', name: 'name' },
 			/*{ data: 'iso_code', name: 'iso_code' },*/
 			/*{ data: 'phone_code', name: 'phone_code' },*/
-			{ data: 'status', name: 'status',render: getStatus },
+			/*{ data: 'status', name: 'status',render: getStatus },*/
 			{ data: 'action',name: 'action',orderable: false}
 		]
 	});
