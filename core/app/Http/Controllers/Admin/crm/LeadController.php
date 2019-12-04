@@ -467,7 +467,7 @@ class LeadController extends Controller {
         }
         else
         {
-            $lead->last_contacted       = $current_date->format('Y-m-d H:i:s');
+            $lead->last_contacted       = date('Y-m-d H:i:s');
             $lead->last_contacted_by    = auth()->user()->id;
             $lead->save();
         }
