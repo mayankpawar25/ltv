@@ -62,8 +62,9 @@
 
 
 <!-- Data Table Js -->
-
-
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script>
+<!-- Data Table Js -->
+ 
 @if (session('success'))
 <script type="text/javascript">
     $(document).ready(function(){
