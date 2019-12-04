@@ -26,14 +26,14 @@ class CountryController extends Controller
         if($request->ajax()){
            return datatables()->of(Country::all())   
             ->addColumn('action', function($data){
-                $button = '<a href="'.route('countries.edit',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</a>';
+                $button = '<a href="'.route('countries.edit',$data->id).'" name="edit" id="'.$data->id.'" class="editbtn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>';
 
                 $button .= '&nbsp;&nbsp;';
                 /* $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';*/
 
                 $button .= '&nbsp;&nbsp;';
                 if($data->status == 0){
-                    $button .= '<button type="button" name="status" id="'.$data->id.'" class="status btn btn-danger btn-sm" data-status="'.$data->status.'">Inactive</button>';
+                    $button .= '<button type="button" name="status" id="'.$data->id.'" class="status  btn-sm btn btn-danger btn-sm" data-status="'.$data->status.'">Inactive</button>';
                 }else {
                     $button .= '<button type="button" name="status" id="'.$data->id.'" class="status btn btn-success btn-sm" data-status="'.$data->status.'">Active</button>';
                 }
