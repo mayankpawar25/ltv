@@ -46,6 +46,7 @@ class ProductController extends Controller
     $order       = Input::get('order');
     $columns     = Input::get('columns');
     $query_key   = Input::get('search');
+    $status_id   = Input::get('quantity');
     $search_key  = $query_key['value'];
     $customer_id = Input::get('customer_id');
     $q           = Product::query();
@@ -80,6 +81,11 @@ class ProductController extends Controller
 
     }*/
 
+     if($status_id!=''){
+            $query->where('status', $status_id );
+            $q->whereIn('status', $status_id );
+        }
+
     $number_of_records  = $q->get()->count();
 
     if($search_key)
@@ -87,7 +93,10 @@ class ProductController extends Controller
         $query->where(function ($k) use ($search_key) {
 
             $k->where('title', 'like', $search_key.'%')
-            ->orWhere('price', 'like', $search_key.'%');
+            ->orWhere('price', 'like', $search_key.'%')
+            ->orWhere('quantity', 'like', $search_key.'%')
+            ->orWhere('product_code', 'like', $search_key.'%')
+            ->orWhere('sales', 'like', $search_key.'%');
             /*
             ->orWhere('email', 'like', $search_key.'%')
             ->orWhere('mobile', 'like', $search_key.'%')
@@ -121,24 +130,16 @@ class ProductController extends Controller
             $rec[] = array(
 
                 a_links(anchor_link("<img src='".$image_path."' width='50px'>",route('admin.product.edit',$row->id)), [
-                    [
-                        'action_link' => route('admin.product.edit', $row->id), 
-                        'action_text' => __('form.edit'), 'action_class' => '',
-                        'permission' => 'products_edit',
-                    ],
-                    [
-                        'action_link' => route('admin.product.delete', $row->id), 
-                        'action_text' => __('form.delete'), 'action_class' => 'delete_item',
-                        'permission' => 'shopkeepers_delete',
-                    ]
                 ]),
                 $row->title,
+                $row->product_code,
                 $row->price,
                 $row->quantity,
                 ($row->quantity > 1) ?'<span class="badge badge-success">InStock</span>':'<span class="badge badge-danger">Out of Stock</span>',
                 $gs->base_curr_symbol.' '.$totalearning,
                 $row->sales,
-                // anchor_link('<button class="btn btn-sm btn-warning"><span class="fa fa-edit" data-toggle="tooltip" title="Edit"></span></button>',route('admin.product.edit',$row->id),'','product_edit').' '.'<span class="sp-close-btn"> <a href="#" onclick="delproduct(event, '.$row->id.')" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"><i class="fas fa-times"></i></a></span></span>',
+                anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('admin.product.edit', $row->id),'','shopkeepers_edit').' '.
+                anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('admin.product.delete', $row->id),'','shopkeepers_delete'),
             );
         }
     }

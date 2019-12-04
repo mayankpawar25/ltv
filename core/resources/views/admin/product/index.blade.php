@@ -30,43 +30,63 @@ display: none;
 </style>
 
 <main class="app-content">
-    <div class="app-title">
+  <div class="main-content">
+     <div class="row">
+      <div class="col-md-6">
+         <h5>Product Listing</h5>
+      </div>
+      <div class="col-md-6">
+         <div class="float-md-right">
+           @if(auth()->user()->is_administrator)
+            <a href="{{route('admin.product.import_page')}}" class="btn btn-sm btn-primary float-right">Import</a>
+            @endif
+
+            <a href="{{route('admin.product.create')}}" class="btn btn-sm btn-primary mr-2 float-right">New Product</a>
+         </div>
+      </div>
+    </div>
+    <hr>
+   <!--  <div class="app-title">
       <div>
          <h1 class="float-left">Product Listing</h1>
       </div>
-     <!-- <ul class="app-breadcrumb breadcrumb">
+      <ul class="app-breadcrumb breadcrumb">
          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
          <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-      </ul>-->
-    </div>
+      </ul>
+    </div> -->
   <!-- sellers product content area start -->
   <div class="row">
     <div class="col-lg-12">
-      <div class="card">
-        <div class=card-header><h3 class="float-left">Your Products</h3>
+      <div class="">
+        {{-- 
+           <div class=card-header><h3 class="float-left">Your Products</h3>
           <div class="float-right icon-btn">
 
             @if(auth()->user()->is_administrator)
-            <a href="{{route('admin.product.import_page')}}" class="btn btn-sm btn--primary float-right">Import</a>
+            <a href="{{route('admin.product.import_page')}}" class="btn btn-sm btn-primary float-right">Import</a>
             @endif
 
-            <a href="{{route('admin.product.create')}}" class="btn btn-sm btn-primary btn--primary float-right">Add New Product</a>
+            <a href="{{route('admin.product.create')}}" class="btn btn-sm btn-primary mr-2 float-right">New Product</a>
           </div>
         </div>
+         --}}
+       
         <div class="card-body">
           <div class="">
-            <div class="bottom-content table-responsive">
-              <table class="table table-default" id="data">
+            <div class="bottom-content">
+              <table class="table table-bordered w-100" id="data">
                 <thead>
                     <tr>
                         <th>Product</th>
                         <th width="30%">Title</th>
+                        <th>Product Code</th>
                         <th>Price</th>
                         <th>Quantity left</th>
                         <th>Status</th>
                         <th>Total Earnings</th>
                         <th>Sales</th>
-                        <!-- <th width="10%">Action</th> -->
+                        <th>Action</th>
                     </tr>
                 </thead>
                 {{-- <tbody>
@@ -127,12 +147,14 @@ display: none;
       </div>
     </div>
   </div>
+  </div>
   <div class="sellers-product-content-area" style="padding: 0px 0;">
       <div class="container">
           
       </div>
   </div>
 </main>
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
 <script type="text/javascript">
     $(function() {
     dataTable = $('#data').DataTable({
@@ -154,7 +176,7 @@ display: none;
                         columns: ':visible'
                       }
                     },
-
+                     'colvis'
                   ],
         "language": {
             "lengthMenu": '_MENU_ ',
@@ -170,14 +192,15 @@ display: none;
         ordering: true,
         "columnDefs": [
           { className: "text-right", "targets": [5] },
-          { "name": "id",   "targets": 0 },
+          { "name": "id",   "targets": 0 ,orderable:false},
           { "name": "title",  "targets": 1 },
-          { "name": "price", "targets": 2 },
-          { "name": "quantity",  "targets": 3 },
-          { "name": "phone",  "targets": 4 ,orderable:false},
-          { "name": "sales",  "targets": 5 },
-          { "name": "status",  "targets": 6 ,orderable:false},
-          // { "name": "action",  "targets": 6 ,orderable:false},
+          { "name": "product_code",  "targets": 2 },
+          { "name": "price", "targets": 3 },
+          { "name": "quantity",  "targets": 4 },
+          { "name": "status",  "targets": 5 ,orderable:false},
+          { "name": "earning",  "targets": 6 ,orderable:false},
+          { "name": "sales",  "targets": 7 },
+          { "name": "status",  "targets": 8 ,orderable:false},
           // { "name": "state_id",  "targets": 7},
         /*  { "name": "city_id",  "targets": 8},
           { "name": "status",  "targets": 9 },
