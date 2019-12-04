@@ -55,6 +55,8 @@ class PaymentCollectionController extends Controller
     $search_key  = $query_key['value'];
     $query       = PaymentCollection::orderBy($columns[$order[0]['column']]['name'], $order[0]['dir']);
 
+
+
     // Filtering Data
     if($status_id!=''){
         $query->whereIn('status', $status_id );
@@ -79,6 +81,9 @@ class PaymentCollectionController extends Controller
       $query->where(function($k){
           $k->where('staff_user_id', auth()->user()->id);
       });
+
+      $query->where('new_date',date('Y-m-d'));
+
     }
 
 

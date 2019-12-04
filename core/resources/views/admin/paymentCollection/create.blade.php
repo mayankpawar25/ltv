@@ -131,7 +131,7 @@ color:
   <tbody class="clone-fields">
     <tr>
       <td>
-        <input type="text" placeholder="Date" name="installment[date][]" class="date form-control" value="{{ old('date') }}">
+        <input type="text" placeholder="Date" name="installment[date][]" class="date2 form-control" value="{{ old('date') }}">
       </td>
       <td>
         <input type="text" placeholder="Amount" name="installment[amount][]" class="countamount form-control" value="{{ old('amount') }}">
@@ -297,11 +297,17 @@ color:
       var tds = $('.clone-fields').clone().html();
       console.log(tds);
       for (i = 0; i < total_installments; i++) {
-        $(tds).find('input.date').datepicker();
+        $(tds).find('input.date2').datepicker({
+          autoclose: true,
+          dateFormat: "dd-mm-yy"
+        });
         $('#putclonehere').append(tds);
       }
       reAssignVariableProuctsNames();
-      $('input.date').datepicker();
+      $('input.date2').datepicker({
+        autoclose: true,
+        dateFormat: "dd-mm-yy"
+      });
       console.log('date initiated');
     });
 
@@ -314,9 +320,12 @@ color:
         $('#putclonehere').append(tds);
       }
 
-      $('#putclonehere').find('input.date').each(function() {
+      $('#putclonehere').find('input.date2').each(function() {
          $(this).removeAttr('id').removeClass('hasDatepicker');
-         $(this).datepicker();
+         $(this).datepicker({
+          autoclose: true,
+          dateFormat: "dd-mm-yy"
+         });
       });
 
       reAssignVariableProuctsNames();
@@ -341,12 +350,12 @@ color:
   }
 
 
-    function reInitialize(){
+   /* function reInitialize(){
       $('#putclonehere').find('input.date').each(function(index, el) {
         $('.date').datepicker();
         console.log($(this));
       });
-    }
+    }*/
 
   $(document).on('blur','.countamount',function(){
     var total_amount = 0.00;
