@@ -79,7 +79,7 @@ class UserController extends Controller {
                 //     $q->where('teams.name', 'like', $search_key.'%');
                 // })
                 ->orWhereHas('skills', function ($q) use ($search_key) {
-                    $q->where('tags.name', 'like', $search_key.'%');
+                    //$q->where('tags.name', 'like', $search_key.'%');
                     
                 });
         }
