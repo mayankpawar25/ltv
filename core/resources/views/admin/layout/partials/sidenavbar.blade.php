@@ -7,7 +7,7 @@
      <!-- E-commerce -->
 
 
-  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
+  @if(is_menu_enable(['products','category_managements','product_attr' ,'coupons' ,'user_groups']))
     <li class="treeview
       @if (request()->path() == 'admin/product/index')
         is-expanded
