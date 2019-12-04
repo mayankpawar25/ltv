@@ -361,7 +361,7 @@ class ProductController extends Controller
     }
 
     /*User WishList*/
-    public function userWishlist(Request $request) {
+    public function userWishlist2(Request $request) {
         $favorit = Favorit::where('user_id', Auth::user()->id)->get();
           if (!empty($favorit)) {
                 $data['wishlist'] = $favorit;
@@ -373,6 +373,40 @@ class ProductController extends Controller
              $data['status'] = false;
              $status = 401;
         }
+       return response()->json($data, $status);
+    }
+
+     public function userWishlist(Request $request) {
+        $favorits = Favorit::where('user_id', Auth::user()->id)->get();
+            foreach ($favorits as $k => $favorit) {
+                $product = Product::where('id',$favorit->product_id);
+                $productids = [];
+                $ptr = Product::orderBy('id', 'DESC');
+                $attr_search_product = $ptr->get();
+                if(!empty($productids)){
+                    $product->whereIn('id', $productids);
+                }
+                $products = $product->get();
+            }
+            if(!$products->isEmpty()){
+                foreach ($products as $key => $value) {
+                    foreach($value->previewimages as $images){
+                        $images->image = asset('assets/user/img/products/'.$images->image);
+                        $images->big_image = asset('assets/user/img/products/'.$images->big_image);
+                    }
+                    $value->attributes = json_decode($value->attributes);
+                }
+            $data['wishlist'] = $products;
+            $data['msg'] = 'User Wishlist';
+            $data['status'] = true;
+            $status = $this-> successStatus;
+        }else{
+            $data['wishlist'] = [];
+            $data['msg'] = 'No Product found in wishlist';
+            $data['status'] = false;
+            $status = 401;
+        }
+
        return response()->json($data, $status);
     }
 
