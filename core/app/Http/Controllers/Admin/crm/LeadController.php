@@ -204,8 +204,8 @@ class LeadController extends Controller {
                     $row->status->name,
                     (isset($row->source)) ? $row->source->name : '',
                     ($row->last_contacted) ? Carbon::parse($row->last_contacted)->format("d-m-Y h:i A") : ''  ,
-                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_lead_page', $row->id),'','shopkeepers_edit').' '.
-                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_lead', $row->id),'','shopkeepers_delete'),
+                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_lead_page', $row->id),'','leads_edit').' '.
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_lead', $row->id),'','leads_delete'),
 
                 );
 
