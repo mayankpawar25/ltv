@@ -157,7 +157,7 @@ class PaymentCollectionController extends Controller
             }
 
 
-            $action = '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-primary btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.$close_btn.$carry_frwd_btn;
+            $action = '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-success btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.$close_btn.$carry_frwd_btn;
           }
 
 

@@ -157,7 +157,11 @@ $(document).ready(function() {
 });
 
 </script>
-
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
 
 <!-- @if(is_pusher_enable())
     <script src="https://js.pusher.com/4.3/pusher.min.js"></script> 

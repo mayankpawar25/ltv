@@ -9,7 +9,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*Route::get('/', function () {
+Route::get('/', function () {
     return redirect('admin');
 });
 
@@ -26,7 +26,7 @@ Route::get('/contact', function () {
 });
 Route::get('/shop', function () {
     return redirect('admin');
-});*/
+});
 
 Route::get('/import/download/sample', 'Admin\AreaController@download_sample_area_import_file')->name('download_sample_area_import_file');
 Route::post('/paginate', 'Admin\AreaController@paginate')->name('datatables_area');
