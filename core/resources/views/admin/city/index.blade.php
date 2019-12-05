@@ -165,7 +165,7 @@ color:  #333;
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <h5 align="center" style="margin:0;"><strong>Are you sure you want to close this collection?</strong></h5>
+        <h5 align="center" style="margin:0;"><strong>Are you sure you want to change this status?</strong></h5>
       </div>
       <div class="modal-footer">
         <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
