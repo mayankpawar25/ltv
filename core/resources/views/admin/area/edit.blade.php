@@ -2,6 +2,9 @@
 @extends('admin.layout.master')
 {{-- Content Body --}}
 @section('content')
+
+
+
  <main class="app-content">
  
 <style type="text/css" media="screen">
@@ -19,26 +22,11 @@ div.dataTables_wrapper div.dataTables_filter {
     text-align: right;
     width: auto;
 }
-div#admins-table_filter {
-    display: none;
+#data_filter {
+    display: none !important;
 }
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: 
-#f2f2f2;
-color:  #333;
-}
-.select2-container--default .select2-search--dropdown .select2-search__field {
-    border: 1px solid 
-    #ddd;
-    border-radius: 3px;
-}
-.select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: 
-    #444;
-    line-height: 30px;
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    top: 2px !important;
+#data tr td:last-child {
+	text-align: right;
 }
 
 </style>
@@ -163,6 +151,7 @@ color:  #333;
 									<th>State</th>
 									<th>City</th>
 									<th>Status</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 						</table>
@@ -244,7 +233,7 @@ color:  #333;
 
 	$(function() {
 	    dataTable = $('#data').DataTable({
-	       dom: 'Bfrtip',
+	       dom: 'lfBfrtip',
 	stripHtml: false,
 	"lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500, -1], [10, 20, 50, 100,150,200,250,300,350,450,500, "All"] ],
 	buttons: [
@@ -266,6 +255,11 @@ color:  #333;
             },
             'colvis'
         ],
+         "language": {
+          "lengthMenu": '_MENU_ ',
+          "search": '',
+          "searchPlaceholder": "{{ __('form.search') }}"
+      },
 	processing: true,
 	        responsive: true,
 	        serverSide: true,
