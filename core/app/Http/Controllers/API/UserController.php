@@ -16,7 +16,8 @@ use App\Coupon;
 use App\Product,App\Option;
 use App\Orderedproduct;
 use App\Orderpayment;
-use App\User;
+use App\User,App\Models\StaffUser;
+use App\Notification;
 use App\Vendor;
 use App\Category,App\Subcategory,App\OrderRequestForDeliveryBoy;
 use App\Models\Tags;
@@ -433,6 +434,11 @@ class UserController extends Controller
               }
             $p_value->attributes = $attr;
           }
+          
+          foreach($p_value->product->previewimages as $images){
+            $images->image = asset('assets/user/img/products/'.$images->image);
+            $images->big_image = asset('assets/user/img/products/'.$images->big_image);
+          }
         } 
 
         /* Status */
@@ -451,6 +457,7 @@ class UserController extends Controller
         }
         /* Status */
       }
+      // exit;
 
       $data['order_history'] = $order_history;
       $data['msg'] = "Order History";
@@ -495,8 +502,10 @@ class UserController extends Controller
   }
 
   public function sendNotification($regId,$orderId){
+    
+    $regId = 'dsu3ifB8DBw:APA91bHn-XcV8K2pU2s4sHeE95IZmubGaSUK9f3nInY-ZhbnAFZtiV8kjRdyLFlCWwxY5JyRdSh1MxoS9oPIFp0rejk0ZyYvHTOnWfR6QjkX9ojLP6UUvIOr2dGbypprOrmGjFmqqlT1';
 
-    define('FIREBASE_API_KEY', 'AAAArRMA6iM:APA91bFI6jvM167-lG9DkRX8Pnp0YDuJNjcSlYFDL4V2sBxY9oTtEAV-bqH1iX5NC7QhjuV2Jb7pZd5wctUkzzYOMxvNtqDibMBGKJFKTT2TaBZuiEebMBbBPdqShoG7-BVi_nB3tnWh');
+    define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
 
     $title="Order Id #".$orderId;
     $message="New Order Check It";
@@ -530,11 +539,11 @@ class UserController extends Controller
 
     curl_close($curl);
 
-
+    // echo $response;
 
     /*echo $response;
     exit();*/
-    return $orderId;
+    return true;
   }
 
   /*User Cart Details*/
@@ -743,9 +752,9 @@ class UserController extends Controller
     /*return response()->json($success, $this-> successStatus); */
 
     $title = "New Order Placed";
-    $message = "Your order has been placed successfully. Order ID:" . $order->unique_id;
+    $message = sprintf(__('form.order_placed'),$order->unique_id);
     
-    //$this->sendNotification($user->fcm_id,$title,$message);
+    $this->sendNotification($user->fcm_id,$title,$message);
     /* Save Notification */
    /* $saveNotification = new ShopkeeperNotification();
     $saveNotification->shopkeeper_id = $user->id;
@@ -754,6 +763,7 @@ class UserController extends Controller
     $saveNotification->is_viewed = '0';
     $saveNotification->save();*/
     /* Save Notification */
+
     /* Save Notification */
     $saveNotification = new UserNotification();
     $saveNotification->customer_id = $user->id;
@@ -762,6 +772,15 @@ class UserController extends Controller
     $saveNotification->is_viewed = '0';
     $saveNotification->save();
     /* Save Notification */
+
+    /* Admin Notification */
+    $member = StaffUser::where('is_administrator','1')->first();
+    $message = array(
+      'message'   => sprintf(__('form.order_received'),$order->unique_id),
+      'url'       => route('admin.orderdetails',$order->id),
+    );
+    $this->addNotification(uniqid(),$order,$member,$member->id,$message);
+    /* Admin Notification */
 
     if ($request->payment_method == 1) {
       $success['status'] = true;
@@ -786,6 +805,16 @@ class UserController extends Controller
       return response()->json($success, $this-> successStatus);
     // after payment clear Cart and redirect to success page
     }
+  }
+
+  public function addNotification($unique_id,$type,$notifiable_type,$notifiable_id,$message){
+    $notification = new Notification;
+    $notification->id = $unique_id;
+    $notification->type = get_class($type);
+    $notification->notifiable_type = get_class($notifiable_type);
+    $notification->notifiable_id = $notifiable_id;
+    $notification->data = json_encode($message);
+    $notification->save();
   }
 
   /*Get Valid Coupons and Offers*/

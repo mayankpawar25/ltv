@@ -33,13 +33,13 @@ div#admins-table_filter {
   <div class="main-content">
     <div class="row">
       <div class="col-md-6">
-         <h5>Collections</h5>
+         <h5>{{__('form.collections')}}</h5>
       </div>
       <div class="col-md-6">
          <div class="float-md-right">
             @if(auth()->user()->is_administrator)
-              <a class="btn btn-primary btn-sm" href="{{ route('collection.create') }}">New Collection</a>
-              <a class="btn btn-primary btn-sm" href="{{ route('payment_collection_import_page') }}">Import</a>
+              <a class="btn btn-primary btn-sm" href="{{ route('collection.create') }}">{{__('form.new_collection')}}</a>
+              <a class="btn btn-primary btn-sm" href="{{ route('payment_collection_import_page') }}">{{__('form.import')}}</a>
             @endif
          </div>
       </div>
@@ -68,20 +68,25 @@ div#admins-table_filter {
                 <thead>
                   <tr>
                    <!--  <th>Id</th> -->
-                    <th>Customer Name</th>
-                    <th>Customer Mobile No</th>
-                    <th>Alternate No</th>
+                    <th>{{__('form.customer_name')}}</th>
+                    <th>{{__('form.customer_mobile')}}</th>
+                    <th>{{__('form.alt_number')}}</th>
+                    <th>{{__('form.creation_date')}}</th>
+                    <th>{{__('form.collection_due_date')}}</th>
+                    <th>{{__('form.due')}} {{__('form.amount')}}</th>
+                    <th>{{__('form.collected')}} {{__('form.amount')}}</th>
+                    <th>{{__('form.balance')}} {{__('form.amount')}}</th>
+                    <!-- <th>Alternate No</th>
                     <th>Creation date</th>
                     <th>Collection due date</th>
                     <th>Due Amount</th>
                     <th>Collected Amount</th>
-                    <th>Balance Amount</th>
-                    <th>Salesman</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th>Balance Amount</th> -->
+                    <th>{{__('form.assigned')}}</th>
+                    <th>{{__('form.status')}}</th>
+                    <th>{{__('form.action')}}</th>
                   </tr>
                 </thead>
-               
               </table>
             </div>
           </div>

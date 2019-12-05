@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use PhpOffice\PhpSpreadsheet\Reader\Csv;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Illuminate\Support\Facades\Storage;
-
+use App\Notification;
 use Illuminate\Support\Facades\Input;
 use Mail;
 
@@ -232,7 +232,7 @@ class ShopkeeperController extends Controller
 
         }
         $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
-        $data['salesman'] = StaffUser::whereNULL('inactive')->where('role_id',1)->whereNULL('is_administrator')->orderBy('name','ASC')->select(DB::raw('CONCAT(first_name, " ", last_name) AS name,id'))->pluck('name','id')->toArray();
+        $data['salesman'] = ["" => __('form.nothing_selected')] + StaffUser::whereNULL('inactive')->where('role_id',1)->whereNULL('is_administrator')->orderBy('name','ASC')->select(DB::raw('CONCAT(first_name, " ", last_name) AS name,id'))->pluck('name','id')->toArray();
         $data['usergroups'] = ["" => __('form.nothing_selected')]  + UserGroup::orderBy('name','ASC')->pluck('name','id')->toArray();
         $data['user_role'] = 'shopkeeper';
         $data['tags'] = [];
@@ -414,8 +414,13 @@ class ShopkeeperController extends Controller
         $update->save();
         /* Generate Qr-Code */
 
-        return redirect()->route('admin.shopkeeper.index')->with('success','Successfully added Dealer');
-
+        $member = StaffUser::find($shopkeeper->salesman_id);
+        $message = array(
+          'message'   => sprintf(__('form.new_dealer_assign'),$shopkeeper->name),
+          'url'       => route('admin.shopkeeper.show',$shopkeeper->id),
+        );
+        $this->addNotification(uniqid(),$update,$member,$member->id,$message);
+        return redirect()->route('admin.shopkeeper.index')->with('success',sprintf(__('form.new_dealer_save')));
     }
 
     /**
@@ -589,7 +594,14 @@ class ShopkeeperController extends Controller
         $shopkeeper->save();
         /* Update Document and Images for User */
 
-        return redirect()->route('admin.shopkeeper.index')->with('success','Successfully updated Dealer');
+        $member = StaffUser::find($shopkeeper->salesman_id);
+        $message = array(
+          'message'   => sprintf(__('form.dealer_updated'),$shopkeeper->name,'Admin'),
+          'url'       => route('admin.shopkeeper.show',$shopkeeper->id),
+        );
+        $this->addNotification(uniqid(),$shopkeeper,$member,$member->id,$message);
+
+        return redirect()->route('admin.shopkeeper.index')->with('success',sprintf(__('form.new_dealer_update')));
     }
 
     /**
@@ -645,24 +657,18 @@ class ShopkeeperController extends Controller
         $resp->status = $status_id;
         $resp->save();
 
-        Mail::send('admin.template.email',['email'=>$resp->email,'name'=>$resp->name], function ($message) {
+      /*  Mail::send('admin.template.email',['email'=>$resp->email,'name'=>$resp->name], function ($message) {
             $message->from('contact@domainname.com','Company Name');
             $message->to($resp->email);
             $message->subject('Contact form submitted on domainname.com');
-
             dd($message);
-
-        });
+        });*/
         if($resp->status == 1){
             $to = $resp->email;
             $name = $resp->email .'/'.$resp->mobile;
             $subject = 'Welcome To Laptop True Value';
             $message = '';
-            send_email( $to, $name, $subject, $message);
-
-            // $to = $resp->mobile;
-            // $message = 'Greetings from Laptop True Value. You have been added as a verified dealer with Laptop True Value. Your account has been activated. Your login name is '.$resp->email.' / '.$resp->mobile.'. Please download the app from playstore. link.   Please change password from Forgot Password section to start using app. Support:07120009990.';
-            // send_sms( $to, $message);
+            send_email( $to, $name, $subject, $message,'smtp');
         }
         return redirect()->route('admin.shopkeeper.show',$id)->with('success','Document Status successfully updated');
     }
@@ -980,6 +986,14 @@ class ShopkeeperController extends Controller
         return redirect()->back()->with('success','Admin Verified Successfully Added');
     }
 
-
+    public function addNotification($unique_id,$type,$notifiable_type,$notifiable_id,$message){
+        $notification = new Notification;
+        $notification->id = $unique_id;
+        $notification->type = get_class($type);
+        $notification->notifiable_type = get_class($notifiable_type);
+        $notification->notifiable_id = $notifiable_id;
+        $notification->data = json_encode($message);
+        $notification->save();
+    }
 
 }

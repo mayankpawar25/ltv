@@ -117,7 +117,7 @@ class CustomerController extends Controller {
                 $primary_contact = $row->primary_contact;
                 $checked     = ($row->inactive) ? '' : 'checked';
                 $rec[] = array(
-                    a_links(anchor_link($row->name, route('view_customer_page', $row->id)), [
+                   /* a_links(anchor_link($row->name, route('view_customer_page', $row->id)), [
                         [
                             'action_link' => route('edit_customer_page', $row->id), 
                             'action_text' => __('form.edit'), 'action_class' => '',
@@ -128,6 +128,10 @@ class CustomerController extends Controller {
                             'action_text' => __('form.delete'), 'action_class' => 'delete_item', 
                             'permission' => 'customers_delete'
                         ]
+                    ]),*/
+                      a_links(anchor_link($row->name, route('view_customer_page', $row->id)), [
+                       
+                        
                     ]),
                     $row->number,
                     (isset($primary_contact)) ? $primary_contact->first_name . " ". $primary_contact->last_name :  "",
@@ -137,7 +141,9 @@ class CustomerController extends Controller {
                     ' <input '.$checked.' data-id="'.$row->id.'" class="tgl tgl-ios customer_status" id="cb'.$row->id.'" type="checkbox"/><label class="tgl-btn" for="cb'.$row->id.'"></label>',
                     $row->get_groups_as_badges(true),
                     date("d-m-Y", strtotime($row->created_at)),
-                    anchor_link('<button class="btn btn-primary btn-sm"><span class="icon icon-eye" data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'3']))
+                    anchor_link('<button class="btn btn-primary btn-sm"><span class="icon icon-eye" data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'3'])).
+                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_customer_page', $row->id),'','shopkeepers_edit').' '.
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_customer', $row->id),'','shopkeepers_delete'),
 
                 );
 

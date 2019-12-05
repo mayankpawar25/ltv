@@ -64,6 +64,10 @@ class Shopkeeper extends Authenticatable
       return $this->belongsTo('App\Zipcode');
     }
 
+    public function area(){
+        return $this->belongsTo('App\Zipcode' ,'zipcode_id','id');
+    }
+
      public function salesman(){
       return $this->belongsTo('App\Models\StaffUser');
     }

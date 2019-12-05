@@ -266,9 +266,6 @@ return [
     'edit_dealer_profile' => 'Edit Dealer Profile',
     'new_lead' => 'New Lead',
 
-    // Dealer
-    'dealer' => 'Dealer',
-
     // Tasks
     'task' => 'Task',
     'new_task' => 'New Task',
@@ -1098,7 +1095,9 @@ return [
     'unsuccessful' => 'Unsuccessful',
     'abondoned' => 'Abondoned',
     'left_voicemail' => 'Left Voicemail',
-    'log_touch' => 'Log Touch',
+    'log_touch' => 'Lead Followup',
+    'followup_log' => 'Followup Log',
+    // 'Log Touch',
     'entered_log_touch_for_lead' => 'Entered Log Touch for Lead',
     'marked_as_important' => 'Marked as important',
     'unmarked_as_important' => 'Unmarked as important',
@@ -1258,14 +1257,54 @@ return [
     'sales_scores' => 'Sales Score',
 
     /* Author : 225 */
+
     'alt_number_one' => 'Alternate Number One',
     'alt_number_two' => 'Alternate Number Two',
     'alternate_number' => 'Alternate Number',
     'level_one' => 'Level 1',
     'level_two' => 'Level 2',
     'collection_received' => 'A collection of amount %s has been assigned to you.Collection id : %s',
-    /* Author : 225 */
 
+    // Dealer
+    'dealer' => 'Dealer',
+    'add_dealer' => 'Add New Dealer',
+    'edit_dealer' => 'Edit Dealer',
+    'new_dealer' => 'New Dealer',
+    'new_dealer_assign' => 'New Dealer %s is assigned to you',
+    'dealer_updated' => 'Dealer %s is updated by %s',
+    'new_dealer_save' => 'New Dealer Added Successfully',
+    'new_dealer_update' => 'Dealer Updated Successfully',
+    'owner_name' => 'Owner Name',
+    'shop_name' => 'Shop Name',
+    'mobile' => 'Mobile',
+    'area' => 'Area',
+    'usergroup'=>'User Group',
+    'owner_pic' => 'Owner Image',
+    'logo' => 'Logo Image',
+    'banner_image' => 'Banner Image',
+    'shop_image' => 'Shop Image',
+
+    // Collection
+    'collection' => 'Collection',
+    'collections' => 'Collections',
+    'new_collection' => 'New Collection',
+    'edit_collection' => 'Edit Collection',
+    'amount' => 'Amount',
+    'due' => 'Due',
+    'customer_name' => 'Customer Name',
+    'customer_mobile' => 'Customer Mobile No.',
+    'alt_number' => 'Alternate No.',
+    'creation_date' => 'Creation Date',
+    'collection_due_date' => 'Collection Due Date',
+    'collected' => 'Collected',
+    'balance' => 'Balance',
+    'calling_date' => 'Collection Date',
+
+    /* Orders */
+    'order_received' => 'New Order Received. Order ID : %s ',
+    'order_placed' => 'Your order has been placed successfully. Order ID: %s ',
+
+    /* Author : 225 */
 ];
 
 

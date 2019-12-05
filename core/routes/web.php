@@ -28,6 +28,9 @@ Route::get('/shop', function () {
     return redirect('admin');
 });
 
+
+Route::get('/allcollection', 'Admin\Cron\CronController@viewTodaysCollection')->name('datatables_area');
+
 Route::get('/import/download/sample', 'Admin\AreaController@download_sample_area_import_file')->name('download_sample_area_import_file');
 Route::post('/paginate', 'Admin\AreaController@paginate')->name('datatables_area');
 

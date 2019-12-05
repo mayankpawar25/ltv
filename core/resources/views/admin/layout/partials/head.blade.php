@@ -18,6 +18,9 @@
   <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css/main.css')}}">
   <!-- Font-icon css-->
   
+  <!-- Date Range Picker -->
+  <link rel="stylesheet" type="text/css" href="{{asset('core/resources/js/daterangepicker.css')}}" >
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css" />
 
   {{-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}

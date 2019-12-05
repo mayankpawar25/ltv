@@ -50,7 +50,7 @@ class ExpenseCategoryController extends Controller {
             {
 
                 $rec[] = array(
-                    a_links('<a class="edit_item" data-id="'.$row->id.'" href="#">'.$row->name.'</a>' , [
+                    /*a_links('<a class="edit_item" data-id="'.$row->id.'" href="#">'.$row->name.'</a>' , [
 //                        ['action_link' => route('view_customer_page', $row->id), 'action_text' => __('form.view'), 'action_class' => ''],
                         [
                             'action_link' => route('delete_expense_category', $row->id), 
@@ -58,8 +58,20 @@ class ExpenseCategoryController extends Controller {
                             'action_class' => 'delete_item',
                             'permission'    => 'expense_categories_delete'
                         ]
-                    ]),
-                    $row->description
+                    ]),*/
+                    $row->name,
+                    $row->description,
+                    
+                    a_links('<a class="edit_item edit_item btn btn-success btn-sm" data-id="'.$row->id.'" href="#"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>' , [
+//                        ['action_link' => route('view_customer_page', $row->id), 'action_text' => __('form.view'), 'action_class' => ''],
+                        [
+                            'action_link' => route('delete_expense_category', $row->id), 
+                            'action_text' =>'', 
+                            'action_class' => 'delete_item',
+                            'permission'    => 'expense_categories_delete'
+                        ]
+                    ]).' '.
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_expense_category',$row->id),'','expense_categories_delete'),
 
                 );
 

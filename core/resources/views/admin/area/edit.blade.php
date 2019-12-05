@@ -244,31 +244,30 @@ color:  #333;
 
 	$(function() {
 	    dataTable = $('#data').DataTable({
-	        dom: 'Bfrtip',
-	        buttons: [
-	            {
-	                init: function(api, node, config) {
-	                    $(node).removeClass('btn-secondary')
-	                },
-	                className: "btn-light btn-sm",
-	                extend: 'collection',
-	                text: 'Export',
-	                buttons: [
-	                  'copy',
-	                  'excel',
-	                  'csv',
-	                  'pdf',
-	                  'print'
-	                ]
-	            }
-	        ],
-	        "language": {
-	            "lengthMenu": '_MENU_ ',
-	            "search": '',
-	            "searchPlaceholder": "{{ __('form.search') }}"
-	        },
+	       dom: 'Bfrtip',
+	stripHtml: false,
+	"lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500, -1], [10, 20, 50, 100,150,200,250,300,350,450,500, "All"] ],
+	buttons: [
+            {
+              extend: 'copyHtml5',
+              exportOptions: {
+                  columns: ':visible'
+              }
+            },{
+              extend: 'excelHtml5',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },{
+              extend: 'print',
+              exportOptions: {
+                columns: ':visible'
+              }
+            },
+            'colvis'
+        ],
+	processing: true,
 	        responsive: true,
-	        processing: true,
 	        serverSide: true,
 	        //iDisplayLength: 5
 	        pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},

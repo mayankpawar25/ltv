@@ -6,7 +6,9 @@
   <!-- responsive -->
   <!-- <link rel="stylesheet" href="{{asset('assets/user/css/responsive.css')}}"> -->
 @endpush
-
+<?php
+$page_title = (isset($rec->id)) ? __('form.edit_dealer') . " : " .$rec->name : __('form.add_dealer');
+?>
 @section('content')
 <main class="app-content">
   <!--<div class="app-title">
@@ -18,7 +20,8 @@
   <div class="row">
     <div class="col-md-12">
       <div class="main-content">
-      <h5>Add New Dealer</h5>
+
+      <h5>{{$page_title}}</h5>
       <hr />
         <div class="">
           <form class="product-upload-form" action="{{ (isset($rec->id)) ? route( 'admin.shopkeeper.update', $rec->id) : route('admin.shopkeeper.store') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="shop-form">
@@ -29,7 +32,7 @@
             <div class="row">
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Owner Name:<span class="text-danger">*</span></label>
+                  <label>{{ __('form.owner_name') }}:<span class="text-danger">*</span></label>
                   <input type="text" name="owner_name" class="form-control" value="{{ old_set('owner_name',NULL,$rec) }}">
                   @if($errors->has('owner_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('owner_name') }}</strong></span></p>
@@ -39,7 +42,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Shop Name:<span class="text-danger">*</span></label>
+                  <label>{{__('form.shop_name')}}:<span class="text-danger">*</span></label>
                   <input type="text" name="shop_name" class="form-control"  value="{{ old_set('shop_name',NULL,$rec) }}">
                   @if($errors->has('shop_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('shop_name') }}</strong></span></p>
@@ -48,7 +51,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Email:<span class="text-danger">*</span></label>
+                  <label>{{__('form.email')}}:<span class="text-danger">*</span></label>
                   <input type="text" name="email" class="form-control" value="{{ old_set('email',NULL,$rec) }}" autocomplete="off">
                   @if($errors->has('email'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('email') }}</strong></span></p>
@@ -57,7 +60,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Mobile:<span class="text-danger">*</span></label>
+                  <label>{{__('form.mobile')}}:<span class="text-danger">*</span></label>
                   <input type="text" name="mobile" class="form-control" value="{{ old_set('mobile',NULL,$rec) }}">
                   @if($errors->has('mobile'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('mobile') }}</strong></span></p>
@@ -66,7 +69,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Alternate Number: </label>
+                  <label>{{__('alternate_number')}}: </label>
                   <input type="text" name="phone" class="form-control" value="{{ old_set('phone',NULL,$rec) }}">
                   @if($errors->has('phone'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('phone') }}</strong></span></p>
@@ -76,7 +79,7 @@
               @if(!isset($rec->id))
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Password:<span class="text-danger">*</span></label>
+                  <label>{{__('form.password')}}:<span class="text-danger">*</span></label>
                   <input type="password" name="password" class="form-control" value="{{ old('password') }}">
                   @if($errors->has('password'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('password') }}</strong></span></p>
@@ -86,7 +89,7 @@
               @endif
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Country:<span class="text-danger">*</span></label>
+                  <label>{{__('form.country')}}:<span class="text-danger">*</span></label>
 
                   <?php echo form_dropdown("country", $data['countries'], old_set("country_id", NULL, $rec), "class='form-control select2 '") ?>
 
@@ -97,7 +100,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>State:<span class="text-danger">*</span></label>
+                  <label>{{__('form.state')}}:<span class="text-danger">*</span></label>
 
                   <?php echo form_dropdown("state", $data['states'], old_set("state_id", NULL, $rec), "class='form-control select2 '") ?>
 
@@ -113,7 +116,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>City:<span class="text-danger">*</span></label>
+                  <label>{{__('form.city')}}:<span class="text-danger">*</span></label>
 
                   <?php echo form_dropdown("city", $data['cities'], old_set("city_id", NULL, $rec), "class='form-control select2 '") ?>
 
@@ -127,7 +130,7 @@
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>Area: </label>
+                  <label>{{ __('form.area') }}: </label>
                   <?php echo form_dropdown("area", $data['areas'], old_set("zipcode_id", NULL, $rec), "class='form-control select2 '") ?>
                   <!-- <select name="area" class="form-control select2">
                     <option value="">-- Select Area --</option>
@@ -147,7 +150,7 @@
               
               <div class="col-sm-3 {{ $class }}">
                <div class="form-group">
-                  <label>Salesman:<span class="text-danger">*</span></label>
+                  <label>{{ __('form.assigned') }}:<span class="text-danger">*</span></label>
                   <!-- <select name="salesman_id" id="salesman_select" class="salesman_select form-control select2"> </select> -->
                   <?php echo form_dropdown("salesman_id", $data['salesman'], old_set("salesman_id", NULL, $rec), "class='form-control select2 '") ?>
                   
@@ -155,7 +158,7 @@
               </div>
               <div class="col-sm-3">
                <div class="form-group">
-                  <label>User Groups: </label>
+                  <label>{{ __('form.usergroup') }}: </label>
 
                   <?php echo form_dropdown("usergroup_id", $data['usergroups'], old_set("usergroup_id", NULL, $rec), "class='form-control select2 '") ?>
 
@@ -164,7 +167,7 @@
               </div>
               <div class="col-sm-3 d-none">
                 <div class="form-group">
-                  <label>Status: </label>
+                  <label>{{ __('form.status') }}: </label>
                   <select name="status"  class="form-control">
                     <option value="0" selected>Inactive</option>
                     <option value="1">Active</option>
@@ -173,7 +176,7 @@
               </div>
               <div class="col-sm-12">
                 <div class="form-group">
-                  <label>Address: </label>
+                  <label>{{ __('form.address') }}: </label>
                   <textarea type="text" rows="2" name="address" class="form-control" id="address_by_lat_long">{{ old_set('address',NULL,$rec) }}</textarea>
                   @if($errors->has('address'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('address') }}</strong></span></p>
@@ -283,7 +286,7 @@
                 @endif
                 @empty
                 <div class="col-sm-3">
-                  <label>Owner Pic</label>
+                  <label>{{__('form.owner_pic')}}</label>
                   <div class="form-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile" name="owner_pic" value="" accept="image/*">
@@ -295,7 +298,7 @@
                     @endif </div>
                 </div>
                 <div class="col-sm-3">
-                  <label>Shop Pic</label>
+                  <label>{{__('form.shop_image')}}</label>
                   <div class="form-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile" name="shop_pic" accept="image/*">
@@ -307,7 +310,7 @@
                     @endif </div>
                 </div>
                 <div class="col-sm-3">
-                  <label>Logo</label>
+                  <label>{{__('form.logo')}}</label>
                   <div class="form-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile" name="logo" accept="image/*">
@@ -319,7 +322,7 @@
                     @endif </div>
                 </div>
                 <div class="col-sm-3">
-                  <label>Banner</label>
+                  <label>{{__('form.banner_image')}}</label>
                   <div class="form-group">
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile" name="banner" accept="image/*">
@@ -394,70 +397,102 @@
 
               <hr />
               @if(isset($rec->id))
-                 @php
-            $documents = ($rec->documents=='' || $rec->documents == [])?[]:json_decode($rec->documents);
-            @endphp
-            @forelse($documents as $dc_key => $document)
-            <div class="row">
-              <div class="col-sm-3">
-                <label>Select document </label>
-                <select class="form-control" name="old_doc_type[]" readonly="readonly">
-                  <option>-- Select Document Type --</option>
-                  <option value="gumasta" {{ ($document->document_type == 'gumasta')?'selected':'' }}>Gumasta</option>
-                  <option value="license" {{ ($document->document_type == 'license')?'selected':'' }}>License</option>
-                  <option value="address_proof" {{ ($document->document_type == 'address_proof')?'selected':'' }}>Address Proof</option>
-                  <option value="pan_card" {{ ($document->document_type == 'pan_card')?'selected':'' }}>PAN Card</option>
-                  <option value="shop_license" {{ ($document->document_type == 'shop_license')?'selected':'' }}>Shop License</option>
-                  <option value="gst_document" {{ ($document->document_type == 'gst_document')?'selected':'' }}>GST Document</option>
-                </select>
-              </div>
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <input type="hidden" name="old_doc[]" value="{{ $document->image_name }}">
-                  @php $ext = explode('.',$document->image_name) @endphp
-                  @if($ext[1] == 'pdf') <img src="{{ asset('assets/images/pdf.jpg') }}" alt="Shop Pic" style="max-width:100px; margin-top: 25px; max-height:100px; min-width:100px; min-height:100px;"> @elseif($ext[1] == 'doc' || $ext[1] == 'docx') <img src="{{ asset('assets/images/docx.png') }}" alt="Shop Pic" style="max-width:100px; min-width:100px; min-height:100px; max-height:100px; margin-top: 25px;"> @else <img src="{{ asset('assets/shopkeeper/'.$rec->folder.'/'.$document->image_name) }}" alt="Shop Pic" style="max-width:100px; min-width:100px; min-height:100px; max-height:100px; margin-top: 25px;"> @endif  </div>
-                  
-              </div>
-              <div class="col-md-3">
-              <label class="pull-left">&nbsp;</label><br />
-
-              <a href="{{ route('admin.document.delete',[$rec->id,$dc_key]) }}" class="btn btn-danger pull-left btn-sm fa-fix"><i class="fa fa-trash"></i></a></div>
-            </div>
-            @empty
-            @endforelse
-              @else
-              <div class="row">
-                <div class="col-sm-3">
-                <label>Select document </label>
-                  <select class="form-control" name="doc_type[]">
-                    <option>-- Select Document Type --</option>
-                    <option value="gumasta">Gumasta</option>
-                    <option value="license">License</option>
-                    <option value="address_proof">Address Proof</option>
-                    <option value="pan_card">PAN Card</option>
-                    <option value="shop_license">Shop License</option>
-                    <option value="gst_document">GST Document</option>
-                  </select>
-                </div>
-                <div class="col-sm-3">
-                  <div class="form-group"> 
-                   <label>document </label>
-                   <div class="custom-file">
-                  
-                      <input type="file" class="custom-file-input" id="customFile" name="doc[]" onchange="imagePreview(this,'preview')">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>                            
-                   <!-- <input type="file" name="doc[]" onchange="imagePreview(this,'preview')">-->
-                    
+                @php
+                  $documents = ($rec->documents=='' || $rec->documents == [])?[]:json_decode($rec->documents);
+                @endphp
+                @forelse($documents as $dc_key => $document)
+                <div class="row">
+                  <div class="col-sm-3">
+                    <label>Select document </label>
+                    <select class="form-control" name="old_doc_type[]" readonly="readonly">
+                      <option>-- Select Document Type --</option>
+                      <option value="gumasta" {{ ($document->document_type == 'gumasta')?'selected':'' }}>Gumasta</option>
+                      <option value="license" {{ ($document->document_type == 'license')?'selected':'' }}>License</option>
+                      <option value="address_proof" {{ ($document->document_type == 'address_proof')?'selected':'' }}>Address Proof</option>
+                      <option value="pan_card" {{ ($document->document_type == 'pan_card')?'selected':'' }}>PAN Card</option>
+                      <option value="shop_license" {{ ($document->document_type == 'shop_license')?'selected':'' }}>Shop License</option>
+                      <option value="gst_document" {{ ($document->document_type == 'gst_document')?'selected':'' }}>GST Document</option>
+                    </select>
                   </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                      <input type="hidden" name="old_doc[]" value="{{ $document->image_name }}">
+                      @php $ext = explode('.',$document->image_name) @endphp
+                      @if($ext[1] == 'pdf') <img src="{{ asset('assets/images/pdf.jpg') }}" alt="Shop Pic" style="max-width:100px; margin-top: 25px; max-height:100px; min-width:100px; min-height:100px;"> @elseif($ext[1] == 'doc' || $ext[1] == 'docx') <img src="{{ asset('assets/images/docx.png') }}" alt="Shop Pic" style="max-width:100px; min-width:100px; min-height:100px; max-height:100px; margin-top: 25px;"> @else <img src="{{ asset('assets/shopkeeper/'.$rec->folder.'/'.$document->image_name) }}" alt="Shop Pic" style="max-width:100px; min-width:100px; min-height:100px; max-height:100px; margin-top: 25px;"> @endif  </div>
+                      
+                  </div>
+                  <div class="col-md-3">
+                  <label class="pull-left">&nbsp;</label><br />
+
+                  <a href="{{ route('admin.document.delete',[$rec->id,$dc_key]) }}" class="btn btn-danger pull-left btn-sm fa-fix"><i class="fa fa-trash"></i></a></div>
                 </div>
-                <div class="col-sm-3">
-                <label class="pull-left">Add / remove</label>
-                  <br />
-                  <button type="button" class="btn btn-success fa-fix btn-sm pull-left" id="add_more_docs"><strong><i class="fa fa-plus"></i></strong> </button>
-                </div>
-                <div class="col-md-3"><img src="" style="width:100px; margin-bottom:8px; height:100px;margin-bottom:8px; display:none;" id="preview"></div>
-              </div>
+                @empty
+                  <div class="row">
+                    <div class="col-sm-3">
+                    <label>Select document </label>
+                      <select class="form-control" name="doc_type[]">
+                        <option>-- Select Document Type --</option>
+                        <option value="gumasta">Gumasta</option>
+                        <option value="license">License</option>
+                        <option value="address_proof">Address Proof</option>
+                        <option value="pan_card">PAN Card</option>
+                        <option value="shop_license">Shop License</option>
+                        <option value="gst_document">GST Document</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group"> 
+                       <label>document </label>
+                       <div class="custom-file">
+                      
+                          <input type="file" class="custom-file-input" id="customFile" name="doc[]" onchange="imagePreview(this,'preview')">
+                          <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>                            
+                       <!-- <input type="file" name="doc[]" onchange="imagePreview(this,'preview')">-->
+                        
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <label class="pull-left">Add / remove</label>
+                      <br />
+                      <button type="button" class="btn btn-success fa-fix btn-sm pull-left" id="add_more_docs"><strong><i class="fa fa-plus"></i></strong> </button>
+                    </div>
+                    <div class="col-md-3"><img src="" style="width:100px; margin-bottom:8px; height:100px;margin-bottom:8px; display:none;" id="preview"></div>
+                  </div>
+                @endforelse
+              @else
+                <div class="row">
+                  <div class="col-sm-3">
+                    <label>Select document </label>
+                      <select class="form-control" name="doc_type[]">
+                        <option>-- Select Document Type --</option>
+                        <option value="gumasta">Gumasta</option>
+                        <option value="license">License</option>
+                        <option value="address_proof">Address Proof</option>
+                        <option value="pan_card">PAN Card</option>
+                        <option value="shop_license">Shop License</option>
+                        <option value="gst_document">GST Document</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3">
+                      <div class="form-group"> 
+                       <label>document </label>
+                       <div class="custom-file">
+                      
+                          <input type="file" class="custom-file-input" id="customFile" name="doc[]" onchange="imagePreview(this,'preview')">
+                          <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>                            
+                       <!-- <input type="file" name="doc[]" onchange="imagePreview(this,'preview')">-->
+                        
+                      </div>
+                    </div>
+                    <div class="col-sm-3">
+                    <label class="pull-left">Add / remove</label>
+                      <br />
+                      <button type="button" class="btn btn-success fa-fix btn-sm pull-left" id="add_more_docs"><strong><i class="fa fa-plus"></i></strong> </button>
+                    </div>
+                    <div class="col-md-3"><img src="" style="width:100px; margin-bottom:8px; height:100px;margin-bottom:8px; display:none;" id="preview"></div>
+                  </div>
               @endif
               <span id="put_clone_here"></span>
              <!-- <div class="form-group">
