@@ -450,3 +450,7 @@ border-color:
 	color: inherit;
 }
 }
+.modal-backdrop {
+    
+    opacity: .8;
+}
