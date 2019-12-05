@@ -16,7 +16,8 @@ use App\Coupon;
 use App\Product,App\Option;
 use App\Orderedproduct;
 use App\Orderpayment;
-use App\User;
+use App\User,App\Models\StaffUser;
+use App\Notification;
 use App\Vendor;
 use App\Category,App\Subcategory,App\OrderRequestForDeliveryBoy;
 use App\Models\Tags;
@@ -433,16 +434,12 @@ class UserController extends Controller
               }
             $p_value->attributes = $attr;
           }
-          // echo $p_value->productimages;
-          // foreach($p_value->previewimages as $images){
-          //   $images->image = asset('assets/user/img/products/'.$images->image);
-          //   $images->big_image = asset('assets/user/img/products/'.$images->big_image);
-          // }
-          // $p_value->attributes = json_decode($p_value->attributes);
+          
+          foreach($p_value->product->previewimages as $images){
+            $images->image = asset('assets/user/img/products/'.$images->image);
+            $images->big_image = asset('assets/user/img/products/'.$images->big_image);
+          }
         } 
-
-
-
 
         /* Status */
         if($value->approve == '1'){
@@ -755,7 +752,7 @@ class UserController extends Controller
     /*return response()->json($success, $this-> successStatus); */
 
     $title = "New Order Placed";
-    $message = "Your order has been placed successfully. Order ID:" . $order->unique_id;
+    $message = sprintf(__('form.order_placed'),$order->unique_id);
     
     $this->sendNotification($user->fcm_id,$title,$message);
     /* Save Notification */
@@ -766,6 +763,7 @@ class UserController extends Controller
     $saveNotification->is_viewed = '0';
     $saveNotification->save();*/
     /* Save Notification */
+
     /* Save Notification */
     $saveNotification = new UserNotification();
     $saveNotification->customer_id = $user->id;
@@ -774,6 +772,15 @@ class UserController extends Controller
     $saveNotification->is_viewed = '0';
     $saveNotification->save();
     /* Save Notification */
+
+    /* Admin Notification */
+    $member = StaffUser::where('is_administrator','1')->first();
+    $message = array(
+      'message'   => sprintf(__('form.order_received'),$order->unique_id),
+      'url'       => route('admin.orderdetails',$order->id),
+    );
+    $this->addNotification(uniqid(),$order,$member,$member->id,$message);
+    /* Admin Notification */
 
     if ($request->payment_method == 1) {
       $success['status'] = true;
@@ -798,6 +805,16 @@ class UserController extends Controller
       return response()->json($success, $this-> successStatus);
     // after payment clear Cart and redirect to success page
     }
+  }
+
+  public function addNotification($unique_id,$type,$notifiable_type,$notifiable_id,$message){
+    $notification = new Notification;
+    $notification->id = $unique_id;
+    $notification->type = get_class($type);
+    $notification->notifiable_type = get_class($notifiable_type);
+    $notification->notifiable_id = $notifiable_id;
+    $notification->data = json_encode($message);
+    $notification->save();
   }
 
   /*Get Valid Coupons and Offers*/
