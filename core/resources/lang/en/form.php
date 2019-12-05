@@ -1299,6 +1299,8 @@ return [
     'collected' => 'Collected',
     'balance' => 'Balance',
     'calling_date' => 'Collection Date',
+    'total_collection_message' => 'You have assigned %s collection',
+    'collection_added' => '%s Collections Added Successfully',
 
     /* Orders */
     'order_received' => 'New Order Received. Order ID : %s ',
