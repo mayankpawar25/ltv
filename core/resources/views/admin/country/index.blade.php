@@ -123,7 +123,7 @@ div#admins-table_filter {
 					
 					<!--  <h5 class="card-title">States List</h5> -->
 					<div class="table-responsive">
-						<table class="table table-bordered table-striped display" id="admins-table">
+						<table class="table  display" id="admins-table">
 							<thead>
 								<tr>
 									<th>Id</th>
@@ -234,6 +234,11 @@ $('#admins-table').DataTable({
             },
             'colvis'
         ],
+        "language": {
+            "lengthMenu": '_MENU_ ',
+            "search": '',
+            "searchPlaceholder": "{{ __('form.search') }}"
+        },
 		processing: true,
 		serverSide: true,
 		"pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},

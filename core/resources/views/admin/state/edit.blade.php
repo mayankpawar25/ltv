@@ -233,6 +233,11 @@ $('#admins-table').DataTable({
             },
             'colvis'
         ],
+        "language": {
+            "lengthMenu": '_MENU_ ',
+            "search": '',
+            "searchPlaceholder": "{{ __('form.search') }}"
+        },
 	processing: true,
 	serverSide: true,
 	"pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},

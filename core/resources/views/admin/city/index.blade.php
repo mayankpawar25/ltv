@@ -212,6 +212,11 @@ $('#admins-table').DataTable({
             },
             'colvis'
         ],
+        "language": {
+            "lengthMenu": '_MENU_ ',
+            "search": '',
+            "searchPlaceholder": "{{ __('form.search') }}"
+        },
       stripHtml: false,
       "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500, -1], [10, 20, 50, 100,150,200,250,300,350,450,500, "All"] ],
       processing: true,
