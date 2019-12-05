@@ -152,7 +152,7 @@ div#data_filter {
                 processing: true,
                 serverSide: true,
                 //iDisplayLength: 5
-                pageLength: 10,
+                pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
                 ordering: false,
                 // "columnDefs": [
                 //     { className: "text-right", "targets": [2,4] },
