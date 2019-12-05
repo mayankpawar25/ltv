@@ -38,7 +38,7 @@ class ShopkeeperController extends Controller
           if($user->status == '0' || $user->status == ''){
             if($user->sms_verified == '0' || $user->sms_verified == ''){
               $success['status'] = false;
-              $success['msg'] = 'Mobile number verification is pending';
+              $success['msg'] = 'Unverified Mobile number';
               $success['verified_status'] = 'sms_not_verified';
             }else if($user->is_verified == '0' || $user->is_verified == ''){
               $success['status'] = false;
@@ -70,14 +70,13 @@ class ShopkeeperController extends Controller
           return response()->json($error, 401); 
         }
     }elseif (filter_var(request('email'), FILTER_VALIDATE_EMAIL)) {
-      
         if(Auth::guard('shopkeeper')->attempt(['email' => $request->email, 'password' => $request->password])){
           $user = Auth::guard('shopkeeper')->user();
           $success['token'] =  $user->createToken('MyApp')-> accessToken;
           if($user->status == '0' || $user->status == ''){
             if($user->sms_verified == '0' || $user->sms_verified == ''){
               $success['status'] = false;
-              $success['msg'] = 'Mobile number verification is pending';
+              $success['msg'] = 'Unverified Mobile number';
               $success['verified_status'] = 'sms_not_verified';
             }else if($user->is_verified == '0' || $user->is_verified == ''){
               $success['status'] = false;
