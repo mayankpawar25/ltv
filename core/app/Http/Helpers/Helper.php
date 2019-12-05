@@ -962,6 +962,8 @@ define("LOG_NAME_PROJECT", 'project_');
 // define("LOG_NAME_LEAD", 'lead_');
 define("LOG_NAME_DEFAULT", 'default');
 
+date_default_timezone_set('Asia/Calcutta');
+
 function activity_log_name_by_componet_id($component_id)
 {
     $data = [

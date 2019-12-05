@@ -260,12 +260,26 @@ class CollectPaymentController extends Controller
             $data['status'] = false;
             $status = 401;
         }*/
-        $paymentcollection  = PaymentCollection::find($request->payment_collection_id);
-        $threads = PaymentCollectionDescription::where('payment_collection_id',$request->payment_collection_id)->get();
-        foreach($threads as $thread){
-            $thread->salesman = $thread->assigned->first_name.' '.$thread->assigned->last_name;
-        }
 
+     
+        $paymentcollection  = PaymentCollection::find($request->payment_collection_id);
+           
+        $threads = PaymentCollectionDescription::where('payment_collection_id',$request->payment_collection_id)->get();
+        foreach($threads as $key => $thread){
+            if($key > 1){
+                $created_by = StaffUser::find($threads[$key-1]->assigned_to);
+                $thread->created_by_name = $created_by->first_name.' '.$created_by->last_name;
+            }else{
+                $created_by = StaffUser::find($threads[$key]->assigned_to);
+                $thread->created_by_name = $created_by->first_name.' '.$created_by->last_name;
+            }
+
+            $assigned_to = StaffUser::find($threads[$key]->assigned_to);
+            $thread->salesman = $assigned_to->first_name.' '.$assigned_to->last_name;
+
+            // $thread->salesman = $thread->assigned->first_name.' '.$thread->assigned->last_name;
+        }
+        // exit;
         $salesman = StaffUser::where('role_id',1);
         if($paymentcollection->assigned->level == 2){
             $salesman = $salesman->whereNotNull('level')->get();
