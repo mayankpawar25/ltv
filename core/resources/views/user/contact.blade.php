@@ -26,7 +26,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="inner-section-title">
-                  <strong class="subtitle base-txt">Contact us</strong>
+                  {{-- <strong class="subtitle base-txt">Contact us</strong> --}}
                   <h2 class="title">To get update</h2>
               </div>
             </div>
@@ -44,7 +44,7 @@
                                   </div>
                               </div><!-- //.single contact info item -->
                           </li>
-                          <li>
+                          {{-- <li>
                               <div class="single-contact-info-item"><!-- single contact info item -->
                                   <div class="icon">
                                       <i class="fas fa-clock"></i>
@@ -54,15 +54,15 @@
                                       <span class="title">Working time</span>
                                   </div>
                               </div><!-- //.single contact info item -->
-                          </li>
+                          </li> --}}
                           <li>
                               <div class="single-contact-info-item"><!-- single contact info item -->
                                   <div class="icon">
                                       <i class="fas fa-map-marker-alt"></i>
                                   </div>
                                   <div class="content">
-                                      <span class="subtitle">{{$gs->con_address}}</span>
-                                      <span class="title">Company Headquarters</span>
+                                      <span class="subtitle">Company Headquarters</span>
+                                      <span class="title">{{$gs->con_address}}</span>
                                   </div>
                               </div><!-- //.single contact info item -->
                           </li>
@@ -80,7 +80,7 @@
                       </ul>
                   </div>
               </div>
-              <div class="col-lg-7 col-md-6">
+              <div class="col-lg-7 col-md-6 px-0">
                 <!-- contact form area start -->
                 <section class="contact-form-area">
                     <div class="container">

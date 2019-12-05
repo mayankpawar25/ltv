@@ -2,22 +2,23 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>Change Password</h1>
-        </div>
-     </div>
+      
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <div class="tile-body">
+           <div class="">
+              <div class="main-content">
+              <h5>Change Password</h5>
+              
+              <hr />
                 <div class="row">
-                  <div class="col-md-6 offset-md-3">
+                  <div class="col-md-12">
                     <form action="{{route('admin.updatePassword')}}" method="post" role="form">
                        {{csrf_field()}}
-                       <div class="form-body">
+                       <div class="">
+                         <div class="row">
+                         <div class="col-md-4">
                           <div class="form-group">
-                             <label class="control-label"><strong>Current Password</strong></label>
+                             <label >Current Password</label>
                              <div class="">
                                 <input class="form-control input-lg" name="old_password" placeholder="Your Current Password" type="password">
                                 @if ($errors->has('old_password'))
@@ -32,9 +33,10 @@
                                 @endif
                                 @endif
                              </div>
-                          </div>
+                          </div></div>
+                           <div class="col-md-4">
                           <div class="form-group">
-                             <label class="control-label"><strong>New Password</strong></label>
+                             <label >New Password</label>
                              <div class="">
                                 <input class="form-control input-lg" name="password" placeholder="New Password" type="password">
                                 @if ($errors->has('password'))
@@ -43,16 +45,20 @@
                                 </span>
                                 @endif
                              </div>
-                          </div>
+                          </div></div>
+                           <div class="col-md-4">
                           <div class="form-group">
-                             <label class="control-label"><strong>New Password Again</strong></label>
+                             <label >New Password Again</label>
                              <div class="">
                                 <input class="form-control input-lg" name="password_confirmation" placeholder="New Password Again" type="password">
                              </div>
                           </div>
+                          </div>
+                          </div>
                           <div class="row">
-                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-info btn-block">Submit</button>
+                             <div class="col-md-12 text-right">
+                             <hr />
+                                <button type="submit" class="btn btn-success">Submit</button>
                              </div>
                           </div>
                        </div>

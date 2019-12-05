@@ -6,7 +6,7 @@
 
 @section('content')
 
-  <div class="row">
+  <div class="row px-2 margin-r-l">
     @if ($user->products()->count() == 0)
       <h2 style="font-size: 24px;display: block;margin: 0 auto;">No item added to favorit list yet.</h2>
     @else
@@ -14,7 +14,7 @@
           @php
             $product = \App\Product::find($favorit->product_id);
           @endphp
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-4 col-md-6 px-2">
               <div class="single-new-collection-item "><!-- single new collections -->
                   <div class="thumb">
                       <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image">
@@ -23,7 +23,7 @@
                       </div>
                   </div>
                   <div class="content">
-                      <span class="category">{{\App\Category::find($product->category_id)->name}}</span>
+                      {{-- <span class="category">{{\App\Category::find($product->category_id)->name}}</span> --}}
                       <a href="{{route('user.product.details', [$product->slug, $product->id])}}"><h4 class="title">{{strlen($product->title) > 25 ? substr($product->title, 0, 25) . '...' : $product->title}}</h4></a>
                       @if (empty($product->current_price))
                         <div class="price"><span class="sprice">{{$gs->base_curr_symbol}} {{$product->price}}</span></div>

@@ -120,7 +120,7 @@
 
 
       <div class="form-group text-center">
-        <input type="submit" class="btn base-bg white-txt" value="Update">
+        <input type="submit" class="btn btn-bg" value="Update">
       </div>
     </form>
     <br>

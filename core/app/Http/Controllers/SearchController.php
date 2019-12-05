@@ -15,7 +15,7 @@ use DB;
 class SearchController extends Controller
 {
     public function search(Request $request, $category=null, $subcateogry=null) {
-      dd($request);
+      //dd($request);
       $today = new \Carbon\Carbon(Carbon::now());
 
       // bring their price back to pre price (without flash sale)

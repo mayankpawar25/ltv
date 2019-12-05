@@ -26,7 +26,7 @@
                       </div>
                       <div class="row">
                           <div class="col-lg-6">
-                              <div class="left-content-area" style="padding: 80px;">
+                              <div class="left-content-area">
                                   <div class="top-content">
                                       <h4 class="title">Log in to {{$gs->website_title}}</h4>
                                   </div>
@@ -61,17 +61,23 @@
                                               <button type="submit" class="submit-btn">Login</button>
                                               <a href="{{route('user.showEmailForm')}}" class="link">Forget password?</a>
                                           </div>
+                                          <div class="row">
                                           @if (\App\Provider::find(1)->status == 1)
-                                            <div class="block-link mt-4">
-                                                <a href="{{ url('auth/facebook') }}" class="facebook">sign in with facebook</a>
+                                          <div class="col-sm-6">
+                                            <div class="block-link">
+                                                <a href="{{ url('auth/facebook') }}" class="facebook">sign in facebook</a>
+                                            </div>
                                             </div>
                                           @endif
 
                                           @if (\App\Provider::find(2)->status == 1)
-                                            <div class="block-link mt-4">
-                                                <a href="{{ url('auth/google') }}" class="google">sign in with Google</a>
+                                          <div class="col-sm-6">
+                                            <div class="block-link">
+                                                <a href="{{ url('auth/google') }}" class="google">sign in Google</a>
+                                            </div>
                                             </div>
                                           @endif
+                                          </div>
 
                                       </form>
                                   </div>

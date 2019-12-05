@@ -281,7 +281,7 @@
 
     <!-- Customers -->
     @if(is_menu_enable('users'))
-      <li><a class="app-menu__item @if(request()->path() == 'admin/customers' || request()->is('admin/customers/*')) active @endif" href="{{route('customers_list')}}"><i class="app-menu__icon icon-user icons"></i><span class="app-menu__label">Customers</span></a></li>
+      <li><a class="app-menu__item @if(request()->path() == 'admin/customers' || request()->is('admin/customers/*')) active @endif" href="{{route('customers_list')}}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Customers</span></a></li>
     @endif
      <!-- Customers -->
 

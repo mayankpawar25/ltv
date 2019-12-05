@@ -49,8 +49,8 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-12 text-center">
-          <button type="submit" class="btn base-bg white-txt">Update Password</button>
+        <div class="col-md-12 text-center ">
+          <button type="submit" class="btn btn-bg">Update Password</button>
         </div>
       </div>
     </form>

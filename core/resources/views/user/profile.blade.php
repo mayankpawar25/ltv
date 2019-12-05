@@ -5,7 +5,7 @@
 @section('headertxt', 'Personal Information')
 
 @section('content')
-    <h3>Personal Informarion</h3>
+    <h3>Personal Information</h3>
     <hr>
     <form class="" action="{{route('user.information.update')}}" method="post">
       @csrf
@@ -79,7 +79,7 @@
 
 
       <div class="form-group text-center">
-        <input type="submit" class="btn base-bg white-txt" value="Update Informarion">
+        <input type="submit" class="btn btn-bg" value="Update Information">
       </div>
     </form>
     <br>

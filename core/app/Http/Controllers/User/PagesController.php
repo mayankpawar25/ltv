@@ -23,7 +23,7 @@ use App\Slider;
 class PagesController extends Controller
 {
     public function home() {
-      return redirect()->route('admin.loginForm');
+      //return redirect()->route('admin.loginForm');
       
       // return session()->get('browserid');
       $gs = GS::first();

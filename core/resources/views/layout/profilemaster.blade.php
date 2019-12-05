@@ -13,8 +13,8 @@
       @includeif('layout.partials.genheader')
 
       <div class="container">
-        <div class="row py-5">
-          <div class="col-md-3">
+        <div class="row py-4">
+          <div class="col-md-3 mb-3">
             <div class="card" style="width: 100%;">
               <div class="user-sidebar">
                 <div class="card-header base-bg">

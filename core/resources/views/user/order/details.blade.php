@@ -12,7 +12,7 @@
   <!-- sellers product content area start -->
   <div class="sellers-product-content-area">
       <div class="container">
-        <div class="row mb-2">
+        <div class="row">
           <div class="col-md-12">
             <h2 style="font-size: 32px;margin-bottom: 28px;" class="order-heading">Order Information</h2>
           </div>
@@ -76,7 +76,7 @@
             </div>
           </div>
         </div>
-        <div class="row mb-4">
+        <div class="row">
           @if (!empty($order->user->billing_last_name))
             <div class="col-md-6">
               <div class="card">
@@ -121,7 +121,7 @@
           </div>
         </div>
         @if (!empty($order->order_notes))
-        <div class="row mb-4">
+        <div class="row">
           <div class="col-md-6">
             <div class="card">
               <div class="card-header base-bg">
