@@ -47,9 +47,9 @@ class SkillController extends Controller {
             {
     
                 $rec[] = array(
-                    a_links('<a class="edit_item" data-name="'.$row->name.'" data-id="'.$row->id.'" href="#">'.$row->name.'</a>' , []),
-                   
-                    '<a class="delete_item btn btn-danger btn-sm" href="' . route('delete_skills', $row->id) . '"><i class="far fa-trash-alt"></i></a>'
+                    $row->name,
+                    a_links('<a class="edit_item btn btn-sm btn-success pull-right" data-name="'.$row->name.'" data-id="'.$row->id.'" href="#"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>' , []).
+                    '<a class="delete_item btn btn-sm btn-danger pull-right btn-sm" href="' . route('delete_skills', $row->id) . '"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></a>'
 
                 );
 
