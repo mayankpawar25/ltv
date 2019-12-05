@@ -138,7 +138,7 @@ color:
       <div class="col-md-3">
         <div class="form-group">
           <label>Calling Date <span class="text-danger">*</span></label>
-          <input type="text" placeholder="Date" name="installment[date][]" class="date form-control" value="{{ old('date') }}">
+          <input type="text" placeholder="Date" name="installment[date][]" class="datepicker2 form-control" value="{{ old('date') }}">
         </div>
         <div class=" {{ $errors->has('date') ? ' has-error' : '' }}"> @if ($errors->has('date'))
           <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('date') }}</strong> </span></p>
@@ -227,140 +227,136 @@ color:
      if (day.length < 2) day = '0' + day;
 
      return [day, month, year].join('-');
- }
+  }
 
- /* function getDate(data, type, full, meta){
+  /* function getDate(data, type, full, meta){
     var date = new Date(data);
     var newDate = date;
     return newDate;
   }*/
-    function salesmanName(data, type, full, meta){
-      return full['salesman_first_name']+'&nbsp'+full['salesman_last_name'];
+
+  function salesmanName(data, type, full, meta){
+    return full['salesman_first_name']+'&nbsp'+full['salesman_last_name'];
+  }
+  function collectionAmount(data, type, full, meta){
+    if(full['collected_amount'] ==null){
+       return '----------';
+    }else{
+      return full['collected_amount'];
     }
-    function collectionAmount(data, type, full, meta){
-      if(full['collected_amount'] ==null){
-         return '----------';
+  }
+  function balanceAmount(data, type, full, meta){
+    if(full['balance_amount'] ==null){
+       return '----------';
+    }else{
+     return full['balance_amount']; 
+    }
+  }
+  function getImg(data, type, full, meta) {
+    return '<img  src="'+data+'"  width="100px" height="50px"/>';
+  }
+  
+  function getStatus(data, type, full, meta) {
+      if(full['status'] == 1){
+          return '<span class="badge badge-success">Closed</span>';
+      }else if(full['status'] == 2) {
+         return '<span class="badge badge-warning">Closed By Salesman</span>';
       }else{
-        return full['collected_amount'];
+          return '<span class="badge badge-danger">Open</span>';
       }
-    }
-     function balanceAmount(data, type, full, meta){
-      if(full['balance_amount'] ==null){
-         return '----------';
-      }else{
-       return full['balance_amount']; 
-      }
-    }
-    function getImg(data, type, full, meta) {
-      return '<img  src="'+data+'"  width="100px" height="50px"/>';
-    }
-    
-    function getStatus(data, type, full, meta) {
-        if(full['status'] == 1){
-            return '<span class="badge badge-success">Closed</span>';
-        }else if(full['status'] == 2) {
-           return '<span class="badge badge-warning">Closed By Salesman</span>';
-        }else{
-            return '<span class="badge badge-danger">Open</span>';
-        }
-    }
+  }
      
-    $(document).ready( function () {
-      /*Form Validation*/
-      $.validator.addMethod("mobile_regex", function(value, element) {
-        return this.optional(element) || /^\d{10}$/i.test(value);
-      }, "Please enter a valid Phone number.");
-      $.validator.setDefaults( {
-          submitHandler: function (form) {
-             form.submit();
-          }
-      } );
-      $( "#loginform" ).validate( {
-              rules: {
-                  name: {
-                      required: true,
-                  },
-                  mobile_no: {
-                      required: true,
-                      mobile_regex: true,
-                  },
-                  alternate_no: {
-                      mobile_regex: true,
-                  },
-                  collection_date: {
-                      required: true,
-                  },
-                  amount: {
-                      required: true,
-                  },
-                  staff_user_id: {
-                      required: true,
-                  },
-              },
-              messages: {
-                  name: {
-                      required: "Please Enter Customer Name.",
-                  },
-                  mobile_no: {
-                      required: "Please Enter Customer Mobile No.",
-                  },
-                  alternate_no: {
-                      required: "Please Enter Alternate Mobile No.",
-                  },
-                  collection_date: {
-                      required: "Please Select Collection Date .",
-                  },
-                  amount: {
-                      required: "Please Enter Collection Amount .",
-                  },
-                  staff_user_id: {
-                      required: "Please Select Salesman .",
-                  },
-              },
-              errorElement: "span",
-              errorClass: "text-danger help-block",
-              errorPlacement: function ( error, element ) {
-              if(element.parent('.form-group').length) {
-                    error.insertAfter(element.parent());
-                } else {
-                    error.insertAfter(element);
-                }
-             },
-          });
+  $(document).ready( function () {
+    /*Form Validation*/
+    $.validator.addMethod("mobile_regex", function(value, element) {
+      return this.optional(element) || /^\d{10}$/i.test(value);
+    }, "Please enter a valid Phone number.");
+    $.validator.setDefaults( {
+        submitHandler: function (form) {
+           form.submit();
+        }
+    } );
+    $( "#loginform" ).validate( {
+      rules: {
+          name: {
+              required: true,
+          },
+          mobile_no: {
+              required: true,
+              mobile_regex: true,
+          },
+          alternate_no: {
+              mobile_regex: true,
+          },
+          collection_date: {
+              required: true,
+          },
+          amount: {
+              required: true,
+          },
+          staff_user_id: {
+              required: true,
+          },
+      },
+      messages: {
+          name: {
+              required: "Please Enter Customer Name.",
+          },
+          mobile_no: {
+              required: "Please Enter Customer Mobile No.",
+          },
+          alternate_no: {
+              required: "Please Enter Alternate Mobile No.",
+          },
+          collection_date: {
+              required: "Please Select Collection Date .",
+          },
+          amount: {
+              required: "Please Enter Collection Amount .",
+          },
+          staff_user_id: {
+              required: "Please Select Salesman .",
+          },
+      },
+      errorElement: "span",
+      errorClass: "text-danger help-block",
+      errorPlacement: function ( error, element ) {
+      if(element.parent('.form-group').length) {
+            error.insertAfter(element.parent());
+        } else {
+            error.insertAfter(element);
+        }
+      },
     });
+  });
 
-    $(document).ready(function(){
-      $('#putclonehere').html('');
-      var total_installments = 1;
-      var tds = $('.clone-fields').clone().html();
-      for (i = 0; i < total_installments; i++) {
-        $(tds).find('input.date').datepicker();
-        $('#putclonehere').append(tds);
-      }
-      reAssignVariableProuctsNames();
-      $('input.date').datepicker();
+  $(document).ready(function(){
+    $('#putclonehere').html('');
+    var total_installments = 1;
+    var tds = $('.clone-fields').clone().html();
+    for (i = 0; i < total_installments; i++) {
+      $(tds).find('input.date').datepicker({dateFormat:'dd-mm-yy'});
+      $('#putclonehere').append(tds);
+    }
+    reAssignVariableProuctsNames();
+    $('input.date').datepicker({dateFormat:'dd-mm-yy'});
+  });
+
+  $(document).on('change','.installments',function(){
+    $('#putclonehere').html('');
+    var total_installments = $(this).val();
+    var tds = $('.clone-fields').clone().html();
+    
+    for (i = 0; i < total_installments; i++) {
+      $('#putclonehere').append(tds);
+    }
+
+    $('#putclonehere').find('input.date').each(function() {
+       $(this).removeAttr('id').removeClass('hasDatepicker');
+       $(this).datepicker({dateFormat:'dd-mm-yy'});
     });
-
-    $(document).on('change','.installments',function(){
-      $('#putclonehere').html('');
-      var total_installments = $(this).val();
-      var tds = $('.clone-fields').clone().html();
-      
-      for (i = 0; i < total_installments; i++) {
-        $('#putclonehere').append(tds);
-      }
-
-      $('#putclonehere').find('input.date').each(function() {
-         $(this).removeAttr('id').removeClass('hasDatepicker');
-         $(this).datepicker();
-      });
-
-      reAssignVariableProuctsNames();
-      // $('.date').datepicker();
-      // $.each(function(index, el) {
-      //   console.log(index,el);
-      // });
-    });
+    reAssignVariableProuctsNames();
+  });
 
   function reAssignVariableProuctsNames(){
     $('#putclonehere .row').each(function(tr_index,tr_ele){
@@ -392,11 +388,6 @@ color:
     $('#total_amount').text('Rs. '+total_amount.toFixed(2));
     $('.total_amount').val(total_amount.toFixed(2));
   });
-
-  function checkamount(){
-    alert('form submit Onsubmit');
-    return false;
-  }
 
 </script> 
 @endsection

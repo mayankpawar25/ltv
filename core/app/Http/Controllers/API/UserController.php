@@ -503,9 +503,9 @@ class UserController extends Controller
 
   public function sendNotification($regId,$orderId){
     
-    $regId = 'dsu3ifB8DBw:APA91bHn-XcV8K2pU2s4sHeE95IZmubGaSUK9f3nInY-ZhbnAFZtiV8kjRdyLFlCWwxY5JyRdSh1MxoS9oPIFp0rejk0ZyYvHTOnWfR6QjkX9ojLP6UUvIOr2dGbypprOrmGjFmqqlT1';
+    // $regId = 'dsu3ifB8DBw:APA91bHn-XcV8K2pU2s4sHeE95IZmubGaSUK9f3nInY-ZhbnAFZtiV8kjRdyLFlCWwxY5JyRdSh1MxoS9oPIFp0rejk0ZyYvHTOnWfR6QjkX9ojLP6UUvIOr2dGbypprOrmGjFmqqlT1';
 
-    define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
+    // define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
 
     $title="Order Id #".$orderId;
     $message="New Order Check It";
