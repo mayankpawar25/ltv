@@ -115,6 +115,12 @@ class PaymentCollectionController extends Controller
         ->orwhereHas('assigned',function ($q) use ($search_key){
             $q->where('staff_users.first_name', 'like', $search_key.'%');
         })
+        ->orwhereHas('assigned',function ($q) use ($search_key){
+            $q->where('staff_users.last_name', 'like', $search_key.'%');
+        })
+        ->orwhereHas('assigned',function ($q) use ($search_key){
+            $q->where(DB::raw("CONCAT(staff_users.first_name,' ', staff_users.last_name)"), 'like', $search_key.'%');
+        })
         /*->orwhereHas('country',function ($q) use ($search_key){
             $q->where('countries.name', 'like', $search_key.'%');
         })
