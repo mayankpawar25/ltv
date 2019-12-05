@@ -253,7 +253,7 @@ class PaymentCollectionController extends Controller
           'message'   => sprintf(__('form.collection_received'),$payment_collection->amount,$payment_collection->name),
           'url'       => route('collection.show',$payment_collection->id),
         );
-        $this->addNotification(uniqid(),$payment_collection,$member,$member->id,$message);
+        // $this->addNotification(uniqid(),$payment_collection,$member,$member->id,$message);
         /* Add Notification */
 
       }
@@ -265,23 +265,7 @@ class PaymentCollectionController extends Controller
       $update->save();
     }
 
-    /*$payment_collection = new PaymentCollection;
-    $payment_collection->name = strip_tags($request->input('name'));
-    $payment_collection->mobile_no = strip_tags($request->input('mobile_no'));
-    $payment_collection->alternate_no = strip_tags($request->input('alternate_no'));
-    $payment_collection->collection_date = date("Y-m-d", strtotime($request->input('collection_date')));
-    $payment_collection->new_date = date("Y-m-d", strtotime($request->input('collection_date')));
-    $payment_collection->amount = strip_tags($request->input('amount'));
-    $payment_collection->balance_amount = strip_tags($request->input('amount'));
-    $payment_collection->staff_user_id = strip_tags($request->input('staff_user_id'));
-    $payment_collection->status = 0;
-    $payment_collection->save();*/
-
-    
-    
-
-    // $this->duplicatenotification($request->input('staff_user_id'),$title="LTV : Payment Collection",$message="New Collection Assigned");
-    return redirect('admin/collection')->with('success', $insert.' Collections Added Successfully!');
+    return redirect('admin/collection')->with('success', $insert.' Collection Added Successfully!');
   }
   /* Add Collection */
 

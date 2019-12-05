@@ -433,7 +433,16 @@ class UserController extends Controller
               }
             $p_value->attributes = $attr;
           }
+          // echo $p_value->productimages;
+          // foreach($p_value->previewimages as $images){
+          //   $images->image = asset('assets/user/img/products/'.$images->image);
+          //   $images->big_image = asset('assets/user/img/products/'.$images->big_image);
+          // }
+          // $p_value->attributes = json_decode($p_value->attributes);
         } 
+
+
+
 
         /* Status */
         if($value->approve == '1'){
@@ -451,6 +460,7 @@ class UserController extends Controller
         }
         /* Status */
       }
+      // exit;
 
       $data['order_history'] = $order_history;
       $data['msg'] = "Order History";
@@ -495,8 +505,10 @@ class UserController extends Controller
   }
 
   public function sendNotification($regId,$orderId){
+    
+    $regId = 'dsu3ifB8DBw:APA91bHn-XcV8K2pU2s4sHeE95IZmubGaSUK9f3nInY-ZhbnAFZtiV8kjRdyLFlCWwxY5JyRdSh1MxoS9oPIFp0rejk0ZyYvHTOnWfR6QjkX9ojLP6UUvIOr2dGbypprOrmGjFmqqlT1';
 
-    define('FIREBASE_API_KEY', 'AAAArRMA6iM:APA91bFI6jvM167-lG9DkRX8Pnp0YDuJNjcSlYFDL4V2sBxY9oTtEAV-bqH1iX5NC7QhjuV2Jb7pZd5wctUkzzYOMxvNtqDibMBGKJFKTT2TaBZuiEebMBbBPdqShoG7-BVi_nB3tnWh');
+    define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
 
     $title="Order Id #".$orderId;
     $message="New Order Check It";
@@ -530,11 +542,11 @@ class UserController extends Controller
 
     curl_close($curl);
 
-
+    // echo $response;
 
     /*echo $response;
     exit();*/
-    return $orderId;
+    return true;
   }
 
   /*User Cart Details*/
@@ -745,7 +757,7 @@ class UserController extends Controller
     $title = "New Order Placed";
     $message = "Your order has been placed successfully. Order ID:" . $order->unique_id;
     
-    //$this->sendNotification($user->fcm_id,$title,$message);
+    $this->sendNotification($user->fcm_id,$title,$message);
     /* Save Notification */
    /* $saveNotification = new ShopkeeperNotification();
     $saveNotification->shopkeeper_id = $user->id;
