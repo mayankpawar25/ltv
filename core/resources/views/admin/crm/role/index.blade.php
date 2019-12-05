@@ -3,7 +3,30 @@
 @section('setting_page')
 <div class="app-content">
         
-<div class="app-title">    
+<div class="app-title">
+  <style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+#data tr td:last-child {
+    text-align: right;
+}
+
+</style>  
  @include('admin.crm.setup.menu')
 </div>
     <div class="tile">
@@ -16,6 +39,7 @@
                 <thead>
                 <tr>
                     <th>@lang("form.name")</th>
+                     <th>@lang("form.action")</th>
 
                 </tr>
                 </thead>
@@ -31,8 +55,8 @@
         $(function() {
 
             var dataTable = $('#data').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
+                dom: 'lfBfrtip',
+                /*buttons: [
                     {
                         init: function(api, node, config) {
                             $(node).removeClass('btn-secondary')
@@ -48,8 +72,26 @@
                             'print'
                         ]
                     }
-                ],
-
+                ],*/
+                 buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
+                  ],
                 "language": {
                     "lengthMenu": '_MENU_ ',
                     "search": '',
@@ -65,8 +107,9 @@
                 processing: true,
                 serverSide: true,
                 //iDisplayLength: 5
-                pageLength: 5,
+                pageLength:  {{ Config::get('constants.RECORD_PER_PAGE') }},
                 ordering: false,
+                 "lengthMenu": [ [10, 20, 50, 100], [10, 20, 50, 100] ],
                 // "columnDefs": [
                 //     { className: "text-right", "targets": [2,4] },
                 //     { className: "text-center", "targets": [5] }

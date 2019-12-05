@@ -45,7 +45,7 @@ class RoleController extends Controller
 
                 $rec[] = array(
 
-                     a_links(anchor_link($row->name, route('edit_role_page', $row->id)), [
+                    /* a_links(anchor_link($row->name, route('edit_role_page', $row->id)), [
                         [
                             'action_link' => route('edit_role_page', $row->id), 
                             'action_text' => __('form.edit'), 'action_class' => '',
@@ -56,7 +56,10 @@ class RoleController extends Controller
                             'action_text' => __('form.delete'), 'action_class' => 'delete_item',
                             'permission'  => 'settings_',
                         ]
-                     ]),
+                     ]),*/
+                     $row->name,
+                     anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_role_page',$row->id),'','settings_').' '.
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_role',$row->id),'','settings_')
 
                 );
 
