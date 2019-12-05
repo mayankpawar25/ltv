@@ -32,23 +32,26 @@ class ShopkeeperController extends Controller
    */ 
   public function login(Request $request){
     if(is_numeric(request('email'))){
-  	 	if(Auth::guard('shopkeeper')->attempt(['phone' => $request->email, 'password' => $request->password])){
-          if($user->status == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Account is Under Review';
-          }else if($user->is_verified == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Verification is under Process';
-          }else if($user->email_verified == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Email verification is pending';
-          }else if($user->sms_verified == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Mobile number verification is pending';
-          }else{
+  	 	if(Auth::guard('shopkeeper')->attempt(['mobile' => $request->email, 'password' => $request->password])){
+          $user = Auth::guard('shopkeeper')->user();
+          $success['token'] =  $user->createToken('MyApp')-> accessToken;
+          if($user->status == '0' || $user->status == ''){
+            if($user->sms_verified == '0' || $user->sms_verified == ''){
+              $success['status'] = false;
+              $success['msg'] = 'Mobile number verification is pending';
+              $success['verified_status'] = 'sms_not_verified';
+            }else if($user->is_verified == '0' || $user->is_verified == ''){
+              $success['status'] = false;
+              $success['msg'] = 'Account is Under Review';
+              $success['verified_status'] = 'under_review';
+            }else{
+              $success['status'] = false;
+              $success['msg'] = 'Account is Under Review';
+              $success['verified_status'] = 'under_review';
+            }
+          }else {
             $user = Auth::guard('shopkeeper')->user();
             $fcm_id = request('fcm_id'); 
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
             $success['user_id'] =  $user->id;
             $success['owner_name'] =  $user->name;
             $success['shop_name'] =  $user->shopname;
@@ -58,6 +61,7 @@ class ShopkeeperController extends Controller
             }
             $success['status'] = true;
             $success['msg'] = 'Log in success';
+            $success['verified_status'] = 'verified';
           }
           return response()->json($success, $this-> successStatus); 
         }else{
@@ -69,29 +73,31 @@ class ShopkeeperController extends Controller
       
         if(Auth::guard('shopkeeper')->attempt(['email' => $request->email, 'password' => $request->password])){
           $user = Auth::guard('shopkeeper')->user();
-
-          if($user->status == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Account is Under Review';
-          }else if($user->is_verified == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Verification is under Process';
-          }else if($user->email_verified == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Email verification is pending';
-          }else if($user->sms_verified == '0'){
-            $success['status'] = false;
-            $success['msg'] = 'Mobile number verification is pending';
-          }else{
+          $success['token'] =  $user->createToken('MyApp')-> accessToken;
+          if($user->status == '0' || $user->status == ''){
+            if($user->sms_verified == '0' || $user->sms_verified == ''){
+              $success['status'] = false;
+              $success['msg'] = 'Mobile number verification is pending';
+              $success['verified_status'] = 'sms_not_verified';
+            }else if($user->is_verified == '0' || $user->is_verified == ''){
+              $success['status'] = false;
+              $success['msg'] = 'Account is Under Review';
+              $success['verified_status'] = 'under_review';
+            }else{
+              $success['status'] = false;
+              $success['msg'] = 'Account is Under Review';
+              $success['verified_status'] = 'under_review';
+            }
+          }else {
             $fcm_id = request('fcm_id');  
-            $success['token'] =  $user->createToken('MyApp')-> accessToken;
             $success['user_id'] =  $user->id;
             $success['owner_name'] =  $user->name;
             $success['shop_name'] =  $user->shopname;
             $success['approval_status'] =  $user->status;
             if(isset($success['token'])){
               Shopkeeper::where('id', $user->id)->update(['fcm_id' => $fcm_id]);
-            } 
+            }
+            $success['verified_status'] = 'verified';
             $success['status'] = true;
             $success['msg'] = 'Log in success';
           }
@@ -107,8 +113,6 @@ class ShopkeeperController extends Controller
       return response()->json($error, 401); 
     }
   }
-
-
   
   public function details(){
     $user = Auth::guard('shopkeeper')->user();
@@ -261,10 +265,9 @@ class ShopkeeperController extends Controller
   }
 
   // emailVerification
-  // phoneVerification
-  
   public function emailVerification(Request $request){
-    $verified = Shopkeeper::where('email',$request->email)->first();
+    // $verified = Shopkeeper::where('email',$request->email)->first();
+    $verified = auth::user();
     if(!empty($verified)){
       if($request->otp!=''){
         if($request->otp == $verified->email_ver_code){
@@ -291,15 +294,30 @@ class ShopkeeperController extends Controller
     }
     return response()->json($data, $status); 
   }
-
+  
+  // phoneVerification
   public function phoneVerification(Request $request){
-    $verified = Shopkeeper::where('mobile',$request->phone)->first();
+    // $verified = Shopkeeper::where('mobile',$request->phone)->first();
+    $verified = auth::user();
     if(!empty($verified)){
+      if($verified->sms_verified == 1){
+          $data['msg'] = 'Phone Number Already Verified ';
+          $data['status'] = true;
+          $data['verified_status'] = 'verified';
+          $status = $this-> successStatus;
+          return response()->json($data, $status); 
+      }
+
       if($request->otp!=''){
         if($request->otp == $verified->sms_ver_code){
           $verified->sms_ver_code = 0;
           $verified->sms_verified = 1;
           $verified->save();
+          if($verified->status == '0' || $verified->status == ''){
+            $data['verified_status'] = 'under_review';
+          }else{
+            $data['verified_status'] = 'verified';
+          }
           $data['msg'] = 'Phone number Verified Successfully';
           $data['status'] = true;
           $status = $this-> successStatus;
@@ -314,11 +332,44 @@ class ShopkeeperController extends Controller
           $status = 401;
       }
     }else{
-        $data['msg'] = 'Invalid Phone Number';
+        $data['msg'] = 'Dealer Not Available';
         $data['status'] = false;
         $status = 401;
     }
     return response()->json($data, $status); 
+  }
+
+  // Resend OTP
+  public function resendOTP(Request $request){
+    // Type : sms / email
+    $user = Shopkeeper::find(auth::id());
+    if(!empty($user)){
+      if($request->type = 'sms'){
+        $user->sms_ver_code = rand(11111,99999);
+        $user->sms_sent = 1;
+        $user->sms_verified = 0;
+        $user->save();
+
+        $resp['msg'] = 'OTP sent';
+        $resp['status'] = true;
+        $status = $this-> successStatus;
+
+      }else if($request->type = 'email'){
+        $user->email_ver_code = rand(11111,99999);
+        $user->email_sent = 1;
+        $user->email_verified = 0;
+        $user->save();
+        $status = $this-> successStatus;
+
+        $resp['msg'] = 'OTP sent';
+        $resp['status'] = true;
+      }
+    }else{
+      $resp['msg'] = 'Invalid User';
+      $resp['status'] = false;
+      $status = 401;
+    }
+    return response()->json($resp, $status); 
   }
 
   public function forgotPassword(Request $request){
