@@ -20,6 +20,10 @@ class Orderedproduct extends Model
       return $this->belongsTo('App\Product');
     }
 
+    public function productimages() {
+      return $this->hasMany('App\PreviewImage');
+    }
+
     public function order() {
       return $this->belongsTo('App\Order');
     }

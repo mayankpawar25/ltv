@@ -65,7 +65,7 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
         <div class="col-md-3">
         <div class="form-group">
                     <label>@lang('form.joining_date')</label>
-                    <input type="text" class="form-control form-control-sm datepicker  @php if($errors->has('joining_date')) { echo 'is-invalid'; } @endphp" name="joining_date" value="{{ old_set('joining_date', NULL,$rec) }}">
+                    <input type="text" class="form-control form-control-sm datepicker2  @php if($errors->has('joining_date')) { echo 'is-invalid'; } @endphp" name="joining_date" value="{{ old_set('joining_date', NULL,$rec) }}">
                     <div class="invalid-feedback d-block">@php if($errors->has('joining_date')) { echo $errors->first('joining_date') ; } @endphp</div>
                  </div>
         </div>
@@ -84,7 +84,7 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
         <div class="col-md-3">
         <div class="form-group">
                     <label>@lang('form.date_of_birth')</label>
-                    <input type="text" class="form-control form-control-sm initially_empty_datepicker  @php if($errors->has('birth_date')) { echo 'is-invalid'; } @endphp" name="birth_date" value="{{ old_set('birth_date', NULL,$rec) }}">
+                    <input type="text" class="form-control form-control-sm datepicker2  @php if($errors->has('birth_date')) { echo 'is-invalid'; } @endphp" name="birth_date" value="{{ old_set('birth_date', NULL,$rec) }}">
                     <div class="required">@php if($errors->has('birth_date')) { echo $errors->first('birth_date') ; } @endphp</div>
                  </div>
         </div>
@@ -150,14 +150,12 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
            <div class="col-md-6">
          <div class="form-group">
          <label>Assign Collection duty (if any)</label><br />
-
-          
-                       &nbsp;<input type="checkbox" class=""  name="level" value="1" {{ (isset($rec->level) && $rec->level == 1)?'checked':'' }}>
-                       <label class="" for="customCheck2">@lang('form.level_one')</label>
-                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       <input type="checkbox" class=""  name="level" value="2" {{ (isset($rec->level) && $rec->level == 2)?'checked':'' }}>
-                       <label class="" for="customCheck3">@lang('form.level_two')</label>
-                    </div>
+            <label>&nbsp;<input type="radio" class=""  name="level" value="" {{ ($rec->level=='')?'checked':'' }}>None</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>&nbsp;<input type="radio" class=""  name="level" value="1" {{ (isset($rec->level) && $rec->level == 1)?'checked':'' }}>@lang('form.level_one')</label>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label><input type="radio" class=""  name="level" value="2" {{ (isset($rec->level) && $rec->level == 2)?'checked':'' }}>@lang('form.level_two')</label>
+          </div>
          </div>
          
            <div class="col-md-3">
