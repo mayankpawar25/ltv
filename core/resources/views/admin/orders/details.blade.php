@@ -129,7 +129,7 @@
                               <h6 class="white-txt no-margin">Biling Details</h6>
                             </div>
                             <div class="card-body">
-                              <p><strong>{{$order->first_name}} {{$order->user->billing_last_name}}</strong></p>
+                              <p><strong>Name: </strong>{{ucwords($order->user->billing_first_name.' '.$order->user->billing_last_name)}}</p>
                               <p><strong>Email: </strong>{{$order->user->billing_email}}</p>
                               <p><strong>Phone: </strong>{{$order->user->billing_phone}}</p>
                               <p><strong>Address: </strong>{{$order->user->billing_address}}</p>
@@ -201,7 +201,9 @@
                                                       <td>
                                                         <div class="single-product-item"><!-- single product item -->
                                                           <div class="thumb">
+                                                            @if(!$orderedproduct->product->previewimages->isEmpty())
                                                             <img src="{{asset('assets/user/img/products/'.$orderedproduct->product->previewimages()->first()->image)}}" alt="seller product image">
+                                                            @endif
                                                           </div>
                                                           <div class="content" style="padding-top:0px;">
                                                             <h4 class="title"><a href="{{route('user.product.details', [$orderedproduct->product->slug, $orderedproduct->product->id])}}" target="_blank">{{strlen($orderedproduct->product->title) > 25 ? substr($orderedproduct->product->title, 0, 25) . '...' : $orderedproduct->product->title}}</a></h4>

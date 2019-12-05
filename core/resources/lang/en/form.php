@@ -1300,6 +1300,9 @@ return [
     'balance' => 'Balance',
     'calling_date' => 'Collection Date',
 
+    /* Orders */
+    'order_received' => 'New Order Received. Order ID : %s ',
+    'order_placed' => 'Your order has been placed successfully. Order ID: %s ',
 
     /* Author : 225 */
 ];
