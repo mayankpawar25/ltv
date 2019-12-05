@@ -43,7 +43,7 @@ div#data_filter {
        @if(Session::has('validation_message'))
             <p class="alert alert-danger"><?php echo Session::get('validation_message'); ?></p>
         @endif
-       <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+       <table class="table table-bordered w-100" cellspacing="0" width="100%" id="data">
           <thead>
              <tr>
                 <th>@lang("form.name")</th>
@@ -96,7 +96,6 @@ div#data_filter {
   <script>
 
       $(function() {
-
           $('#data').DataTable({
               dom: 'lfBfrtip',
               "lengthMenu": [ [10, 20, 50, 100], [10, 20, 50, 100] ],
@@ -182,7 +181,7 @@ div#data_filter {
               load_team_member_dropdown();
           });
 
-
+          $('.tile-body').find('#data_wrapper').append('<div class="clearfix"></div>');
 
 
       });

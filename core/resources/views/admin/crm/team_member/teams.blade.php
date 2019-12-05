@@ -87,11 +87,11 @@ div#data_filter {
             <th>@lang("form.name")</th>
             <th>@lang("form.leader")</th>
             <th>@lang("form.members")</th>
+            <th>@lang("form.action")</th>
           </tr>
         </thead>
       </table>
     </div>
-    <div class="clearfix"></div>
   </div>
 </div>
 <style>
@@ -114,9 +114,8 @@ margin:0 2px;
 @section('onPageJs')
     <script>
         $(function() {
-            console.log('ereere');
             var dataTable = $('#data').DataTable({
-                 dom: 'lfBfrtip',
+              dom: 'lfBfrtip',
               "lengthMenu": [ [10, 20, 50, 100], [10, 20, 50, 100] ],
                  buttons: [
                     {
@@ -177,9 +176,7 @@ margin:0 2px;
                 jQuery(this).find('div.row-options').hide();
             });
 
-
-            
-
+            $('.tile-body').find('#data_wrapper').append('<div class="clearfix"></div>');
 
             $('#myModal').on('shown.bs.modal', function () {
 

@@ -11,12 +11,12 @@ class Team extends Model
 
     function leader()
     {
-        return $this->belongsTo('App\User' ,'leader_user_id','id');
+        return $this->belongsTo('App\Models\StaffUser' ,'leader_user_id','id');
     }
 
     function members()
     {
-        return $this->belongsToMany('App\User', 'user_teams', 'team_id', 'user_id');
+        return $this->belongsToMany('App\Models\StaffUser', 'user_teams', 'team_id', 'user_id');
     }
 
     static function dropdown()

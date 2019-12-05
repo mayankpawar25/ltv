@@ -18,9 +18,7 @@ class TeamController extends Controller
      *
      * @return  \Illuminate\Http\Response
      */
-    function index()
-    {
-
+    function index(){
         $data = Team::dropdown();
         return view('admin.crm.team_member.teams', compact('data'));
     }
@@ -59,7 +57,13 @@ class TeamController extends Controller
 
         if($search_key)
         {
-            $query->where('name', 'like', $search_key.'%') ;
+            $query->where('name', 'like', $search_key.'%')
+            ->orwhereHas('leader',function ($q) use ($search_key){
+                $q->where(DB::raw("CONCAT(staff_users.first_name,' ', staff_users.last_name)"), 'like', $search_key.'%');
+            })
+            ->orwhereHas('leader',function ($q) use ($search_key){
+                $q->where('staff_users.last_name', 'like', $search_key.'%');
+            });
         }
 
         $recordsFiltered = $query->get()->count();
@@ -85,12 +89,14 @@ class TeamController extends Controller
                     a_links($team_name, [                       
                         [
                             'action_link' => route('delete_team', $row->id), 
-                            'action_text' => __('form.delete'), 'action_class' => 'delete_item',
+                            'action_text' => '',
+                            'action_class' => 'delete_item',
                             'permission' => 'teams_delete',
                         ]
                     ]),
                     (isset($row->leader)) ?anchor_link($row->leader->first_name . " " . $row->leader->last_name, "#" ) : "",
-                    $row->members->count()
+                    $row->members->count(),
+                    anchor_link('<span class="btn btn-sm btn-danger"><i class="icon-trash icons"></i></span>',route('delete_team', $row->id),'teams_delete')
 
                 );
 
