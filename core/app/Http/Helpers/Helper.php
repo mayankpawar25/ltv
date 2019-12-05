@@ -1755,8 +1755,8 @@ function sendNotification($regId,$title,$message){
     $response = curl_exec($curl);
     $err = curl_error($curl);
     curl_close($curl);
-    echo $response;
-    exit;
+    // echo $response;
+    // exit;
     return true;
 }
 /* Send Firebase Notification */
