@@ -32,39 +32,4 @@ class CronController extends Controller
 		echo json_encode($data);
 		exit;
     }
-
-    /* Send Firebase Notification */
-    public function sendNotification($regId,$title,$message){
-
-    	define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
-
-    	$message = strip_tags($message);        
-    	$title = strip_tags($title);
-
-    	$curl = curl_init();
-    	curl_setopt_array($curl, array(
-    		CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
-    		CURLOPT_RETURNTRANSFER => true,
-    		CURLOPT_ENCODING => "",
-    		CURLOPT_MAXREDIRS => 10,
-    		CURLOPT_TIMEOUT => 30,
-    		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    		CURLOPT_CUSTOMREQUEST => "POST",
-    		CURLOPT_POSTFIELDS => "{\r\n \"to\" : \"$regId\",\r\n \"collapse_key\" : \"type_a\",\r\n \"notification\" : {\r\n \"body\" : \"$message\",\r\n \"title\": \"$title\"\r\n },\r\n \"data\" : {\r\n \"body\" : \"$message\",\r\n \"title\": \"$title\",\r\n \"key_1\" : \"\" }\r\n}",
-    		CURLOPT_HTTPHEADER => array(
-    			"Authorization: key=".FIREBASE_API_KEY,
-    			"Cache-Control: no-cache",
-    			"Content-Type: application/json",
-    			"Postman-Token: 17dca3af-6994-4fe7-b8ec-68f99d13cfe8"
-    		),
-    	));
-    	$response = curl_exec($curl);
-    	$err = curl_error($curl);
-    	curl_close($curl);
-		// echo $response;
-		// exit;
-    	return true;
-    }
-	/* Send Firebase Notification */
-
 }

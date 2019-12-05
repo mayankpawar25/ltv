@@ -31,9 +31,14 @@ div.dataTables_wrapper div.dataTables_filter {
     <div class="main-content">
       <h5>{{__('form.collection')}}</h5>
       <hr />
-      @if(Session::has('success'))
-        <p class="alert {{ Session::get('alert-class', 'alert-success') }}"><?php echo Session::get('success'); ?></p>
-      @endif
+      
+        @if(Session::has('success'))
+          <p class="alert {{ Session::get('alert-class', 'alert-success') }}"><?php echo Session::get('success'); ?></p>
+        @endif
+        {{ date_default_timezone_get() }}
+
+        {{ date('d-M-Y h:i:s A') }}
+
       <div class="row">
         <div class="col-3">
           <div class="card">
