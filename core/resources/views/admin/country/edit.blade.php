@@ -107,7 +107,7 @@ div#admins-table_filter {
 					
 					<!--  <h5 class="card-title">States List</h5> -->
 					<div class="table-responsive">
-						<table class="table table-bordered table-striped display" id="admins-table">
+						<table class="table display" id="admins-table">
 							<thead>
 								<tr>
 									<th>Id</th>
@@ -136,26 +136,26 @@ div#admins-table_filter {
                        
 					</div>
 					 </form>
-					 <div id="confirmModal mt-5" class="modal fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h5 class="modal-title">Confirmation</h2>
-			</div>
-			<div class="modal-body">
-				<h5 align="center" style="margin:0;">Are you sure you want to remove this data?</h5>
-			</div>
-			<div class="modal-footer">
-				
-				<button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
-			</div>
-		</div>
-	</div>
+					<div id="confirmModal" class="modal " role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        
+      </div>
+      <div class="modal-body">
+        <h5 align="center" style="margin:0;">Are you sure you want to remove this data?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- Status -->
-<div id="statusconfirmModal" class="modal mt-5 fade" role="dialog">
+<div id="statusconfirmModal" class="modal " role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -163,12 +163,11 @@ div#admins-table_filter {
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <h5 align="center" style="margin:0;"> Are you sure you want to Change this status? </h5>
+        <h5 align="center" style="margin:0;"><strong>Are you sure you want to change this status?</strong></h5>
       </div>
       <div class="modal-footer">
-       
+        <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-         <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
       </div>
     </div>
   </div>
@@ -213,6 +212,11 @@ $('#admins-table').DataTable({
             },
             'colvis'
         ],
+        "language": {
+            "lengthMenu": '_MENU_ ',
+            "search": '',
+            "searchPlaceholder": "{{ __('form.search') }}"
+        },
 		processing: true,
 		serverSide: true,
 		"pageLength": {{ Config::get('constants.RECORD_PER_PAGE') }},

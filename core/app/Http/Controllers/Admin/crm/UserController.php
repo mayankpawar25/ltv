@@ -38,29 +38,29 @@ class UserController extends Controller {
         /* If the current user doesn't have permission to view all members, then 
             show only the members who are also in him team 
         */
-        // if(!check_perm('team_members_view'))
-        // {   
-        //     // Get the team member Ids 
-        //     $sql = "SELECT user_id AS id FROM user_teams WHERE team_id IN (
-        //              SELECT team_id FROM user_teams WHERE user_id = ? 
-        //             ) GROUP BY user_id 
-        //              ";
-        //     $team_member_ids = DB::select($sql, [ auth()->id() ]);
+        if(!check_perm('team_members_view'))
+        {   
+            // Get the team member Ids 
+            $sql = "SELECT user_id AS id FROM user_teams WHERE team_id IN (
+                     SELECT team_id FROM user_teams WHERE user_id = ? 
+                    ) GROUP BY user_id 
+                     ";
+            $team_member_ids = DB::select($sql, [ auth()->id() ]);
 
-        //     if(count($team_member_ids) > 0)
-        //     {
-        //         $team_member_ids = array_map(function ($value) {
-        //             return (array)$value;
-        //         }, $team_member_ids);
-        //     }
-        //     else
-        //     {
-        //         $team_member_ids = [];
-        //     }
+            if(count($team_member_ids) > 0)
+            {
+                $team_member_ids = array_map(function ($value) {
+                    return (array)$value;
+                }, $team_member_ids);
+            }
+            else
+            {
+                $team_member_ids = [];
+            }
            
-        //     $q->whereIn('id', $team_member_ids);
-        //     $query->whereIn('id', $team_member_ids);
-        // }                                
+            $q->whereIn('id', $team_member_ids);
+            $query->whereIn('id', $team_member_ids);
+        }                                
 
 
         $number_of_records  = $q->count();
@@ -71,16 +71,13 @@ class UserController extends Controller {
         {
             $query->where('first_name', 'like', $search_key.'%')
                 ->orWhere('last_name', 'like', $search_key.'%')
+                ->orWhere(DB::raw('CONCAT(first_name," ",last_name)'), 'like', $search_key.'%')
                 ->orWhere('code', 'like', $search_key.'%')
                 ->orWhere('job_title', 'like', $search_key.'%')
                 ->orWhere('phone', 'like', $search_key.'%')
                 ->orWhere('email', 'like', $search_key.'%')
-                // ->orWhereHas('teams', function ($q) use ($search_key) {
-                //     $q->where('teams.name', 'like', $search_key.'%');
-                // })
-                ->orWhereHas('skills', function ($q) use ($search_key) {
-                    //$q->where('tags.name', 'like', $search_key.'%');
-                    
+                ->orWhereHas('role', function ($q) use ($search_key) {
+                    $q->where('roles.name', 'like', $search_key.'%');
                 });
         }
 

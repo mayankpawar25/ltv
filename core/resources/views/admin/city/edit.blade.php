@@ -135,27 +135,26 @@ color:  #333;
 					
 				</div>
 			</main>
-			<div id="confirmModal" class="modal fade" role="dialog">
+			<div id="confirmModal" class="modal " role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+        <h4 class="modal-title">Confirmation</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h2 class="modal-title">Confirmation</h2>
+        
       </div>
       <div class="modal-body">
         <h5 align="center" style="margin:0;">Are you sure you want to remove this data?</h5>
       </div>
       <div class="modal-footer">
-        
-        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
         <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
 </div>
-
 <!-- Status -->
-<div id="statusconfirmModal" class="modal fade" role="dialog">
+<div id="statusconfirmModal" class="modal " role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -163,15 +162,15 @@ color:  #333;
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <h5 align="center" style="margin:0;"> Are you sure you want to Change this status? </h5>
+        <h5 align="center" style="margin:0;"><strong>Are you sure you want to change this status?</strong></h5>
       </div>
       <div class="modal-footer">
-       
+        <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
         <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-         <button type="button" name="status_button" id="status_button" class="btn btn-danger">OK</button>
       </div>
     </div>
   </div>
+</div>
 </div>
 </main>
 <!-- Status --> 
@@ -226,6 +225,11 @@ color:  #333;
             },
             'colvis'
         ],
+        "language": {
+            "lengthMenu": '_MENU_ ',
+            "search": '',
+            "searchPlaceholder": "{{ __('form.search') }}"
+        },
              stripHtml: false,
              "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500, -1], [10, 20, 50, 100,150,200,250,300,350,450,500, "All"] ],
              processing: true,

@@ -1299,7 +1299,7 @@ return [
     'collected' => 'Collected',
     'balance' => 'Balance',
     'calling_date' => 'Collection Date',
-    'total_collection_message' => 'You have assigned %s collection',
+    'total_collection_message' => '%s Collection Tasks assigned to you',
     'collection_added' => '%s Collections Added Successfully',
 
     /* Orders */

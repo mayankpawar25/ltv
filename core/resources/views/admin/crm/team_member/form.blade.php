@@ -150,7 +150,7 @@ $page_title = (isset($rec->id)) ? __('form.team_member') . " : ". $rec->first_na
            <div class="col-md-6">
          <div class="form-group">
          <label>Assign Collection duty (if any)</label><br />
-            <label>&nbsp;<input type="radio" class=""  name="level" value="" {{ ($rec->level=='')?'checked':'' }}>None</label>
+            <label>&nbsp;<input type="radio" class=""  name="level" value="" checked>None</label>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <label>&nbsp;<input type="radio" class=""  name="level" value="1" {{ (isset($rec->level) && $rec->level == 1)?'checked':'' }}>@lang('form.level_one')</label>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
