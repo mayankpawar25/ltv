@@ -265,7 +265,7 @@ class PaymentCollectionController extends Controller
       $update->save();
     }
 
-    return redirect('admin/collection')->with('success', $insert.' Collection Added Successfully!');
+    return redirect('admin/collection')->with('success', sprintf(__('form.collection_added'),$insert));
   }
   /* Add Collection */
 
