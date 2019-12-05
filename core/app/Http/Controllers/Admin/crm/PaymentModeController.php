@@ -41,7 +41,8 @@ class PaymentModeController extends Controller
 
         if($search_key)
         {
-            $query->where('name', 'like', $search_key.'%');               
+            $query->where('name', 'like', $search_key.'%')
+            ->orWhere('description', 'like', $search_key.'%');               
             
         }
 

@@ -37,7 +37,8 @@ class CurrencyController extends Controller {
 
         if($search_key)
         {
-            $query->where('name', 'like', $search_key.'%') ;
+            $query->where('code', 'like', $search_key.'%') 
+            ->orWhere('symbol', 'like', $search_key.'%');
         }
 
         $recordsFiltered = $query->get()->count();

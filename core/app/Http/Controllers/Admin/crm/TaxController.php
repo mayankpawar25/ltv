@@ -34,7 +34,8 @@ class TaxController extends Controller {
 
         if($search_key)
         {
-            $query->where('name', 'like', $search_key.'%') ;
+            $query->where('name', 'like', $search_key.'%') 
+            ->orWhere('rate', 'like', $search_key.'%');
         }
 
         $recordsFiltered = $query->get()->count();
