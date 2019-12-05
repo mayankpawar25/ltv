@@ -115,6 +115,12 @@ class PaymentCollectionController extends Controller
         ->orwhereHas('assigned',function ($q) use ($search_key){
             $q->where('staff_users.first_name', 'like', $search_key.'%');
         })
+        ->orwhereHas('assigned',function ($q) use ($search_key){
+            $q->where('staff_users.last_name', 'like', $search_key.'%');
+        })
+        ->orwhereHas('assigned',function ($q) use ($search_key){
+            $q->where(DB::raw("CONCAT(staff_users.first_name,' ', staff_users.last_name)"), 'like', $search_key.'%');
+        })
         /*->orwhereHas('country',function ($q) use ($search_key){
             $q->where('countries.name', 'like', $search_key.'%');
         })
@@ -627,7 +633,7 @@ class PaymentCollectionController extends Controller
   /* Send Firebase Notification */
   public function sendNotification($regId,$title,$message){
 
-      define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
+      // define('FIREBASE_API_KEY', 'AAAAUG7Snkg:APA91bFdUnrMQwY_hJ3mD0MLj_vjCpvlXFBQbuRykSIaSwFnyxv7dd-PNKsIUhWnSX8dxj_zmCgPaG06oqTWms0PtEKX01h5ulNeDB71iqX9HiabOWfA64jlYp5Eq8sMMXm9UfOjKFkN');
 
       $message = strip_tags($message);        
       $title = strip_tags($title);
