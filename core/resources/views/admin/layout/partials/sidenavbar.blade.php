@@ -452,7 +452,7 @@
    
     <!-- Task Section -->
 
-   <!--  @if(is_menu_enable('tasks'))
+   <!-- @if(is_menu_enable('tasks'))
     <li class="treeview
       @if (request()->path() == 'admin/tasks/salesman')
         is-expanded

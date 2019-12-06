@@ -45,7 +45,7 @@ if( !$color OR !checkhexcolor( $color ) ) {
     background-color: <?php echo $color; ?>;
 }
 .base-bg {
-    background-color: <?php echo $color; ?> !important;
+    background-color: <?php echo $color; ?>;
 }
 .home-six-trending-sellter-filter-nav .nav-tabs .nav-item .nav-link.active, .home-six-trending-sellter-filter-nav .nav-tabs .nav-item .nav-link:hover {
     color: <?php echo $color; ?>;

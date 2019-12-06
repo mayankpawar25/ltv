@@ -333,8 +333,7 @@
                           @foreach ($cat->products()->where('deleted', 0)->orderBy('id', 'DESC')->limit(8)->get() as $key => $product)
                             <div class="single-new-collection-item "><!-- single new collections -->
                                 <div class="thumb">
-                                  {{--  <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image"> --}}
-                                   
+                                    <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image">
                                     <div class="hover">
                                       <a href="{{route('user.product.details', [$product->slug, $product->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                                     </div>
@@ -390,8 +389,7 @@
                         <div class="row">
                           <div class="col-sm-12">
                           <div class="thumb">
-                            {{--<img src="{{asset('assets/user/img/products/'.$latestPro->previewimages()->first()->image)}}" alt="new collcetion image"> --}}
-                              
+                              <img src="{{asset('assets/user/img/products/'.$latestPro->previewimages()->first()->image)}}" alt="new collcetion image">
                               <div class="hover">
                                 <a href="{{route('user.product.details', [$latestPro->slug,$latestPro->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                               </div>

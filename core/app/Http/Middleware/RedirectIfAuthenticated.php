@@ -40,8 +40,8 @@ class RedirectIfAuthenticated
             if(!$guard && $route_name == 'login')
             {
                 if(url()->previous() != route('login') 
-                    && url()->previous() != route('installer_page') 
-                    && url()->previous() != route('customer_login_page')
+                   /* && url()->previous() != route('installer_page') */
+                   /* && url()->previous() != route('customer_login_page')*/
                 )
                 {
                     session(['url.intended' => url()->previous()]);
