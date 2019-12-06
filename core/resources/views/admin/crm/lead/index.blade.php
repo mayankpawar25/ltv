@@ -127,7 +127,7 @@ div#data_filter {
             <th>@lang("form.status")</th>
             <th>@lang("form.source")</th>
             <th>@lang("form.employer_name")</th>
-            <th>@lang("form.employer_contactno")</th>
+            <th>@lang("form.employer_phoneno")</th>
             <th>@lang("form.last_contacted")</th>
             <th>@lang("form.action")</th>
          </tr>
