@@ -93,41 +93,47 @@ class UserController extends Controller {
             foreach ($data as $key => $row)
             {
 
-                // if(check_perm('team_members_edit'))
-                // {
-                //     $checked     = ($row->inactive) ? '' : 'checked';
-                //     $active_status = ' <input '.$checked.' data-id="'.$row->id.'" class="tgl tgl-ios customer_status" id="cb'.$row->id.'" type="checkbox"/><label class="tgl-btn" for="cb'.$row->id.'"></label>';
-                // }
-                // else
-                // {
-                //     $active_status = ($row->inactive) ? __('form.no') : __('form.yes');
-                // }
+                if(check_perm('team_members_edit'))
+                {
+                    $checked     = ($row->inactive) ? '' : 'checked';
+                    // $active_status = ' <input '.$checked.' data-id="'.$row->id.'" class="tgl tgl-ios customer_status" id="cb'.$row->id.'" type="checkbox"/><label class="tgl-btn" for="cb'.$row->id.'"></label>';
+                    // $edit_btn = anchor_link(__('form.edit'),,'team_members_edit');
+                    $edit_btn = '<a href="'.route('edit_team_member_page', $row->id).'" class="btn btn-success btn-sm"><i class="icon-pencil icon"></i></a>';
+                }else{
+                    $active_status = ($row->inactive) ? __('form.no') : __('form.yes');
+                    $edit_btn = '';
+                }
+                $delete_btn = '';
+                if(check_perm('team_members_delete')){
+                    $delete_btn = '<a href="#" class="delete_team_member btn btn-danger btn-sm"><i class="icon-trash icon"></i></a>';
+                }
+
                 $actions = [];
-                $actions[0]  = [
-                        'action_link' => route('edit_team_member_page', $row->id), 
+                /*$actions[0]  = [
+                        'action_link' => route('edit_team_member_page', $row->id),
                         'action_text' => __('form.edit'), 'action_class' => '',
                         'permission'  => 'team_members_edit',
                     ];
                 // If the team member is the currently logged in user, do not allow to delete 
 
-                /*if($row->id != auth()->user()->id)
-                {*/
+                if($row->id != auth()->user()->id)
+                {
                     $actions[1]  = [
                             'action_link' => $row->id , 
                             'action_text' => __('form.delete'), 'action_class' => 'delete_team_member',
                             'permission'  => 'team_members_delete',
                         ];
-                // }
+                }*/
 
                 $rec[] = array(
-                    a_links(anchor_link($row->first_name . " ". $row->last_name , route('member_profile', $row->id)), $actions),
+                    a_links(anchor_link($row->first_name . " ". $row->last_name , route('member_profile', $row->id)),$actions),
                     $row->code,
                     $row->job_title,
                     $row->email,
                     $row->phone,
                     // $active_status,
-               
-                    (isset($row->role)) ? $row->role->name : ''
+                    (isset($row->role)) ? $row->role->name : '',
+                    $edit_btn.$delete_btn
 
                 );
 
