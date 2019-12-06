@@ -104,6 +104,8 @@ class ShopkeeperController extends Controller
                 ->orWhere('email', 'like', $search_key.'%')
                 ->orWhere('mobile', 'like', $search_key.'%')
                 ->orWhere('phone', 'like', $search_key.'%')
+                ->orWhere('employer_name', 'like', $search_key.'%')
+                ->orWhere('employer_contactno', 'like', $search_key.'%')
                 ->orwhereHas('usergroup',function ($q) use ($search_key){
                     $q->where('user_groups.name', 'like', $search_key.'%');
                 })
@@ -156,6 +158,8 @@ class ShopkeeperController extends Controller
                     (isset($row->zipcode_id)) ? Zipcode::find($row->zipcode_id)->area_name : '',
                     (!empty($row->usergroup))?$row->usergroup->name:'-',
                     ($row->is_verified==0)?'<span class="badge badge-warning">Not Verified</span>':(($row->is_verified==1)?'<span class="badge badge-primary">Verified</span>':'<span class="badge badge-primary">Not Interested</span>'),
+                    $row->employer_name,
+                    $row->employer_contactno,
                     ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>',
                  	
 					$view_ledger. $order. $edit. $delete,
@@ -289,6 +293,8 @@ class ShopkeeperController extends Controller
         $shopkeeper->address = $request->address;
         $shopkeeper->latitude = $request->latitude;
         $shopkeeper->longitude = $request->longitude;
+        $shopkeeper->employer_name = $request->employer_name;
+        $shopkeeper->employer_contactno = $request->employer_contactno;
         $shopkeeper->status = $request->status;
         $shopkeeper->usergroup_id = $request->usergroup_id;
         $shopkeeper->images = '[]';
