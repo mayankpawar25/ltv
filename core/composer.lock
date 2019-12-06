@@ -4506,11 +4506,7 @@
         },
         {
             "name": "symfony/polyfill-iconv",
-<<<<<<< HEAD
             "version": "v1.13.1",
-=======
-            "version": "v1.13.0",
->>>>>>> f644ba846f43b78c0d96621b7932e9acb50f9a03
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-iconv.git",

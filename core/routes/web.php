@@ -9,24 +9,24 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
+/*Route::get('/', function () {
     return redirect('admin');
-});
+});*/
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return redirect('admin');
-})->name('login');
+})->name('login');*/
 
-Route::get('/login', function () {
+/*Route::get('/login', function () {
     return redirect('admin');
-})->name('login');
+})->name('login');*/
 
-Route::get('/contact', function () {
+/*Route::get('/contact', function () {
     return redirect('admin');
 });
 Route::get('/shop', function () {
     return redirect('admin');
-});
+});*/
 
 
 Route::get('/allcollection', 'Admin\Cron\CronController@viewTodaysCollection')->name('datatables_area');
@@ -120,7 +120,8 @@ Route::post('review/submit', 'ProductController@reviewsubmit')->name('user.revie
 
 #=========== User Routes =============#
 Route::group(['middleware' => 'guest'], function() {
-		Route::get('/login', 'User\LoginController@login')->name('login');
+		Route::get('/login', 'User\LoginController@login')->name('customer_login_page');
+		Route::get('/login2', 'User\LoginController@login')->name('login');
 		Route::post('/authenticate', 'User\LoginController@authenticate')->name('user.authenticate');
 
 		Route::get('auth/{provider}', 'User\LoginController@redirectToProvider');
