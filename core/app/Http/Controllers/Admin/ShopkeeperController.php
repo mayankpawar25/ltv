@@ -140,7 +140,8 @@ class ShopkeeperController extends Controller
         if (count($data) > 0)
         {
             foreach ($data as $key => $row)
-            {   
+            {  
+            dd($row); 
 				$view_ledger = '<a href="'.route('admin.shopkeeper.transaction',[$row->id,'1']).'" title="View Ledger" id="'.$row->id.'" class="btn btn-sm btn-primary pull-right"><i class="icon-eye icons icon"></i></a>';
 				$order = '<a href="'.route('admin.orders.all',$row->id).'" title="Order" id="'.$row->id.'" class="btn btn-sm btn-warning"><i class="icon-basket icon"></i></a>';
 				$edit = '<a href="'.route('admin.shopkeeper.edit',$row->id).'" title="Edit" id="'.$row->id.'" class="btn btn-sm btn-success pull-right"><i class="icon-pencil icon"></i></a>';
