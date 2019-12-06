@@ -37,7 +37,8 @@ class GatewayController extends Controller
         if($search_key)
         {
             $query->where(function ($k) use ($search_key) {
-                $k->where('main_name', 'like', $search_key.'%');
+                $k->where('main_name', 'like', $search_key.'%')
+                 ->orWhere('name', 'like', $search_key.'%');
                 
 
             });
@@ -58,7 +59,7 @@ class GatewayController extends Controller
             foreach ($data as $key => $row)
             {   
                 $rec[] = array(
-                  anchor_link($row->main_name,route('admin.subcategory.index', $row->id)),
+                  $row->main_name,
                   $row->name,
                   ($row->status==0)?'<span class="badge badge-danger">Deactive</span>':'<span class="badge badge-success">Active</span>',
                    '<button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit"><span data-toggle="modal" data-target="#editModal'.$row->id.'"><i class="icon-pencil icon"></i></span></button>',
