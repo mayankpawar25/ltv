@@ -152,7 +152,7 @@ class ShopkeeperController extends Controller
                     $row->mobile,
                     $row->phone,
                     $row->address,
-                    Country::find($row->country_id)->name,
+                    (isset($row->country_id) ? Country::find($row->country_id)->name : '',
                     State::find($row->state_id)->name,
                     City::find($row->city_id)->name,
                     (isset($row->zipcode_id)) ? Zipcode::find($row->zipcode_id)->area_name : '',
