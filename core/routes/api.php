@@ -32,11 +32,6 @@ Route::get('zipcodelist', 'API\LocationController@zipcodeDropdown');
 Route::get('/shopkeeper/pushnotification', 'API\OrderController@duplicatenotification');
 Route::get('/salesman/pushnotification/{salesman_id}', 'API\CollectPaymentController@duplicatenotification');
 
-
-/* Verification */
-Route::get('/shopkeeper/emailverification', 'API\ShopkeeperController@emailVerification');
-Route::get('/shopkeeper/phoneverification', 'API\ShopkeeperController@phoneVerification');
-
 /*Instamojo Credentials & Success URL*/
 Route::post('instamojoCredentials', 'API\ShopkeeperController@instamojoCredentials');
 Route::get('pay-success/{order_id}', 'API\ShopkeeperController@success');
@@ -45,6 +40,12 @@ Route::get('pay', 'API\ShopkeeperController@pay');
 
 Route::get('paytmcredentials','API\ProductController@paytmCredentials');
 Route::group(['prefix'=>'shopkeeper','middleware' => 'auth:shopkeeper-api'], function(){
+
+	/* Verification */
+	Route::get('/emailverification', 'API\ShopkeeperController@emailVerification');
+	Route::get('/phoneverification', 'API\ShopkeeperController@phoneVerification');
+	Route::get('/resendotp', 'API\ShopkeeperController@resendOTP');
+
 	/* User Detail and Update Detail and Change Password */
 	Route::get('details', 'API\ShopkeeperController@details');
 	Route::post('changepassword', 'API\ShopkeeperController@updatePassword');

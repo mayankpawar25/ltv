@@ -17,7 +17,7 @@ class Shopkeeper extends Authenticatable
 	* @var array
 	*/
 	protected $fillable = [
-		'name', 'email', 'password','shopname','mobile','phone','salesman_id','status','usergroup_id','country_id','state_id','city_id','is_verified','folder','address'
+		'name', 'email', 'password','shopname','mobile','phone','salesman_id','status','usergroup_id','country_id','state_id','city_id','is_verified','folder','address','sms_verified','email_verified','sms_sent','sms_ver_code','email_sent','email_ver_code'
 	];
 	/**
 	* The attributes that should be hidden for arrays.
@@ -89,8 +89,8 @@ class Shopkeeper extends Authenticatable
            'H' => 'state', 
            'I' => 'city',
            'J' => 'area',
-           'K' => 'password',
-           'L' => 'status',
+           'K' => 'status',
+           'L' => 'password',
 
            
         ];

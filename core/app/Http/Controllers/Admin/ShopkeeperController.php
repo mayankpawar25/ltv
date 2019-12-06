@@ -290,8 +290,8 @@ class ShopkeeperController extends Controller
         $shopkeeper->is_verified = 0;
         $shopkeeper->email_verified = 0;
         $shopkeeper->sms_verified = 0;
-        $shopkeeper->sms_ver_code = rand(1 , 99999);
-        $shopkeeper->email_ver_code = rand(1, 99999);
+        $shopkeeper->sms_ver_code = rand(1111 , 9999);
+        $shopkeeper->email_ver_code = rand(1111, 9999);
         $shopkeeper->salesman_id  = (isset($request->salesman_id)) ? $request->salesman_id : NULL;
         $shopkeeper->folder = $current_time;
         $shopkeeper->save();
@@ -850,22 +850,36 @@ class ShopkeeperController extends Controller
                         DB::beginTransaction();
                         $success = false;
                         try {
-
                             $cells['name']          = $cells['name'];
                             $cells['shopname']      = $cells['shop_name'];
                             $cells['mobile']        = $cells['mobile'];
                             $cells['phone']         = $cells['alternate_number'];
                             $cells['address']       = $cells['address'];
                             $cells['password']      = Hash::make($cells['password']);
-                            // $cells['password']      = Hash::make($request->password);
                             $cells['salesman_id']   = ($request->assigned_to)?$request->assigned_to:auth()->user()->id;
                             $cells['usergroup_id']  = $request->usergroup;
                             $cells['is_verified']   = $request->is_verified;
                             // $cells['assigned_to']   = $request->assigned_to;
                             $cells['folder']        = time();
-                            // $cells['created_by']    = auth()->user()->id;                
+                            // $cells['created_by']    = auth()->user()->id;
                             $cells['status']        = (strtolower($cells['status'])=='active')?'1':'0';
 
+                            $cells['sms_verified'] = 0;
+                            $cells['email_verified'] = 0;
+                            if($request->is_verified == 1){
+                                $cells['sms_verified'] = 1;
+                                $cells['email_verified'] = 1;
+                            }
+                            if($cells['mobile'] != ''){
+                                $sms_ver_code = rand(1111,9999);
+                                $cells['sms_sent'] = 1;
+                                $cells['sms_ver_code'] = $sms_ver_code;
+                            }
+                            if($cells['email'] != ''){
+                                $email_ver_code = rand(1111,9999);
+                                $cells['email_sent'] = 1;
+                                $cells['email_ver_code'] = $email_ver_code;
+                            }
 
                             if($cells['country']){
                                 $country = Country::firstOrCreate(['name' => $cells['country'] ]);
@@ -887,7 +901,6 @@ class ShopkeeperController extends Controller
                                 $cells['zipcode_id']   = $area->id;
                             }
 
-
                             // Create the Customer
                             $check_for_update = Shopkeeper::where('mobile',$cells['mobile'])->first();
                             if(!empty($check_for_update)){
@@ -903,8 +916,6 @@ class ShopkeeperController extends Controller
                                 $insert++;
                                 $customer               = Shopkeeper::create($cells);
                             }
-                            
-                            // dd($cells,$customer);
 
                             // disable activity logging
                             // $customer->disableLogging();
@@ -915,7 +926,7 @@ class ShopkeeperController extends Controller
                         }
                         catch (\Exception  $e)
                         {   
-                            dd($e);
+                            // dd($e);
                             DB::rollback();
                             $col = $next_column_after_highest.$indexOfRow;         
                             $this->write_error_messages_in_spreadsheet($extension, $spreadsheet, $col , __('form.system_error') , $path);

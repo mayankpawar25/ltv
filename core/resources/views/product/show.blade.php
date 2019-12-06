@@ -115,7 +115,11 @@
                                       @endforeach
                                     </li>
                                   @endforeach
+<<<<<<< HEAD
                                  <li>Shop Name:  <span class="right"><a href="{{-- {{route('vendor.shoppage', $product->vendor->id)}} --}} " style="color:#{{$gs->base_color_code}};font-weight:700;">{{-- {{$product->vendor->shop_name}} --}}</a> </span></li> 
+=======
+                                 {{--  --}}
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                   <p class="text-danger" id="errattr"></p>
                               </ul>
 
@@ -233,13 +237,14 @@
                     @foreach ($rproducts as $key => $rproduct)
                       <div class="single-new-collection-item "><!-- single new collections -->
                           <div class="thumb">
-                              <img src="{{asset('assets/user/img/products/'.$rproduct->previewimages()->first()->image)}}" alt="new collcetion image">
+                            {{-- <img src="{{asset('assets/user/img/products/'.$rproduct->previewimages()->first()->image)}}" alt="new collcetion image"> --}}
+                             
                               <div class="hover">
                                 <a href="{{route('user.product.details', [$rproduct->slug, $rproduct->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                               </div>
                           </div>
                           <div class="content">
-                              <span class="category">{{\App\Category::find($rproduct->category_id)->name}}</span>
+                              {{-- <span class="category">{{\App\Category::find($rproduct->category_id)->name}}</span> --}}
                               <a href="{{route('user.product.details', [$rproduct->slug, $rproduct->id])}}"><h4 class="title">{{strlen($rproduct->title) > 25 ? substr($rproduct->title, 0, 25) . '...' : $rproduct->title}}</h4></a>
                               @if (empty($rproduct->current_price))
                                 <div class="price"><span class="sprice">{{$gs->base_curr_symbol}} {{$rproduct->price}}</span></div>
@@ -250,7 +255,7 @@
                       </div><!-- //. single new collections  -->
                     @endforeach
                     <div class="single-new-collection-item ">
-                      <div class="view-all-wrapper">
+                      <div class="view-all-wrapper wrapper-height">
                         <div class="view-all-inner">
                           <a class="view-all-icon-wrapper" href="{{route('user.search', [$rproduct->category_id, $rproduct->subcategory_id])}}">
                             <i class="fa fa-angle-right"></i>

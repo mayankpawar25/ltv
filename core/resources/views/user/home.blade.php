@@ -48,22 +48,38 @@
     <div class="container">
       <div class="free-shipping">
         <div class="row">
+<<<<<<< HEAD
           <div class="col-sm-3 bdr-right">
+=======
+          <div class="col-lg-3 col-md-6 bdr-right">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
             <img src="assets/img/free-shipping.png">
             <h4>Free shipping</h4>
             <p>Free shipping on all paid order</p>
           </div>
+<<<<<<< HEAD
           <div class="col-sm-3 bdr-right">
+=======
+          <div class="col-lg-3 col-md-6 bdr-right">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
             <img src="assets/img/support.png">
             <h4>24/7 Support</h4>
             <p>Contact us 24 hours a day</p>
           </div>
+<<<<<<< HEAD
           <div class="col-sm-3 bdr-right">
+=======
+          <div class="col-lg-3 col-md-6 bdr-right">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
             <img src="assets/img/money-back.png">
             <h4>100% Money Back</h4>
             <p>We have 7 day to Return</p>
           </div>
+<<<<<<< HEAD
           <div class="col-sm-3">
+=======
+          <div class="col-lg-3 col-md-6">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
             <img src="assets/img/payment-secure.png">
             <h4>Payment secure</h4>
             <p>We are ensure secure payment</p>
@@ -73,6 +89,7 @@
     </div>
 
     <div class="container">
+<<<<<<< HEAD
       <div class="">
         <div class="row">
           <div class="col-sm-3">
@@ -83,6 +100,45 @@
           </div>
           <div class="col-sm-3">
             <img src="assets/img/sale-img3.jpg" class="w-100">
+=======
+      <div class="big-sale d-none d-lg-block">
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="img-box">
+                <img src="assets/img/sale-img1.jpg" class="w-100">
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <div class="img-box">
+                <img src="assets/img/sale-img2.jpg" class="w-100">
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="img-box">
+                <img src="assets/img/sale-img3.jpg" class="w-100">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="big-sale d-block d-lg-none">
+        <div class="row">
+          
+          <div class="col-lg-6 col-md-12">
+            <div class="img-box">
+                <img src="assets/img/sale-img2.jpg" class="w-100">
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="img-box">
+                <img src="assets/img/sale-img1.jpg" class="w-100">
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="img-box">
+                <img src="assets/img/sale-img3.jpg" class="w-100">
+            </div>
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
           </div>
         </div>
       </div>
@@ -183,7 +239,11 @@
                                              <div class="tab-pane fade show active" id="bestseller" role="tabpanel" aria-labelledby="bestseller-tab">
                                                  <div class="row mx-0">
                                                    @foreach ($topSoldPros as $key => $topSoldPro)
+<<<<<<< HEAD
                                                      <div class="col-lg-3 col-md-6 px-0">
+=======
+                                                     <div class="col-lg-3 col-md-6 px-2">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                                        <div class="single-new-collection-item "><!-- single new collections -->
                                                            
                                                            <div class="thumb">
@@ -213,7 +273,11 @@
                                              <div class="tab-pane fade" id="trendeseller" role="tabpanel" aria-labelledby="trendeseller-tab">
                                                <div class="row mx-0">
                                                  @foreach ($topRatedPros as $key => $topRatedPro)
+<<<<<<< HEAD
                                                    <div class="col-lg-3 col-md-6 px-0">
+=======
+                                                   <div class="col-lg-3 col-md-6 px-2">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                                      <div class="single-new-collection-item "><!-- single new collections -->
                                                          <div class="thumb">
                                                              <img src="{{asset('assets/user/img/products/'.$topRatedPro->previewimages()->first()->image)}}" alt="new collcetion image">
@@ -241,7 +305,11 @@
                                              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                                <div class="row mx-0">
                                                  @foreach ($specialPros as $key => $specialPro)
+<<<<<<< HEAD
                                                    <div class="col-lg-3 col-md-6 px-0">
+=======
+                                                   <div class="col-lg-3 col-md-6 px-2">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                                      <div class="single-new-collection-item "><!-- single new collections -->
                                                          <div class="thumb">
                                                              <img src="{{asset('assets/user/img/products/'.$specialPro->previewimages()->first()->image)}}" alt="new collcetion image">
@@ -293,7 +361,11 @@
                             </ul>
                         </div><!-- //.recently added nav menu -->
                     </div>
+<<<<<<< HEAD
                     <div class="col-lg-3">
+=======
+                    <div class="col-lg-3 sub-mb">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                       <ul class="home-subcategories">
                         @foreach ($cat->subcategories()->where('status', 1)->get() as $key => $subcategory)
                           <li><a href="{{route('user.search', [$cat->id, $subcategory->id])}}">{{$subcategory->name}}</a></li>
@@ -306,10 +378,18 @@
                           @foreach ($cat->products()->where('deleted', 0)->orderBy('id', 'DESC')->limit(8)->get() as $key => $product)
                             <div class="single-new-collection-item "><!-- single new collections -->
                                 <div class="thumb">
+<<<<<<< HEAD
                                     <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image">
                                     {{-- <div class="hover">
                                       <a href="{{route('user.product.details', [$product->slug, $product->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                                     </div> --}}
+=======
+                                  {{--  <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image"> --}}
+                                   
+                                    <div class="hover">
+                                      <a href="{{route('user.product.details', [$product->slug, $product->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
+                                    </div>
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                 <div class="content">
                                     {{-- <span class="category">{{\App\Category::find($product->category_id)->name}}</span> --}}
                                     <a href="{{route('user.product.details', [$product->slug, $product->id])}}"><h4 class="title">{{strlen($product->title) > 20 ? substr($product->title, 0, 20) . '...' : $product->title}}</h4></a>
@@ -360,9 +440,14 @@
                     @foreach ($latestPros as $key => $latestPro)
                       <div class="single-new-collection-item "><!-- single new collections -->
                         <div class="row">
+<<<<<<< HEAD
                           <div class="col-sm-12 px-0">
+=======
+                          <div class="col-sm-12">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                           <div class="thumb">
-                              <img src="{{asset('assets/user/img/products/'.$latestPro->previewimages()->first()->image)}}" alt="new collcetion image">
+                            {{--<img src="{{asset('assets/user/img/products/'.$latestPro->previewimages()->first()->image)}}" alt="new collcetion image"> --}}
+                              
                               <div class="hover">
                                 <a href="{{route('user.product.details', [$latestPro->slug,$latestPro->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                               </div>
@@ -381,8 +466,13 @@
                           </div>
                       </div><!-- //. single new collections  -->
                     @endforeach
+<<<<<<< HEAD
                     <div class="single-new-collection-item ">
                       <div class="view-all-wrapper" style="height:391px;">
+=======
+                    <div class="single-new-collection-item">
+                      <div class="view-all-wrapper wrapper-height">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                         <div class="view-all-inner">
                           <a class="view-all-icon-wrapper" href="{{url('/').'/shop?sort_by=date_desc'}}">
                             <i class="fa fa-angle-right"></i>
@@ -430,7 +520,11 @@
                                              <div class="tab-pane fade show active" id="bestseller" role="tabpanel" aria-labelledby="bestseller-tab">
                                                  <div class="row mx-0">
                                                    @foreach ($topSoldPros as $key => $topSoldPro)
+<<<<<<< HEAD
                                                      <div class="col-lg-3 col-md-6 px-0">
+=======
+                                                     <div class="col-lg-3 col-md-6 px-2">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                                        <div class="single-new-collection-item "><!-- single new collections -->
                                                            
                                                            <div class="thumb">
@@ -460,7 +554,11 @@
                                              <div class="tab-pane fade" id="trendeseller" role="tabpanel" aria-labelledby="trendeseller-tab">
                                                <div class="row mx-0">
                                                  @foreach ($topRatedPros as $key => $topRatedPro)
+<<<<<<< HEAD
                                                    <div class="col-lg-3 col-md-6 px-0">
+=======
+                                                   <div class="col-lg-3 col-md-6 px-2">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                                      <div class="single-new-collection-item "><!-- single new collections -->
                                                          <div class="thumb">
                                                              <img src="{{asset('assets/user/img/products/'.$topRatedPro->previewimages()->first()->image)}}" alt="new collcetion image">
@@ -488,7 +586,11 @@
                                              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                                                <div class="row mx-0">
                                                  @foreach ($specialPros as $key => $specialPro)
+<<<<<<< HEAD
                                                    <div class="col-lg-3 col-md-6 px-0">
+=======
+                                                   <div class="col-lg-3 col-md-6 px-2">
+>>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                                      <div class="single-new-collection-item "><!-- single new collections -->
                                                          <div class="thumb">
                                                              <img src="{{asset('assets/user/img/products/'.$specialPro->previewimages()->first()->image)}}" alt="new collcetion image">

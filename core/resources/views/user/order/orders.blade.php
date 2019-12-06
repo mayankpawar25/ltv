@@ -43,6 +43,7 @@
             <div class="seller-panel">
                 <div class="sellers-product-inner">
                     <div class="bottom-content">
+                      <div class="table-responsive">
                         <table class="table table-default" id="datatableOne">
                             <thead>
                                 <tr>
@@ -95,7 +96,7 @@
                               @endforeach
                             </tbody>
                         </table>
-
+                        </div>
                         <div class="text-center">
                             {{$orders->appends(['order_number' => $on])->links()}}
                         </div>

@@ -21,7 +21,7 @@
                           </div>
                       </div>
                       <div class="content">
-                          <span class="category">{{$product->category->name}}</span>
+                          {{-- <span class="category">{{$product->category->name}}</span> --}}
                           <a href="{{route('user.product.details', [$product->slug, $product->id])}}"><h4 class="title">{{strlen($product->title) > 25 ? substr($product->title, 0, 25) . '...' : $product->title}}</h4></a>
                           @if (empty($product->current_price))
                             <div class="price"><span class="sprice">{{$gs->base_curr_symbol}} {{$product->price}}</span></div>

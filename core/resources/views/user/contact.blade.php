@@ -26,7 +26,7 @@
           <div class="row">
             <div class="col-md-12 px-0">
               <div class="inner-section-title">
-                  <strong class="subtitle base-txt">Contact us</strong>
+                  {{-- <strong class="subtitle base-txt">Contact us</strong> --}}
                   <h2 class="title">To get update</h2>
               </div>
             </div>
