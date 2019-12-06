@@ -53,9 +53,10 @@ color:
                 <div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
               </h4>
               <div class="row">
+
                 <div class="col-md-3">
                   <div class="form-group">
-                    <label>{{__('form.customer_name')}}<span class="text-danger">*</span></label>
+                    <label>{{__('form.collection_customer_name')}}<span class="text-danger">*</span></label>
                    <input type="text" placeholder="Customer Name" name="name" class="form-control" value="{{ old('name') }}">
                   </div>
                   <div class=" {{ $errors->has('name') ? ' has-error' : '' }}"> @if ($errors->has('name'))
@@ -63,6 +64,17 @@ color:
                     @endif
                   </div>
                 </div><!-- Name -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>{{__('form.shop_name')}}<span class="text-danger">*</span></label>
+                   <input type="text" placeholder="{{__('form.shop_name')}}" name="shop_name" class="form-control" value="{{ old('shop_name') }}">
+                  </div>
+                  <div class=" {{ $errors->has('shop_name') ? ' has-error' : '' }}"> @if ($errors->has('shop_name'))
+                    <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('shop_name') }}</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- Shop Name -->
                 
                 <div class="col-md-3">
                   <div class="form-group">
@@ -89,6 +101,50 @@ color:
 
                 <div class="col-md-3">
                   <div class="form-group">
+                    <label>{{__('form.country')}}</label>
+                    <?php echo form_dropdown("country", $countries, old("country"), "class='form-control select2 '") ?>
+                  </div>
+                  <div class=" {{ $errors->has('country') ? ' has-error' : '' }}"> @if ($errors->has('country'))
+                    <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('country') }}</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- Country -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>{{__('form.state')}}</label>
+                    <?php echo form_dropdown("state", $states, old("state"), "class='form-control select2 '") ?>
+                  </div>
+                  <div class=" {{ $errors->has('state') ? ' has-error' : '' }}"> @if ($errors->has('state'))
+                    <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('state') }}</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- State -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>{{__('form.city')}}</label>
+                    <?php echo form_dropdown("city", $cities, old("city"), "class='form-control select2 '") ?>
+                  </div>
+                  <div class=" {{ $errors->has('city') ? ' has-error' : '' }}"> @if ($errors->has('city'))
+                    <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('city') }}</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- City -->
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>{{__('form.address')}}</label>
+                    <textarea name="address" class="form-control" rows="2"></textarea>
+                  </div>
+                  <div class=" {{ $errors->has('address') ? ' has-error' : '' }}"> @if ($errors->has('address'))
+                    <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('address') }}</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- Address -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
                     <label>{{__('form.installments')}} <span class="text-danger">*</span></label>
                     <select class="form-control installments" name="installments">
                       <option>-- select installments --</option>
@@ -100,6 +156,7 @@ color:
                     </select>
                   </div>
                 </div><!-- Installments -->
+
               </div>
               <table class="table table-bordered">
                 <thead>
@@ -242,6 +299,21 @@ color:
                   name: {
                       required: true,
                   },
+                  shop_name: {
+                      required: true,
+                  },
+                  country: {
+                      required: true,
+                  },
+                  state: {
+                      required: true,
+                  },
+                  city: {
+                      required: true,
+                  },
+                  address: {
+                      required: true,
+                  },
                   mobile_no: {
                       required: true,
                       mobile_regex: true,
@@ -258,10 +330,19 @@ color:
                   staff_user_id: {
                       required: true,
                   },
+                  installments: {
+                      required: true,
+                  },
               },
               messages: {
                   name: {
                       required: "Please Enter Customer Name.",
+                  },
+                  shop_name: {
+                      required: "Please Enter Customer Name.",
+                  },
+                  installments : {
+                      required: "Please Select Installments.",
                   },
                   mobile_no: {
                       required: "Please Enter Customer Mobile No.",
@@ -277,6 +358,18 @@ color:
                   },
                   staff_user_id: {
                       required: "Please Select Salesman .",
+                  },
+                  country:{
+                      required: "Please Select Country .",
+                  },
+                  state:{
+                      required: "Please Select State .",
+                  },
+                  city:{
+                      required: "Please Select City .",
+                  },
+                  address:{
+                      required: "Please Enter Address.",
                   },
               },
               errorElement: "span",
@@ -366,6 +459,36 @@ color:
     $('#total_amount').text('Rs. '+total_amount.toFixed(2));
   });
 
+  $('.select2').select2();
+  $(document).on('change','select[name=country]',function(){
+    var country_id = $(this).val();
+    $.ajax({
+      url: "{{ route('get.states') }}",
+      headers: {
+        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+      },
+      method: 'POST',
+      data  : { country_id : country_id},
+      success: function(data) {
+        $('select[name=state]').html(data.html);
+      }
+    });
+  });
+
+  $(document).on('change','select[name=state]',function(){
+    var state_id = $(this).val();
+    $.ajax({
+      url: "{{ route('get.cities') }}",
+      headers: {
+        'X-CSRF-TOKEN': $('input[name="_token"]').val()
+      },
+      method: 'POST',
+      data  : { state_id : state_id},
+      success: function(data) {
+        $('select[name=city]').html(data.html);
+      }
+    });
+  });
 </script> 
 @endsection
     
