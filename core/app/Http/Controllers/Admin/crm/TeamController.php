@@ -84,6 +84,12 @@ class TeamController extends Controller
                     $team_name  = '<a class="edit_item" data-id="'.$row->id.'" href="#">'.$row->name.'</a>';
                 }
 
+                if(check_perm('teams_delete')){
+                    $delete_btn = '<a href="'.route('delete_team', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
+                }
+                if(check_perm('teams_edit')){
+                    $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="#"><i class="icon-pencil icon"></i></a>';
+                }
 
                 $rec[] = array(
                     a_links($team_name, [                       
@@ -94,9 +100,10 @@ class TeamController extends Controller
                             'permission' => 'teams_delete',
                         ]
                     ]),
-                    (isset($row->leader)) ?anchor_link($row->leader->first_name . " " . $row->leader->last_name, "#" ) : "",
+                    (isset($row->leader)) ?anchor_link($row->leader->first_name . " " . $row->leader->last_name, route('member_profile',$row->leader->id) ) : "",
                     $row->members->count(),
-                    anchor_link('<span class="btn btn-sm btn-danger"><i class="icon-trash icons"></i></span>',route('delete_team', $row->id),'teams_delete')
+                    $edit_btn.$delete_btn
+                    // anchor_link('<span class="btn btn-sm btn-danger"><i class="icon-trash icons"></i></span>',route('delete_team', $row->id),'teams_delete')
 
                 );
 

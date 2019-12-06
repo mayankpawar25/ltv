@@ -51,9 +51,9 @@ div#data_filter {
                 <th>@lang("form.job_title")</th>
                 <th>@lang("form.email")</th>
                 <th>@lang("form.phone")</th>
-                <!-- <th>@lang("form.active")</th> -->
-       
+                <!-- <th>@lang("form.status")</th> -->
                 <th>@lang("form.role")</th>
+                <th>@lang("form.action")</th>
              </tr>
           </thead>
        </table>

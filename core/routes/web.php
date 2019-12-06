@@ -1501,7 +1501,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 | Country Management Section    E.ID 106 
 |---------------------------------------------------------------
 **/
-	Route::resource('countries', 'Admin\CountryController',[
+	/*Route::resource('countries', 'Admin\CountryController',[
 	   'names' => [ 
 	   		'index' => 'countries.index',
 	   		'store' => 'countries.store',
@@ -1511,7 +1511,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	   		'update'=> 'countries.update',
 	   		'destroy'=> 'countries.destroy',
 	      ]
-	]);
+	]);*/
+
+	Route::get('countries', 'Admin\CountryController@index')->name('countries.index');
+	Route::post('countries/store', 'Admin\CountryController@store')->name('countries.store');
+	Route::post('countries/update', 'Admin\CountryController@update')->name('countries.update');
+	Route::get('countries/{id?}/edit', 'Admin\CountryController@index')->name('countries.edit');
 
 	Route::resource('area', 'Admin\AreaController',[
 	   'names' => [ 

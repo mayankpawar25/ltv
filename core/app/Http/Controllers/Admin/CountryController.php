@@ -20,30 +20,28 @@ class CountryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        
+    public function index(Request $request,$id="")
+    {   
+        $data['country'] = [];
+        if($id!='')
+            $data['country']  = Country::find($id);
+
         if($request->ajax()){
            return datatables()->of(Country::all())   
             ->addColumn('action', function($data){
                 $button = '<a href="'.route('countries.edit',$data->id).'" name="edit" id="'.$data->id.'" class="editbtn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>';
-
-                $button .= '&nbsp;&nbsp;';
-                /* $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';*/
-
-                $button .= '&nbsp;&nbsp;';
-                if($data->status == 0){
-                    $button .= '<button type="button" name="status" id="'.$data->id.'" class="status  btn-sm btn btn-danger btn-sm" data-status="'.$data->status.'">Inactive</button>';
-                }else {
-                    $button .= '<button type="button" name="status" id="'.$data->id.'" class="status btn btn-success btn-sm" data-status="'.$data->status.'">Active</button>';
-                }
                 return $button;
             })
-            ->rawColumns(['action'])
+             ->addColumn('status', function($data){
+                $checked = ($data->status==1)?'checked':'';
+                $button2 = ' <input '.$checked.' data-id="'.$data->id.'" class="tgl tgl-ios status" id="cb'.$data->id.'" data-status="'.$data->status.'" type="checkbox"/><label class="tgl-btn" for="cb'.$data->id.'"></label>';
+                return $button2;
+            })
+            ->rawColumns(['action','status'])
             ->make(true);
         }
         
-        return view('admin.country.index');
+        return view('admin.country.index',$data);
      
     }
 
@@ -55,28 +53,24 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-              $rules = array(
-                'name' => 'required',
-                //'iso_code' => 'required',
-                //'phone_code' => 'required',
-                //'country_flag' => 'required|mimes:jpeg,jpg,png,pdf|max:2000',
-               
-                );
-            $this->validator($request->all(),$rules)->validate();
-             $flag = [];
-             $data = array( 
-                'states' => array(
-                      'name' => strip_tags($request->input('name')),
-                      //'iso_code' => strip_tags($request->input('iso_code')),
-                      //'phone_code' => strip_tags($request->input('phone_code')),
-                       //'country_flag'=>json_encode($flag),
-                       'status'=> 1,
-                     ) 
-                );
-              $resp = DB::table('countries')->insert($data);
-           return redirect('admin/countries')->with('success', 'Country Add Successfully!');
+    public function store(Request $request){
+        $rules = array(
+        'name' => 'required',
+
+        );
+        $this->validator($request->all(),$rules)->validate();
+        $flag = [];
+        $data = array( 
+        'states' => array(
+              'name' => strip_tags($request->input('name')),
+              //'iso_code' => strip_tags($request->input('iso_code')),
+              //'phone_code' => strip_tags($request->input('phone_code')),
+               //'country_flag'=>json_encode($flag),
+               'status'=> 1,
+             ) 
+        );
+        $resp = DB::table('countries')->insert($data);
+        return redirect('admin/countries')->with('success', 'Country Add Successfully!');
     }
 
     
@@ -87,8 +81,7 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         // Edit Country 
         $data['country']  = Country::find($id);
         return view('admin.country.edit',$data);
@@ -101,30 +94,18 @@ class CountryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request){
 
         //Country Update
-         $rules = array(
+        $rules = array(
             'name'  => 'required',
-            //'iso_code' => 'required',
-            //'phone_code' => 'required',
-            //'country_flag' => 'required|mimes:jpeg,jpg,png,pdf|max:2000',
-           );
-          $flag = [];
-            $dt = $this->validator($request->all(),$rules)->validate();
-        
-               $data = array( 
-                   'name' => strip_tags($request->input('name')),
-                   //'iso_code' => strip_tags($request->input('iso_code')),
-                   //'phone_code' => strip_tags($request->input('phone_code')),
-                    //'country_flag'=>json_encode($flag),
-                );
-     
-        //dd($data);
-        $resp = Country::where('id',$id)->update($data);
-        if($resp == 1){
-            return redirect('admin/countries')->with('success','Country updated Succesfully');
+        );
+        $flag = [];
+        $dt = $this->validator($request->all(),$rules)->validate();
+        $country = Country::find($request->id);
+        $country->name = strip_tags($request->input('name'));
+        if($country->save()){
+            return redirect('admin/countries')->with('success','Country Updated Succesfully');
         }else{
             return redirect('admin/countries')->with('error','Something went wrong!!');
         }
