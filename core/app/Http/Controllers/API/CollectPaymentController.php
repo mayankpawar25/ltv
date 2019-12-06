@@ -235,9 +235,9 @@ class CollectPaymentController extends Controller
                     ->select('t.id','t.name','t.mobile_no','t.staff_user_id as assigned_to','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','t.country_id','t.state_id','t.city_id','t.address','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name','t.counter')
                     ->get();
         foreach ($collections as $key => $collection) {
-            $collection->country = Country::find($collection->country_id)->name;
-            $collection->state = State::find($collection->state_id)->name;
-            $collection->city = City::find($collection->city_id)->name;
+            $collection->country = ($collection->country_id!='')?Country::find($collection->country_id)->name:'';
+            $collection->state = ($collection->state_id!='')?State::find($collection->state_id)->name:'';
+            $collection->city = ($collection->city_id!='')?City::find($collection->city_id)->name:'';
         }
         // $collection = PaymentCollection::where('new_date',(new Carbon(now()))->format('Y-m-d'))->where('staff_user_id',auth::id())->get();
         if(!$collections->isEmpty()){
