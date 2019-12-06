@@ -29,8 +29,9 @@
         is-expanded
      @elseif (request()->path() == 'admin/usergroup/index')
         is-expanded
-      @elseif (request()->is('admin/customers/*'))
-        is-expanded
+     
+     @elseif (request()->is('admin/subscribers'))
+     is-expanded
       @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">E-commerce </span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
 
@@ -65,10 +66,122 @@
          @endif" href="{{route('admin.usergroup.index')}}"><span class="app-menu__label">User Groups</span></a></li>
       @endif
 
+       <li><a class="treeview-item @if(request()->path() == 'admin/subscribers') active @endif" href="{{route('admin.subscribers')}}"><span class="app-menu__label">Subscribers</span></a></li>
+
       </ul>
     </li>
     @endif
     <!-- E-commerce -->
+
+     <!-- Orders -->
+     @if(is_menu_enable('orders'))
+    <li class="treeview
+      @if(request()->path() == 'admin/orders/all')
+        is-expanded
+      @elseif(request()->path() == 'admin/orders/confirmation/pending')
+          is-expanded
+      @elseif(request()->path() == 'admin/orders/confirmation/accepted')
+          is-expanded
+      @elseif(request()->path() == 'admin/orders/confirmation/rejected')
+          is-expanded
+      @elseif(request()->path() == 'admin/orders/delivery/pending')
+          is-expanded
+      @elseif(request()->path() == 'admin/orders/delivery/inprocess')
+          is-expanded
+      @elseif(request()->path() == 'admin/orders/delivered')
+          is-expanded
+      @elseif(request()->path() == 'admin/orders/cashondelivery')
+          is-expanded
+      @elseif(request()->path() == 'admin/orders/advance')
+          is-expanded
+      @endif">
+      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-basket-loaded icons"></i><span class="app-menu__label">Orders</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/all') active @endif" href="{{route('admin.orders.all')}}"> All</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/confirmation/pending') active @endif" href="{{route('admin.orders.cPendingOrders')}}"> Pending</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/confirmation/accepted') active @endif" href="{{route('admin.orders.cAcceptedOrders')}}"> Accepted</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/confirmation/rejected') active @endif" href="{{route('admin.orders.cRejectedOrders')}}"> Rejected</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/delivery/pending') active @endif" href="{{route('admin.orders.pendingDelivery')}}"> Delivery Pending</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/delivery/inprocess') active @endif" href="{{route('admin.orders.pendingInprocess')}}"> Delivery Inprocess</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/delivered') active @endif" href="{{route('admin.orders.delivered')}}"> Delivered</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/cashondelivery') active @endif" href="{{route('admin.orders.cashOnDelivery')}}"> Cash on Delivery</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/orders/advance') active @endif" href="{{route('admin.orders.advance')}}"> Advance Paid</a></li>
+      </ul>
+    </li>
+    @endif
+    <!-- Orders -->
+
+    <li class="treeview
+      @if(request()->path() == 'admin/refunds/all')
+        is-expanded
+      @elseif(request()->path() == 'admin/refunds/pending')
+          is-expanded
+      @elseif(request()->path() == 'admin/refunds/rejected')
+          is-expanded
+      @elseif(request()->path() == 'admin/refunds/accepted')
+          is-expanded
+      @endif">
+      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-undo"></i><span class="app-menu__label">Refund Request</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/all') active @endif" href="{{route('admin.refunds.all')}}"> All</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/pending') active @endif" href="{{route('admin.refunds.pending')}}"> Pending</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/accepted') active @endif" href="{{route('admin.refunds.accepted')}}"> Accepted</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/rejected') active @endif" href="{{route('admin.refunds.rejected')}}"> Rejected</a></li>
+      </ul>
+    </li>
+
+     <!-- Customers -->
+    @if(is_menu_enable('users'))
+    <li class="treeview
+      @if (request()->path() == 'admin/userManagement/allUsers')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/bannedUsers')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/verifiedUsers')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/mobileUnverifiedUsers')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/emailUnverifiedUsers')
+        is-expanded
+      @elseif (request()->is('admin/userManagement/userDetails/*'))
+        is-expanded
+      @elseif (request()->is('admin/userManagement/emailToUser/*'))
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/allUsersSearchResult')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/bannedUsersSearchResult')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/verUsersSearchResult')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/mobileUnverifiedUsersSearchResult')
+        is-expanded
+      @elseif (request()->path() == 'admin/userManagement/emailUnverifiedUsersSearchResult')
+        is-expanded
+      @elseif (request()->path() == 'admin/customers')
+        is-expanded
+      @elseif (request()->is('admin/customers/*'))
+        is-expanded
+      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Customers</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/allUsers' || request()->path() == 'admin/userManagement/allUsersSearchResult') active @endif" href="{{route('admin.allUsers')}}"> All Users</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/bannedUsers' || request()->path() == 'admin/userManagement/bannedUsersSearchResult') active @endif" href="{{route('admin.bannedUsers')}}"> Banned Users</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/verifiedUsers' || request()->path() == 'admin/userManagement/verUsersSearchResult') active @endif" href="{{route('admin.verifiedUsers')}}"> Verified Users</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/mobileUnverifiedUsers' || request()->path() == 'admin/userManagement/mobileUnverifiedUsersSearchResult') active @endif" href="{{route('admin.mobileUnverifiedUsers')}}"> Mobile Unverified Users</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/emailUnverifiedUsers' || request()->path() == 'admin/userManagement/emailUnverifiedUsersSearchResult') active @endif" href="{{route('admin.emailUnverifiedUsers')}}"> Email Unverified Users</a></li>
+
+         <li><a class="treeview-item @if(request()->path() == 'admin/customers' || request()->is('admin/customers/*')) active @endif" href="{{route('customers_list')}}"> CRM User List</a></li>
+      </ul>
+    </li>
+    @endif
+   <!-- Customers -->    
+
+    <!-- Customers -->
+   <!--  @if(is_menu_enable('users'))
+      <li><a class="app-menu__item @if(request()->path() == 'admin/customers' || request()->is('admin/customers/*')) active @endif" href="{{route('customers_list')}}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Customers</span></a></li>
+    @endif -->
+     <!-- Customers -->
+
+
     
     <!-- <li><a class="app-menu__item @if(request()->path() == 'admin/charge/index') active @endif" href="{{route('admin.charge.index')}}"><i class="app-menu__icon fas fa-buromobelexperteoney-bill-alt"></i><span class="app-menu__label">Charge Settings</span></a></li> -->
 
@@ -108,14 +221,35 @@
       @endif" href="{{route('admin.shopkeeper.index')}}"><i class="app-menu__icon icon-user icons"></i><span class="app-menu__label">Dealers </span></a></li>
     @endif
 
-    <!--  @if(is_menu_enable('job_cards'))
-    <li><a class="app-menu__item
-      @if(request()->path() == 'admin/jobcardtemplate/index') active
-      @elseif (request()->is('admin/options/*/index')) active
-      @endif" href="{{route('admin.jobcardtemplate.index')}}"><i class="app-menu__icon fab fa-product-hunt"></i><span class="app-menu__label">Job Card Templates</span></a></li>
-    @endif -->
+    <!-- Lead -->
+    @if(is_menu_enable('leads'))
+      <li><a class="app-menu__item @if(request()->path() == 'admin/leads/index' || request()->is('admin/leads/*')) active @endif" href="{{route('leads_list')}}"><i class="app-menu__icon icon-user-follow icons"></i><span class="app-menu__label">Leads</span></a></li>
+    @endif
+     <!-- Lead -->
 
-    <!-- Payment Collections -->
+
+    <!-- Team & Members  -->
+     @if(is_menu_enable(['team_members','teams']))
+    <li class="treeview
+      @if (request()->path() == 'admin/teams')
+        is-expanded
+      @elseif(request()->path() == 'admin/teams/members')
+        is-expanded
+      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-people icons"></i><span class="app-menu__label">Staff</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+        @if(is_menu_enable('teams'))
+        <li><a class="treeview-item @if(request()->path() == 'admin/teams' ) active @endif" href="{{route('teams_list')}}">Team</a></li>
+        @endif
+
+        @if(is_menu_enable('team_members'))
+        <li><a class="treeview-item @if(request()->path() == 'admin/teams/members' ) active @endif" href="{{route('team_members_list')}}">Members</a></li>
+        @endif
+      </ul>
+    </li>
+    @endif
+    <!-- Team & Members -->
+
+ <!-- Payment Collections -->
     @if(is_menu_enable('collections'))
     <li><a class="app-menu__item @if(request()->path() == 'admin/collection') active
       @elseif (request()->is('admin/collection/create')) active
@@ -126,6 +260,95 @@
 
     <!-- Payment Collections -->
 
+    <!-- Sales -->
+      @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
+    <li class="treeview
+      @if (request()->path() == 'admin/proposals')
+        is-expanded
+      @elseif (request()->path() == 'admin/proposals/create')
+        is-expanded
+      @elseif (request()->path() == 'admin/estimates')
+        is-expanded
+      @elseif (request()->path() == 'admin/estimates/create')
+        is-expanded
+      @elseif (request()->path() == 'admin/invoices')
+        is-expanded
+      @elseif (request()->path() == 'admin/invoices/create')
+        is-expanded
+      @elseif (request()->path() == 'admin/payments')
+        is-expanded
+      @elseif (request()->path() == 'admin/expenses')
+        is-expanded
+      @elseif (request()->path() == 'admin/tasks/salesman')
+        is-expanded
+     
+      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-balance-scale"></i><span class="app-menu__label">Sales </span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+
+        @if(is_menu_enable('proposals'))
+        <li><a class="treeview-item @if(request()->path() == 'admin/proposals' || request()->path() == 'admin/proposals/create') active @endif" href="{{route('proposal_list')}}"> Proposals</a></li>
+        @endif
+
+        @if(is_menu_enable('estimates'))
+        <li><a class="treeview-item @if(request()->path() == 'admin/estimates' || request()->path() == 'admin/estimates/create') active @endif" href="{{route('estimate_list')}}"> Estimates</a></li>
+        @endif
+
+        @if(is_menu_enable('invoices'))
+        <li><a class="treeview-item @if(request()->path() == 'admin/invoices' || request()->path() == 'admin/invoices/create') active @endif" href="{{route('invoice_list')}}"> Invoices</a></li>
+        @endif
+
+        @if(is_menu_enable('payments'))
+        <li><a class="treeview-item @if(request()->path() == 'admin/payments' || request()->path() == 'admin/payments') active @endif" href="{{route('payment_list')}}"> Payments</a></li>
+        @endif
+
+        @if(is_menu_enable('expenses'))
+          <li><a class="treeview-item @if(request()->path() == 'admin/expenses' ) active @endif" href="{{route('expense_list')}}"> Expenses</a></li>
+        @endif
+
+         <!-- Task Section -->
+
+      @if(is_menu_enable('tasks'))
+       <li><a class="treeview-item @if(request()->path() == 'admin/tasks/salesman' ) active @endif" href="{{route('admin.tasks.salesmanlist')}}">Task</a></li>
+      @endif
+
+    <!-- Task Section -->
+    
+
+
+      </ul>
+    </li>
+    @endif
+    <!-- Sales -->
+
+
+     <!-- Service Center  -->
+     @if(is_menu_enable(['job_cards','tickets']))
+    <li class="treeview
+      @if (request()->path() == 'admin/jobcardtemplate/index')
+        is-expanded
+      @elseif(request()->path() == 'admin/tickets')
+        is-expanded
+      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-people icons"></i><span class="app-menu__label">Service Center</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+        @if(is_menu_enable('job_cards'))
+       <li><a class="treeview-item
+         @if(request()->path() == 'admin/jobcardtemplate/index') active
+         @elseif (request()->is('admin/options/*/index')) active
+        @endif" href="{{route('admin.jobcardtemplate.index')}}"><span class="app-menu__label">Job Card Templates</span></a></li>
+       @endif
+        @if(is_menu_enable('tickets'))
+        <li><a class="treeview-item @if(request()->path() == 'admin/tickets' || request()->path() == 'admin/tickets/create') active @endif" href="{{route('ticket_list')}}"> Tickets</a></li>
+        @endif
+      </ul>
+    </li>
+    @endif
+    <!-- Team & Members -->
+
+
+    
+
+   
+<!-- Vendor Requests -->
      <!--  <li class="treeview
       @if(request()->path() == 'admin/vendors/all')
         is-expanded
@@ -144,7 +367,10 @@
           <li><a class="treeview-item @if(request()->path() == 'admin/vendors/rejected') active @endif" href="{{route('admin.vendors.rejected')}}"> Rejected</a></li>
         </ul>
       </li> -->
-    <!--   <li class="treeview
+      <!-- Vendor Requests -->
+
+      <!-- Flash Sale -->
+     <!--  <li class="treeview
       @if(request()->path() == 'admin/flashsale/times')
         is-expanded
       @elseif(request()->path() == 'admin/flashsale/all')
@@ -165,46 +391,10 @@
           <li><a class="treeview-item @if(request()->path() == 'admin/flashsale/rejected') active @endif" href="{{route('admin.flashsale.rejected')}}"> Rejected Flashsales</a></li>
         </ul>
       </li> -->
-
-      <!-- Orders -->
-    <!-- @if(is_menu_enable('orders'))
-    <li class="treeview
-      @if(request()->path() == 'admin/orders/all')
-        is-expanded
-      @elseif(request()->path() == 'admin/orders/confirmation/pending')
-          is-expanded
-      @elseif(request()->path() == 'admin/orders/confirmation/accepted')
-          is-expanded
-      @elseif(request()->path() == 'admin/orders/confirmation/rejected')
-          is-expanded
-      @elseif(request()->path() == 'admin/orders/delivery/pending')
-          is-expanded
-      @elseif(request()->path() == 'admin/orders/delivery/inprocess')
-          is-expanded
-      @elseif(request()->path() == 'admin/orders/delivered')
-          is-expanded
-      @elseif(request()->path() == 'admin/orders/cashondelivery')
-          is-expanded
-      @elseif(request()->path() == 'admin/orders/advance')
-          is-expanded
-      @endif">
-      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-basket-loaded icons"></i><span class="app-menu__label">Orders</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/all') active @endif" href="{{route('admin.orders.all')}}"> All</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/confirmation/pending') active @endif" href="{{route('admin.orders.cPendingOrders')}}"> Pending</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/confirmation/accepted') active @endif" href="{{route('admin.orders.cAcceptedOrders')}}"> Accepted</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/confirmation/rejected') active @endif" href="{{route('admin.orders.cRejectedOrders')}}"> Rejected</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/delivery/pending') active @endif" href="{{route('admin.orders.pendingDelivery')}}"> Delivery Pending</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/delivery/inprocess') active @endif" href="{{route('admin.orders.pendingInprocess')}}"> Delivery Inprocess</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/delivered') active @endif" href="{{route('admin.orders.delivered')}}"> Delivered</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/cashondelivery') active @endif" href="{{route('admin.orders.cashOnDelivery')}}"> Cash on Delivery</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/orders/advance') active @endif" href="{{route('admin.orders.advance')}}"> Advance Paid</a></li>
-      </ul>
-    </li>
-    @endif-->
-    <!-- Orders -->
-
-    <!--  <li class="treeview
+      <!-- Flash Sale -->
+     
+    <!-- comments -->
+     <!-- <li class="treeview
       @if(request()->path() == 'admin/comments')
         is-expanded
       @elseif(request()->path() == 'admin/complains')
@@ -219,73 +409,13 @@
         <li><a class="treeview-item @if(request()->path() == 'admin/suggestions') active @endif" href="{{route('admin.suggestions')}}"> Suggestions</a></li>
       </ul>
     </li> -->
+ <!-- comments -->
 
+    
 
-    <!-- <li class="treeview
-      @if(request()->path() == 'admin/refunds/all')
-        is-expanded
-      @elseif(request()->path() == 'admin/refunds/pending')
-          is-expanded
-      @elseif(request()->path() == 'admin/refunds/rejected')
-          is-expanded
-      @elseif(request()->path() == 'admin/refunds/accepted')
-          is-expanded
-      @endif">
-      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-undo"></i><span class="app-menu__label">Refund Request</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/all') active @endif" href="{{route('admin.refunds.all')}}"> All</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/pending') active @endif" href="{{route('admin.refunds.pending')}}"> Pending</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/accepted') active @endif" href="{{route('admin.refunds.accepted')}}"> Accepted</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/refunds/rejected') active @endif" href="{{route('admin.refunds.rejected')}}"> Rejected</a></li>
-      </ul>
-    </li> -->
+    
 
-    @if(is_menu_enable('users'))
-    <!-- <li class="treeview
-      @if (request()->path() == 'admin/userManagement/allUsers')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/bannedUsers')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/verifiedUsers')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/mobileUnverifiedUsers')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/emailUnverifiedUsers')
-        is-expanded
-      @elseif (request()->is('admin/userManagement/userDetails/*'))
-        is-expanded
-      @elseif (request()->is('admin/userManagement/emailToUser/*'))
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/allUsersSearchResult')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/bannedUsersSearchResult')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/verUsersSearchResult')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/mobileUnverifiedUsersSearchResult')
-        is-expanded
-      @elseif (request()->path() == 'admin/userManagement/emailUnverifiedUsersSearchResult')
-        is-expanded
-      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Customer</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu"> -->
-        <!-- <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/allUsers' || request()->path() == 'admin/userManagement/allUsersSearchResult') active @endif" href="{{route('admin.allUsers')}}"> All Users</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/bannedUsers' || request()->path() == 'admin/userManagement/bannedUsersSearchResult') active @endif" href="{{route('admin.bannedUsers')}}"> Banned Users</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/verifiedUsers' || request()->path() == 'admin/userManagement/verUsersSearchResult') active @endif" href="{{route('admin.verifiedUsers')}}"> Verified Users</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/mobileUnverifiedUsers' || request()->path() == 'admin/userManagement/mobileUnverifiedUsersSearchResult') active @endif" href="{{route('admin.mobileUnverifiedUsers')}}"> Mobile Unverified Users</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/userManagement/emailUnverifiedUsers' || request()->path() == 'admin/userManagement/emailUnverifiedUsersSearchResult') active @endif" href="{{route('admin.emailUnverifiedUsers')}}"> Email Unverified Users</a></li> -->
-
-     <!--     <li><a class="treeview-item @if(request()->path() == 'admin/customers' || request()->path() == 'admin/customers') active @endif" href="{{route('customers_list')}}"> CRM User List</a></li>
-      </ul>
-    </li> -->
-    @endif
-
-    <!-- Customers -->
-    @if(is_menu_enable('users'))
-      <li><a class="app-menu__item @if(request()->path() == 'admin/customers' || request()->is('admin/customers/*')) active @endif" href="{{route('customers_list')}}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Customers</span></a></li>
-    @endif
-     <!-- Customers -->
-
-
+<!-- vendor Management -->
     <!-- <li class="treeview
       @if (request()->path() == 'admin/vendorManagement/allVendors')
         is-expanded
@@ -305,13 +435,12 @@
         <li><a class="treeview-item @if(request()->path() == 'admin/vendorManagement/bannedVendors' || request()->path() == 'admin/vendorManagement/bannedVendorsSearchResult') active @endif" href="{{route('admin.bannedVendors')}}"> Banned Vendors</a></li>
       </ul>
     </li> -->
-    <!--  <li><a class="app-menu__item @if(request()->path() == 'admin/subscribers') active @endif" href="{{route('admin.subscribers')}}"><i class="app-menu__icon fas fa-newspaper"></i><span class="app-menu__label">Subscribers</span></a></li> -->
+<!-- vendor Management -->
 
-    <!-- @if(is_menu_enable('gateways'))
-    <li><a class="app-menu__item @if(request()->path() == 'admin/gateways') active @endif" href="{{route('admin.gateways')}}"><i class="app-menu__icon fab fa-cc-mastercard"></i><span class="app-menu__label">Gateways</span></a></li>
-    @endif -->
+    
 
-    <!-- <li class="treeview
+<!-- deposit -->
+   <!--  <li class="treeview
       @if(request()->path() == 'admin/deposit/pending')
         is-expanded
       @elseif (request()->path() == 'admin/deposit/acceptedRequests')
@@ -329,7 +458,9 @@
         <li><a class="treeview-item @if(request()->path() == 'admin/deposit/depositLog') active @endif" href="{{route('admin.deposit.depositLog')}}"> Deposit Log</a></li>
       </ul>
     </li> -->
+<!-- deposit -->
 
+<!--withdraw   -->
 
     <!--  <li class="treeview
       @if(request()->path() == 'admin/withdrawLog')
@@ -352,87 +483,43 @@
         <li><a class="treeview-item @if(request()->path() == 'admin/refundedLog') active @endif" href="{{route('admin.withdrawMoney.refundedLog')}}"> Refunded Log</a></li>
       </ul>
     </li> -->
+<!--withdraw   -->
 
-    <!-- <li><a class="app-menu__item @if(request()->path() == 'admin/trxlog') active @endif" href="{{route('admin.trxLog')}}"><i class="app-menu__icon fas fa-exchange-alt"></i><span class="app-menu__label">Transaction Log</span></a></li> -->
+<!-- Transaction Log -->
+   <!--  <li><a class="app-menu__item @if(request()->path() == 'admin/trxlog') active @endif" href="{{route('admin.trxLog')}}"><i class="app-menu__icon fas fa-exchange-alt"></i><span class="app-menu__label">Transaction Log</span></a></li> -->
+<!-- Transaction Log -->
 
-
-    <!-- <li class="treeview
-      @if (request()->path() == 'admin/interfaceControl/logoIcon/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/partner/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/slider/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/contact/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/support/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/social/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/footer/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/logintext/index')
-        is-expanded
-      @elseif (request()->path() == 'admin/interfaceControl/registertext/index')
-        is-expanded
-      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">Interface Control</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/logoIcon/index') active @endif" href="{{route('admin.logoIcon.index')}}"> Logo+Icon Setting</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/support/index') active @endif" href="{{route('admin.support.index')}}"> Support Informations</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/partner/index') active @endif" href="{{route('admin.partner.index')}}"> Partners</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/slider/index') active @endif" href="{{route('admin.slider.index')}}"> Slider Settings</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/contact/index') active @endif" href="{{route('admin.contact.index')}}"> Contact Informations</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/social/index') active @endif" href="{{route('admin.social.index')}}"> Social Links Setting</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/logintext/index') active @endif" href="{{route('admin.logintext.index')}}"> Login Text</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/registertext/index') active @endif" href="{{route('admin.registertext.index')}}"> Register Text</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/footer/index') active @endif" href="{{route('admin.footer.index')}}"> Footer Text</a></li>
-      </ul>
-    </li> -->
-
-<!-- 
-     <li class="treeview
-      @if(request()->path() == 'admin/policy/refund/index')
-        is-expanded
-      @elseif(request()->path() == 'admin/tos/index')
-        is-expanded
-      @elseif(request()->path() == 'admin/policy/replacement/index')
-        is-expanded
-      @elseif(request()->path() == 'admin/privacy/index')
-        is-expanded
-      @endif">
-      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-clipboard-list"></i><span class="app-menu__label">Policy</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-        <li><a class="treeview-item @if(request()->path() == 'admin/policy/refund/index') active @endif" href="{{route('admin.refund.index')}}"> Refund Policy</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/policy/replacement/index') active @endif" href="{{route('admin.replacement.index')}}"> Replacement Policy</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/tos/index') active @endif" href="{{route('admin.tos.index')}}"> Terms & Conditions</a></li>
-        <li><a class="treeview-item @if(request()->path() == 'admin/privacy/index') active @endif" href="{{route('admin.privacy.index')}}"> Privacy Policy</a></li>
-      </ul>
-    </li>  -->
+   
 
 
-    <!--  <li><a class="app-menu__item @if(request()->path() == 'admin/menuManager/index') active @endif" href="{{route('admin.menuManager.index')}}"><i class="app-menu__icon fa fa-bars"></i><span class="app-menu__label">Menu Management</span></a></li> -->
+     
 
+    
 
-    <!-- <li><a class="app-menu__item
+     <!-- Advertisement -->
+   <!--  <li><a class="app-menu__item
       @if(request()->path() == 'admin/Ad/index')
         active
       @elseif(request()->path() == 'admin/Ad/create')
         active
       @endif" href="{{route('admin.ad.index')}}"><i class="app-menu__icon fab fa-buysellads"></i> <span class="app-menu__label"> Advertisement</span></a>
     </li> -->
+<!-- Advertisement -->
 
-    @if(is_menu_enable('gateways'))
-<!--     <li class="treeview
+<!-- Salesman Management -->
+  <!--   @if(is_menu_enable('gateways'))
+    <li class="treeview
       @if (request()->path() == 'admin/salesman/index')
         is-expanded
       @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Salesman Management</span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
         <li><a class="treeview-item @if(request()->path() == 'admin/salesman/index' ) active @endif" href="{{route('admin.salesman.index')}}"> Add Salesman</a></li>
       </ul>
-    </li> -->
-    @endif
+    </li>
+    @endif -->
+<!-- Salesman Management -->
 
-  <!--   @if(is_menu_enable('leads'))
+    <!-- @if(is_menu_enable('leads'))
     <li class="treeview
       @if (request()->path() == 'admin/leads/index')
         is-expanded
@@ -443,106 +530,16 @@
     </li>
     @endif -->
 
-    <!-- Lead -->
-    @if(is_menu_enable('leads'))
-      <li><a class="app-menu__item @if(request()->path() == 'admin/leads/index' || request()->is('admin/leads/*')) active @endif" href="{{route('leads_list')}}"><i class="app-menu__icon icon-user-follow icons"></i><span class="app-menu__label">Leads</span></a></li>
-    @endif
-     <!-- Lead -->
+    
 
    
-    <!-- Task Section -->
+   
 
-   <!-- @if(is_menu_enable('tasks'))
-    <li class="treeview
-      @if (request()->path() == 'admin/tasks/salesman')
-        is-expanded
-      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Tasks Management</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-        <li><a class="treeview-item @if(request()->path() == 'admin/tasks/salesman' ) active @endif" href="{{route('admin.tasks.salesmanlist')}}"> All Task</a></li>
-      </ul>
-    </li>
-    @endif -->
-
-    <!-- Task Section -->
-    
-
-   <!--  @if(is_menu_enable('expenses'))
-    <li class="treeview
-      @if (request()->path() == 'admin/expenses')
-        is-expanded
-      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Expenses Management</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-        <li><a class="treeview-item @if(request()->path() == 'admin/expenses' ) active @endif" href="{{route('expense_list')}}"> All Expenses</a></li>
-      </ul>
-    </li>
-    @endif -->
-
-    <!-- Team & Members  -->
-     @if(is_menu_enable(['team_members','teams']))
-    <li class="treeview
-      @if (request()->path() == 'admin/teams')
-        is-expanded
-      @elseif(request()->path() == 'admin/teams/members')
-        is-expanded
-      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-people icons"></i><span class="app-menu__label">Team & Members</span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-        @if(is_menu_enable('teams'))
-        <li><a class="treeview-item @if(request()->path() == 'admin/teams' ) active @endif" href="{{route('teams_list')}}">Team</a></li>
-        @endif
-
-        @if(is_menu_enable('team_members'))
-        <li><a class="treeview-item @if(request()->path() == 'admin/teams/members' ) active @endif" href="{{route('team_members_list')}}">Members</a></li>
-        @endif
-      </ul>
-    </li>
-    @endif
-    <!-- Team & Members -->
-
-    <!-- Sales -->
-    <!--  @if(is_menu_enable(['proposals','estimates','invoices' ,'payments']))
-    <li class="treeview
-      @if (request()->path() == 'admin/proposals')
-        is-expanded
-      @elseif (request()->path() == 'admin/proposals/create')
-        is-expanded
-      @elseif (request()->path() == 'admin/estimates')
-        is-expanded
-      @elseif (request()->path() == 'admin/estimates/create')
-        is-expanded
-      @elseif (request()->path() == 'admin/invoices')
-        is-expanded
-      @elseif (request()->path() == 'admin/invoices/create')
-        is-expanded
-      @elseif (request()->path() == 'admin/payments')
-        is-expanded
-     
-      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-balance-scale"></i><span class="app-menu__label">Sales </span><i class="treeview-indicator fa fa-angle-right"></i></a>
-      <ul class="treeview-menu">
-
-        @if(is_menu_enable('proposals'))
-        <li><a class="treeview-item @if(request()->path() == 'admin/proposals' || request()->path() == 'admin/proposals/create') active @endif" href="{{route('proposal_list')}}"> Proposals</a></li>
-        @endif
-
-        @if(is_menu_enable('estimates'))
-        <li><a class="treeview-item @if(request()->path() == 'admin/estimates' || request()->path() == 'admin/estimates/create') active @endif" href="{{route('estimate_list')}}"> Estimates</a></li>
-        @endif
-
-        @if(is_menu_enable('invoices'))
-        <li><a class="treeview-item @if(request()->path() == 'admin/invoices' || request()->path() == 'admin/invoices/create') active @endif" href="{{route('invoice_list')}}"> Invoices</a></li>
-        @endif
-
-        @if(is_menu_enable('payments'))
-        <li><a class="treeview-item @if(request()->path() == 'admin/payments' || request()->path() == 'admin/payments') active @endif" href="{{route('payment_list')}}"> Payments</a></li>
-        @endif
-
-      </ul>
-    </li>
-    @endif-->
-    <!-- Sales -->
 
     
+    
 
-    <!-- <li><a class="app-menu__item @if(request()->path() == 'admin/salesscores') active @endif" href="{{route('admin.salesman.salesscore')}}"><i class="app-menu__icon fas fa-exchange-alt"></i><span class="app-menu__label">Sales Score</span></a></li> -->
+    
 
    
     <!--  @if(is_menu_enable('tickets'))
@@ -573,14 +570,14 @@
       @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-graph icons"></i><span class="app-menu__label">Reports </span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
 
-        <!--  @if(is_menu_enable('sales_report'))
+         @if(is_menu_enable('sales_report'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/sales' || request()->path() == 'admin/reports/sales') active @endif" href="{{route('report_sales_page')}}"> Sales Report</a></li>
-        @endif -->
+        @endif
 
-        <!--  @if(is_menu_enable('expenses'))
+         @if(is_menu_enable('expenses'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/expenses' || request()->path() == 'admin/reports/expenses') active @endif" href="{{route('report_expenses_page')}}"> Expense Report</a></li>
         @endif
-        -->
+       
         @if(is_menu_enable('leads_report'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/leads' || request()->path() == 'admin/reports/leads') active @endif" href="{{route('lead_report_page')}}"> Leads Report</a></li>
         @endif
@@ -588,6 +585,9 @@
         @if(is_menu_enable('activity_log'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/activity-log' || request()->path() == 'admin/reports/activity-log') active @endif" href="{{route('report_activity_log')}}">Activity Log</a></li>
        @endif
+
+       <li><a class="treeview-item @if(request()->path() == 'admin/salesscores') active @endif" href="{{route('admin.salesman.salesscore')}}"><span class="app-menu__label">Sales Score</span></a></li>
+
 
        </ul>
     </li>
@@ -631,19 +631,87 @@
     @endif
     <!-- Location -->
 
+<!-- CMS -->
+    <li class="treeview
+      @if(request()->path() == 'admin/policy/refund/index')
+        is-expanded
+      @elseif(request()->path() == 'admin/tos/index')
+        is-expanded
+      @elseif(request()->path() == 'admin/policy/replacement/index')
+        is-expanded
+      @elseif(request()->path() == 'admin/privacy/index')
+        is-expanded
+     
+      @endif">
+      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fas fa-clipboard-list"></i><span class="app-menu__label">CMS</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+        <li><a class="treeview-item @if(request()->path() == 'admin/policy/refund/index') active @endif" href="{{route('admin.refund.index')}}"> Refund Policy</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/policy/replacement/index') active @endif" href="{{route('admin.replacement.index')}}"> Replacement Policy</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/tos/index') active @endif" href="{{route('admin.tos.index')}}"> Terms & Conditions</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/privacy/index') active @endif" href="{{route('admin.privacy.index')}}"> Privacy Policy</a></li>
+         
+      </ul>
+    </li> 
+  <!-- CMS -->
+
     <!-- Setup -->
     @if(is_menu_enable(['gsettings', 'email_settings', 'sms_settings', 'crm_settings']))
     <li class="treeview
-      @if(request()->path() == 'admin/generalSetting')
+      @if(request()->path() == 'admin/settings')
+        is-expanded
+      @elseif (request()->path() == 'admin/gateways')
+        is-expanded
+       @endif">
+      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-equalizer icons"></i><span class="app-menu__label"> CRM Setup</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      <ul class="treeview-menu">
+       
+
+        @if(is_menu_enable('crm_settings'))
+          <li><a class="treeview-item @if(request()->path() == 'admin/settings') active @endif" href="{{ route('settings_main_page') }}">CRM Settings</a></li>
+        @endif
+
+      @if(is_menu_enable('gateways'))
+      <li><a class="treeview-item @if(request()->path() == 'admin/gateways') active @endif" href="{{route('admin.gateways')}}"><span class="app-menu__label">Gateways</span></a></li>
+      @endif
+
+       
+      </ul>
+    </li>
+    @endif
+
+    <!-- Setup -->
+
+   <!-- Cms Setup -->
+     <li class="treeview
+      @if (request()->path() == 'admin/interfaceControl/logoIcon/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/partner/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/slider/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/contact/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/support/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/social/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/footer/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/logintext/index')
+        is-expanded
+      @elseif (request()->path() == 'admin/interfaceControl/registertext/index')
+        is-expanded
+     @elseif(request()->path() == 'admin/generalSetting')
         is-expanded
       @elseif (request()->path() == 'admin/EmailSetting')
         is-expanded
       @elseif (request()->path() == 'admin/SmsSetting')
+      is-expanded
+      @elseif(request()->path() == 'admin/menuManager/index')
         is-expanded
-      @endif">
-      <a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon icon-equalizer icons"></i><span class="app-menu__label"> Setup</span><i class="treeview-indicator fa fa-angle-right"></i></a>
+      @endif"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-desktop"></i><span class="app-menu__label">CMS setup</span><i class="treeview-indicator fa fa-angle-right"></i></a>
       <ul class="treeview-menu">
-        @if(is_menu_enable('gsettings'))
+         @if(is_menu_enable('gsettings'))
         <li><a class="treeview-item @if(request()->path() == 'admin/generalSetting') active @endif" href="{{route('admin.GenSetting')}}"> General Setting</a></li>
         @endif
         
@@ -654,17 +722,18 @@
         @if(is_menu_enable('sms_settings'))
           <li><a class="treeview-item @if(request()->path() == 'admin/SmsSetting') active @endif" href="{{route('admin.SmsSetting')}}"> SMS Setting</a></li>
         @endif
-
-        @if(is_menu_enable('crm_settings'))
-          <li><a class="treeview-item @if(request()->path() == 'admin/settings') active @endif" href="{{ route('settings_main_page') }}">CRM Settings</a></li>
-        @endif
-
-       
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/logoIcon/index') active @endif" href="{{route('admin.logoIcon.index')}}"> Logo+Icon Setting</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/support/index') active @endif" href="{{route('admin.support.index')}}"> Support Informations</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/partner/index') active @endif" href="{{route('admin.partner.index')}}"> Partners</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/slider/index') active @endif" href="{{route('admin.slider.index')}}"> Slider Settings</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/contact/index') active @endif" href="{{route('admin.contact.index')}}"> Contact Informations</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/social/index') active @endif" href="{{route('admin.social.index')}}"> Social Links Setting</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/logintext/index') active @endif" href="{{route('admin.logintext.index')}}"> Login Text</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/registertext/index') active @endif" href="{{route('admin.registertext.index')}}"> Register Text</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/interfaceControl/footer/index') active @endif" href="{{route('admin.footer.index')}}"> Footer Text</a></li>
+        <li><a class="treeview-item @if(request()->path() == 'admin/menuManager/index') active @endif" href="{{route('admin.menuManager.index')}}"><span class="app-menu__label">Pages </span></a></li>
       </ul>
     </li>
-    @endif
-
-    <!-- Setup -->
-
+  <!-- Cms Setup -->
   </ul>
 </aside>
