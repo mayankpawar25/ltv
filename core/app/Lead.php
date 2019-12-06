@@ -225,7 +225,7 @@ class Lead extends Model {
         $columns = ['first_name', 'last_name', 'position', 'company', 
            'description', 'country', 'zip_code', 
            'city', 'state', 'address', 'email', 
-           'website', 'phone', 'tags','alternate_number_one','alternate_number_two'
+           'website', 'phone', 'tags','alternate_number_one','alternate_number_two','employer_name','employer_contactno'
         ];
 
         $alphas = range('A', 'Z');  

@@ -908,6 +908,8 @@ class LeadController extends Controller {
                                 $lead->email        = $cells['email'];
                                 $lead->website      = $cells['website'];
                                 $lead->phone        = $cells['phone'];
+                                $lead->employer_name  = $cells['employer_name'];
+                                $lead->employer_contactno = $cells['employer_contactno'];                
                                 $lead->alternate_number = $alt_numbers;
                                 $lead->lead_status_id   =  $request->lead_status_id;
                                 $lead->lead_source_id   =  $request->lead_source_id;

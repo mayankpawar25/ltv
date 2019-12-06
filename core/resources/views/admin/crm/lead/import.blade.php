@@ -41,11 +41,15 @@
                <th class="bold"> @lang('form.phone')</th>
                <th class="bold"> @lang('form.tags')</th>
                <th class="bold"> @lang('form.alternate_number')</th>
+               <th class="bold"> @lang('form.employer_name')</th>
+               <th class="bold"> @lang('form.alternate_number')</th>
+               <th class="bold"> @lang('form.employer_name')</th>
+               <th class="bold"> @lang('form.employer_phoneno')</th>
             </tr>
          </thead>
          <tbody>
             <tr>
-               @for($i = 1; $i <= 14; $i++)
+               @for($i = 1; $i <= 18; $i++)
                <td>@lang('form.sample_data')</td>
                @endfor                        
             </tr>
