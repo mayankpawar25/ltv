@@ -68,6 +68,14 @@
     <td>Salesman</td>
     <td>{{ $shopkeeper->salesman->first_name }} {{ $shopkeeper->salesman->last_name }}</td>
   </tr>
+   <tr>
+    <td>Employer Name</td>
+    <td>{{ $shopkeeper->employer_name }}</td>
+  </tr>
+   <tr>
+    <td>Employer Contact no</td>
+    <td>{{ $shopkeeper->employer_contactno }}</td>
+  </tr>
 </table>
 
 					 

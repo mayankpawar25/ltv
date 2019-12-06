@@ -1283,6 +1283,8 @@ return [
     'logo' => 'Logo Image',
     'banner_image' => 'Banner Image',
     'shop_image' => 'Shop Image',
+    'employer_name' => 'Employer Name',
+    'employer_contactno' => 'Employer Contact no',
 
     // Collection
     'collection' => 'Collection',
@@ -1307,6 +1309,10 @@ return [
     'order_placed' => 'Your order has been placed successfully. Order ID: %s ',
 
     /* Author : 225 */
+
+
+
+    /**/
 ];
 
 

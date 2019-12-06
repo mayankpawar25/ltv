@@ -89,6 +89,8 @@ div#data_filter {
                           <th>Area</th>
                           <th>Group</th>
                           <th>Verification</th>
+                          <th>Employer Name</th>
+                          <th>Employer Contact no</th>
                           <th>Status</th>
                           <th class="text-right">Action</th>
                       	</tr>
@@ -210,8 +212,12 @@ div#data_filter {
           { "name": "status",  "targets": 9 },
           { "name": "usergroup",  "targets": 10,orderable:false },
           { "name": "is_verified",  "targets": 11 },
-          { "name": "status",  "targets": 12},
-          { "name": "action",  "targets": 13,orderable:false },
+          { "name": "employer_name",  "targets": 12 },
+          { "name": "employer_contactno",  "targets": 13 },
+          { "name": "status",  "targets": 14},
+          { "name": "action",  "targets": 15,orderable:false },
+          {targets: -3, visible: false},
+          {targets: -4, visible: false},
           {targets: -5, visible: false},
           {targets: -6, visible: false},
           {targets: -7, visible: false},
