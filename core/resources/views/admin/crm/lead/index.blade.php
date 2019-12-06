@@ -126,6 +126,8 @@ div#data_filter {
             <th>@lang("form.assigned")</th>
             <th>@lang("form.status")</th>
             <th>@lang("form.source")</th>
+            <th>@lang("form.employer_name")</th>
+            <th>@lang("form.employer_contactno")</th>
             <th>@lang("form.last_contacted")</th>
             <th>@lang("form.action")</th>
          </tr>
@@ -219,6 +221,10 @@ div#data_filter {
                     { "name": "6",  "targets": 6 ,orderable:false},
                     { "name": "7",  "targets": 7,orderable:false},
                     { "name": "8",  "targets": 8,orderable:false},
+                    { "name": "9",  "targets": 8,orderable:false},
+                    { "name": "10",  "targets": 8,orderable:false},
+                    {targets: -3, visible: false},
+                    {targets: -4, visible: false},
                     {targets: -8, visible: false},
                     {targets: -6, visible: false},
                     {targets: -5, visible: false},
@@ -227,7 +233,8 @@ div#data_filter {
                     {targets: -13, visible: false},
                     {targets: -14, visible: false},
                     {targets: -15, visible: false},
-                    {targets: -17, visible: false},
+                    {targets: -16, visible: false},
+
                  
                    
                   ],

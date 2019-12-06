@@ -1285,6 +1285,7 @@ return [
     'shop_image' => 'Shop Image',
     'employer_name' => 'Employer Name',
     'employer_contactno' => 'Employer Contact no',
+    'employer_phoneno' => 'Employer Phone no',
 
     // Collection
     'collection' => 'Collection',

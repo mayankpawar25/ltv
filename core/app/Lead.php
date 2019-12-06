@@ -11,7 +11,7 @@ class Lead extends Model {
     use SoftDeletes;
     use \App\Traits\TagOperation;
 
-    protected $fillable = ['lead_status_id', 'lead_source_id', 'assigned_to', 'first_name' , 'last_name', 'position', 'email', 'website', 'phone', 'company', 'is_important', 'address', 'city', 'state', 'zip_code', 'country_id', 'description', 'created_by', 'social_links' ,'smart_summary', 'photo','alternate_number'];
+    protected $fillable = ['lead_status_id', 'lead_source_id', 'assigned_to', 'first_name' , 'last_name', 'position', 'email', 'website', 'phone', 'company', 'is_important', 'address', 'city', 'state', 'zip_code', 'country_id', 'description', 'created_by', 'social_links' ,'smart_summary', 'photo','alternate_number','employer_name','employer_contactno'];
 
     protected $dates = ['deleted_at'];
 

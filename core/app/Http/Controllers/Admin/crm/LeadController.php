@@ -144,6 +144,8 @@ class LeadController extends Controller {
                 ->orWhere('zip_code', 'like', $search_key.'%')
                 ->orWhere('city', 'like', $search_key.'%')
                 ->orWhere('state', 'like', $search_key.'%')
+                ->orWhere('employer_name', 'like', $search_key.'%')
+                ->orWhere('employer_contactno', 'like', $search_key.'%')
                  ->orwhereHas('country',function ($q) use ($search_key){
                     $q->where('countries.name', 'like', $search_key.'%');
                 })
@@ -203,6 +205,8 @@ class LeadController extends Controller {
                     (isset($row->assigned))? anchor_link($row->assigned->first_name . " ". $row->assigned->last_name, route('member_profile', $row->assigned->id)) : '',
                     $row->status->name,
                     (isset($row->source)) ? $row->source->name : '',
+                    $row->employer_name,
+                    $row->employer_contactno,
                     ($row->last_contacted) ? Carbon::parse($row->last_contacted)->format("d-m-Y h:i A") : ''  ,
                     anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_lead_page', $row->id),'','leads_edit').' '.
                     anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_lead', $row->id),'','leads_delete'),
@@ -252,12 +256,16 @@ class LeadController extends Controller {
     */
     public function store(Request $request)
     {
+       /* print_r($request->all());
+        die;*/
         $validator = Validator::make($request->all(), [
             'lead_status_id' => 'required',
             'lead_source_id' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
-            'email'     => 'nullable|email|unique:leads'
+            'email'     => 'nullable|email|unique:leads',
+            'employer_name' => 'required',
+            'employer_contactno' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -374,6 +382,8 @@ class LeadController extends Controller {
                     'email',
                     Rule::unique('leads')->ignore($id),
                     ],
+                'employer_name' => 'required',
+                'employer_contactno' => 'required',
                 ]);
 
         if ($validator->fails()) {

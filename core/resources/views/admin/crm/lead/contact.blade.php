@@ -31,15 +31,27 @@
             <td>@lang('form.country')</td>            
             <td>{{ (isset($country->name)) ? $country->name : '' }}</td>
          </tr>
+          <tr>
+            <td>@lang('form.employer_name')</td>            
+            <td>{{ $rec->employer_name }}</td>
+         </tr>
+          <tr>
+            <td>@lang('form.employer_phoneno')</td>            
+            <td>{{ $rec->employer_contactno }}</td>
+         </tr>
+          <tr>
+            <td>@lang('form.other_details')</td>            
+            <td>{{ $rec->description }}</td>
+         </tr>
       </table>
    
    </div>
-   <div class="col-md-4">
+  <!--  <div class="col-md-4">
 
 
      <div>@lang('form.other_details')</div>
      <div>{{ $rec->description }}</div>
 
 
-   </div>
+   </div> -->
 </div>
