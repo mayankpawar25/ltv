@@ -91,6 +91,8 @@ class Shopkeeper extends Authenticatable
            'J' => 'area',
            'K' => 'status',
            'L' => 'password',
+           'M' => 'employer_name',
+           'N' => 'employer_contactno',
 
            
         ];

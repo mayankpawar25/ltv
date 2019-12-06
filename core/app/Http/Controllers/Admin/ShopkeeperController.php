@@ -81,7 +81,6 @@ class ShopkeeperController extends Controller
             
         }
 
-
         /*if($customer_id)
         {
             $q->whereHas('invoice', function ($q) use ($customer_id) {
@@ -917,7 +916,10 @@ class ShopkeeperController extends Controller
                                 $area = Zipcode::firstOrCreate(['area_name' => $cells['area'],'city_id' => $cells['city_id'],'state_id' => $cells['state_id'],'country_id'=>$cells['country_id'] ]);
                                 $cells['zipcode_id']   = $area->id;
                             }
-
+                            /*Employer*/
+                            $cells['employer_name']       = $cells['employer_name'];
+                            $cells['employer_contactno']       = $cells['employer_contactno'];
+                            /**/
                             // Create the Customer
                             $check_for_update = Shopkeeper::where('mobile',$cells['mobile'])->first();
                             if(!empty($check_for_update)){

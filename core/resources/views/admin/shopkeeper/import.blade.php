@@ -59,11 +59,13 @@
                <th class="bold"> Area</th>
                <th class="bold"> Password</th>
                <th class="bold"> Status</th>
+               <th class="bold"> @lang('form.employer_name')</th>
+               <th class="bold"> @lang('form.employer_contactno')</th>
             </tr>
          </thead>
          <tbody>
             <tr>
-               @for($i = 1; $i <= 12; $i++)
+               @for($i = 1; $i <= 14; $i++)
                @if($i==11)
                <td>********</td>
                @elseif($i==12)
