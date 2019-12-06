@@ -5,7 +5,7 @@
 <div class="main-content">
    <div class="row">
       <div class="col-md-6">
-         <h5>Import Dealers</h5>
+         <h5>Import Collections</h5>
           
       </div>
       <div class="col-md-6">

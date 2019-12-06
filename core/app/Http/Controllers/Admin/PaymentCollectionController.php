@@ -579,6 +579,7 @@ class PaymentCollectionController extends Controller
                     DB::beginTransaction();
                     $success = false;
                     try {
+                        
                         $cells['name']          = $cells['name'];
                         $cells['mobile_no']     = $cells['mobile'];
                         $cells['alternate_no']  = $cells['alternate_number'];
@@ -589,6 +590,23 @@ class PaymentCollectionController extends Controller
                         $cells['balance_amount']   = $cells['balance_amount'];
                         $cells['status']        = (strtolower($cells['status'])=='open')?'0':'1';
                         $cells['staff_user_id'] = ($request->assigned_to)?$request->assigned_to:auth()->user()->id;
+                        $cells['address'] = $cells['address'];
+
+                        if($cells['country']){
+                          $country = Country::firstOrCreate(['name' => $cells['country'] ]);
+                          $cells['country_id']= $country->id;
+                        }
+
+                        if($cells['state']){
+                          $state = State::firstOrCreate(['name' => $cells['state'],'country_id'=>$cells['country_id']]);
+                          $cells['state_id']  = $state->id;
+                        }
+
+                        if($cells['city']){
+                          $city = City::firstOrCreate(['name' => $cells['city'],'state_id' => $cells['state_id']]);
+                          $cells['city_id']   = $city->id;
+                        }
+
                         // Create the Customer
                         /*$check_for_update = Shopkeeper::where('mobile',$cells['mobile'])->first();
                         if(!empty($check_for_update)){
@@ -644,7 +662,6 @@ class PaymentCollectionController extends Controller
     $validator = Validator::make($records, [
         'name'             => 'required',
         'mobile'           => 'required|numeric',
-        'alternate_number' => 'numeric',
     ]);
 
     if ($validator->fails()) 
