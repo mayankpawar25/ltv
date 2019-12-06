@@ -19,31 +19,31 @@ class StateController extends Controller
     }
     
 	/*Show States List*/
-	public function index(Request $request){
-            if($request->ajax()){
-	        return datatables()->of(DB::table('states As t')
-                        ->leftjoin('countries', 't.country_id', '=', 'countries.id')
-                        ->select('t.id', 't.name','countries.name as country_name','t.status')
-                        ->get())   
-	                ->addColumn('action', function($data){
-                    $button = '<a href="'.route('states.edit',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>';
-	               
-	                $button .= '&nbsp;&nbsp;';
-	               /* $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';*/
+	public function index(Request $request,$id=""){
+        $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+        $data['states'] = [];
+        if($id!='')
+            $data['states'] = State::find($id);
 
-                     $button .= '&nbsp;&nbsp;';
-                     if($data->status == 0){
-                        $button .= '<button type="button" name="status" id="'.$data->id.'" class="status btn btn-danger btn-sm" data-status="'.$data->status.'">Inactive</button>';
-                       }else {
-                           $button .= '<button type="button" name="status" id="'.$data->id.'" class="status btn btn-success btn-sm" data-status="'.$data->status.'">Active</button>';
-                       }
-	                return $button;
-	                })
-	                ->rawColumns(['action'])
-	                ->make(true);
-	     }
+        if($request->ajax()){
+            return datatables()->of(DB::table('states As t')
+                ->leftjoin('countries', 't.country_id', '=', 'countries.id')
+                ->select('t.id', 't.name','countries.name as country_name','t.status')
+                ->get())   
+            ->addColumn('action', function($data){
+                $button = '<a href="'.route('states.index',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>';
+                return $button;
+            })
+            ->addColumn('status', function($data){
+                $checked = ($data->status==1)?'checked':'';
+                $button2 = ' <input '.$checked.' data-id="'.$data->id.'" class="tgl tgl-ios status" id="cb'.$data->id.'" data-status="'.$data->status.'" type="checkbox"/><label class="tgl-btn" for="cb'.$data->id.'"></label>';
+                return $button2;
+            })
+            ->rawColumns(['action','status'])
+            ->make(true);
+        }
         //return view('admin.dashboard.pages.admins.index');
-         return view('admin.state.index');
+         return view('admin.state.index',$data);
         
      }
 
@@ -55,26 +55,31 @@ class StateController extends Controller
     }
 
     /*Add State*/
-     public function store(Request $request){
-          $rules = array(
-                'name' => 'required',
-                'country_id' => 'required',
-                );
-        	$this->validator($request->all(),$rules)->validate();
-     	     $data = array( 
-	            'states' => array(
-	            	  'name' => strtoupper(strip_tags($request->input('name'))),
-                      'country_id' => strip_tags($request->input('country_id')),
-	            	   'status'=> 0,
-	            	 ) 
-	        	);
-        	  $resp = DB::table('states')->insert($data);
-	       return redirect('admin/states')->with('message', 'State Add Successfully!');
-     }
+    public function store(Request $request){
+        $rules = array(
+            'name' => 'required',
+            'country_id' => 'required',
+            );
+    	$this->validator($request->all(),$rules)->validate();
+        $state = new State;
+        $state->name = strtoupper(strip_tags($request->input('name')));
+        $state->country_id = strip_tags($request->input('country_id'));
+        $state->save();
+
+ 	    /*$data = array( 
+            'states' => array(
+            	  'name' => strtoupper(strip_tags($request->input('name'))),
+                  'country_id' => strip_tags($request->input('country_id')),
+            	   'status'=> 0,
+            	 ) 
+        	);
+        $resp = DB::table('states')->insert($data);*/
+        return redirect('admin/states')->with('message', 'State Add Successfully!');
+    }
 
      /*Edit State*/
 
-      public function edit(Request $request,$token){
+    public function edit(Request $request,$token){
         $data['state']  = State::find($token);
         
         return view('admin.state.edit',$data);
@@ -82,7 +87,6 @@ class StateController extends Controller
 
      /*Update State*/
     public function update(Request $request,$token){
-
         $rules = array(
             'name'  => 'required',
              'country_id'  => 'required',
@@ -90,16 +94,18 @@ class StateController extends Controller
 
         $dt = $this->validator($request->all(),$rules)->validate();
         
-               $data = array( 
-                   'name' => strtoupper(strip_tags($request->input('name'))),
-                   'country_id' => strip_tags($request->input('country_id')),
-                   
-                    //'brand_logo' => $logo_name, 
-               );
-     
+        /*$data = array( 
+            'name' => strtoupper(strip_tags($request->input('name'))),
+            'country_id' => strip_tags($request->input('country_id')),
+        );*/
+            
+        $state = State::find($token);
+        $state->name = strtoupper(strip_tags($request->input('name')));
+        $state->country_id = strip_tags($request->input('country_id'));
+
         //dd($data);
-        $resp = State::where('id',$token)->update($data);
-        if($resp == 1){
+        // $resp = State::where('id',$token)->update($data);
+        if($state->save()){
             return redirect('admin/states')->with('success','State updated Succesfully');
         }else{
             return redirect('admin/states')->with('error','Something went wrong!!');
@@ -107,17 +113,15 @@ class StateController extends Controller
     }
 
     /*Update State status*/
-     public function UpdateStatus($id,$status)
-    {
-        if($status == 0)
-        {
+    public function UpdateStatus($id,$status){
+        if($status == 0){
             $data = array( 
                    'status' => 1, 
-               );
+            );
         }else {
-             $data = array( 
+            $data = array( 
                    'status' => 0, 
-               );
+            );
         }
         State::where('id',$id)->update($data);
     }

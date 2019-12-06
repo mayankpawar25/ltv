@@ -1293,8 +1293,8 @@ return [
     'edit_collection' => 'Edit Collection',
     'amount' => 'Amount',
     'due' => 'Due',
-    'customer_name' => 'Customer Name',
-    'customer_mobile' => 'Customer Mobile No.',
+    'collection_customer_name' => 'Customer Name',
+    'collection_customer_mobile' => 'Mobile',
     'alt_number' => 'Alternate No.',
     'creation_date' => 'Creation Date',
     'collection_due_date' => 'Collection Due Date',
@@ -1303,6 +1303,7 @@ return [
     'calling_date' => 'Collection Date',
     'total_collection_message' => '%s Collection Tasks assigned to you',
     'collection_added' => '%s Collections Added Successfully',
+    'installments' => 'Installments',
 
     /* Orders */
     'order_received' => 'New Order Received. Order ID : %s ',

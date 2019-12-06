@@ -11,6 +11,7 @@ use App\PaymentMode,App\Transaction,App\Models\StaffUser,Validator;
 use App\PaymentCollectionDescription,App\PaymentCollection;
 use Illuminate\Support\Facades\DB;  
 use Carbon\Carbon;
+use App\Country,App\State,App\City;
 class CollectPaymentController extends Controller
 {
     /*Collect Payment Management*/
@@ -227,13 +228,19 @@ class CollectPaymentController extends Controller
 
     /*Todays Salesman Collection List*/
     public function todaySalesmanCollectionList(Request $request){
-        $collection = DB::table('payment_collections As t')
+        $collections = DB::table('payment_collections As t')
                     ->leftjoin('staff_users', 't.staff_user_id', '=', 'staff_users.id')
                     ->where('staff_users.id',Auth::id())
                     ->where('t.new_date',(new Carbon(now()))->format('Y-m-d'))
-                    ->select('t.id','t.name','t.mobile_no','t.staff_user_id as assigned_to','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name','t.counter')
+                    ->select('t.id','t.name','t.mobile_no','t.staff_user_id as assigned_to','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','t.country_id','t.state_id','t.city_id','t.address','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name','t.counter')
                     ->get();
-        if(!$collection->isEmpty()){
+        foreach ($collections as $key => $collection) {
+            $collection->country = Country::find($collection->country_id)->name;
+            $collection->state = State::find($collection->state_id)->name;
+            $collection->city = City::find($collection->city_id)->name;
+        }
+        // $collection = PaymentCollection::where('new_date',(new Carbon(now()))->format('Y-m-d'))->where('staff_user_id',auth::id())->get();
+        if(!$collections->isEmpty()){
             $data['collection_list'] = $collection;
             $data['msg'] = 'Collection List';
             $data['status'] = true;
@@ -276,7 +283,9 @@ class CollectPaymentController extends Controller
 
             $assigned_to = StaffUser::find($threads[$key]->assigned_to);
             $thread->salesman = $assigned_to->first_name.' '.$assigned_to->last_name;
-
+            $thread->country;
+            $thread->state;
+            $thread->city;
             // $thread->salesman = $thread->assigned->first_name.' '.$thread->assigned->last_name;
         }
         // exit;
