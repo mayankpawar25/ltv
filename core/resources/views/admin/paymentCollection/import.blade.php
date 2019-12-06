@@ -39,6 +39,7 @@
          <thead>
             <tr>
                <th class="bold">Name  </th>
+               <th class="bold">Shop Name</th>
                <th class="bold">Mobile   </th>
                <th class="bold">Alternate number  </th>
                <th class="bold">Collection date   </th>
@@ -48,14 +49,18 @@
                <th class="bold">Balance </th>
                <th class="bold">amount </th>
                <th class="bold">Status</th>
+               <th class="bold">Country</th>
+               <th class="bold">State</th>
+               <th class="bold">City</th>
+               <th class="bold">Address</th>
             </tr>
          </thead>
          <tbody>
             <tr>
-               @for($i = 1; $i <= 10; $i++)
-               @if($i==10)
+               @for($i = 1; $i <= 15; $i++)
+               @if($i==11)
                <td>Open / Close</td>
-               @elseif($i==4 || $i==5)
+               @elseif($i==5 || $i==6)
                <td>Date Format YYYY/MM/DD</td>
                @else
                <td>@lang('form.sample_data')</td>

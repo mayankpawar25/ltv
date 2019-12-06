@@ -164,6 +164,18 @@ div.dataTables_wrapper div.dataTables_filter {
                       <td>{{ date('d M Y',strtotime($collections->collection_date)) }}</td>
                     </tr>
                     <tr>
+                      <td><strong>Address</strong></td>
+                      <td>{{$collections->address}}</td>
+                      <td><strong> City</strong></td>
+                      <td>{{ (isset($collections->city_id) && $collections->city !='')?$collections->city->name:'' }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>State</strong> </td>
+                      <td>{{(isset($collections->state_id) && $collections->state !='')?$collections->state->name:''}}</td>
+                      <td><strong> Country</strong></td>
+                      <td>{{(isset($collections->country_id) && $collections->country !='')?$collections->country->name:'' }}</td>
+                    </tr>
+                    <tr>
                       <td><strong>Collection Due Date </strong></td>
                       <td>{{ date('d M Y',strtotime($collections->new_date)) }}</td>
                       <td><strong>Assigned to </strong></td>
