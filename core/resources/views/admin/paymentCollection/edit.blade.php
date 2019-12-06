@@ -60,6 +60,7 @@ div.dataTables_wrapper div.dataTables_filter {
               @endif
             </div>
           </div><!-- Shop Name -->
+
           <div class="col-md-3">
             <div class="form-group">
               <label>Mobile No <span class="text-danger">*</span></label>
