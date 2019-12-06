@@ -31,6 +31,7 @@ class PaymentCollection extends Model
            'L' => 'state',
            'M' => 'city',
            'N' => 'address',
+          
         ];
     }
     public function country(){
