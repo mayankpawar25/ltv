@@ -176,27 +176,21 @@ $(function() {
       "columnDefs": [
         { className: "text-right", "targets": [14] },
         { "name": "name",   "targets": 0 },
-        { "name": "mobile_no",  "targets": 1 },
-        { "name": "alternate_no", "targets": 2 },
-        { "name": "collection_date",  "targets": 3 },
-        { "name": "new_date",  "targets": 4 },
-        { "name": "amount",  "targets": 5 },
-        { "name": "collected_amount",  "targets": 6 },
-        { "name": "balance_amount",  "targets": 7},
-        { "name": "country_id",  "targets": 8},
-        { "name": "state_id",  "targets": 9},
-        { "name": "city",  "targets": 10},
-        { "name": "address",  "targets": 11},
-        { "name": "assigned_to",  "targets": 12,orderable:false},
-        { "name": "status",  "targets": 13,orderable:false},
-        { "name": "action",  "targets": 14,orderable:false},
-        // { "name": "status",  "targets": 11,orderable:false},
-        /*{targets: -5, visible: false},
-        {targets: -6, visible: false},
-        {targets: -7, visible: false},
-        {targets: -8, visible: false},
-        {targets: -9, visible: false},
-        {targets: -10, visible: false},*/
+        { "name": "shopname",   "targets": 1 },
+        { "name": "mobile_no",  "targets": 2 },
+        { "name": "alternate_no", "targets": 3 ,visible:false },
+        { "name": "collection_date",  "targets": 4 },
+        { "name": "new_date",  "targets": 5 },
+        { "name": "amount",  "targets": 6 },
+        { "name": "collected_amount",  "targets": 7 },
+        { "name": "balance_amount",  "targets": 8},
+        { "name": "country_id",  "targets": 9,visible:false},
+        { "name": "state_id",  "targets": 10},
+        { "name": "city",  "targets": 11},
+        { "name": "address",  "targets": 12,visible:false},
+        { "name": "assigned_to",  "targets": 13,orderable:false},
+        { "name": "status",  "targets": 14,orderable:false},
+        { "name": "action",  "targets": 15,orderable:false},
       ],
 	  
       "ajax": {
@@ -207,7 +201,7 @@ $(function() {
           },
           "data": function (d) {
               d.status_id   = $("select[name=status_id]").val();
-              d.staff_user_id = $('select[name=staff_user_id]').val();
+              // d.staff_user_id = $('select[name=staff_user_id]').val();
               // d.groups = $('select[name=groups]').val();
           }
       }
