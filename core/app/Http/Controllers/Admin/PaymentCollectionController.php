@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;  
 use App\PaymentCollection;
 use App\PaymentCollectionDescription;
-use App\Models\StaffUser,App\Shopkeeper;
+use App\Models\StaffUser,App\Shopkeeper,App\Country,App\State,App\City;
 use App\Notifications\CollectionReceived;
 use Validator;
 use Hash;
@@ -34,6 +34,10 @@ class PaymentCollectionController extends Controller
   /*Show States List*/
 
   public function create(){
+    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+    $data['states'] = ["" => __('form.nothing_selected')];
+    $data['cities'] = ["" => __('form.nothing_selected')];
+    $data['areas']  = ["" => __('form.nothing_selected')];    
     $data['salesman'] = StaffUser::where('role_id',1)->where('level',1)->get();
     return view('admin.paymentCollection.create',$data);
   }
@@ -112,6 +116,8 @@ class PaymentCollectionController extends Controller
         ->orWhere('amount', 'like', $search_key.'%')
         ->orWhere('collected_amount', 'like', $search_key.'%')
         ->orWhere('balance_amount', 'like', $search_key.'%')
+        ->orWhere('address', 'like', $search_key.'%')
+        ->orWhere('shop_name', 'like', $search_key.'%')
         ->orwhereHas('assigned',function ($q) use ($search_key){
             $q->where('staff_users.first_name', 'like', $search_key.'%');
         })
@@ -120,6 +126,15 @@ class PaymentCollectionController extends Controller
         })
         ->orwhereHas('assigned',function ($q) use ($search_key){
             $q->where(DB::raw("CONCAT(staff_users.first_name,' ', staff_users.last_name)"), 'like', $search_key.'%');
+        })
+        ->orwhereHas('country',function ($q) use ($search_key){
+          $q->where('countries.name', 'like', $search_key.'%');
+        })
+        ->orwhereHas('state',function ($q) use ($search_key){
+          $q->where('states.name', 'like', $search_key.'%');
+        })
+        ->orwhereHas('city',function ($q) use ($search_key){
+          $q->where('cities.name', 'like', $search_key.'%');
         })
         /*->orwhereHas('country',function ($q) use ($search_key){
             $q->where('countries.name', 'like', $search_key.'%');
@@ -175,7 +190,7 @@ class PaymentCollectionController extends Controller
 
           $rec[] = array(
               anchor_link($row->name,route('collection.show',$row->id)),
-              // $row->name,
+              $row->shop_name,
               $row->mobile_no,
               $row->alternate_no,
               date('d-m-Y',strtotime($row->collection_date)),
@@ -183,6 +198,10 @@ class PaymentCollectionController extends Controller
               $row->amount,
               $row->collected_amount,
               $row->balance_amount,
+              Country::find($row->country_id)->name,
+              State::find($row->state_id)->name,
+              City::find($row->city_id)->name,
+              $row->address,
               $row->assigned->first_name.' '.$row->assigned->last_name,
               $open_close_badge,
               $action,
@@ -213,7 +232,11 @@ class PaymentCollectionController extends Controller
     $rules = 
     [
       'name' => 'required',
+      'shop_name' => 'required',
       'mobile_no' => 'required',
+      'country' => 'required',
+      'state' => 'required',
+      'city' => 'required',
     ];
 
     if($request->installment['date'][0] == null){
@@ -224,7 +247,7 @@ class PaymentCollectionController extends Controller
       $rules['amount']='required';
     }
 
-    $this->validator($request->all(),$rules)->validate();
+    $this->validator($request->all(),$rules)->validate();    
 
     $insert=0;
     $installments = [];
@@ -239,11 +262,21 @@ class PaymentCollectionController extends Controller
       $payment_collection->name = strip_tags($request->name);
       $payment_collection->mobile_no = strip_tags($request->mobile_no);
       $payment_collection->alternate_no = strip_tags($request->alternate_no);
+
+      /* Modified Columns */
+      $payment_collection->shop_name = strip_tags($request->shop_name);
+      $payment_collection->country_id = strip_tags($request->country);
+      $payment_collection->state_id = strip_tags($request->state);
+      $payment_collection->city_id = strip_tags($request->city);
+      $payment_collection->address = strip_tags($request->address);
+      /* Modified Columns */
+
       $payment_collection->collection_date = strip_tags(date('Y-m-d'));
       $payment_collection->new_date = date("Y-m-d", strtotime($installment['date']));
       $payment_collection->amount = strip_tags($installment['amount']);
       $payment_collection->balance_amount = strip_tags($installment['amount']);
       $payment_collection->staff_user_id = strip_tags($installment['staff_user_id']);
+
       if($payment_collection->save()){
 
         $insert++;
@@ -332,6 +365,9 @@ class PaymentCollectionController extends Controller
     //            ->where('t.id',$token)
     //             ->select('t.id','t.name','t.mobile_no','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name','t.staff_user_id')
     //             ->first();
+    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+    $data['states'] = ["" => __('form.nothing_selected')]  + State::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
+    $data['cities'] = ["" => __('form.nothing_selected')]  + City::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
 
     $data['collection'] = PaymentCollection::find($token);
     $data['salesman'] = StaffUser::where('role_id',1)->where('level',1)->get();
@@ -344,8 +380,14 @@ class PaymentCollectionController extends Controller
           'mobile_no' => 'required',            
           'collection_date' => 'required',
           'amount' => 'required',
+          'shop_name' => 'required',
+          'country_id' => 'required',
+          'state_id' => 'required',
+          'city_id' => 'required',
+          'address' => 'required',
         );
     $this->validator($request->all(),$rules)->validate();
+    
     $payment_collection = PaymentCollection::find($id);
     $payment_collection->name = strip_tags($request->input('name'));
     $payment_collection->mobile_no = strip_tags($request->input('mobile_no'));
@@ -354,6 +396,14 @@ class PaymentCollectionController extends Controller
     $payment_collection->amount = strip_tags($request->input('amount'));
     $payment_collection->staff_user_id = strip_tags($request->input('staff_user_id'));
     $payment_collection->status = 0;
+
+    /* Modified Columns */
+    $payment_collection->shop_name = strip_tags($request->shop_name);
+    $payment_collection->country_id = strip_tags($request->country_id);
+    $payment_collection->state_id = strip_tags($request->state_id);
+    $payment_collection->city_id = strip_tags($request->city_id);
+    $payment_collection->address = strip_tags($request->address);
+    /* Modified Columns */
     
     /*$data = array( 
     'name' => strip_tags($request->input('name')),

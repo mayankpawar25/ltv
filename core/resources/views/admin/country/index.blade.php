@@ -37,8 +37,8 @@ div#admins-table_filter {
 						<div class="text-left">
 							<input type="hidden" name="id" value="{{(isset($country->id))?$country->id:''}}">
 							<div class=" {{ $errors->has('name') ? ' has-error' : '' }}">
-								<label for="firstname" class="control-label col-form-label">Enter Country Name <span class="text-danger">*</span></label>
-								<input type="text" placeholder="Country Name" name="name" id="name" class="form-control" value="{{ old_set('name',NULL,$country) }}">
+								<label for="firstname" class="control-label col-form-label">Country Name <span class="text-danger">*</span></label>
+								<input type="text" placeholder="Enter Country Name" name="name" id="name" class="form-control" value="{{ old_set('name',NULL,$country) }}">
 								@if ($errors->has('name'))
 								<p class="text-danger">
 									<span class="help-block">

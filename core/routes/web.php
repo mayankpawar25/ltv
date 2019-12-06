@@ -1513,10 +1513,18 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	      ]
 	]);*/
 
-	Route::get('countries', 'Admin\CountryController@index')->name('countries.index');
+	/* Country Add , Edit , Update */
+	Route::get('countries/{id?}', 'Admin\CountryController@index')->name('countries.index');
 	Route::post('countries/store', 'Admin\CountryController@store')->name('countries.store');
 	Route::post('countries/update', 'Admin\CountryController@update')->name('countries.update');
-	Route::get('countries/{id?}/edit', 'Admin\CountryController@index')->name('countries.edit');
+	/* Country Add , Edit , Update */
+
+	/* State Add , Edit , Update */
+	Route::get('states/{id?}', 'Admin\StateController@index')->name('states.index');
+	Route::post('states/store', 'Admin\StateController@store')->name('states.store');
+	Route::post('states/{id}/update', 'Admin\StateController@update')->name('states.update');
+	/* State Add , Edit , Update */
+
 
 	Route::resource('area', 'Admin\AreaController',[
 	   'names' => [ 
@@ -1549,7 +1557,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	|---------------------------------------------------------------
 	**/
 	Route::patch('states/{id}/visibility', 'Admin\StateController@visibility')->name('states.visibility');
-	Route::resource('states', 'Admin\StateController',[
+	/*Route::resource('states', 'Admin\StateController',[
 	    'names' => [
 			'index' => 'states.index',
 			'create' => 'states.create',
@@ -1559,7 +1567,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 			'update' => 'states.update',
 			'destroy'=> 'states.destroy',
 		]
-	]);
+	]);*/
 
  	/*Country Dropdown List*/
     Route::get('/countrydropdown', 'Admin\StateController@CountryDropdownList');

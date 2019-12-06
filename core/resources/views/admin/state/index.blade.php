@@ -33,25 +33,22 @@ div#admins-table_filter {
 				<div class="card-body"> <a href="{{ url('/admin/states') }}" class="btn btn-warning btn-block">Add State</a> </div>
 			</div> --}}
 			<div class="main-content">
-             <h5>Add State</h5>
+             <h5>{{(isset($states->id))?'Edit State':'Add New State'}}</h5>
             <hr />
-				<form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ route('states.store') }}">
+				<form class="form-horizontal m-t-20" role="form" id="loginform" method="POST" enctype="multipart/form-data" action="{{ (isset($states->id))?route('states.update',$states->id):route('states.store') }}">
 					{{ csrf_field() }}
 					<div class="">
-						
-						<!--<h4 class="card-title m-b-0">
-						<div class="arrow-down float-right" onclick="toggleSetion(this.classList,'publish-setion')"></div>
-						</h4>-->
 						<p class="text-muted "></p>
 						<div class="form-group">
-							<label for="firstname" class="control-label col-form-label">Select Country<span class="text-danger">*</span></label>
-							
-						<select name="country_id" id="country" class="form-control select2"></select>
-					</div>
+							<input type="hidden" name="id" value="{{(isset($state->id))?$state->id:''}}">
+							<label for="firstname" class="control-label col-form-label">Country<span class="text-danger">*</span></label>
+							<?php echo form_dropdown("country_id", $countries, old_set("country_id", NULL,$states), "class='form-control select2 '") ?>
+							<!-- <select name="country_id" id="country" class="form-control select2"></select> -->
+						</div>
 					<div class="text-left ">
 						
-						<label>Add New State <span class="text-danger">*</span></label>
-						<input type="text" placeholder="State Name" name="name" id="state" class="form-control" value="{{ old('name') }}">
+						<label>State <span class="text-danger">*</span></label>
+						<input type="text" placeholder="Enter State Name" name="name" id="state" class="form-control" value="{{ old_set('name',NULL,$states) }}">
 						<div class=" {{ $errors->has('name') ? ' has-error' : '' }}">
 							@if ($errors->has('name'))
 							<p class="text-danger"> <span class="help-block">
@@ -74,7 +71,7 @@ div#admins-table_filter {
 			<div class="">
             <h5>States List</h5>
             <hr />
-				@if(Session::has('error'))
+				{{-- @if(Session::has('error'))
 				<p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('error') }}</p>
 				@endif
 				@if(Session::has('message'))
@@ -82,7 +79,7 @@ div#admins-table_filter {
 				@endif
 				@if(Session::has('success'))
 				<p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('success') }}</p>
-				@endif
+				@endif --}}
 				<!--  <h5 class="card-title">States List</h5> -->
 				<div class="table-responsive">
 					<table class="table display" id="admins-table">
@@ -91,7 +88,7 @@ div#admins-table_filter {
 								<th>Id</th>
 								<th>Name</th>
 								<th>Country Name</th>
-								<!-- <th>Status</th> -->
+								<th>Status</th>
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -211,7 +208,7 @@ $('#admins-table').DataTable({
 		 { data: 'id', name: 'id' },
 	      { data: 'name', name: 'name' },
 	      { data: 'country_name', name: 'country_name' },
-	      /*{ data: 'status', name: 'status',render: getStatus },*/
+	      { data: 'status', name: 'status',orderable: false},
 	      { data: 'action',name: 'action',orderable: false}
 	]
 	});
@@ -221,8 +218,8 @@ $('#admins-table').DataTable({
 	var brand_status;
 	$(document).on('click', '.status', function(){
 		$('#status_button').text('Ok');
-		user_id = $(this).attr('id');
-		brand_status = $(this).attr('data-status');
+		user_id = $(this).data('id');
+		brand_status = $(this).data('status');
 		$('#statusconfirmModal').modal('show');
 	});
 	$('#status_button').click(function(){

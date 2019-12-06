@@ -69,20 +69,19 @@ div#admins-table_filter {
                 <thead>
                   <tr>
                    <!--  <th>Id</th> -->
-                    <th>{{__('form.customer_name')}}</th>
-                    <th>{{__('form.customer_mobile')}}</th>
+                    <th>{{__('form.collection_customer_name')}}</th>
+                    <th>{{__('form.shop_name')}}</th>
+                    <th>{{__('form.collection_customer_mobile')}}</th>
                     <th>{{__('form.alt_number')}}</th>
                     <th>{{__('form.creation_date')}}</th>
                     <th>{{__('form.collection_due_date')}}</th>
                     <th>{{__('form.due')}} {{__('form.amount')}}</th>
                     <th>{{__('form.collected')}} {{__('form.amount')}}</th>
                     <th>{{__('form.balance')}} {{__('form.amount')}}</th>
-                    <!-- <th>Alternate No</th>
-                    <th>Creation date</th>
-                    <th>Collection due date</th>
-                    <th>Due Amount</th>
-                    <th>Collected Amount</th>
-                    <th>Balance Amount</th> -->
+                    <th>{{__('form.country')}}</th>
+                    <th>{{__('form.state')}}</th>
+                    <th>{{__('form.city')}}</th>
+                    <th>{{__('form.address')}}</th>
                     <th>{{__('form.assigned')}}</th>
                     <th>{{__('form.status')}}</th>
                     <th>{{__('form.action')}}</th>
@@ -175,7 +174,7 @@ $(function() {
       pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
       ordering: true,
       "columnDefs": [
-        { className: "text-right", "targets": [10] },
+        { className: "text-right", "targets": [14] },
         { "name": "name",   "targets": 0 },
         { "name": "mobile_no",  "targets": 1 },
         { "name": "alternate_no", "targets": 2 },
@@ -184,9 +183,13 @@ $(function() {
         { "name": "amount",  "targets": 5 },
         { "name": "collected_amount",  "targets": 6 },
         { "name": "balance_amount",  "targets": 7},
-        { "name": "assigned_to",  "targets": 8,orderable:false},
-        { "name": "status",  "targets": 9,orderable:false},
-        { "name": "action",  "targets": 10,orderable:false},
+        { "name": "country_id",  "targets": 8},
+        { "name": "state_id",  "targets": 9},
+        { "name": "city",  "targets": 10},
+        { "name": "address",  "targets": 11},
+        { "name": "assigned_to",  "targets": 12,orderable:false},
+        { "name": "status",  "targets": 13,orderable:false},
+        { "name": "action",  "targets": 14,orderable:false},
         // { "name": "status",  "targets": 11,orderable:false},
         /*{targets: -5, visible: false},
         {targets: -6, visible: false},
