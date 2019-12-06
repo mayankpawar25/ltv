@@ -66,7 +66,7 @@ p{
       <hr />
             
             
-            <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+            <table class="table dataTable no-footer dtr-inline table-bordered collapsed" width="100%" id="data">
                <thead>
                   <tr>
                      <th>@lang("form.full_name")</th>

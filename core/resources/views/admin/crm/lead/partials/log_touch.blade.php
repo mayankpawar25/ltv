@@ -1,3 +1,8 @@
+<style>
+.select2-container--bootstrap{
+	width:100% !important;
+}
+</style>
 <div class="modal fade" id="logTouchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -11,11 +16,11 @@
         <form id="logTouchForm" autocomplete="off" action="" method="POST">
 
             <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
               <div class="form-group">
                   <label for="lead_status_id">@lang('form.medium') <span class="required">*</span></label><br />
 
-                  <?php echo form_dropdown("medium", $data['touch_mediums'], [], "class='form-control form-control-sm selectPickerWithoutSearch'") ?>
+                  <?php echo form_dropdown("medium", $data['touch_mediums'], [], "class='form-control  selectPickerWithoutSearch'") ?>
                   <div class="invalid-feedback d-block medium"></div>
               </div>
               </div>

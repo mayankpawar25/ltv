@@ -118,8 +118,9 @@ color:
               </div>
               <div id="putclonehere"></div>
               <div class="row">
-                <div class="col-sm-6">
-                  <strong>Total : </strong><p id="total_amount">0.00</p>
+                <div class="col-sm-12 text-right">
+                <hr />
+                  <h6><strong>Total : </strong><span id="total_amount">0.00</span></h6>
                 </div>
               </div>
             </div>

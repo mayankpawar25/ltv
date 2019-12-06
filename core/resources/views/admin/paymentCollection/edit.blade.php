@@ -21,6 +21,25 @@ div.dataTables_wrapper div.dataTables_filter {
     text-align: right;
     width: auto;
 }
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: 
+    #444;
+    line-height: 28px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 0px !important;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: 
+#ddd;
+color:
+    #333;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid 
+    #ddd;
+    border-radius: 3px;
+}
 /*div#admins-table_filter {
     display: none;
 }*/

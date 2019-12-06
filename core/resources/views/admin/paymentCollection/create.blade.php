@@ -112,8 +112,9 @@ color:
                 <tbody id="putclonehere"></tbody>
               </table>
               <div class="row">
-                <div class="col-sm-6">
-                  <strong>{{__('form.total')}} : </strong><p id="total_amount">0.00</p>
+                <div class="col-sm-12 text-right">
+                <hr />
+                 <h6 > <strong>{{__('form.total')}} : </strong><span id="total_amount"> 0.00</span></h6>
                 </div>
               </div>
             </div>

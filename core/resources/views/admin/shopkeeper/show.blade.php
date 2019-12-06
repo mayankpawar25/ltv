@@ -25,47 +25,47 @@
 				<div class="card-body">
                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
   <tr>
-    <td>Name  </td>
+    <td><strong>Name  </strong></td>
     <td>{{ ($shopkeeper->name) }}</td>
   </tr>
   <tr>
-    <td>Shop Name</td>
+    <td><strong>Shop Name</strong></td>
     <td>{{ ($shopkeeper->shopname) }}</td>
   </tr>
   <tr>
-    <td>Email</td>
+    <td><strong>Email</strong></td>
     <td>{{ ($shopkeeper->email) }}</td>
   </tr>
   <tr>
-    <td>Mobile</td>
+    <td><strong>Mobile</strong></td>
     <td>{{ ($shopkeeper->mobile) }}</td>
   </tr>
   <tr>
-    <td>Alternate Mobile</td>
+    <td><strong>Alternate Mobile</strong></td>
     <td>{{ ($shopkeeper->phone) }}</td>
   </tr>
   <tr>
-    <td>Country</td>
+    <td><strong>Country</strong></td>
     <td>{{ $shopkeeper->country->name }}</td>
   </tr>
   <tr>
-    <td>City</td>
+    <td><strong>City</strong></td>
     <td>{{ $shopkeeper->city->name }}</td>
   </tr>
   <tr>
-    <td>Area</td>
+    <td><strong>Area</strong></td>
     <td>{{ (!empty($shopkeeper->area))?$shopkeeper->area->area_name:'' }}</td>
   </tr>
   <tr>
-    <td>Address</td>
+    <td><strong>Address</strong></td>
     <td>{{ strtolower($shopkeeper->address) }}</td>
   </tr>
   <tr>
-    <td>Group</td>
+    <td><strong>Group</strong></td>
     <td>{{ (!empty($shopkeeper->usergroup))?$shopkeeper->usergroup->name:'' }}</td>
   </tr>
   <tr>
-    <td>Salesman</td>
+    <td><strong>Salesman</strong></td>
     <td>{{ $shopkeeper->salesman->first_name }} {{ $shopkeeper->salesman->last_name }}</td>
   </tr>
 </table>
