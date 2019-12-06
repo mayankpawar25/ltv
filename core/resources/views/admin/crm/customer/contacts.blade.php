@@ -30,13 +30,13 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>@lang('form.first_name') <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="first_name">
+                                <input type="text" class="form-control " name="first_name">
                                 <div class="error first_name"></div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>@lang('form.last_name') <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="last_name">
+                                <input type="text" class="form-control " name="last_name">
                                 <div class="error last_name"></div>
                             </div>
                         </div>
@@ -45,20 +45,20 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>@lang('form.email') <span class="required">*</span></label>
-                                <input type="email" class="form-control form-control-sm" name="email">
+                                <input type="email" class="form-control " name="email">
                                 <div class="error email"></div>
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label>@lang('form.phone')</label>
-                                <input type="text" class="form-control form-control-sm" name="phone">
+                                <input type="text" class="form-control " name="phone">
                                 <div class="error phone"></div>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label>@lang('form.position')</label>
-                            <input type="text" class="form-control form-control-sm" name="position">
+                            <input type="text" class="form-control " name="position">
                             <div class="error position"></div>
                         </div>
 
@@ -67,7 +67,7 @@
                             <label>@lang('form.password') <span class="required">*</span></label>
 
                             <div class="input-group input-group-sm">
-                                <input type="password" class="form-control form-control-sm" name="password" id="password">
+                                <input type="password" class="form-control " name="password" id="password">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><a  href="#" id="fa-eye"><i class="fas fa-eye"></i></a></span>
                                     <span class="input-group-text"><a href="#" id="fa-sync"><i class="fas fa-sync"></i></a></span>
@@ -90,7 +90,7 @@
     <!-- End of Modal -->
 
 
-    <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+    <table class="table dataTable no-footer dtr-inline collapsed table-bordered" width="100%" id="data">
         <thead>
         <tr>
             <th>@lang("form.full_name")</th>
