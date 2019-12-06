@@ -221,6 +221,11 @@ class PaymentCollectionController extends Controller
 
   public function collectionForward(Request $request,$id){
     $data['carryfwd'] = true;
+
+    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+    $data['states'] = ["" => __('form.nothing_selected')]  + State::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
+    $data['cities'] = ["" => __('form.nothing_selected')]  + City::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
+
     $data['collection'] = PaymentCollection::find($id);
     $data['assigned_to'] = StaffUser::where('level',1)->get();
     return view('admin.paymentCollection.carryfwd',$data);

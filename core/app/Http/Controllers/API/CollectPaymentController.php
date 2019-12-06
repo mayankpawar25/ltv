@@ -241,7 +241,7 @@ class CollectPaymentController extends Controller
         }
         // $collection = PaymentCollection::where('new_date',(new Carbon(now()))->format('Y-m-d'))->where('staff_user_id',auth::id())->get();
         if(!$collections->isEmpty()){
-            $data['collection_list'] = $collection;
+            $data['collection_list'] = $collections;
             $data['msg'] = 'Collection List';
             $data['status'] = true;
             $status = $this-> successStatus;

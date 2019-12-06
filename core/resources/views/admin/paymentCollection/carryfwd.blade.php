@@ -73,6 +73,17 @@ color:
                 
                 <div class="col-md-3">
                   <div class="form-group">
+                    <label>{{__('form.shop_name')}}<span class="text-danger">*</span></label>
+                   <input type="text" placeholder="{{__('form.shop_name')}}" name="shop_name" class="form-control" value="{{$collection->shop_name}}">
+                  </div>
+                  <div class=" {{ $errors->has('shop_name') ? ' has-error' : '' }}"> @if ($errors->has('shop_name'))
+                    <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('shop_name') }}</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- Shop Name -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
                     <label>Mobile No <span class="text-danger">*</span></label>
                     <input type="text" placeholder="Customer Mobile No" name="mobile_no" class="form-control" value="{{ $collection->mobile_no }}">
                   </div>
@@ -96,6 +107,50 @@ color:
 
                 <div class="col-md-3">
                   <div class="form-group">
+                    <label>{{__('form.country')}}</label>
+                    <?php echo form_dropdown("country_id", $countries, old_set("country_id",NULL,$collection), "class='form-control select2 '") ?>
+                  </div>
+                  <div class=" {{ $errors->has('country_id') ? ' has-error' : '' }}"> @if ($errors->has('country_id'))
+                    <p class="text-danger"> <span class="help-block"> <strong>Country is Required</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- Country -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>{{__('form.state')}}</label>
+                    <?php echo form_dropdown("state_id", $states, old_set("state_id",NULL,$collection), "class='form-control select2 '") ?>
+                  </div>
+                  <div class=" {{ $errors->has('state_id') ? ' has-error' : '' }}"> @if ($errors->has('state_id'))
+                    <p class="text-danger"> <span class="help-block"> <strong>State is Required</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- State -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>{{__('form.city')}}</label>
+                    <?php echo form_dropdown("city_id", $cities, old_set("city_id",NULL,$collection), "class='form-control select2 '") ?>
+                  </div>
+                  <div class=" {{ $errors->has('city_id') ? ' has-error' : '' }}"> @if ($errors->has('city_id'))
+                    <p class="text-danger"> <span class="help-block"> <strong>City is Required</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- City -->
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>{{__('form.address')}}</label>
+                    <textarea name="address" class="form-control" rows="2">{{$collection->address}}</textarea>
+                  </div>
+                  <div class=" {{ $errors->has('address') ? ' has-error' : '' }}"> @if ($errors->has('address'))
+                    <p class="text-danger"> <span class="help-block"> <strong>{{ $errors->first('address') }}</strong> </span></p>
+                    @endif
+                  </div>
+                </div><!-- Address -->
+
+                <div class="col-md-3">
+                  <div class="form-group">
                     <label>Installments <span class="text-danger">*</span></label>
                     <select class="form-control installments" name="installments">
                       <option>-- select installments --</option>
@@ -115,6 +170,9 @@ color:
                     @endif
                   </div>
                 </div><!-- Installments -->
+
+
+
               </div>
               <div id="putclonehere"></div>
               <div class="row">
@@ -215,7 +273,7 @@ color:
 <!-- Status -->
 
 <script>
-
+  // $('.datepicker2').datepicker();
   /*Change Date*/
   function getDate(data, type, full, meta) {
      var d = new Date(data),
@@ -335,11 +393,13 @@ color:
     var total_installments = 1;
     var tds = $('.clone-fields').clone().html();
     for (i = 0; i < total_installments; i++) {
-      $(tds).find('input.date').datepicker({dateFormat:'dd-mm-yy'});
+      $(tds).find('input.datepicker2').removeAttr('id').removeClass('hasDatepicker');
+      $(tds).find('input.datepicker2').datepicker({dateFormat:'dd-mm-yy'});
       $('#putclonehere').append(tds);
     }
     reAssignVariableProuctsNames();
-    $('input.date').datepicker({dateFormat:'dd-mm-yy'});
+    $('input.datepicker2').removeAttr('id').removeClass('hasDatepicker');
+    $('input.datepicker2').datepicker({dateFormat:'dd-mm-yy'});
   });
 
   $(document).on('change','.installments',function(){
@@ -351,7 +411,7 @@ color:
       $('#putclonehere').append(tds);
     }
 
-    $('#putclonehere').find('input.date').each(function() {
+    $('#putclonehere').find('input.datepicker2').each(function() {
        $(this).removeAttr('id').removeClass('hasDatepicker');
        $(this).datepicker({dateFormat:'dd-mm-yy'});
     });
