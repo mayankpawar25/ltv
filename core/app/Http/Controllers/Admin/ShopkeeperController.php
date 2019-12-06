@@ -139,6 +139,10 @@ class ShopkeeperController extends Controller
         {
             foreach ($data as $key => $row)
             {   
+				$view_ledger = '<a href="'.route('admin.shopkeeper.transaction',[$row->id,'1']).'" title="View Ledger" id="'.$row->id.'" class="btn btn-sm btn-primary pull-right"><i class="icon-eye icons icon"></i></a>';
+				$order = '<a href="'.route('admin.orders.all',$row->id).'" title="Order" id="'.$row->id.'" class="btn btn-sm btn-warning"><i class="icon-basket icon"></i></a>';
+				$edit = '<a href="'.route('admin.shopkeeper.edit',$row->id).'" title="Edit" id="'.$row->id.'" class="btn btn-sm btn-success pull-right"><i class="icon-pencil icon"></i></a>';
+				$delete = '<a href="'.route('admin.shopkeeper.delete',$row->id).'" title="Delete" id="'.$row->id.'" class="btn btn-sm btn-danger"><i class="icon-trash icon"></i></a>';
                 $rec[] = array(
                     anchor_link($row->name,route('admin.shopkeeper.show',$row->id)),
                     $row->shopname,
@@ -153,11 +157,15 @@ class ShopkeeperController extends Controller
                     (!empty($row->usergroup))?$row->usergroup->name:'-',
                     ($row->is_verified==0)?'<span class="badge badge-warning">Not Verified</span>':(($row->is_verified==1)?'<span class="badge badge-primary">Verified</span>':'<span class="badge badge-primary">Not Interested</span>'),
                     ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>',
-                    
-				    anchor_link('<button class="btn btn-sm btn-primary pull-right"><span class="icon-eye icons " data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'1'])).' '.
-                    anchor_link('<button class="btn btn-sm btn-warning pull-right"><span class="icon-basket" data-toggle="tooltip" title="Orders"></span></button>',route('admin.orders.all',$row->id)).' '.
-                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('admin.shopkeeper.edit',$row->id),'','shopkeepers_edit').' '.
-                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('admin.shopkeeper.delete',$row->id),'','shopkeepers_delete'),
+                 	
+					$view_ledger. $order. $edit. $delete,
+					
+					
+					   
+				    //anchor_link('<button class="btn btn-sm btn-primary pull-right"><span class="icon-eye icons " data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'1'])).''.
+//                    anchor_link('<button class="btn btn-sm btn-warning pull-right"><span class="icon-basket" data-toggle="tooltip" title="Orders"></span></button>',route('admin.orders.all',$row->id)).''.
+//                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('admin.shopkeeper.edit',$row->id),'','shopkeepers_edit').''.
+//                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('admin.shopkeeper.delete',$row->id),'','shopkeepers_delete'),
 					  
 
                     /*a_links('Action',[

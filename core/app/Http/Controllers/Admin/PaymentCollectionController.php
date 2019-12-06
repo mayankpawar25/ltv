@@ -157,18 +157,18 @@ class PaymentCollectionController extends Controller
           if(auth()->user()->is_administrator){
 
             if($row->status==1 || $row->status==2){
-              $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'"><i class="icon-check icons"></i></button>';
+              $close_btn = '<button type="button" name="status" id="'.$row->id.'" class="status btn btn-success btn-sm" data-status="'.$row->status.'" title="Close"><i class="icon-check icons"></i></button>';
             }
 
             if($row->status == 2){
               $open_close_badge ='<span class="badge badge-success">closed by Salesman</span>';
               
-              $carry_frwd_btn = anchor_link('<i class="icon-share-alt"></i>',route('collection.forward',$row->id),TRUE,'','btn btn-sm btn-warning');
-            
+              $carry_frwd_btn = '<a href="'.route('collection.forward',$row->id).'" title="Carry Forward" id="'.$row->id.'" class="btn btn-sm btn-warning"><i class="icon-action-undo icon"></i></a>';
+            	
             }
 
 
-            $action = '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-success btn-sm"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>'.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>'.$close_btn.$carry_frwd_btn;
+            $action = '<a href="'.route('collection.edit',$row->id).'" name="edit" id="'.$row->id.'" class="edit btn btn-success btn-sm"><span class="icon-pencil icons" title="Edit"></span></a>'.$carry_frwd_btn .$close_btn.'<button type="button" name="delete" id="'.$row->id.'" class="delete btn btn-danger btn-sm"><span class="icon-trash icons" title="Delete"></span></button>' ; 
           }
 
 

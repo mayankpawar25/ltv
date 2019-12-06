@@ -22,7 +22,10 @@ div#data_filter {
 #data tr td:last-child {
   text-align: right;
 }
-
+#data_paginate {
+    width: auto;
+    float: none;
+}
 </style>
 
 <div class="app-content">
@@ -35,7 +38,7 @@ div#data_filter {
       <div class="col-md-6">
          <div class="float-md-right">
             @if(check_perm('customers_create'))
-              <a class="btn btn-primary btn-sm" href="{{ route('add_customer_page') }}">@lang('form.new_customer')</a>
+              <a class="btn btn-primary btn-sm" href="{{ route('add_customer_page') }}" >@lang('form.new_customer')</a>
             @endif
 
             @if(auth()->user()->is_administrator)
@@ -104,6 +107,7 @@ div#data_filter {
       </thead>
     </table>
     @endif
+    <div class="clearfix"></div>
     <div class="clearfix"></div>
   </div>
 </div>
