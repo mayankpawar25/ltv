@@ -79,7 +79,7 @@
 
 
       <div class="form-group text-center">
-        <input type="submit" class="btn base-bg white-txt" value="Update Informarion">
+        <input type="submit" class="btn btn-bg" value="Update Informarion">
       </div>
     </form>
     <br>

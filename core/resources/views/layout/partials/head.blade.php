@@ -26,6 +26,7 @@
 <link href="{{ asset('assets/plugins/bootstrap-fileinput.css') }}" rel="stylesheet" type="text/css" />
 <!-- stylesheet -->
 <link rel="stylesheet" href="{{asset('assets/user/css/style.css')}}">
+<link rel="stylesheet" href="{{asset('assets/user/css/custom.css')}}">
 <!-- responsive -->
 <link rel="stylesheet" href="{{asset('assets/user/css/responsive.css')}}">
 <!-- Latest compiled and minified CSS -->

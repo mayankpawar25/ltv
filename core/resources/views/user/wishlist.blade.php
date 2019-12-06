@@ -6,7 +6,7 @@
 
 @section('content')
 
-  <div class="row">
+  <div class="row px-3">
     @if ($user->products()->count() == 0)
       <h2 style="font-size: 24px;display: block;margin: 0 auto;">No item added to favorit list yet.</h2>
     @else
@@ -14,7 +14,7 @@
           @php
             $product = \App\Product::find($favorit->product_id);
           @endphp
-          <div class="col-lg-4 col-md-6">
+          <div class="col-lg-4 col-md-6 px-0">
               <div class="single-new-collection-item "><!-- single new collections -->
                   <div class="thumb">
                       <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image">
