@@ -115,11 +115,7 @@
                                       @endforeach
                                     </li>
                                   @endforeach
-<<<<<<< HEAD
                                  <li>Shop Name:  <span class="right"><a href="{{-- {{route('vendor.shoppage', $product->vendor->id)}} --}} " style="color:#{{$gs->base_color_code}};font-weight:700;">{{-- {{$product->vendor->shop_name}} --}}</a> </span></li> 
-=======
-                                 {{--  --}}
->>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                                   <p class="text-danger" id="errattr"></p>
                               </ul>
 

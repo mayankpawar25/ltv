@@ -12,11 +12,7 @@
             
             @foreach ($products as $product)
             
-<<<<<<< HEAD
-            <div class="col-lg-3 col-md-6 px-0">
-=======
             <div class="col-lg-3 col-md-6 px-2">
->>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
               <div class="single-new-collection-item "><!-- single new collections -->
               <div class="thumb">
                 <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image">

@@ -5,15 +5,10 @@
             <div class="subscribe">
                 <div class="row">
                     <div class="col-md-6">
-<<<<<<< HEAD
-                        <img src="{{asset('assets/img/open-enve.png')}}">
-                        <h5>Newsletter Sing Up</h5>
-                        <P>Subscribers and get a new discount<br> coupon on every Month.</P>
-=======
+
                         <img src="assets/img/open-enve.png">
                         <h5>Newsletter Sing Up</h5>
                         <P>Subscribers and get a new discount<br class="x-hidden"> coupon on every Month.</P>
->>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                     </div>
                     <div class="col-md-6">
                         <div class="footer-widget">
@@ -172,23 +167,16 @@
                         <li><a href="#"><i class="fa fa-envelope"></i></a></li>
                         <li><a href="#"><i class="fa fa-youtube"></i></a></li>
                     </ul> --}}
-<<<<<<< HEAD
-                    <ul class="social-links">
-=======
+
                     <div class="social-center">
                         <ul class="social-links">
->>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                             @foreach ($socials as $key => $social)
                               <li>
                                 <a href="{{$social->url}}"><i class="fab fa-{{$social->fontawesome_code}}"></i></a>
                               </li>
                             @endforeach
-<<<<<<< HEAD
-                          </ul>
-=======
                         </ul>
                     </div>
->>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
                 </div>
                 <div class="col-lg-4">
                     <div class="copyright-inner"><!-- copyright inner -->
@@ -198,26 +186,7 @@
                     </div><!-- //. copyright inner -->
                 </div>
                 <div class="col-lg-4">
-<<<<<<< HEAD
-                    <ul class="payment-logo">
-                        <li>
-                            <img src="{{asset('assets/img/payment-logo/01.png')}}" alt="payment logo">
-                        </li>
-                        <li>
-                            <img src="{{asset('assets/img/payment-logo/02.png')}}" alt="payment logo">
-                        </li>
-                        <li>
-                            <img src="{{asset('assets/img/payment-logo/03.png')}}" alt="payment logo">
-                        </li>
-                        <li>
-                            <img src="{{asset('assets/img/payment-logo/04.png')}}" alt="payment logo">
-                        </li>
-                        <li>
-                            <img src="{{asset('assets/img/payment-logo/05.png')}}" alt="payment logo">
-                        </li>
-                    </ul>
-=======
-                    <div class="payment-img">
+        <div class="payment-img">
                     <ul class="payment-logo">
                         <li>
                             <img src="assets/img/payment-logo/01.png" alt="payment logo">
@@ -236,7 +205,7 @@
                         </li>
                     </ul>
                     </div>
->>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
+
                 </div>
             </div>
         </div>

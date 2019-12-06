@@ -79,11 +79,7 @@
 
 
       <div class="form-group text-center">
-<<<<<<< HEAD
-        <input type="submit" class="btn btn-bg" value="Update Informarion">
-=======
         <input type="submit" class="btn btn-bg" value="Update Information">
->>>>>>> 84d281abc192c685ff44c6aaab198a31281068fe
       </div>
     </form>
     <br>

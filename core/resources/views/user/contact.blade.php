@@ -24,13 +24,13 @@
   <div class="contact-info-area">
       <div class="container">
           <div class="row">
-            <div class="col-md-12 px-0">
+            <div class="col-md-12">
               <div class="inner-section-title">
                   {{-- <strong class="subtitle base-txt">Contact us</strong> --}}
                   <h2 class="title">To get update</h2>
               </div>
             </div>
-              <div class="col-lg-5 col-md-6 px-0">
+              <div class="col-lg-5 col-md-6">
                   <div class="left-content-area">
                       <ul>
                           <li>
