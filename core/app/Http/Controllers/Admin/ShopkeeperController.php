@@ -582,6 +582,8 @@ class ShopkeeperController extends Controller
         $shopkeeper->address = $request->address;
         $shopkeeper->latitude = $request->latitude;
         $shopkeeper->longitude = $request->longitude;
+        $shopkeeper->employer_name = $request->employer_name;
+        $shopkeeper->employer_contactno = $request->employer_contactno;
         $shopkeeper->status = $request->status;
         $shopkeeper->user_role = $request->user_role;
         $shopkeeper->usergroup_id = $request->usergroup_id;
