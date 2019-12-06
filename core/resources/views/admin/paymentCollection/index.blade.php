@@ -28,6 +28,7 @@ div#admins-table_filter {
 	text-align: right;
 }
 
+
 </style>
 <main class="">
   <div class="main-content">
@@ -194,6 +195,7 @@ $(function() {
         {targets: -9, visible: false},
         {targets: -10, visible: false},*/
       ],
+	  
       "ajax": {
           "url": '{!! route("datatable_payment_collection") !!}',
           "type": "POST",
@@ -216,6 +218,7 @@ $(function() {
         // console.log('change here');
         dataTable.draw();
     });
+	
 });
 
 var user_id;

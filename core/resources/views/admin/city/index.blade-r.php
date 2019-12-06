@@ -68,7 +68,7 @@
           <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('error') }}</p>
           @endif
           <div class="table-responsive">
-            <table class="table table-bordered table-striped display" id="admins-table">
+            <table class="table  display" id="admins-table">
               <thead>
                 <tr>
                   <th>Id</th>
@@ -83,7 +83,7 @@
                   <th>Id</th>
                   <th>Name</th>
                   <th>State Name</th>
-                  <th>Status</th>
+                 <!--  <th>Status</th> -->
                   <th>Action</th>
                 </tr>
               </tfoot>
@@ -190,7 +190,7 @@
 	                    { data: 'id', name: 'id' },
 	                    { data: 'name', name: 'name' },
 	                    { data: 'state_name', name: 'state_name' },
-	            		{ data: 'status', name: 'status',render: getStatus },
+	            		/*{ data: 'status', name: 'status',render: getStatus },*/
 			         	{ data: 'action',name: 'action',orderable: false}
 	                 ]
 		        });

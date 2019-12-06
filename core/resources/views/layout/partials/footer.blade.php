@@ -5,6 +5,7 @@
             <div class="subscribe">
                 <div class="row">
                     <div class="col-md-6">
+
                         <img src="assets/img/open-enve.png">
                         <h5>Newsletter Sing Up</h5>
                         <P>Subscribers and get a new discount<br class="x-hidden"> coupon on every Month.</P>
@@ -166,6 +167,7 @@
                         <li><a href="#"><i class="fa fa-envelope"></i></a></li>
                         <li><a href="#"><i class="fa fa-youtube"></i></a></li>
                     </ul> --}}
+
                     <div class="social-center">
                         <ul class="social-links">
                             @foreach ($socials as $key => $social)
@@ -184,7 +186,7 @@
                     </div><!-- //. copyright inner -->
                 </div>
                 <div class="col-lg-4">
-                    <div class="payment-img">
+        <div class="payment-img">
                     <ul class="payment-logo">
                         <li>
                             <img src="assets/img/payment-logo/01.png" alt="payment logo">
@@ -203,6 +205,7 @@
                         </li>
                     </ul>
                     </div>
+
                 </div>
             </div>
         </div>

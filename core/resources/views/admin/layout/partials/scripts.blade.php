@@ -162,7 +162,7 @@ $(document).ready(function() {
 </script>
 <script>
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
+  $('body').tooltip({selector: '[data-toggle="tooltip"]'});
 });
 </script>
 

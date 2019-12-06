@@ -451,6 +451,14 @@ border-color:
 	color:#fff;
 }
 
+.btn .icon, .btn .fa {
+  
+    vertical-align: initial;
+}
+.dataTable .btn-sm{
+	margin-left:2px;
+	margin-bottom:2px;
+}
 
  @media only screen and (max-width: 767px) {
 .sidebar-mini.sidenav-toggled .app-menu__label {
