@@ -413,8 +413,8 @@ class SalesmanController extends Controller
                     $name,
                     ($row->staff_user_id!='')?StaffUser::select(DB::raw('CONCAT(first_name," ",last_name) as name'))->find($row->staff_user_id)->name:'',
                     $row->staff_user_remarks,
-                    $row->subtotal,
-                    $row->total,
+                    format_currency($row->subtotal,true,$currency_symbol),
+                    format_currency($row->total,true,$currency_symbol),
                     date('d-m-Y',strtotime($row->created_at)),
                     // anchor_link( $row->number, route('show_invoice_page', $row->id)),
                     /*anchor_link($row->related_to->first_name .' '. $row->related_to->last_name, route('view_customer_page', $row->customer_id )),*/

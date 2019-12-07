@@ -21,7 +21,7 @@ use App\Gateway;
 use App\Orderpayment;
 use Validator;
 use Hash;
-use DB;
+use DB,Image;
 class ShopkeeperController extends Controller 
 {
   public $successStatus = 200;

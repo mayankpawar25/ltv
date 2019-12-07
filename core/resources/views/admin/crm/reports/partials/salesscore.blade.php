@@ -63,7 +63,7 @@ div#data_filter {
        dataTable = $('#data').DataTable({
 
             dom: 'lfBfrtip',
-            buttons: [
+            /*buttons: [
 
                 {
                     init: function(api, node, config) {
@@ -80,7 +80,26 @@ div#data_filter {
                         'print'
                     ]
                 }
-            ],
+            ],*/
+            buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
+                  ],
             "language": {
                 "lengthMenu": '_MENU_ ',
                 "search": '',
@@ -98,7 +117,7 @@ div#data_filter {
             pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
             ordering: false,
             "columnDefs": [
-                { className: "text-right", "targets": [5] }
+                { className: "text-right", "targets": [6] }
                 // { className: "text-center", "targets": [5] }
             ],
             "ajax": {
