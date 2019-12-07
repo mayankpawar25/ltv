@@ -26,7 +26,6 @@ div#data_filter {
 #data tr td:last-child {
 	text-align: right;
 }
-
 </style>
 <main class="app-content">
   <div class="main-content">

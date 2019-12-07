@@ -24,10 +24,10 @@ class ReportController extends Controller
      * @return  \Illuminate\Http\Response
      */
     function sales()
-    { 
+    {   
         $group_name = app('request')->input('group');
         $select     = __('form.dropdown_select_text');
-        
+
         $data['currency_id_list']           =   Currency::orderBy('code','ASC')->pluck('code', 'id')->toArray();
 
         if($group_name == '')
@@ -35,9 +35,14 @@ class ReportController extends Controller
             $data['status_id_list']         =   InvoiceStatus::orderBy('name','ASC')->pluck('name', 'id')->toArray();
             $data['sales_agent_id_list']    =   Invoice::sales_agent_dropdown();
         }
+        
+        if($group_name == 'sales_score'){
+            $data['status_id_list']         =   InvoiceStatus::orderBy('name','ASC')->pluck('name', 'id')->toArray();
+            $data['sales_agent_id_list']    =   Invoice::sales_agent_dropdown();
+        }
+
         if($group_name == 'items')
         {
-            
             $data['sales_agent_id_list']    =  Invoice::sales_agent_dropdown();
         }
         return view('admin.crm.reports.sales', compact('data'));
