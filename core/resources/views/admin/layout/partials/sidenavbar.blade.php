@@ -15,6 +15,8 @@
         is-expanded
       @elseif (request()->path() == 'admin/product/create')
         is-expanded
+       @elseif (request()->path() == 'admin/product/import_page')
+        is-expanded
       @elseif (request()->path() == 'admin/category/index')
         is-expanded
       @elseif (request()->path() == 'admin/subcategory/*')
@@ -29,6 +31,8 @@
         is-expanded
      @elseif (request()->path() == 'admin/usergroup/index')
         is-expanded
+     @elseif (request()->is('admin/product/*'))
+        is-expanded
      
      @elseif (request()->is('admin/subscribers'))
      is-expanded
@@ -39,7 +43,9 @@
         <li><a class="treeview-item
           @if(request()->path() == 'admin/product/index') active
           @elseif (request()->is('admin/options/*/index')) active
+          @elseif (request()->is('admin/product/*')) active
           @elseif (request()->is('admin/product/create')) active
+          @elseif (request()->is('admin/product/import_page')) active
           @endif" href="{{route('admin.product.index')}}"><span class="app-menu__label">Products </span></a></li>
          @endif
 
