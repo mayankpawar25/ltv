@@ -7,6 +7,7 @@ use App\Order;
 use App\Lead;
 use App\Invoice;
 use App\Currency;
+use App\Shopkeeper;
 use App\Models\StaffUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -397,13 +398,19 @@ class SalesmanController extends Controller
             $currency_symbol            = ($currency) ? $currency->symbol : NULL ;
 
             foreach ($data as $key => $row) 
-            {
-                
+            {   
+                $name = '-';
+                if($row->user_type == 1){
+                    // $name = $row->user_id;
+                    $name = Shopkeeper::find($row->user_id)->name;
+                }else if($row->user_type == 2){
+                    $name = User::find($row->user_id)->name;
+                }
 
                 $rec[] = array(        
                        
                     $row->unique_id,
-                    $row->user->name,
+                    $name,
                     ($row->staff_user_id!='')?StaffUser::select(DB::raw('CONCAT(first_name," ",last_name) as name'))->find($row->staff_user_id)->name:'',
                     $row->staff_user_remarks,
                     $row->subtotal,
