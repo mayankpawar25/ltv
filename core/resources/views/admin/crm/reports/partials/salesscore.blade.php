@@ -43,10 +43,10 @@ div#data_filter {
     <thead>
         <tr>
             <th>#@lang("form.unique_id")</th>
-            <th>@lang("form.user_id")</th>
-            <th>@lang("form.staff_user_id")</th>
-            <th>@lang("form.staff_user_remarks")</th>
-            <th>@lang("form.subtotal")</th>
+            <th>@lang("form.customer")</th>
+            <th>@lang("form.staff")</th>
+            <th>@lang("form.remarks")</th>
+            <th>@lang("form.sub_total")</th>
             <th>@lang("form.total")</th>
             <th>@lang("form.date")</th>
         </tr>
