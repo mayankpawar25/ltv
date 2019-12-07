@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Salesman;
 use App\Order;
 use App\Lead;
+use App\Invoice;
+use App\Currency;
+use App\Models\StaffUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB; 
@@ -179,6 +182,8 @@ class SalesmanController extends Controller
 
      /*Salesman Sales Score List*/
     public function salesscore(Request $request){
+        $data['sales_agent_id_list']    =   Invoice::sales_agent_dropdown();
+
          $data['months'] = [
             'january'                           => __('form.january'),
             'february'                          => __('form.february'),
@@ -199,7 +204,6 @@ class SalesmanController extends Controller
     
         if(empty(auth()->user()->is_administrator)){
             $data['salesscores'] = Order::where('staff_user_id', Auth::id())->orderby('id','DESC')->paginate($this->pre_page);
-           
             return view('admin.salesman.salesscorelist',compact('data'),$data);
         }else {
             $data['salesscores'] = Order::whereNotNull('staff_user_id')->orderby('id','DESC')->paginate($this->pre_page);
@@ -293,4 +297,168 @@ class SalesmanController extends Controller
             return '0.00';
         }
     }
+
+    public function salesscore_paginate(){
+
+        $query_key          = Input::get('search');
+        $search_key         = $query_key['value'];
+        // $status_ids         = Input::get('status_ids');
+        $sales_agent_ids    = Input::get('sales_agent_ids');
+        $date_range         = Input::get('date_range');
+        $currency_id        = Input::get('currency_id');
+
+        $q = Order::orderBy('id','DESC');
+        $query = Order::orderBy('id','DESC');
+
+        $date_from          = "";
+        $date_to            = "";
+
+        if($date_range)
+        {
+            list($date_from, $date_to)  = explode("-", $date_range);
+            $date_from                  = str_replace('/', '-', trim($date_from) );
+            $date_to                    = str_replace('/', '-', trim($date_to));
+            $date_from                  = date2sql(trim($date_from));
+            $date_to                    = date2sql(trim($date_to));
+        }
+        
+        // $common_query        = Invoice::where('status_id', '<>', INVOICE_STATUS_CANCELED)
+                                // ->Where('status_id', '<>', INVOICE_STATUS_DRAFT);
+
+
+        // $q                  =  $common_query;
+        // $query              =  $common_query->with(['status', 'customer']);
+                                
+        /*if($currency_id)
+        {
+            $q->where('currency_id', $currency_id);
+            $query->where('currency_id', $currency_id);
+        }*/
+        /*if($status_ids)
+        {
+            $q->whereIn('status_id', $status_ids);
+            $query->whereIn('status_id', $status_ids);
+        }*/
+        if($sales_agent_ids){
+            $q->whereIn('staff_user_id', $sales_agent_ids);
+            $query->whereIn('staff_user_id', $sales_agent_ids);
+        }
+
+        if(!auth::user()->is_administrator){
+            $q->where('staff_user_id', auth::user()->id);
+            $query->where('staff_user_id', auth::user()->id);
+        }
+
+        if($date_from && $date_to)
+        {
+            $q->whereBetween('created_at', [$date_from, $date_to ]);
+            $query->whereBetween('created_at', [$date_from, $date_to ]);
+        }
+
+        $number_of_records  = $q->get()->count();
+
+        if ($search_key)
+        {
+            // $query->orwhere('number', 'like', like_search_wildcard_gen($search_key))
+            //     ->orWhere('total', 'like', like_search_wildcard_gen($search_key))
+            //     ->orWhere('tax_total', 'like', like_search_wildcard_gen($search_key))
+            //     ->orWhere('date', 'like', like_search_wildcard_gen(date2sql($search_key)))
+            //     ->orWhere('due_date', 'like', like_search_wildcard_gen(date2sql($search_key)))
+            //     ->orWhere('reference', 'like', like_search_wildcard_gen($search_key))
+            //     ->orWhereHas('customer', function ($q) use ($search_key) {
+            //         $q->where('customers.name', 'like', $search_key . '%');
+            //     })
+               
+            //     ->orWhereHas('status', function ($q) use ($search_key) {
+            //         $q->where('name', 'like', $search_key . '%');
+            //     });
+        }
+
+        $recordsFiltered = $query->get()->count();
+        $query->skip(Input::get('start'))->take(Input::get('length'));
+        $data = $query->get();
+
+        $rec = [];
+
+        if (count($data) > 0) 
+        {   
+            $subtotal           = 0;
+            $total              = 0;
+            $tax_total          = 0;
+            $discount_total     = 0;
+            $adjustment         = 0;
+            $applied_credits    = 0;
+            $open_amount        = 0;
+
+            $currency                   = Currency::find($currency_id);
+            $currency_symbol            = ($currency) ? $currency->symbol : NULL ;
+
+            foreach ($data as $key => $row) 
+            {
+                
+
+                $rec[] = array(        
+                       
+                    $row->unique_id,
+                    $row->user->name,
+                    ($row->staff_user_id!='')?StaffUser::select(DB::raw('CONCAT(first_name," ",last_name) as name'))->find($row->staff_user_id)->name:'',
+                    $row->staff_user_remarks,
+                    $row->subtotal,
+                    $row->total,
+                    date('d-m-Y',strtotime($row->created_at)),
+                    // anchor_link( $row->number, route('show_invoice_page', $row->id)),
+                    /*anchor_link($row->related_to->first_name .' '. $row->related_to->last_name, route('view_customer_page', $row->customer_id )),*/
+                    // ($row->related_to->name)?$row->related_to->name:$row->related_to->first_name.' '.$row->related_to->last_name,
+                    // isset(($row->date)) ? sql2date($row->date) : "",
+                    // isset(($row->due_date)) ? sql2date($row->due_date) : "",
+                    // format_currency($row->total, true, $currency_symbol  ),
+                    // format_currency($row->tax_total, true , $currency_symbol ),                    
+                    // format_currency($row->discount_total, true , $currency_symbol ),                
+                    // format_currency($row->adjustment, true , $currency_symbol ),    
+                    // format_currency($row->applied_credits, true , $currency_symbol ), 
+                    // format_currency($row->total - ($row->amount_paid + $row->applied_credits), true , $currency_symbol  ), 
+                    // $row->status->name,
+
+                );
+
+                $subtotal           += $row->subtotal;
+                $total              += $row->total;
+                // $tax_total          += ($row->tax!=null)?$row->tax:0.00;
+                // $discount_total     += $row->discount_total;
+                // $adjustment         += $row->adjustment;
+                // $applied_credits    += $row->applied_credits;
+                // $open_amount        += $row->total - ($row->amount_paid + $row->applied_credits);
+                
+               
+
+            }
+
+            array_push($rec, [
+
+                '<b>'. __('form.total_per_page'). '<b>',
+                "",
+                "",
+                "",
+                '<b>'. format_currency($subtotal, true , $currency_symbol  ). '<b>',
+                '<b>'. format_currency($total, true , $currency_symbol  ). '<b>',
+                // '<b>'.format_currency($tax_total, true , $currency_symbol ) . '<b>',                    
+                // '<b>'.format_currency($discount_total, true , $currency_symbol ) . '<b>',                
+                // '<b>'.format_currency($adjustment, true , $currency_symbol ). '<b>',    
+                // '<b>'.format_currency($applied_credits, true , $currency_symbol ). '<b>', 
+                // '<b>'.format_currency($open_amount, true , $currency_symbol ). '<b>', 
+                '',
+
+            ]);
+        }
+
+
+        $output = array(
+            "draw" => intval(Input::get('draw')),
+            "recordsTotal" => $number_of_records,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $rec
+        );
+        return response()->json($output);
+    }
+
 }

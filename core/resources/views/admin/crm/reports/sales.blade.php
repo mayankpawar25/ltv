@@ -40,6 +40,9 @@
                 <a class="nav-link {{ is_active_nav('customers', $group_name) }}" href="{{ $main_url }}?group=customers">@lang('form.customers')</a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link {{ is_active_nav('sales_score', $group_name) }}" href="{{ $main_url }}?group=sales_score">@lang('form.sales_scores')</a>
+            </li>
             
         </ul>
 
@@ -57,6 +60,8 @@
             @include('admin.crm.reports.partials.payments_received')
         @elseif($group_name == 'customers')
             @include('admin.crm.reports.partials.customers')
+        @elseif($group_name == 'sales_score')
+            @include('admin.crm.reports.partials.salesscore')
         @endif
 
     </div>

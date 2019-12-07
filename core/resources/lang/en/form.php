@@ -1309,7 +1309,8 @@ return [
     /* Orders */
     'order_received' => 'New Order Received. Order ID : %s ',
     'order_placed' => 'Your order has been placed successfully. Order ID: %s ',
-
+    'remarks' => 'Remarks',
+    'unique_id' => 'Unique Id'
     /* Author : 225 */
 
 

@@ -592,13 +592,10 @@
         @if(is_menu_enable('activity_log'))
         <li><a class="treeview-item @if(request()->path() == 'admin/reports/activity-log' || request()->path() == 'admin/reports/activity-log') active @endif" href="{{route('report_activity_log')}}">Activity Log</a></li>
        @endif
-
-       <li><a class="treeview-item @if(request()->path() == 'admin/salesscores') active @endif" href="{{route('admin.salesman.salesscore')}}"><span class="app-menu__label">Sales Score</span></a></li>
-
-
        </ul>
     </li>
     @endif
+    <li><a class="app-menu__item @if(request()->path() == 'admin/salesscores') active @endif" href="{{route('admin.salesman.salesscore')}}"><i class="app-menu__icon icon-equalizer icons"></i><span class="app-menu__label">Sales Score</span></a></li>
   <!-- Report -->
 
 

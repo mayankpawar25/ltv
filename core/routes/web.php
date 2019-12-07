@@ -661,10 +661,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 
 	/*Add Sales Score*/
 	Route::post('/addscore', 'Admin\SalesmanController@addSalesScore')->name('admin.salesman.addsalesscore');
+	Route::get('/salesscores', 'Admin\SalesmanController@salesscore')->name('admin.salesman.salesscore');
+	Route::post('/report/salesscore', 'Admin\SalesmanController@salesscore_paginate')->name('report_salesscore');
 	/*Add Sales Score*/
 
 	/*Sales Score List*/
-	Route::get('/salesscores', 'Admin\SalesmanController@salesscore')->name('admin.salesman.salesscore');
 	/*Sales Score List*/
 
 	

@@ -5,10 +5,32 @@
 @section('headertxt', 'Salesman List')
 
 @section('content')
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+#data tr td:last-child {
+  text-align: right;
+}
+</style>
 <main class="app-content">
   <div class="app-title">
     <div>
-      <h1><i class="fa fa-dashboard"></i>Salesman Sales Score</h1>
+      <h1><i class="fa"></i>Salesman Sales Score</h1>
     </div>
   <!--  <ul class="app-breadcrumb breadcrumb">
       <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -24,7 +46,7 @@
           <p style="clear:both;margin:0px;"></p>
           <div class="form-group">
             <label>Order ID: </label>
-            <input type="text" name="unique_id" class="form-control" value="" id="unique_id">
+            <input type="text" name="unique_id" class="form-control" placeholder="Enter Order Id" value="" id="unique_id">
             <div class=" {{ $errors->has('unique_id') ? ' has-error' : '' }}">
               @if ($errors->has('unique_id'))
               <p class="text-danger">
@@ -51,8 +73,8 @@
           </div>
          
           <div class="form-group">
-            <label>Salesman Remarks: </label>
-             <textarea type="text" name="staff_user_remarks" class="form-control" id="address_by_lat_long">{{ old('staff_user_remarks') }}</textarea>
+            <label>Remarks: </label>
+             <textarea type="text" name="staff_user_remarks" placeholder="Enter Remarks" class="form-control" id="address_by_lat_long">{{ old('staff_user_remarks') }}</textarea>
               @if($errors->has('staff_user_remarks'))
               <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('staff_user_remarks') }}</strong></span></p>
               @endif
@@ -65,111 +87,39 @@
         </form>
       </div>
     </div>
-    <div class="col-md-9">
-      <div class="tile">
+    <div class="col-md-9 tile">
+      <div class="row">
         <div class="col-lg-12">
-            <div class="">
-                <div class="">
-                    <div class="">
-                      <h3 class="tile-title">
-                        {{--<a href="{{route('admin.tasks.create')}}" class="btn btn-success float-right"><i class="fa fa-plus"></i> Add Salesman Task</a> --}}
-                        
-                      <p style="clear:both;margin-top:50px;"></p>
-                        </h3>
-                    </div>
-                    <div class="sellers-product-inner">
-                        <div class="bottom-content">
-                            <table class="table table-default" id="datatableOne">
-                                <thead>
-                                    <tr>
-                                      <th>S.No.</th>
-                                      <th>Order ID</th>
-                                      <th>Salesman Name</th>
-                                      <th>Customer Name</th>
-                                      <th>Remarks</th>
-                                     <!--  <th>Tax</th> -->
-                                      <th>Sub Total</th>
-                                      <th>Amount</th>
-                                     <!--  <th class="text-right">Action</th> -->
-                                    </tr>
-                                </thead>
-                                 <?php if (count($salesscores) == 0){ ?>
-                                   <tr>
-                                  <td colspan="3">&nbsp;</td>
-                                  <td><b style="color: red;">No Result Found</b></td>
-                                </tr>
-                              <?php  }else{ ?>
-
-                                <tbody>
-                                  @php
-                                    $i = $salesscores->perPage() * ($salesscores->currentPage() - 1); 
-                                   @endphp
-                                  <?php
-                                  $sum = array();
-                                  ?>
-
-                                  @foreach($salesscores as $user)
-
-                                  <tr>
-                                   <td>{{ ++$i }}</td>
-                                    <td>#{{ $user->unique_id }}</td>
-                                    <td>
-                                    <?php 
-                                     $salesman_data = App\Models\StaffUser::where('id' ,$user->staff_user_id)->get();
-                                     $salesman = json_decode($salesman_data);
-                                     ?>
-                                    
-                                     <?php echo $salesman[0]->first_name.' '.$salesman[0]->last_name; ?>
-                                    </td>
-                                    <td>{{ $user->first_name }} {{ $user->last_name }}</td>
-                                     @if ( !empty($user->staff_user_remarks))
-                                       <td>{{ $user->staff_user_remarks }} </td>
-                                     @else
-                                      <td>---</td>
-                                     @endif
-                                      <!-- <td>
-                                      @if($user->inactive == NULL)
-                                        <span class="badge badge-success">Active</span>
-                                      @else
-                                        <span class="badge badge-success">Inactive</span>
-                                      @endif
-                                    </td> -->
-                                    <!--  <td>{{ $user->tax }}</td> -->
-                                     <td >
-                                      {{ number_format($user->subtotal,2) }}
-                                       <?php $b[] = array_sum((array)$user->subtotal); ?>
-                                    </td>
-                                    <td >
-                                      {{ number_format($user->total,2) }}
-                                     <?php $a[] = array_sum((array)$user->total); ?>
-                                    </td>
-                                  </tr>
-                                  @endforeach
-                                  <tr>
-                                  <td colspan="5">&nbsp;</td>
-                                  <td><b><?php echo number_format(array_sum($b),2);   ?></b></td>
-                                  <td><b><?php echo number_format(array_sum($a),2);   ?></b></td>
-                                </tr>
-                                </tbody>
-                            <?php  } ?>
-                            </table>
-                            
-                        </div>
-                        <?php 
-                        if (count($salesscores) != 0) { ?>
-                          <div class="row">
-                          <div class="col-md-12">
-                            <div class="right" style="float: right; margin-top: 10px;">
-                               {{$salesscores->links()}}
-                            </div>
-                          </div>
-                        </div>
-                       <?php  }
-                        ?>
-                        
-                    </div>
+          <h3 class="tile-title">Sales Score Report</h3>
+          <div class="sellers-product-inner">
+            <form>
+              <div class="form-row">
+                @if(Auth::user()->is_administrator)
+                  <div class="form-group col-md-3">
+                  <label>@lang('form.sales_agent')</label>
+                      <?php echo form_dropdown('sales_agent_id', $data['sales_agent_id_list'] , [], "class='form-control four-boot' multiple='multiple'"); ?>
+                  </div>
+                @endif
+                <div class="form-group col-md-3">
+                  <label for="name">@lang('form.date_range')</label>
+                  <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >                  
                 </div>
-            </div>
+              </div>
+            </form>
+            <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+                <thead>
+                    <tr>
+                        <th>#@lang("form.unique_id")</th>
+                        <th>@lang("form.customer")</th>
+                        <th>@lang("form.staff")</th>
+                        <th>@lang("form.remarks")</th>
+                        <th>@lang("form.sub_total")</th>
+                        <th>@lang("form.total")</th>
+                        <th>@lang("form.date")</th>
+                    </tr>
+                </thead>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -189,88 +139,176 @@
 </main>
 <script>
 
-window.chartColors = {
-  red: 'rgb(255, 99, 132)',
-  orange: 'rgb(255, 159, 64)',
-  yellow: 'rgb(255, 205, 86)',
-  green: 'rgb(75, 192, 192)',
-  blue: 'rgb(54, 162, 235)',
-  purple: 'rgb(153, 102, 255)',
-  grey: 'rgb(201, 203, 207)'
-};
+  window.chartColors = {
+    red: 'rgb(255, 99, 132)',
+    orange: 'rgb(255, 159, 64)',
+    yellow: 'rgb(255, 205, 86)',
+    green: 'rgb(75, 192, 192)',
+    blue: 'rgb(54, 162, 235)',
+    purple: 'rgb(153, 102, 255)',
+    grey: 'rgb(201, 203, 207)'
+  };
 
+  var color = Chart.helpers.color;
 
+  // Conversion by Month Chart
+  var conversion_by_month_chart_data = {
+    labels: <?php echo json_encode($data['conversion_by_month']['labels']); ?>,
+    datasets: [{
+      label: '# of Tomatoes',
+      data: <?php echo json_encode($data['conversion_by_month']['data']); ?>,
+      backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString()
+    }]
+  };
 
-var color = Chart.helpers.color;
-// Conversion by Month Chart
-    var conversion_by_month_chart_data = {
-          labels: <?php echo json_encode($data['conversion_by_month']['labels']); ?>,
-          datasets: [{
-            label: '# of Tomatoes',
-            data: <?php echo json_encode($data['conversion_by_month']['data']); ?>,
-            backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString()
-          }]
-        };
-    var ctx = document.getElementById("monthly_conversion");
-    window.conversion_by_month_chart = new Chart(ctx, {
-        type: 'bar',
-        data: conversion_by_month_chart_data,
-        options: {
-          legend: {
-              display: false
-          },
-          tooltips: {
-              callbacks: {
-                 label: function(tooltipItem) {
-                        return tooltipItem.yLabel;
-                 }
-              }
-          },
-
-          responsive: true,
-        title: {
-          display: true,
-          text: '<?php echo __("form.sales_scores") ?>'
+  var ctx = document.getElementById("monthly_conversion");
+  window.conversion_by_month_chart = new Chart(ctx, {
+      type: 'bar',
+      data: conversion_by_month_chart_data,
+      options: {
+        legend: {
+            display: false
         },
-          scales: {
-            xAxes: [{
-              ticks: {
-                maxRotation: 90,
-                minRotation: 80
-              }
-            }],
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
+        tooltips: {
+            callbacks: {
+               label: function(tooltipItem) {
+                      return tooltipItem.yLabel;
+               }
+            }
+        },
+
+        responsive: true,
+      title: {
+        display: true,
+        text: '<?php echo __("form.sales_scores") ?>'
+      },
+        scales: {
+          xAxes: [{
+            ticks: {
+              maxRotation: 90,
+              minRotation: 80
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
         }
-    });
+      }
+  });
+
+  $('select[name=month]').change(function(){      
+
+    postData = { "_token" : "{{ csrf_token() }}" , month : $(this).val()  };
+
+        $.post( "{{ route('get_salesscore_report') }}" , postData ).done(function( response ) {
+            
+                conversion_by_month_chart_data.datasets.forEach(function(dataset) {
+          dataset.data = response.conversion_by_month.data;
+        });     
+        conversion_by_month_chart_data.labels = response.conversion_by_month.labels;
+        window.conversion_by_month_chart.update();
 
 
+        }, 'json');
+  });
 
-    $('select[name=month]').change(function(){      
+  $(function () {
 
-      postData = { "_token" : "{{ csrf_token() }}" , month : $(this).val()  };
+      dataTable = $('#data').DataTable({
 
-          $.post( "{{ route('get_salesscore_report') }}" , postData ).done(function( response ) {
-              
-                  conversion_by_month_chart_data.datasets.forEach(function(dataset) {
-            dataset.data = response.conversion_by_month.data;
-          });     
-          conversion_by_month_chart_data.labels = response.conversion_by_month.labels;
-          window.conversion_by_month_chart.update();
+          dom: 'lfBfrtip',
+          /*buttons: [
 
+              {
+                  init: function(api, node, config) {
+                      $(node).removeClass('btn-secondary')
+                  },
+                  className: "btn-light btn-sm",
+                  extend: 'collection',
+                  text: 'Export',
+                  buttons: [
+                      'copy',
+                      'excel',
+                      'csv',
+                      'pdf',
+                      'print'
+                  ]
+              }
+          ],*/
+          buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
+                  ],
+          "language": {
+              "lengthMenu": '_MENU_ ',
+              "search": '',
+              "searchPlaceholder": "{{ __('form.search') }}",
+              /*"paginate": {
+                  "previous": '<i class="fa fa-angle-left"></i>',
+                  "next": '<i class="fa fa-angle-right"></i>'
+              }*/
+          },
+          pageResize: true,
+          responsive: true,
+          processing: true,
+          serverSide: true,
+          // iDisplayLength: 5,
+          pageLength: 15,
+          ordering: false,
+          "columnDefs": [
+              { className: "text-right", "targets": [5] }
+              // { className: "text-center", "targets": [5] }
+          ],
+          "ajax": {
+              "url": '{!! route("report_salesscore") !!}',
+              "type": "POST",
+              'headers': {
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}'
+              },
+              "data": function ( d ) {
+                  
+                  d.currency_id       = $("select[name=currency_id]").val();
+                  d.sales_agent_ids   = $('select[name=sales_agent_id]').val();
+                  d.status_ids        = $('select[name=status_id]').val();
+                  d.date_range        = $("#reportrange").val();
+                  // etc
+              }
+          }
+      }).
+      on('mouseover', 'tr', function() {
+          jQuery(this).find('div.row-options').show();
+      }).
+      on('mouseout', 'tr', function() {
+          jQuery(this).find('div.row-options').hide();
+      });
 
-          }, 'json');
+      $('select').change(function(){
+        dataTable.draw();
+      });
+      $("#reportrange").on("change paste keyup", function() {
+          dataTable.draw();
+      });
 
+      $('.dataTables_info').append('<div class="clearfix"></div>');
 
-      
-
-
-    });
-
+  });
 
 // End of Conversion by Month Chart
 </script>
