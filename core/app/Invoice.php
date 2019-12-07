@@ -133,7 +133,7 @@ class Invoice extends Model
 
     function person_created()
     {
-        return $this->belongsTo(User::class ,'created_by','id')->withTrashed();
+        return $this->belongsTo(Models\StaffUser::class ,'created_by','id')->withTrashed();
     }
 
     function item_line()
