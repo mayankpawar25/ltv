@@ -11,6 +11,7 @@ use App\NumberGenerator;
 use App\PaymentApiResponse;
 use App\Notifications\PaymentReceived;
 use App\User;
+use App\Shopkeeper;
 use App\Currency;
 use App\Services\PaymentGateway\Contracts\PaymentBean;
 
@@ -86,6 +87,11 @@ class Invoice extends Model
     function customer()
     {
         return $this->belongsTo(User::class)->withTrashed();
+    }
+
+    function dealer()
+    {
+        return $this->belongsTo(Shopkeeper::class,'component_number', 'id');
     }
 
     function project()
