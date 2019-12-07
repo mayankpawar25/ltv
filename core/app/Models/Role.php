@@ -315,7 +315,7 @@ class Role extends Model
                 ],
                 [
                     'name'          => 'Sales Score',
-                    'view'          => $myClass->gen_checkbox('salesscores'.'_view'),
+                    'view'          => '',
                     'view_own'      => $myClass->gen_checkbox('salesscores'.'_view_own'),
                     'create'        => $myClass->gen_checkbox('salesscores'.'_create'),
                     'edit'          => '',

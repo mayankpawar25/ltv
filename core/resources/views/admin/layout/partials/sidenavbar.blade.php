@@ -588,7 +588,10 @@
        </ul>
     </li>
     @endif
-    <li><a class="app-menu__item @if(request()->path() == 'admin/salesscores') active @endif" href="{{route('admin.salesman.salesscore')}}"><i class="app-menu__icon icon-equalizer icons"></i><span class="app-menu__label">Sales Score</span></a></li>
+    @if(is_menu_enable('salesscores'))
+      <li><a class="app-menu__item @if(request()->path() == 'admin/salesscores') active @endif" href="{{route('admin.salesman.salesscore')}}"><i class="app-menu__icon icon-equalizer icons"></i></span class="app-menu__label">Sales Score</span></a></li>
+    @endif
+
   <!-- Report -->
 
 
