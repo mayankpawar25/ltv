@@ -402,7 +402,7 @@ class SettingsController extends Controller
             $rec->from_email_address    = isset($records->from_email_address) ? $records->from_email_address : ''  ;
         }       
 
-       return view('setup.email_template', compact('data', 'template_list'))->with('rec', $rec);
+       return view('admin.crm.setup.email_template', compact('data', 'template_list'))->with('rec', $rec);
     }
     
 
