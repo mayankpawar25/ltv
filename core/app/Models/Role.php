@@ -313,6 +313,14 @@ class Role extends Model
                     'edit'          => $myClass->gen_checkbox('tickets'.'_edit'),  
                     'delete'        => $myClass->gen_checkbox('tickets'.'_delete'), 
                 ],
+                [
+                    'name'          => 'Sales Score',
+                    'view'          => $myClass->gen_checkbox('salesscores'.'_view'),
+                    'view_own'      => $myClass->gen_checkbox('salesscores'.'_view_own'),
+                    'create'        => $myClass->gen_checkbox('salesscores'.'_create'),
+                    'edit'          => '',
+                    'delete'        => '',
+                ],
              ];
 
         return $data;
