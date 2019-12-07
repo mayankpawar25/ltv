@@ -349,6 +349,9 @@ class SalesmanController extends Controller
             $query->where('staff_user_id', auth::user()->id);
         }
 
+        $q->whereNotNull('staff_user_id');
+        $query->whereNotNull('staff_user_id');
+
         if($date_from && $date_to)
         {
             $q->whereBetween('created_at', [$date_from, $date_to ]);
