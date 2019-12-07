@@ -26,10 +26,20 @@
 @endpush
 
 @section('content')
+<style>
+table tr td{
+		border-top:none !important;
+	}
+	#imgtable td {
+
+    padding: 0px 15px 0px 0px;
+
+}
+</style>
 <main class="app-content">
 	<div class="app-title">
         <div>
-           <h1> Edit Product</h1>
+           <h1> </h1>
         </div>
        <!-- <ul class="app-breadcrumb breadcrumb">
            <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
@@ -37,7 +47,9 @@
         </ul>-->
     </div>
 
-    <div class="tile">
+    <div class="main-content">
+    <h5>Edit Product</h5>
+    <hr />
 	    <div class="row">
 	      	<div class="col-lg-12">
 	          	<div class="product-upload-inner"><!-- product upload inner -->
@@ -45,9 +57,9 @@
 	                  	{{csrf_field()}}
 	                  	
 	                  	<input type="hidden" name="product_id" value="{{$product->id}}">
-	                  	
+	                  	<div class="well">
 	                  	<div class="form-element margin-bottom-20">
-	                        <label for="" class="sec-txt">Preview Images <span>**</span></label>
+	                        <label for="" class="sec-txt">Preview Images <span>*</span></label>
 	                        <div class="">
 	                          <table class="table table-striped" id="imgtable">
 
@@ -63,11 +75,11 @@
 	                          <p id="errpreimg" class="em no-margin text-danger"></p>
 	                        </div>
 	                  	</div>
-
+						</div>
 	                  	<div class="row">
 	                        <div class="col-md-6">
 	                          <div class="form-element margin-bottom-20">
-	                              <label>Title <span>**</span></label>
+	                              <label>Title <span>*</span></label>
 	                              <input name="title" type="text" class="form-control" value="{{$product->title}}" placeholder="Enter title...">
 	                              <p id="errtitle" class="em no-margin text-danger"></p>
 	                          </div>
@@ -76,14 +88,14 @@
 	                          <div class="row">
 	                            <div class="col-md-6">
 	                              <div class="form-element margin-bottom-20">
-	                                  <label>Stock (quantity) <span>**</span></label>
+	                                  <label>Stock (quantity) <span>*</span></label>
 	                                  <input name="quantity" type="text" class="form-control" value="{{$product->quantity}}" placeholder="Enter quantity...">
 	                                  <p id="errquantity" class="em no-margin text-danger"></p>
 	                              </div>
 	                            </div>
 	                            <div class="col-md-6">
 	                              	<div class="form-element margin-bottom-20">
-	                                  	<label>Price ({{$gs->base_curr_text}})<span>**</span></label>
+	                                  	<label>Price ({{$gs->base_curr_text}})<span>*</span></label>
 	                                  	<input name="price" type="text" class="form-control" value="{{$product->price}}" placeholder="Enter price...">
 	                                  	<p id="errprice" class="em no-margin text-danger"></p>
 	                              	</div>
@@ -95,7 +107,7 @@
 	                  	<div class="row">
 	                        <div class="col-md-4">
 	                          <div class="form-element margin-bottom-20">
-	                              <label>Category <span>**</span></label>
+	                              <label>Category <span>*</span></label>
 	                              <select name="category" type="text" class="form-control" v-model="catid" onchange="showsubcats(this.value)">
 	                                @foreach ($cats as $cat)
 	                                  <option value="{{$cat->id}}" {{ ($cat->id == $product->category_id)?'selected':'' }}>{{$cat->name}}</option>
@@ -107,7 +119,7 @@
 	                        </div>
 	                        <div class="col-md-4">
 	                          <div class="form-element margin-bottom-20">
-	                              <label>Subcategory <span>**</span></label>
+	                              <label>Subcategory <span>*</span></label>
 	                              <select name="subcategory" type="text" class="form-control" v-model="subcatid" id="selsub" onchange="showattrs(this.value)">
 	                                @foreach ($subcats as $subcat)
 	                                  <option value="{{$subcat->id}}" {{ ($subcat->id == $product->subcategory_id)?'selected':'' }}>{{$subcat->name}}</option>
@@ -182,7 +194,7 @@
 	                  	</div>
 
 	                  	<div class="form-element margin-bottom-20">
-	                     	<label>Description <span>**</span></label>
+	                     	<label>Description <span>*</span></label>
 	                     	<textarea class="form-control" id="desc" rows="10">{{$product->description}}</textarea>
 	                     	<p id="errdesc" class="em no-margin text-danger"></p>
 	                  	</div>
@@ -222,15 +234,16 @@
 
 	                  	<div class="row">
 	                        <div class="col-md-12">
-	                          	<div class="card">
-		                            <div class="card-header base-bg">
-		                              <h5 class="text-white mb-0">Offer</h5>
+	                          	<div class="">
+		                            <div class="">
+		                              <strong>Seclect Offer (Fixed/Percentage)</strong>
+                                      <hr />
 		                            </div>
-		                            <div class="card-body">
+		                            <div class="">
 		                              	<div class="row">
 			                                <div class="col-md-2">
 			                                  <div class="form-element margin-bottom-20 check-round">
-			                                    <label class="d-block">Offer <span>**</span></label>
+			                                    <label class="d-block">Offer <span>*</span></label>
 			                                    <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
 			                                       data-width="100%" type="checkbox"
 			                                       name="offer" onchange="changeOffer()" {{!empty($product->offer_type) ? 'checked' : ''}}>
@@ -239,7 +252,7 @@
 
 			                                <div class="col-md-2">
 			                                  <div class="form-element margin-bottom-20 d-none check-round" id="offerType">
-			                                    <label class="d-block">Offer Type <span>**</span></label>
+			                                    <label class="d-block">Offer Type <span>*</span></label>
 			                                    <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
 			                                       data-width="100%" type="checkbox" data-on="Percentage" data-off="Fixed"
 			                                       name="offer_type" id="offerTypeToggle" {{$product->offer_type == 'percent' ? 'checked' : ''}}>
@@ -247,7 +260,7 @@
 			                                </div>
 			                                <div class="col-md-2">
 			                                  <div class="form-element margin-bottom-20 d-none" id="offerAmount">
-			                                    <label>Offer Amount <span>**</span></label>
+			                                    <label>Offer Amount <span>*</span></label>
 			                                    <input name="offer_amount" type="text" class="form-control" placeholder="Enter offer amount..." value="{{$product->offer_amount}}">
 			                                    <p id="errofferamount" class="em no-margin text-danger"></p>
 			                                    <div id="calcTotal"></div>
@@ -263,26 +276,27 @@
 
 	                  	<div class="row">
 	                    	<div class="col-md-12">
-	                      <div class="card">
-	                        <div class="card-header base-bg">
-	                          <h5 class="text-white mb-0">Flash Sale</h5>
+	                      <div class="">
+	                        <div class="">
+	                         <strong>Seclect Flash Sale (Fixed/Percentage)</strong>
+                             <hr />
 	                        </div>
-	                        <div class="card-body">
+	                        <div class="">
 	                          <div class="row">
 	                            <div class="col-md-2">
-	                              <div class="form-element margin-bottom-20 check-round">
-	                                <label class="d-block">Flash Sale <span>**</span></label>
+	                              <div class="margin-bottom-20 check-round">
+	                                <label class="d-block">Flash Sale <span>*</span></label>
 	                                <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
 	                                   data-width="100%" type="checkbox"
 	                                   name="flash_sale" {{$product->flash_sale == 1 ? 'checked' : ''}}>
 	                              </div>
 	                            </div>
 
-	                            <div class="col-md-10" id="flashsale">
+	                            <div class="col-md-8" id="flashsale">
 	                              <div class="row">
 	                                <div class="col-md-3">
-	                                  <div class="form-element margin-bottom-20 check-round">
-	                                    <label class="d-block">Type <span>**</span></label>
+	                                  <div class="margin-bottom-20 check-round">
+	                                    <label class="d-block">Type <span>*</span></label>
 	                                    <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
 	                                       data-width="100%" type="checkbox" data-on="Percentage" data-off="Fixed"
 	                                       name="flash_type" {{$product->flash_type == 1 ? 'checked' : ''}}>
@@ -290,9 +304,9 @@
 	                                </div>
 
 	                                <div class="col-md-3">
-	                                  <div class="form-element margin-bottom-20">
-	                                    <label class="d-block">Amount <span>**</span></label>
-	                                    <div class="form-check form-check-inline">
+	                                  <div class="margin-bottom-20">
+	                                    <label class="d-block">Amount <span>*</span></label>
+	                                    <div class="">
 	                                      <input class="form-control" type="text" name="flash_amount" value="{{$product->flash_amount}}" autocomplete="off" placeholder="Enter flash amount">
 	                                    </div>
 	                                    <p id="errflashamount" class="em no-margin text-danger"></p>
@@ -301,9 +315,9 @@
 	                                </div>
 
 	                                <div class="col-md-3">
-	                                  <div class="form-element margin-bottom-20">
-	                                    <label class="d-block">Date <span>**</span></label>
-	                                    <div class="form-check form-check-inline">
+	                                  <div class=" margin-bottom-20">
+	                                    <label class="d-block">Date <span>*</span></label>
+	                                    <div class="">
 	                                      <input id="flash_date" class="form-control" type="text" name="flash_date" value="{{$product->flash_date}}" placeholder="Enter flash date" autocomplete="off">
 	                                    </div>
 	                                    <p id="errflashdate" class="em no-margin text-danger"></p>
@@ -311,9 +325,9 @@
 	                                </div>
 
 	                                <div class="col-md-3">
-	                                  <div class="form-element margin-bottom-20">
-	                                    <label class="d-block">Time interval <span>**</span></label>
-	                                    <div class="form-check form-check-inline">
+	                                  <div class="margin-bottom-20">
+	                                    <label class="d-block">Time interval <span>*</span></label>
+	                                    <div class="">
 	                                      <select class="form-control" name="flash_interval">
 	                                        @foreach ($flashints as $key => $flashint)
 	                                          <option value="{{$flashint->id}}" {{$flashint->id == $product->flash_interval ? 'selected' : ''}}>{{$flashint->start_time . " - " . $flashint->end_time}}</option>
@@ -331,8 +345,9 @@
 	                    	</div>
 	                  	</div>
 
-	                  	<div class="btn-wrapper mt-4 d-block">
-	                      	<input type="submit" class="submit-btn" value="Update Product">
+	                  	<div class="text-right">
+                        <hr />
+	                      	<input type="submit" class="btn btn-success" value="Update Product">
 	                  	</div>
 	              	</form>
 	          	</div><!-- //.product upload inner -->
@@ -343,8 +358,7 @@
     
 	<!-- product upload area start -->
 	<div class="product-upload-area" id="editproduct" style="padding: 0px 0px;" >
-	  	<div class="container card">
-	  	</div>
+	   
 	</div>
 	<!-- product upload area end -->
 </main>

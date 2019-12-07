@@ -15,7 +15,7 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-12 mb-10">
-                     <strong>Category Name</strong>
+                     <label>Category Name</label>
                      <input type="text" value="{{$cat->name}}" class="form-control" id="name" name="name" placeholder="Enter category name" >
                   </div>
                   <div class="col-md-12 mb-10">
@@ -26,11 +26,11 @@
                         <img src="{{ asset('assets/user/img/category/'.$cat->image) }}">
                       </div>
                       @endif
-                    <strong>Image</strong>
+                    <label>Image</label>
                     <input type="file" value="{{old('image')}}" class="form-control" id="image" name="image">
                   </div>
                   <div class="col-md-12 mb-10">
-                    <strong>Status</strong>
+                    <label>Status</label>
                     <select class="form-control" name="status">
                       <option value="1" {{($cat->status==1) ? 'selected' : ''}}>Active</option>
                       <option value="0" {{($cat->status==0) ? 'selected' : ''}}>Deactive</option>
@@ -40,7 +40,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button type="submit" class="btn btn-success">UPDATE</button>
           </div>
       </form>
     </div>

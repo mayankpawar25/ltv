@@ -69,7 +69,7 @@ class SubcategoryController extends Controller
                   $rec[] = array(
                       $row->name,
                      ($row->status==0)?'<span class="badge badge-danger">Deactive</span>':'<span class="badge badge-success">Active</span>',
-                     '<button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit"> <span data-toggle="modal" data-target="#editModal'.$row->id.'"> <i class="fas fa-pencil-alt"></i> </span> </button>',
+                     '<button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit"> <span data-toggle="modal" data-target="#editModal'.$row->id.'"> <i class="icon-pencil icon"></i> </span> </button>',
                       
                       
                       /*a_links('Action',[

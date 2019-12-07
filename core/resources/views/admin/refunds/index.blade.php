@@ -3,9 +3,12 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h3 class="page-title uppercase bold">
+      
+     <div class="row">
+        <div class="col-md-12">
+        
+            <div class="main-content">
+            <h5 class="">
              @if (request()->path() == 'admin/refunds/all')
                All
              @elseif (request()->path() == 'admin/refunds/pending')
@@ -16,18 +19,15 @@
                Rejected
              @endif
              Requests
-           </h3>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-     </div>
-     <div class="row">
-        <div class="col-md-12">
-            <div class="tile">
+           </h5>
+           <hr />
               @if (count($refunds) == 0)
-                <h1 class="text-center"> NO DATA FOUND !</h1>
+               
+               <div class="text-center">
+                <img src="{{asset('assets/admin/images/no-data.jpg')}}" />
+                <h3 class="text-center"> NO DATA FOUND !</h3>
+                </div>
+                
               @else
                 <table class="table table-bordered" style="width:100%;">
                   <thead>

@@ -15,11 +15,11 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-12 mb-10">
-                     <strong>Option Name</strong>
+                     <label>Option Name</label>
                      <input type="text" value="{{$option->name}}" class="form-control" id="name" name="name" placeholder="Enter option name" >
                   </div>
                   <div class="col-md-12 mb-10">
-                    <strong>Status</strong>
+                    <label>Status</label>
                     <select class="form-control" name="status">
                       <option value="1" {{($option->status==1) ? 'selected' : ''}}>Active</option>
                       <option value="0" {{($option->status==0) ? 'selected' : ''}}>Deactive</option>
@@ -29,7 +29,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button type="submit" class="btn btn-success">UPDATE</button>
           </div>
       </form>
     </div>

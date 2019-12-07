@@ -14,11 +14,11 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-12 mb-10">
-                     <strong>Product Attribute Name</strong>
+                     <label>Product Attribute Name</label>
                      <input type="text" value="" class="form-control" id="name" name="name" placeholder="Enter product attribute name" >
                   </div>
                   <div class="col-md-12 mb-10">
-                    <strong>Status</strong>
+                    <label>Status</label>
                     <select class="form-control" name="status">
                       <option value="1">Active</option>
                       <option value="0">Deactive</option>
@@ -28,7 +28,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">ADD</button>
+            <button type="submit" class="btn btn-success">ADD</button>
           </div>
       </form>
     </div>

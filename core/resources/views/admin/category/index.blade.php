@@ -44,8 +44,8 @@ div#data_filter {
        
      </div>
           <hr>
-     <div class="row">
-        <div class="col-md-12">
+     <div class="">
+        <div class="">
          <!--   <div class="tile">
               <h3 class="tile-title float-left">Categories List</h3>
               <div class="float-right icon-btn">
@@ -71,7 +71,7 @@ div#data_filter {
                 @if (count($cats) == 0)
                   <h2 class="text-center">NO CATEGORY FOUND</h2>
                 @else
-                  <table class="table">
+                  <table class="table table-bordered">
                      <thead>
                         <tr>
                            <th scope="col">SL</th>
@@ -115,7 +115,7 @@ div#data_filter {
            </div>
         </div>
        --}}
-               <div class="col-md-12">
+               <div class="">
          @if (count($cats) == 0)
                  @else
                  

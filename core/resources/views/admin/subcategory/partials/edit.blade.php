@@ -17,11 +17,11 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-12 mb-10">
-                     <strong>Subcategory Name</strong>
+                     <label>Subcategory Name</label>
                      <input type="text" value="{{$subcat->name}}" class="form-control" id="name" name="name" placeholder="Enter subcategory name" >
                   </div>
                   <div class="col-md-12 mb-10">
-                    <strong>Status</strong>
+                    <label>Status</label>
                     <select class="form-control" name="status">
                       <option value="1" {{($subcat->status==1) ? 'selected' : ''}}>Active</option>
                       <option value="0" {{($subcat->status==0) ? 'selected' : ''}}>Deactive</option>
@@ -29,7 +29,7 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <strong>Attributes (Optional)</strong>
+                      <label>Attributes (Optional)</label>
                       <div class="">
                         @php
                           $attrarr = json_decode($subcat->attributes, true);
@@ -50,7 +50,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button type="submit" class="btn btn-success">UPDATE</button>
           </div>
       </form>
     </div>

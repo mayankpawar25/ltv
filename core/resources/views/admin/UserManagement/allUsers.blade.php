@@ -34,7 +34,7 @@
                 </form>
              </div>
              <div class="table-responsive">
-                <table class="table">
+                <table class="table table-bordered">
                    <thead>
                       <tr>
                          <th scope="col">Name</th>
@@ -53,8 +53,8 @@
                         <td data-label="Mobile">{{$user->phone}}</td>
                         <td  data-label="Details">
                            <a href="{{route('admin.userDetails', $user->id)}}"
-                              class="btn btn-outline-primary ">
-                           <i class="fa fa-eye"></i> View </a>
+                              class="btn btn-primary btn-sm" title="View">
+                           <i class="fa fa-eye"></i></a>
                         </td>
                      </tr>
                      @endforeach

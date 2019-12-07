@@ -31,8 +31,8 @@ div#data_filter {
             <h5 class="float-left">Subcategory Under <mark><strong class="text-capitalize">{{$category->name}}</strong></mark> Category</h5>
           </div>
           <div class="col-md-6">
-            <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#addModal">
-                   <i class="fa fa-plus"></i> Add Subcategory
+            <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#addModal">
+                    Add Subcategory
                  </button>
           </div>
      </div>

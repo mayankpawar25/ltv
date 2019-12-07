@@ -62,8 +62,8 @@ class ProductattrController extends Controller
                     anchor_link($row->name,route('admin.options.index', $row->id)),
                    ($row->status==0)?'<span class="badge badge-danger">Deactive</span>':'<span class="badge badge-success">Active</span>',
                    ' <a class="btn btn-primary btn-sm" href="'.route('admin.options.index', $row->id).'" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>',
-                   ' <button type="button" class="btn btn-warning btn-sm" data-toggle="tooltip" title="Add Option" > <span data-toggle="modal" data-target="#addSub'.$row->id.'"><i class="fa fa-plus" aria-hidden="true"></i></span></button>
-                                 <button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit" > <span data-toggle="modal" data-target="#editModal'.$row->id.'"><i class="fas fa-pencil-alt"></i> </span></button>',
+                   ' <button type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" title="Add Option" > <span data-toggle="modal" data-target="#addSub'.$row->id.'"><i class="fa fa-plus" aria-hidden="true"></i></span></button>
+                                 <button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit" > <span data-toggle="modal" data-target="#editModal'.$row->id.'"><i class="icon-pencil icon"></i> </span></button>',
                     
                     
                     /*a_links('Action',[

@@ -36,11 +36,11 @@ div#data_filter {
             <h5 class="float-left">Option Management - All Options of <mark><strong>{{$pa->name}}</strong></mark></h5>
           </div>
           <div class="col-md-6">
-            <a class="btn btn-warning float-right" href="{{route('admin.productattr.index')}}">
-                  <i class="fa fa-list"></i> All Product Attributes
+            <a class="btn btn-primary float-right" href="{{route('admin.productattr.index')}}">
+                   All Product Attributes
                 </a> &nbsp;
-                <a class="btn btn-primary float-right" data-toggle="modal" data-target="#addSub{{$pa->id}}">
-                  <i class="fa fa-plus"></i> Add Option
+                <a class="btn btn-primary float-right mr-2" data-toggle="modal" style="color:#fff;" data-target="#addSub{{$pa->id}}">
+                   Add Option
                 </a>
           </div>
      </div>
