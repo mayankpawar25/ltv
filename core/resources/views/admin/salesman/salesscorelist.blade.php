@@ -37,89 +37,87 @@ div#data_filter {
       <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
     </ul>-->
   </div>
-  <div class="row">
-    <div class="col-md-3">
-      <div class="tile">
-        <form action="{{ route('admin.salesman.addsalesscore') }}" method="post" accept-charset="utf-8" id="salesscores-register">
-          {{csrf_field()}}
-          <h3 class="tile-title pull-left">Add Sales Score<strong></strong></h3>
-          <p style="clear:both;margin:0px;"></p>
-          <div class="form-group">
-            <label>Order ID: </label>
-            <input type="text" name="unique_id" class="form-control" placeholder="Enter Order Id" value="" id="unique_id">
-            <div class=" {{ $errors->has('unique_id') ? ' has-error' : '' }}">
-              @if ($errors->has('unique_id'))
-              <p class="text-danger">
-                <span class="help-block"><strong>{{ $errors->first('unique_id') }}</strong></span>
-              </p>
-              @endif
-            </div>
-          </div>
-           <div class="form-group">
-            <label>Order Amount: </label>
-            <input type="text" name="order_amount" class="form-control" value="0.00" id="order_amount" disabled>
-            <div class=" {{ $errors->has('order_amount') ? ' has-error' : '' }}">
-              @if ($errors->has('order_amount'))
-              <p class="text-danger">
-                <span class="help-block"><strong>{{ $errors->first('order_amount') }}</strong></span>
-              </p>
-              @endif
-            </div>
-          </div>
-          <label>Select Salesman: </label>
-          <div class="form-group">
-              <select name="staff_user_id" id="salesman_select" class="salesman_select form-control select2"> </select>
-          
-          </div>
-         
-          <div class="form-group">
-            <label>Remarks: </label>
-             <textarea type="text" name="staff_user_remarks" placeholder="Enter Remarks" class="form-control" id="address_by_lat_long">{{ old('staff_user_remarks') }}</textarea>
-              @if($errors->has('staff_user_remarks'))
-              <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('staff_user_remarks') }}</strong></span></p>
-              @endif
-           </div>
-
-
-          <div class="form-group">
-            <button type="submit" class="btn btn-success">Save</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="col-md-9 tile">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3 class="tile-title">Sales Score Report</h3>
-          <div class="sellers-product-inner">
-            <form>
-              <div class="form-row">
-                @if(Auth::user()->is_administrator)
-                  <div class="form-group col-md-3">
-                  <label>@lang('form.sales_agent')</label>
-                      <?php echo form_dropdown('sales_agent_id', $data['sales_agent_id_list'] , [], "class='form-control four-boot' multiple='multiple'"); ?>
-                  </div>
+  <div class="tile">
+    <div class="row">
+      <div class="col-md-3 {{(check_perm('salesscores_create'))?'':'d-none'}}">
+        <div class="">
+          <form action="{{ route('admin.salesman.addsalesscore') }}" method="post" accept-charset="utf-8" id="salesscores-register">
+            {{csrf_field()}}
+            <h3 class="tile-title pull-left">Add Sales Score<strong></strong></h3>
+            <p style="clear:both;margin:0px;"></p>
+            <div class="form-group">
+              <label>Order ID: </label>
+              <input type="text" name="unique_id" class="form-control" placeholder="Enter Order Id" value="" id="unique_id">
+              <div class=" {{ $errors->has('unique_id') ? ' has-error' : '' }}">
+                @if ($errors->has('unique_id'))
+                <p class="text-danger">
+                  <span class="help-block"><strong>{{ $errors->first('unique_id') }}</strong></span>
+                </p>
                 @endif
-                <div class="form-group col-md-3">
-                  <label for="name">@lang('form.date_range')</label>
-                  <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >                  
-                </div>
               </div>
-            </form>
-            <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
-                <thead>
-                    <tr>
-                        <th>#@lang("form.unique_id")</th>
-                        <th>@lang("form.customer")</th>
-                        <th>@lang("form.staff")</th>
-                        <th>@lang("form.remarks")</th>
-                        <th>@lang("form.sub_total")</th>
-                        <th>@lang("form.total")</th>
-                        <th>@lang("form.date")</th>
-                    </tr>
-                </thead>
-            </table>
-          </div>
+            </div>
+             <div class="form-group">
+              <label>Order Amount: </label>
+              <input type="text" name="order_amount" class="form-control" value="0.00" id="order_amount" disabled>
+              <div class=" {{ $errors->has('order_amount') ? ' has-error' : '' }}">
+                @if ($errors->has('order_amount'))
+                <p class="text-danger">
+                  <span class="help-block"><strong>{{ $errors->first('order_amount') }}</strong></span>
+                </p>
+                @endif
+              </div>
+            </div>
+            <label>Select Salesman: </label>
+            <div class="form-group">
+                <select name="staff_user_id" id="salesman_select" class="salesman_select form-control select2"> </select>
+            
+            </div>
+           
+            <div class="form-group">
+              <label>Remarks: </label>
+               <textarea type="text" name="staff_user_remarks" placeholder="Enter Remarks" class="form-control" id="address_by_lat_long">{{ old('staff_user_remarks') }}</textarea>
+                @if($errors->has('staff_user_remarks'))
+                <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('staff_user_remarks') }}</strong></span></p>
+                @endif
+             </div>
+
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-success">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-{{(check_perm('salesscores_create'))?'9':'12'}}">
+        <h3 class="tile-title">Sales Score Report</h3>
+        <div class="sellers-product-inner">
+          <form>
+            <div class="form-row">
+              @if(Auth::user()->is_administrator)
+                <div class="form-group col-md-3">
+                <label>@lang('form.sales_agent')</label>
+                    <?php echo form_dropdown('sales_agent_id', $data['sales_agent_id_list'] , [], "class='form-control four-boot' multiple='multiple'"); ?>
+                </div>
+              @endif
+              <div class="form-group col-md-3">
+                <label for="name">@lang('form.date_range')</label>
+                <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >                  
+              </div>
+            </div>
+          </form>
+          <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+              <thead>
+                  <tr>
+                      <th>#@lang("form.unique_id")</th>
+                      <th>@lang("form.customer")</th>
+                      <th>@lang("form.staff")</th>
+                      <th>@lang("form.remarks")</th>
+                      <th>@lang("form.sub_total")</th>
+                      <th>@lang("form.total")</th>
+                      <th>@lang("form.date")</th>
+                  </tr>
+              </thead>
+          </table>
         </div>
       </div>
     </div>
