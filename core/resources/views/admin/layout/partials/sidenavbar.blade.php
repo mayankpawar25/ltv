@@ -19,8 +19,10 @@
         is-expanded
       @elseif (request()->path() == 'admin/category/index')
         is-expanded
-      @elseif (request()->path() == 'admin/subcategory/*')
-        is-expanded
+      @elseif (request()->is('admin/subcategory/*'))
+      is-expanded
+      @elseif (request()->is('admin/options/*'))
+      is-expanded
       @elseif (request()->path() == 'admin/productattr/index')
         is-expanded
       @elseif (request()->path() == 'admin/coupon/index')
@@ -42,8 +44,7 @@
          @if(is_menu_enable('products'))
         <li><a class="treeview-item
           @if(request()->path() == 'admin/product/index') active
-          @elseif (request()->is('admin/options/*/index')) active
-          @elseif (request()->is('admin/product/*')) active
+           @elseif (request()->is('admin/product/*')) active
           @elseif (request()->is('admin/product/create')) active
           @elseif (request()->is('admin/product/import_page')) active
           @endif" href="{{route('admin.product.index')}}"><span class="app-menu__label">Products </span></a></li>
