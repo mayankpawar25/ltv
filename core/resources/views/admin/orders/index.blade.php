@@ -2,6 +2,28 @@
 
 
 @section('content')
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+#data tr td:last-child {
+  text-align: right;
+}
+</style>
   <main class="app-content">
      <!--<div class="app-title">
         <div>
@@ -38,36 +60,36 @@
             <div class="main-content">
             <h5 class="">
              @if (request()->path() == 'admin/orders/all')
-               All
+                All
              @elseif (request()->path() == 'admin/orders/confirmation/pending')
-                 Pending
+                Pending
              @elseif (request()->path() == 'admin/orders/confirmation/accepted')
-                 Accepted
+                Accepted
              @elseif (request()->path() == 'admin/orders/confirmation/rejected')
-                 Rejected
+                Rejected
              @elseif (request()->path() == 'admin/orders/delivery/pending')
-                 Delivery Pending
+                Delivery Pending
              @elseif (request()->path() == 'admin/orders/delivery/inprocess')
-                 Delivery Inprocess
+                Delivery Inprocess
              @elseif (request()->path() == 'admin/orders/delivered')
-                 Delivered
+                Delivered
              @elseif (request()->path() == 'admin/orders/cashondelivery')
-                 Cash on Delivery
+                Cash on Delivery
              @elseif (request()->path() == 'admin/orders/advance')
-                 Advance Paid
+                Advance Paid
              @endif
-             Orders
+                Orders
            </h5>
            <hr />
-              
+              @if(isset($orders))
               @if (count($orders) == 0)
-                <div class="text-center">
+                <div class="text-center d-none">
                 <img src="{{asset('assets/admin/images/no-data.jpg')}}" />
                 
                  <h3>NO ORDER FOUND !</h3>
                  </div>
               @else
-              <div class="row mb-4">
+              <div class="row mb-4  d-none">
                 <div class="col-md-3 offset-md-9">
                   <form method="get"
                   action="
@@ -96,7 +118,123 @@
                   </form>
                 </div>
               </div>
-                <table class="table table-bordered" style="width:100%;">
+              <table class="table table-bordered d-none" style="width:100%;">
+                <thead>
+                  <tr>
+                      <th>Order id</th>
+                      <th>Order Date</th>
+                      <th>Dealer Name</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Total</th>
+                      <th>Shipping Status</th>
+                      <th>Payment Method</th>
+                      <th>Payment Status</th>
+                      <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($orders as $key => $order)
+                    <tr>
+                        <td class="padding-top-40">{{$order->unique_id}}</td>
+                        <td class="padding-top-40">{{date('jS F, o', strtotime($order->created_at))}}</td>
+                        <td class="padding-top-40">{{$order->first_name . ' ' . $order->last_name}}</td>
+                        <td class="padding-top-40">{{$order->phone}}</td>
+                        <td class="padding-top-40">{{$order->email}}</td>
+                        <td class="padding-top-40">{{$gs->base_curr_symbol}} {{$order->total}}</td>
+                        <td class="padding-top-40">
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="shipping{{$order->id}}" id="inlineRadio{{$order->id}}1" value="0" onchange="shippingChange(event, this.value, {{$order->id}})" {{$order->shipping_status==0?'checked':''}} disabled>
+                            <label class="form-check-label" for="inlineRadio{{$order->id}}1">Pending</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="shipping{{$order->id}}" id="inlineRadio{{$order->id}}2" value="1" onchange="shippingChange(event, this.value, {{$order->id}})" {{$order->shipping_status==1?'checked':''}} {{$order->shipping_status==1 || $order->shipping_status==2?'disabled':''}}>
+                            <label class="form-check-label" for="inlineRadio{{$order->id}}2">Ready to dispatch</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="shipping{{$order->id}}" id="inlineRadio{{$order->id}}3" value="2" onchange="shippingChange(event, this.value, {{$order->id}})" {{$order->shipping_status==2?'checked':''}} {{$order->shipping_status==2?'disabled':''}}>
+                            <label class="form-check-label" for="inlineRadio{{$order->id}}3">Delivered</label>
+                          </div>
+                        </td>
+                        <td class="padding-top-40">
+                          @if ($order->payment_method == 2)
+                            Advance
+                          @elseif ($order->payment_method == 1)
+                            Cash on delivery
+                          @endif
+                        </td>
+                        
+                        <td>
+                          @if ($order->payment_status == 0)
+                            <span class="badge badge-danger paidstatus" data-orderid="{{ $order->id }}" data-status="1">Unpaid</span>
+                          @elseif ($order->payment_status == 1)
+                            <span class="badge badge-success paidstatus"  data-orderid="{{ $order->id }}" data-status="0">Paid</span>
+                          @endif
+                        </td>
+                        
+                        <td class="padding-top-40">
+                            <a href="{{route('admin.orderdetails', $order->id)}}" target="_blank" title="View Order"><i class="text-primary fa fa-eye"></i></a>
+                            @if ($order->approve == 0)
+                              <span>
+                                <a href="#" onclick="cancelOrder(event, {{$order->id}})" title="Reject Order">
+                                  <i class="fa fa-times text-danger"></i>
+                                </a>
+                                <a href="#" onclick="acceptOrder(event, {{$order->id}})" title="Accept Order">
+                                  <i class="fa fa-check text-success"></i>
+                                </a>
+                              </span>
+                            @elseif ($order->approve == 1)
+                              <span class="badge badge-success">Accepted</span>
+                            @elseif ($order->approve == -1)
+                              <span class="badge badge-danger">Rejected</span>
+                            @endif
+
+                        </td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+              @endif
+              @endif
+
+              <div class="form-row">
+                <div class="form-group col-md-2">
+                   <label>@lang('form.team_member')</label>
+                   <?php
+                      echo form_dropdown('assigned_to', $data['assigned_to_list'] , '' , "class='form-control four-boot' multiple='multiple' ");
+                      ?>
+                </div>
+                <div class="form-group col-md-2">
+                   <label>@lang('form.status')</label>
+                   <?php
+                      echo form_dropdown('status_id', $data['order_status'] , '' , "class='form-control four-boot' multiple='multiple' ");
+                      ?>
+                </div>
+                <div class="form-group col-md-2">
+                   <label>@lang('form.delivery_status')</label>
+                   <?php
+                      echo form_dropdown('delivery_status', $data['delivery_status'] , '' , "class='form-control four-boot' multiple='multiple' ");
+                      ?>
+                </div>
+                <div class="form-group col-md-2">
+                   <label>@lang('form.payment_method')</label>
+                   <?php
+                      echo form_dropdown('payment_method', $data['payment_method'] , '' , "class='form-control four-boot' multiple='multiple' ");
+                      ?>
+                </div>
+                <div class="form-group col-md-2">
+                   <label>@lang('form.payment_status')</label>
+                   <?php
+                      echo form_dropdown('payment_status', $data['payment_status'] , '' , "class='form-control four-boot' multiple='multiple' ");
+                      ?>
+                </div>
+                <div class="form-group col-md-2 d-none">
+                  <label for="name">@lang('form.date_range')</label>
+                  <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >                  
+                </div>
+              </div>
+
+                <table class="table table-bordered" style="width:100%;" id="data">
                   <thead>
                     <tr>
                         <th>Order id</th>
@@ -104,6 +242,7 @@
                         <th>Dealer Name</th>
                         <th>Phone</th>
                         <th>Email</th>
+                        <th>Sub-Total</th>
                         <th>Total</th>
                         <th>Shipping Status</th>
                         <th>Payment Method</th>
@@ -111,78 +250,7 @@
                         <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    @foreach ($orders as $key => $order)
-                      <tr>
-                          <td class="padding-top-40">{{$order->unique_id}}</td>
-                          <td class="padding-top-40">{{date('jS F, o', strtotime($order->created_at))}}</td>
-                          <td class="padding-top-40">{{$order->first_name . ' ' . $order->last_name}}</td>
-                          <td class="padding-top-40">{{$order->phone}}</td>
-                          <td class="padding-top-40">{{$order->email}}</td>
-                          <td class="padding-top-40">{{$gs->base_curr_symbol}} {{$order->total}}</td>
-                          <td class="padding-top-40">
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="shipping{{$order->id}}" id="inlineRadio{{$order->id}}1" value="0" onchange="shippingChange(event, this.value, {{$order->id}})" {{$order->shipping_status==0?'checked':''}} disabled>
-                              <label class="form-check-label" for="inlineRadio{{$order->id}}1">Pending</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="shipping{{$order->id}}" id="inlineRadio{{$order->id}}2" value="1" onchange="shippingChange(event, this.value, {{$order->id}})" {{$order->shipping_status==1?'checked':''}} {{$order->shipping_status==1 || $order->shipping_status==2?'disabled':''}}>
-                              <label class="form-check-label" for="inlineRadio{{$order->id}}2">Ready to dispatch</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="shipping{{$order->id}}" id="inlineRadio{{$order->id}}3" value="2" onchange="shippingChange(event, this.value, {{$order->id}})" {{$order->shipping_status==2?'checked':''}} {{$order->shipping_status==2?'disabled':''}}>
-                              <label class="form-check-label" for="inlineRadio{{$order->id}}3">Delivered</label>
-                            </div>
-                          </td>
-                          <td class="padding-top-40">
-                            @if ($order->payment_method == 2)
-                              Advance
-                            @elseif ($order->payment_method == 1)
-                              Cash on delivery
-                            @endif
-                          </td>
-                          
-                          <td>
-                            @if ($order->payment_status == 0)
-                              <span class="badge badge-danger paidstatus" data-orderid="{{ $order->id }}" data-status="1">Unpaid</span>
-                            @elseif ($order->payment_status == 1)
-                              <span class="badge badge-success paidstatus"  data-orderid="{{ $order->id }}" data-status="0">Paid</span>
-                            @endif
-                          </td>
-                          
-                          <td class="padding-top-40">
-                              <a href="{{route('admin.orderdetails', $order->id)}}" target="_blank" title="View Order"><i class="text-primary fa fa-eye"></i></a>
-                              @if ($order->approve == 0)
-                                <span>
-                                  <a href="#" onclick="cancelOrder(event, {{$order->id}})" title="Reject Order">
-                                    <i class="fa fa-times text-danger"></i>
-                                  </a>
-                                  <a href="#" onclick="acceptOrder(event, {{$order->id}})" title="Accept Order">
-                                    <i class="fa fa-check text-success"></i>
-                                  </a>
-                                </span>
-                              @elseif ($order->approve == 1)
-                                <span class="badge badge-success">Accepted</span>
-                              @elseif ($order->approve == -1)
-                                <span class="badge badge-danger">Rejected</span>
-                              @endif
-
-                          </td>
-                      </tr>
-                    @endforeach
-                  </tbody>
                 </table>
-              @endif
-
-               <!-- print pagination -->
-               <div class="row">
-                 <div class="col-md-12">
-                   <div class="text-center">
-                      {{$orders->appends(['term' => $term])->links()}}
-                   </div>
-                 </div>
-               </div>
-               <!-- row -->
         </div>
      </div>
    </div>
@@ -373,5 +441,102 @@
         }
       });
     });
+
+    $(function () {
+
+      dataTable = $('#data').DataTable({
+
+          dom: 'lfBfrtip',
+          /*buttons: [
+
+              {
+                  init: function(api, node, config) {
+                      $(node).removeClass('btn-secondary')
+                  },
+                  className: "btn-light btn-sm",
+                  extend: 'collection',
+                  text: 'Export',
+                  buttons: [
+                      'copy',
+                      'excel',
+                      'csv',
+                      'pdf',
+                      'print'
+                  ]
+              }
+          ],*/
+          buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
+                  ],
+          "language": {
+              "lengthMenu": '_MENU_ ',
+              "search": '',
+              "searchPlaceholder": "{{ __('form.search') }}",
+              /*"paginate": {
+                  "previous": '<i class="fa fa-angle-left"></i>',
+                  "next": '<i class="fa fa-angle-right"></i>'
+              }*/
+          },
+          pageResize: true,
+          responsive: true,
+          processing: true,
+          serverSide: true,
+          // iDisplayLength: 5,
+          pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
+          ordering: false,
+          "columnDefs": [
+              { className: "text-right", "targets": [10] }
+          ],
+          "ajax": {
+              "url": '{!! route("orders_paginate") !!}',
+              "type": "POST",
+              'headers': {
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}'
+              },
+              "data":function(d){
+                  d.status_id       = $("select[name=status_id]").val();
+                  d.delivery_status = $('select[name=delivery_status]').val();
+                  d.payment_method  = $('select[name=payment_method]').val();
+                  d.payment_status  = $('select[name=payment_status]').val();
+                  d.assigned_to     = $('select[name=assigned_to]').val();
+                  // d.date_range      = $("#reportrange").val();
+              }
+          }
+      }).
+      on('mouseover', 'tr', function() {
+          jQuery(this).find('div.row-options').show();
+      }).
+      on('mouseout', 'tr', function() {
+          jQuery(this).find('div.row-options').hide();
+      });
+
+      $('select').change(function(){
+        dataTable.draw();
+      });
+
+      $("#reportrange").on("change paste keyup", function() {
+          dataTable.draw();
+      });
+
+      $('.dataTables_info').append('<div class="clearfix"></div>');
+
+  });
+
   </script>
 @endpush

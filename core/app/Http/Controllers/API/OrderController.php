@@ -327,7 +327,7 @@ class OrderController extends Controller
 	public function orderCancel(Request $request){
 		$order = Order::find($request->order_id);
 		if(!empty($order)){
-			$order->approve = '-1';
+			$order->approve = '2';
 			$order->save();
 
 			$user = Shopkeeper::find(Auth::id());

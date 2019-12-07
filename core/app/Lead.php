@@ -70,8 +70,6 @@ class Lead extends Model {
         $data['lead_source_id_list'] = LeadSource::orderBy('name','ASC')->pluck('name', 'id')->toArray();
         $data['assigned_to_list']    = array('' => __('form.all')) + array('unassigned' => __('form.not_assigned')) +  self::sales_agent_dropdown();
         // $data['assigned_to_list']    = User::get();
-
-
         $data['additional_filter_list'] = [
             ''                      => __('form.none'),
             'important'             => __('form.important'), 
@@ -79,11 +77,8 @@ class Lead extends Model {
             'junk'                  => __('form.junk'), 
             'contacted_today'       => __('form.contacted_today'),
             'created_today'         => __('form.created_today'),
-
         ];
-
         return $data;
-
     }
 
     static function dropdown($required = NULL)

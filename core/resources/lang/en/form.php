@@ -1310,7 +1310,24 @@ return [
     'order_received' => 'New Order Received. Order ID : %s ',
     'order_placed' => 'Your order has been placed successfully. Order ID: %s ',
     'remarks' => 'Remarks',
-    'unique_id' => 'Unique Id'
+    'unique_id' => 'Unique Id',
+        
+    'pending' => 'Pending',
+    'accepted' => 'Accepted',
+    'rejected' => 'Rejected',
+
+    'delivery_pending' => 'Pending',
+    'delivery_inprocess' => 'Ready to Dispatch',
+    'delivered' => 'Delivered',
+
+    'cash_on_delivery' => 'Cash On Delivery',
+    'advance_paid' => 'Advance Paid',
+
+    'delivery_status' => 'Shipping Status',
+    'payment_status' => 'Payment Status',
+
+    // 'payment_method' => 'Payment Status',
+
     /* Author : 225 */
 
 

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\Input;
+
 use App\Http\Controllers\Controller;
+
 use App\GeneralSetting as GS;
 use App\Order;
 use App\Orderedproduct;
@@ -11,9 +15,258 @@ use App\Product;
 use App\Vendor;
 use Carbon\Carbon;
 use App\Transaction;
+use App\Currency;
+use App\Shopkeeper;
+use App\Models\StaffUser;
+use App\User;
+use Auth;
 
 class OrderController extends Controller
-{
+{ 
+
+  public function index(){
+    // 'approve', 0 : Pending Orders
+    // 'approve', 1 : Accepted Orders
+    // 'approve', -1: Rejected Orders
+
+    // 'shipping_status', 0 : Delivery Pending
+    // 'shipping_status', 1 : Delivery Inprocess
+    // 'shipping_status', 2 : Delivered
+
+    // 'payment_method', 1 : COD
+    // 'payment_method', 2 : Online
+
+    $data = Order::dropdown_for_filtering();    
+    return view('admin.orders.index',compact('data'));
+  }
+
+  public function paginate(Request $request){
+
+    $status_id = Input::get('status_id');
+    $delivery_status = Input::get('delivery_status');
+    $payment_method = Input::get('payment_method');
+    $payment_status = Input::get('payment_status');
+    $assigned_to    = Input::get('assigned_to');
+
+    $query_key          = Input::get('search');
+    $search_key         = $query_key['value'];
+    $date_range         = Input::get('date_range');
+    $currency_id        = Input::get('currency_id');
+
+    $q = Order::orderBy('id','DESC');
+    $query = Order::orderBy('id','DESC');
+
+    $date_from          = "";
+    $date_to            = "";
+
+    if($date_range)
+    {
+      list($date_from, $date_to)  = explode("-", $date_range);
+      $date_from                  = str_replace('/', '-', trim($date_from) );
+      $date_to                    = str_replace('/', '-', trim($date_to));
+      $date_from                  = date2sql(trim($date_from));
+      $date_to                    = date2sql(trim($date_to));
+    }
+
+    if($status_id){
+      // approve
+      $q->whereIn('approve', $status_id);
+      $query->whereIn('approve', $status_id);
+
+    }
+
+    if($delivery_status){
+      // shipping_status
+      $q->whereIn('shipping_status', $delivery_status);
+      $query->whereIn('shipping_status', $delivery_status);
+    }
+
+    if($payment_method){
+      // payment_method
+      $q->whereIn('payment_method', $payment_method);
+      $query->whereIn('payment_method', $payment_method);
+    }
+
+    if($payment_status){
+      // payment_status
+      $q->whereIn('payment_status', $payment_status);
+      $query->whereIn('payment_status', $payment_status);
+    }
+
+    if($assigned_to){
+        $q->whereIn('staff_user_id', $assigned_to);
+        $query->whereIn('staff_user_id', $assigned_to);
+    }
+
+    if(!auth::user()->is_administrator){
+        $q->where('staff_user_id', auth::user()->id);
+        $query->where('staff_user_id', auth::user()->id);
+    }
+
+    // $q->whereNotNull('staff_user_id');
+    // $query->whereNotNull('staff_user_id');
+
+    if($date_from && $date_to)
+    {
+        $q->whereBetween('created_at', [$date_from, $date_to ]);
+        $query->whereBetween('created_at', [$date_from, $date_to ]);
+    }
+
+    $number_of_records  = $q->get()->count();
+
+    if ($search_key)
+    {
+        $query->orwhere('unique_id', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere('phone', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere('email', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere('total', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere('subtotal', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere('created_at', 'like', like_search_wildcard_gen(date2sql($search_key)))
+            ->orWhere('first_name', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere('last_name', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere(DB::raw('CONCAT(first_name," ",last_name)'), 'like', like_search_wildcard_gen($search_key));
+            /*->orWhereHas('user', function ($q) use ($search_key) {
+                $q->where('users.name', 'like', $search_key . '%');
+            });*/
+           
+        //     ->orWhereHas('status', function ($q) use ($search_key) {
+        //         $q->where('name', 'like', $search_key . '%');
+        //     });
+    }
+
+    $recordsFiltered = $query->get()->count();
+    $query->skip(Input::get('start'))->take(Input::get('length'));
+    $data = $query->get();
+
+    $rec = [];
+
+    if (count($data) > 0){   
+      $subtotal           = 0;
+      $total              = 0;
+      $tax_total          = 0;
+      $discount_total     = 0;
+      $adjustment         = 0;
+      $applied_credits    = 0;
+      $open_amount        = 0;
+
+      $currency                   = Currency::find($currency_id);
+      $currency_symbol            = ($currency) ? $currency->symbol : NULL ;
+
+      foreach ($data as $key => $row){
+          $name = '-';
+          /*if($row->user_type == 1){
+              // $name = $row->user_id;
+              $shopkeeper = Shopkeeper::find($row->user_id);
+              $name = $shopkeeper->name;
+              $email = $shopkeeper->email;
+              $phone = $shopkeeper->phone;
+          }else if($row->user_type == 2){
+              $customer = User::find($row->user_id);
+              $name = $customer->name;
+              $email = $customer->email;
+              $phone = $customer->phone;
+          }*/
+          $order_accept_btn = '';
+          if($row->approve == 0){
+            $order_accept_btn = '<a href="#" class="btn btn-sm btn-danger" onclick="cancelOrder(event, '.$row->id.')" title="Reject Order"><i class="fa fa-times"></i></a>';
+
+            $order_accept_btn .= '<a href="#" class="btn btn-sm btn-success" onclick="acceptOrder(event, '.$row->id.')" title="Accept Order"><i class="fa fa-check"></i></a>';
+          }
+
+          if($row->approve == 1){
+            $order_accept_btn = '<span class="badge badge-success">Accepted</span>';
+          }
+
+          if($row->approve == -1){
+            $order_accept_btn = '<span class="badge badge-danger">Rejected</span>';
+          }
+          
+          $checked1 = ($row->shipping_status==0)?"checked":"";
+          $shipping_status = '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'1" value="0" '.$checked1.' onchange="shippingChange(event, this.value, '.$row->id.')">Pending</label>';
+        
+          $checked2 = ($row->shipping_status==1)?"checked":"";
+          $shipping_status .= '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'2" value="1" '.$checked2.' onchange="shippingChange(event, this.value, '.$row->id.')">Ready to dispatch</label>';
+
+          $checked3 = ($row->shipping_status==2)?"checked":"";
+          $shipping_status .= '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'3" value="2" '.$checked3.' onchange="shippingChange(event, this.value, '.$row->id.')">Delivered</label>';
+
+          $rec[] = array(        
+
+              $row->unique_id,
+              date('d-m-Y',strtotime($row->created_at)),
+              $row->first_name.' '.$row->last_name,
+              $row->phone,
+              $row->email,
+              format_currency($row->subtotal, true , $currency_symbol),
+              format_currency($row->total, true , $currency_symbol),
+              $shipping_status,
+              ($row->payment_method == 2)?'<span class="badge badge-warning">Advance</span>':'<span class="badge badge-warning">COD</span>',
+              ($row->payment_status == 0)?'<span class="badge badge-danger paidstatus" data-orderid="'.$row->id.'" data-status="1">Unpaid</span>':'<span class="badge badge-success paidstatus"  data-orderid="'.$row->id.'" data-status="0">Paid</span>',
+              anchor_link('<span class="icon-eye icon"></span>',route('admin.orderdetails', $row->id)).$order_accept_btn,
+
+              // $row->unique_id,
+              // $name,
+              // ($row->staff_user_id!='')?StaffUser::select(DB::raw('CONCAT(first_name," ",last_name) as name'))->find($row->staff_user_id)->name:'',
+              // $row->staff_user_remarks,
+              // format_currency($row->subtotal,true,$currency_symbol),
+              // format_currency($row->total,true,$currency_symbol),
+              // date('d-m-Y',strtotime($row->created_at)),
+              // anchor_link( $row->number, route('show_invoice_page', $row->id)),
+              /*anchor_link($row->related_to->first_name .' '. $row->related_to->last_name, route('view_customer_page', $row->customer_id )),*/
+              // ($row->related_to->name)?$row->related_to->name:$row->related_to->first_name.' '.$row->related_to->last_name,
+              // isset(($row->date)) ? sql2date($row->date) : "",
+              // isset(($row->due_date)) ? sql2date($row->due_date) : "",
+              // format_currency($row->total, true, $currency_symbol  ),
+              // format_currency($row->tax_total, true , $currency_symbol ),                    
+              // format_currency($row->discount_total, true , $currency_symbol ),                
+              // format_currency($row->adjustment, true , $currency_symbol ),    
+              // format_currency($row->applied_credits, true , $currency_symbol ), 
+              // format_currency($row->total - ($row->amount_paid + $row->applied_credits), true , $currency_symbol  ), 
+              // $row->status->name,
+
+          );
+
+          $subtotal           += $row->subtotal;
+          $total              += $row->total;
+          // $tax_total          += ($row->tax!=null)?$row->tax:0.00;
+          // $discount_total     += $row->discount_total;
+          // $adjustment         += $row->adjustment;
+          // $applied_credits    += $row->applied_credits;
+          // $open_amount        += $row->total - ($row->amount_paid + $row->applied_credits);
+      }
+
+      array_push($rec, [
+
+          '<b>'. __('form.total_per_page'). '<b>',
+          "",
+          "",
+          "",
+          "",
+          '<b>'. format_currency($subtotal, true , $currency_symbol  ). '<b>',
+          '<b>'. format_currency($total, true , $currency_symbol  ). '<b>',
+          "",
+          "",
+          "",
+          "",
+          // '<b>'.format_currency($tax_total, true , $currency_symbol ) . '<b>',                    
+          // '<b>'.format_currency($discount_total, true , $currency_symbol ) . '<b>',                
+          // '<b>'.format_currency($adjustment, true , $currency_symbol ). '<b>',    
+          // '<b>'.format_currency($applied_credits, true , $currency_symbol ). '<b>', 
+          // '<b>'.format_currency($open_amount, true , $currency_symbol ). '<b>',
+          '',
+      ]);
+    }
+
+
+    $output = array(
+        "draw" => intval(Input::get('draw')),
+        "recordsTotal" => $number_of_records,
+        "recordsFiltered" => $recordsFiltered,
+        "data" => $rec
+    );
+    return response()->json($output);
+  }
+
   public function all(Request $request,$shopkeeper_id="") {
     if(empty($request->term)){
       $data['term'] = '';
@@ -146,10 +399,11 @@ class OrderController extends Controller
       if ($order->shipping_method == 'in') {
         // sending mails to vendor
         foreach ($order->orderedproducts as $key => $op) {
-          if (!in_array($op->vendor->id, $sentVendors)) {
-            $sentVendors[] = $op->vendor->id;
+          // if (!in_array($op->vendor->id, $sentVendors)) {
+          
+          /*  $sentVendors[] = $op->vendor->id;
             send_email($op->vendor->email, $op->vendor->shop_name, 'Product delivery is in process', "Thanks for sending your products. We will send these products to customer via courier within ".$gs->in_min." to ".$gs->in_max." days.<p><strong>Order number: </strong>".$order->unique_id."</p> <p><strong>Order details: </strong><a href='".url('/')."/vendor"."/".$order->id."/orderdetails'>".url('/')."/vendor"."/".$order->id."/orderdetails"."</a></p>");
-          }
+          }*/
         }
         // sending mail to user
         send_email($order->user->email, $order->user->first_name, 'Product delivery is in process', "Your product delivery is in process. We have collected products from vendors and will send to you via courier within ".$gs->in_min." to ".$gs->in_max." days.<p><strong>Order Number: </strong>$order->unique_id</p><p><strong>Order details: </strong><a href='".url('/')."/".$order->id."/orderdetails'>".url('/')."/".$order->id."/orderdetails"."</a></p>");
