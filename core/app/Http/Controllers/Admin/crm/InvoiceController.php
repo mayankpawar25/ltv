@@ -1345,7 +1345,7 @@ class InvoiceController extends Controller
                        
                     anchor_link( $row->number, route('show_invoice_page', $row->id)),
                     /*anchor_link($row->related_to->first_name .' '. $row->related_to->last_name, route('view_customer_page', $row->customer_id )),*/
-                    $row->related_to->first_name .' '. $row->related_to->last_name,
+                    ($row->related_to->name)?$row->related_to->name:$row->related_to->first_name.' '.$row->related_to->last_name,
                     isset(($row->date)) ? sql2date($row->date) : "",
                     isset(($row->due_date)) ? sql2date($row->due_date) : "",
                     format_currency($row->total, true, $currency_symbol  ),

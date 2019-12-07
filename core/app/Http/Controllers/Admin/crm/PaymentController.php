@@ -639,8 +639,7 @@ class PaymentController extends Controller
             $currency_symbol            = (isset($currency->symbol)) ? $currency->symbol : NULL ;
 
             foreach ($data as $key => $row)
-            {
-
+            {                    
                 $rec[] = array(
                     a_links(anchor_link($row->number, route('edit_payment_page', $row->id )), [
                         ['action_link' => route('edit_payment_page', $row->id), 'action_text' => __('form.view'), 'action_class' => ''],
@@ -649,7 +648,7 @@ class PaymentController extends Controller
                     anchor_link($row->invoice->number, route('invoice_link', $row->invoice_id)),
                     $row->payment_mode->name,
                     $row->transaction_id,
-                    anchor_link($row->invoice->customer->name, route('view_customer_page', $row->invoice->customer->id)),
+                    anchor_link($row->invoice->related_to->name, route('view_customer_page', $row->invoice->related_to->id)),
                     format_currency($row->amount, TRUE, $currency_symbol ),
                     sql2date($row->date),
 
