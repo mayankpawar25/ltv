@@ -844,7 +844,7 @@ class ProposalController extends Controller
         'proposal_subtotal'     => format_currency($rec->sub_total, true),
         'proposal_open_till'    => sql2date($rec->open_till),
         
-        'proposal_proposal_to'  => $rec->related_to->name,
+        'proposal_proposal_to'  => (isset($rec->related_to->name)) ? $rec->related_to->name : $rec->related_to->first_name.''.$rec->related_to->last_name,
         'proposal_address'      => (isset($rec->related_to->address) && $rec->related_to->address) ? nl2br($rec->related_to->address) : '',
         'proposal_city'         => (isset($rec->related_to->city) && $rec->related_to->city) ? $rec->related_to->city : '',
         'proposal_state'        => (isset($rec->related_to->state) && $rec->related_to->state) ? $rec->related_to->state : '',

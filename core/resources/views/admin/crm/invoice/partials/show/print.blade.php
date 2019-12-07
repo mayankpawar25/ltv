@@ -9,7 +9,7 @@
          <div style="font-size: 12px;">
             <div style="font-weight: bold; ">@lang('form.bill_to'):</div>
             <address style="line-height: 18px;"> 
-               {{ $rec->customer->name }}                     
+               {{  (isset($rec->related_to->name)) ? $rec->related_to->name : $rec->related_to->first_name.''.$rec->related_to->last_name }}
                <br> <?php echo nl2br($rec->address); ?>                
                <br> <?php echo $rec->city; ?>
                <br> <?php echo $rec->state ; ?>
@@ -21,7 +21,7 @@
          </div>
       </div>
       <div class="col-md-6 text-right">
-         <h1 style="margin-bottom: 0; color: #007bff; font-size: 26px;">{{  strtoupper(__('form.invoice')) }}</h1>
+         <h4 style="margin-bottom: 0; color: #007bff; font-size: 26px;">{{  strtoupper(__('form.invoice')) }}</h4>
          <div>{{ $rec->number }}</div>
          <div>{{ $rec->status->name }}</div>
          <br>

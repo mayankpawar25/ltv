@@ -155,7 +155,7 @@ class Proposal extends Model {
         }
         elseif ($this->component_id == COMPONENT_TYPE_CUSTOMER)
         {
-            return $this->belongsTo(User::class,'component_number','id')->withTrashed();
+            return $this->belongsTo(Models\StaffUser::class,'component_number','id')->withTrashed();
         }
         elseif ($this->component_id == COMPONENT_TYPE_SHOPKEEPER)
         {

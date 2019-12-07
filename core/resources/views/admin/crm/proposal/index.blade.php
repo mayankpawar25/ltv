@@ -1,236 +1,237 @@
 @extends('admin.layout.master')
-
 @section('title', __('form.proposals'))
-
 @section('content')
 
 <div class="app-content">
-    <div class="">
-        <div class="tile-body">
-            <div id="proposal" v-cloak>
+    <div class="main-content">
+<div id="proposal" v-cloak>
 
-                <!-- Modal -->
-                <div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{ sprintf(__('form.send___to_email'), __('form.proposal')) }}</h5>        
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+        <!-- Modal -->
+<div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ sprintf(__('form.send___to_email'), __('form.proposal')) }}</h5>        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <small id="emailHelp" class="form-text text-muted">Will be sent to the primary contact of the customer</small>
+        
+            <form method="post" action="{{ route( 'proposal_send_to_email') }}">
+                {{ csrf_field()  }}
+                <input type="hidden" name="proposal_id" id="proposal_id" value="">
+              <div class="form-group">
+                <label>@lang('form.cc')</label>
+                <input type="email" class="form-control" name="email_cc">                
               </div>
-              <div class="modal-body">
-                <small id="emailHelp" class="form-text text-muted">Will be sent to the primary contact of the customer</small>
-                
-                    <form method="post" action="{{ route( 'proposal_send_to_email') }}">
-                        {{ csrf_field()  }}
-                        <input type="hidden" name="proposal_id" id="proposal_id" value="">
-                      <div class="form-group">
-                        <label>@lang('form.cc')</label>
-                        <input type="email" class="form-control" name="email_cc">                
-                      </div>
-                      <div class="custom-control custom-checkbox">
-                          <input checked type="checkbox" class="custom-control-input" name="add_attachment" value="1" id="customCheck1">
-                          <label class="custom-control-label" for="customCheck1">@lang('form.attach_proposal_as_pdf')</label>
-                      </div>
-                      <hr>
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Preview Template</label>
-                        <textarea class="form-control" id="email_template" name="email_template"><?php echo nl2br($data['email_template']); ?></textarea>
-                      </div>
-                   
-                    </form>
+              <div class="custom-control custom-checkbox">
+                  <input checked type="checkbox" class="custom-control-input" name="add_attachment" value="1" id="customCheck1">
+                  <label class="custom-control-label" for="customCheck1">@lang('form.attach_proposal_as_pdf')</label>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Preview Template</label>
+                <textarea class="form-control" id="email_template" name="email_template"><?php echo nl2br($data['email_template']); ?></textarea>
+              </div>
+           
+            </form>
 
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary" v-on:click.prevent="send_to_email()">@lang('form.send')</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+
+        <div class="white-background">
+
+            <div class="row">
+              <div class="col-md-6">
+                 <h5>@lang('form.proposals')</h5>
               </div>
-              <div class="modal-footer">
-                
-                <button type="button" class="btn btn-primary" v-on:click.prevent="send_to_email()">@lang('form.send')</button>
+              <div class="col-md-6">
+                 <div class="float-md-right">
+                        @if(check_perm('proposals_create'))
+                            <a class="btn btn-primary btn-sm" href="{{ route('add_proposal_page') }}" role="button">@lang('form.new_proposal')</a>
+                        @endif
+
+                        @if(check_perm(['proposals_view', 'proposals_view_own']))                  
+                            <a v-if="layout.left_pane =='col-md-12'" v-on:click.prevent="toggleWindow('col-md-5')" class="btn btn-secondary btn-sm" href="#"><i class="fas fa-angle-double-left"></i></a>
+                            <a v-if="layout.left_pane =='col-md-5'" v-on:click.prevent="toggleWindow('col-md-12')" class="btn btn-secondary btn-sm" href="#"><i class="fas fa-angle-double-right"></i></a>                    
+                        @endif
+
+                  </div>  
               </div>
-            </div>
-            </div>
+           </div>
+        </div>
+
+        <br>
+
+@if(check_perm(['proposals_view', 'proposals_view_own']))
+        <div class="row">
+
+            <div  v-bind:class="layout.left_pane">
+                <div class="main-content">
+
+                    @include('admin.crm.proposal.filter')
+                    <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+                        <thead>
+                        <tr>
+                            <th>@lang("form.proposal_#")</th>
+                            <th>@lang("form.title")</th>
+                            <th>@lang("form.to")</th>
+                            <th>@lang("form.total")</th>
+                            <th>@lang("form.date")</th>
+                            <th>@lang("form.open_till")</th>
+                            <th>@lang("form.tags")</th>
+                            <th>@lang("form.date_created")</th>
+                            <th>@lang("form.status")</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
+            </div>
 
-                <div class="white-background">
+            <div  v-bind:class="layout.right_pane">
+                <div class="main-content">
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" v-bind:class="{'active':(currentView === 'proposal_details' )}" href="#" @click.prevent="currentView='proposal_details'">@lang('form.proposal')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" v-bind:class="{'active':(currentView === 'proposal_items' )}" href="#" @click.prevent="currentView='proposal_items'">@lang('form.proposal_items')</a>
+                        </li>
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tooltip" data-placement="top" title="{{ __('form.toggle_full_view') }}" href="#" v-on:click.prevent="toggleExpand()"><i class="fas fa-expand"></i></a>
+                        </li>
+
+                    </ul>
+
+                    <br>
 
                     <div class="row">
-                      <div class="col-md-6">
-                         <h5>@lang('form.proposals')</h5>
-                      </div>
-                      <div class="col-md-6">
-                         <div class="float-md-right">
-                                @if(check_perm('proposals_create'))
-                                    <a class="btn btn-primary btn-sm" href="{{ route('add_proposal_page') }}" role="button">@lang('form.new_proposal')</a>
-                                @endif
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-sm btn-outline-primary">@{{ item_status.name }}</button>
 
-                                @if(check_perm(['proposals_view', 'proposals_view_own']))
-                                    <a v-if="layout.left_pane =='col-md-12'" v-on:click.prevent="toggleWindow('col-md-5')" class="btn btn-secondary btn-sm" href="#"><i class="fas fa-angle-double-left"></i></a>
-                                    <a v-if="layout.left_pane =='col-md-5'" v-on:click.prevent="toggleWindow('col-md-12')" class="btn btn-secondary btn-sm" href="#"><i class="fas fa-angle-double-right"></i></a>                    
-                                @endif
-
-                          </div>  
-                      </div>
-                   </div>
-                </div><br>
-
-               
-                    <div class="row">
-
-                        <div  v-bind:class="layout.left_pane">
-                            <div class="main-content">
-
-                                @include('admin.crm.proposal.filter')
-                                <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
-                                    <thead>
-                                    <tr>
-                                        <th>@lang("form.proposal_#")</th>
-                                        <th>@lang("form.title")</th>
-                                        <th>@lang("form.to")</th>
-                                        <th>@lang("form.total")</th>
-                                        <th>@lang("form.assigned")</th>
-                                        <th>@lang("form.date")</th>
-                                        <th>@lang("form.open_till")</th>
-                                        <th>@lang("form.tags")</th>
-                                        <th>@lang("form.date_created")</th>
-                                        <th>@lang("form.status")</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
                         </div>
+                        <div class="col-md-10">
+                            <div class="float-md-right">
 
-                        <div  v-bind:class="layout.right_pane">
-                            <div class="main-content">
-
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item">
-                                        <a class="nav-link" v-bind:class="{'active':(currentView === 'proposal_details' )}" href="#" @click.prevent="currentView='proposal_details'">@lang('form.proposal')</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" v-bind:class="{'active':(currentView === 'proposal_items' )}" href="#" @click.prevent="currentView='proposal_items'">@lang('form.proposal_items')</a>
-                                    </li>
+                                <a v-bind:href="'{{ route('edit_proposal_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-outline-info"><i class="far fa-edit"></i></a>
 
 
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="far fa-file-pdf"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
 
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tooltip" data-placement="top" title="{{ __('form.toggle_full_view') }}" href="#" v-on:click.prevent="toggleExpand()"><i class="fas fa-expand"></i></a>
-                                    </li>
-
-                                </ul>
-
-                                <br>
-
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <button type="button" class="btn btn-sm btn-outline-primary">@{{ item_status.name }}</button>
+                                        <a target="_blank" v-bind:href="'{{ route('download_proposal') }}/'+ id" class="dropdown-item">@lang('form.download')</a>
 
                                     </div>
-                                    <div class="col-md-10">
-                                        <div class="float-md-right">
-
-                                            <a v-bind:href="'{{ route('edit_proposal_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-outline-info"><i class="far fa-edit"></i></a>
-
-
-                                            <div class="btn-group" role="group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="far fa-file-pdf"></i>
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-
-                                                    <a target="_blank" v-bind:href="'{{ route('download_proposal') }}/'+ id" class="dropdown-item">@lang('form.download')</a>
-
-                                                </div>
-                                            </div>
-
-
-                                            <a href="#" v-on:click.prevent="open_send_to_email_modal(id)" data-toggle="tooltip" data-placement="top" title="{{ __('form.send_to_email') }}" class="btn btn-sm btn-outline-info"><i class="fas fa-envelope"></i></a>
-
-
-                                            <div class="btn-group" role="group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    @lang('form.more')
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-                                                    <a target="_blank" v-bind:href="url_to_proposal_customer_view" class="dropdown-item">{{ sprintf(__('form.view_as_customer'), __('form.proposal')) }}</a>
-                                                    <span v-if="!records.hide_status_dropdown">
-                                                    {{-- @if(check_perm('proposals_edit') && isset($rec['item_statuses']) && (count($rec['item_statuses']) > 0)) --}}
-                                                        @foreach($rec['item_statuses'] as $item_status)
-                                                            <a v-if="item_status.id != {{ $item_status->id }}" v-on:click.prevent="changeStatus({{ $item_status->id }})" class="dropdown-item" data-item-id="{{ $item_status->id }}" href="#">@lang('form.mark_as') {{ $item_status->name }}</a>
-                                                        @endforeach
-                                                    {{-- @endif --}}
-                                                    </span>
-                                                    {{-- @if(check_perm('proposals_delete')) --}}
-                                                    <a v-bind:href="'{{ route('delete_proposal') }}/'+ id" style="color: red;" class="dropdown-item delete_item">@lang('form.delete_proposal')</a>
-                                                    {{-- @endif --}}
-                                                </div>
-                                            </div>
-
-                                            <a v-if="records.hide_status_dropdown" v-bind:href="records.link_to_converted_component" class="btn btn-primary btn-sm">@{{ records.link_text }}</a>
-
-                                            {{-- @if(check_perm(['invoices_create', 'estimates_create'])) --}}
-                                            <div class="btn-group" role="group" v-if="!records.hide_status_dropdown">
-                                                <!-- <button id="convertButton" v-bind:disabled="!records.is_customer" id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    @lang('form.convert')
-                                                </button> -->
-                                                 <button id="convertButton"  id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    @lang('form.convert')
-                                                </button>
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
-                                                   {{-- @if(check_perm('estimates_create')) --}} 
-                                                    <a v-bind:href="'{{ route('convert_to_estimate_from_proposal') }}/'+ id" class="dropdown-item">@lang('form.estimate')</a>
-                                                    {{-- @endif --}}
-
-                                                    {{-- @if(check_perm('invoices_create')) --}}
-                                                    <a v-bind:href="'{{ route('convert_to_invoice_from_proposal') }}/'+ id"  class="dropdown-item">@lang('form.invoice')</a>
-                                                    {{-- @endif --}}
-
-                                                </div>
-                                            </div>
-                                            {{-- @endif --}}
-                                        </div>
-                                    </div>
-
                                 </div>
 
-                                <hr>
 
-                                <component :is="currentView" @changed_to_default_view="defaultView" @change_layout="changeLayout" @item_records="itemRecords"  v-bind:id="id" transition="fade" transition-mode="out-in"></component>
+                                <a href="#" v-on:click.prevent="open_send_to_email_modal(id)" data-toggle="tooltip" data-placement="top" title="{{ __('form.send_to_email') }}" class="btn btn-sm btn-outline-info"><i class="fas fa-envelope"></i></a>
+
+
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @lang('form.more')
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                                        <a target="_blank" v-bind:href="url_to_proposal_customer_view" class="dropdown-item">{{ sprintf(__('form.view_as_customer'), __('form.proposal')) }}</a>
+                                        <span v-if="!records.hide_status_dropdown">
+                                        @if(check_perm('proposals_edit') && isset($rec['item_statuses']) && (count($rec['item_statuses']) > 0))
+                                            @foreach($rec['item_statuses'] as $item_status)
+                                                <a v-if="item_status.id != {{ $item_status->id }}" v-on:click.prevent="changeStatus({{ $item_status->id }})" class="dropdown-item" data-item-id="{{ $item_status->id }}" href="#">@lang('form.mark_as') {{ $item_status->name }}</a>
+                                            @endforeach
+                                        @endif
+                                        </span>
+                                        @if(check_perm('proposals_delete'))
+                                        <a v-bind:href="'{{ route('delete_proposal') }}/'+ id" style="color: red;" class="dropdown-item delete_item">@lang('form.delete_proposal')</a>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <a v-if="records.hide_status_dropdown" v-bind:href="records.link_to_converted_component" class="btn btn-primary btn-sm">@{{ records.link_text }}</a>
+
+                                @if(check_perm(['invoices_create', 'estimates_create']))
+                                <div class="btn-group" role="group" v-if="!records.hide_status_dropdown">
+                                    <button id="convertButton" v-bind:disabled="!records.is_customer" id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @lang('form.convert')
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
+                                        @if(check_perm('estimates_create'))
+                                        <a v-bind:href="'{{ route('convert_to_estimate_from_proposal') }}/'+ id" class="dropdown-item">@lang('form.estimate')</a>
+                                        @endif
+
+                                        @if(check_perm('invoices_create'))
+                                        <a v-bind:href="'{{ route('convert_to_invoice_from_proposal') }}/'+ id"  class="dropdown-item">@lang('form.invoice')</a>
+                                        @endif
+
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
+
                     </div>
+
+                    <hr>
+
+                    <component :is="currentView" @changed_to_default_view="defaultView" @change_layout="changeLayout" @item_records="itemRecords"  v-bind:id="id" transition="fade" transition-mode="out-in"></component>
+                </div>
             </div>
-            <template id="proposal_items_template" >
-                <div>
-                    <br>
-                    <span v-html="rec"></span>
-                </div>
-            </template>
-
-            <template id="proposal_template" >
-                <div>
-                    <br>
-                    <span v-html="rec"></span>
-
-                    <hr>
-                    <a v-on:click.prevent="shortCodeList" href="#" >@lang('form.available_short_codes')</a>
-                    <hr>
-                    <div style="display: none;" id="proposal_short_codes">
-                        @include('admin.crm.proposal.partials.show.proposal_short_codes')
-                    </div>
-
-                    <br>
-                    <editor id="editor1" v-model="editorContent" :init="proposalEditorInit"></editor>
-                    <div class="form-text text-muted" v-html="statusBarText"></div>
-                </div>
-            </template>
         </div>
+    
     </div>
+
+    <template id="proposal_items_template" >
+        <div>
+            <br>
+            <span v-html="rec"></span>
+        </div>
+    </template>
+
+
+    <template id="proposal_template" >
+        <div>
+            <br>
+            <span v-html="rec"></span>
+
+            <hr>
+            <a v-on:click.prevent="shortCodeList" href="#" >@lang('form.available_short_codes')</a>
+            <hr>
+            <div style="display: none;" id="proposal_short_codes">
+                @include('admin.crm.proposal.partials.show.proposal_short_codes')
+            </div>
+
+            <br>
+            <editor id="editor1" v-model="editorContent" :init="proposalEditorInit"></editor>
+            <div class="form-text text-muted" v-html="statusBarText"></div>
+        </div>
+    </template>
 </div>
+</div>
+@endif    
 
 @endsection
 
 @section('onPageJs')
-    @include('admin.generic.select2_vue_single_js')
-    @include('admin.generic.datepicker_vue_js')
+
+    @include('admin.crm.generic.select2_vue_single_js')
+    @include('admin.crm.generic.datepicker_vue_js')
     <script>
 
 
@@ -277,8 +278,7 @@
                 processing: true,
                 serverSide: true,
                 // iDisplayLength: 5,
-                // pageLength: {{ data_table_page_length() }},
-                pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
+                pageLength: {{ data_table_page_length() }},
                 ordering: false,
                 "columnDefs": [
                     { className: "text-right", "targets": [1,2] }
@@ -490,7 +490,7 @@
                 }
             },
             components: {
-                // 'editor': Editor //
+                'editor': Editor //
             },
             created: function mounted() {
                 this.getProposal();
@@ -764,5 +764,4 @@
 
         });
     </script>
-
 @endsection
