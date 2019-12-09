@@ -263,6 +263,9 @@ Route::post('/slider/user', 'API\UserController@slider');
 
 
 	Route::group(['prefix'=>'user','middleware' => 'auth:api'], function(){
+
+		// Route::get('products/{category_id?}/{subcategory_id?}/{product_id?}', 'API\ProductController@products');
+
 		Route::post('smsverify', 'API\UserController@verifyOTP');
 		Route::get('resendotp', 'API\UserController@resendOTP');
 

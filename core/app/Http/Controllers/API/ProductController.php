@@ -60,6 +60,18 @@ class ProductController extends Controller
     /* Product List By Category Id , SubCategoryId , Product Id */
     public function products(Request $request,$category_id="",$subcategory_id="",$id=""){
 
+        $fav_arr = [];
+        if(!empty($request->user('api'))){
+            $user = $request->user('api');
+            $favorit = Favorit::where('user_id',$user->id)->get();
+            // echo json_encode($favorit);
+            if(!empty($favorit)){
+                foreach ($favorit as $fav_key => $fav_value) {
+                    $fav_arr[$fav_key] = $fav_value->product_id;
+                }
+
+            }
+        }
 
         // dd($request->sort_by,$request->minprice,$request->maxprice,json_decode($request['attributes']));
         // exit;
@@ -110,12 +122,14 @@ class ProductController extends Controller
         foreach ($attr_search_product as $k => $attr_product) {
             $proattrs = json_decode($attr_product->attributes, true);
             $count = 0;
-            foreach ($proattrs as $key => $proattr) {
-              if (!empty($reqattrs[$key])) {
-                if (!empty(array_intersect($reqattrs[$key], $proattrs[$key]))) {
-                  $count++;
+            if(!empty($proattrs)){
+                foreach ($proattrs as $key => $proattr) {
+                  if (!empty($reqattrs[$key])) {
+                    if (!empty(array_intersect($reqattrs[$key], $proattrs[$key]))) {
+                      $count++;
+                    }
+                  }
                 }
-              }
             }
             if ($count == count($reqattrs)) {
               $productids[] = $attr_product->id;
@@ -137,6 +151,11 @@ class ProductController extends Controller
 	    			$images->big_image = asset('assets/user/img/products/'.$images->big_image);
 	    		}
 	    		$value->attributes = json_decode($value->attributes);
+                $value->favorite = 0;
+                if(!empty($fav_arr)){
+                    $value->favorite = in_array($value->id,$fav_arr)?1:0;
+                }
+
 	    	}
 	    	$data['products'] = $products;
 	    	$data['msg'] = 'Products List';
