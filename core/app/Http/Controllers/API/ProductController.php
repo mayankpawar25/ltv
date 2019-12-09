@@ -191,9 +191,22 @@ class ProductController extends Controller
     /* Product List By Category Id , SubCategoryId , Product Id */
 
     /* Product Detail */
-    public function productDetail($product_id=""){
+    public function productDetail(Request $request,$product_id=""){
+        $fav_arr = [];
+        if(!empty($request->user('api'))){
+            $user = $request->user('api');
+            $favorit = Favorit::where('user_id',$user->id)->get();
+            // echo json_encode($favorit);
+            if(!empty($favorit)){
+                foreach ($favorit as $fav_key => $fav_value) {
+                    $fav_arr[$fav_key] = $fav_value->product_id;
+                }
+
+            }
+        }
         if($product_id!=""){
             $product = Product::find($product_id);
+            $product->favorite = in_array($product_id,$fav_arr)?1:0;
             if(!empty($product)){
                 $attributes = json_decode($product->attributes);
                 $attr = [];
@@ -216,8 +229,19 @@ class ProductController extends Controller
                         $rvalue->image = asset('assets/user/img/products/'.$rvalue->image);
                         $rvalue->big_image = asset('assets/user/img/products/'.$rvalue->big_image);
                     }
+                    $rattributes = json_decode($rproduct->attributes);
+                    $r_attr = [];
+                    $i = 0;
+                    if(!empty($rattributes)){
+                        foreach ($rattributes as $rkey => $rattribute) {
+                            $r_attr[$i]['name'] = $rkey;
+                            $r_attr[$i]['options'] = $rattribute;
+                            $i++;
+                        }
+                    }
+                    $rproduct->attributes = $r_attr;
+                    $rproduct->favorite = in_array($rproduct->id,$fav_arr)?1:0;
                 }
-
                 $data['product_detail'] = $product;
                 $data['related_products'] = $rproducts;
                 $data['msg'] = "Product Detail";
@@ -529,14 +553,28 @@ class ProductController extends Controller
 
     /*Latest Product*/
     public function latestProduct(Request $request){
+        $fav_arr = [];
         $product = Product::where('deleted', 0)->orderBy('id', 'DESC')->limit(10)->get();
         $soldproduct = Product::where('deleted', 0)->orderBy('sales', 'DESC')->limit(10)->get();
         $specialproduct = Product::whereNotNull('current_price')->where('deleted', 0)->orderBy('id', 'DESC')->limit(10)->get();
         $topratedproduct = Product::where('deleted', 0)->orderBy('avg_rating', 'DESC')->limit(10)->get();
-          if(!$product->isEmpty()){
+            if(!$product->isEmpty()){
                 foreach ($product as $section) {
                     $product->attributes = json_decode($section->attributes);
-                    $product->description = strip_tags($section->description);
+                    $attributes = $product->attributes;
+                    $r_attr = [];
+                    $i = 0;
+                    if(!empty($attributes)){
+                        foreach ($attributes as $rkey => $attribute) {
+                            $r_attr[$i]['name'] = $rkey;
+                            $r_attr[$i]['options'] = $attribute;
+                            $i++;
+                        }
+                    }
+                    $section->attributes = $r_attr;
+                    $section->favorite = in_array($section->id,$fav_arr)?1:0;
+
+                    $section->description = strip_tags($section->description);
                     foreach ($section->previewimages as $key => $value) {
                         $value->image = asset('assets/user/img/products/'.$value->image);
                         $value->big_image = asset('assets/user/img/products/'.$value->big_image);
@@ -545,6 +583,20 @@ class ProductController extends Controller
                 foreach ($soldproduct as $section) {
                     $soldproduct->attributes = json_decode($section->attributes);
                     $soldproduct->description = strip_tags($section->description);
+
+                    $attributes = $soldproduct->attributes;
+                    $r_attr = [];
+                    $i = 0;
+                    if(!empty($attributes)){
+                        foreach ($attributes as $rkey => $attribute) {
+                            $r_attr[$i]['name'] = $rkey;
+                            $r_attr[$i]['options'] = $attribute;
+                            $i++;
+                        }
+                    }
+                    $section->attributes = $r_attr;
+                    $section->favorite = in_array($section->id,$fav_arr)?1:0;
+
                     foreach ($section->previewimages as $key => $value) {
                         $value->image = asset('assets/user/img/products/'.$value->image);
                         $value->big_image = asset('assets/user/img/products/'.$value->big_image);
@@ -553,6 +605,19 @@ class ProductController extends Controller
                 foreach ($specialproduct as $section) {
                     $specialproduct->attributes = json_decode($section->attributes);
                     $specialproduct->description = strip_tags($section->description);
+                    $attributes = $specialproduct->attributes;
+                    $r_attr = [];
+                    $i = 0;
+                    if(!empty($attributes)){
+                        foreach ($attributes as $rkey => $attribute) {
+                            $r_attr[$i]['name'] = $rkey;
+                            $r_attr[$i]['options'] = $attribute;
+                            $i++;
+                        }
+                    }
+                    $section->attributes = $r_attr;
+                    $section->favorite = in_array($section->id,$fav_arr)?1:0;
+
                     foreach ($section->previewimages as $key => $value) {
                         $value->image = asset('assets/user/img/products/'.$value->image);
                         $value->big_image = asset('assets/user/img/products/'.$value->big_image);
@@ -561,6 +626,18 @@ class ProductController extends Controller
                 foreach ($topratedproduct as $section) {
                     $topratedproduct->attributes = json_decode($section->attributes);
                     $topratedproduct->description = strip_tags($section->description);
+                    $attributes = $topratedproduct->attributes;
+                    $r_attr = [];
+                    $i = 0;
+                    if(!empty($attributes)){
+                        foreach ($attributes as $rkey => $attribute) {
+                            $r_attr[$i]['name'] = $rkey;
+                            $r_attr[$i]['options'] = $attribute;
+                            $i++;
+                        }
+                    }
+                    $section->attributes = $r_attr;
+                    $section->favorite = in_array($section->id,$fav_arr)?1:0;
                     foreach ($section->previewimages as $key => $value) {
                         $value->image = asset('assets/user/img/products/'.$value->image);
                         $value->big_image = asset('assets/user/img/products/'.$value->big_image);
