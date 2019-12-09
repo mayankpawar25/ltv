@@ -1,6 +1,5 @@
-<div class="main-content" style="margin-bottom: 20px !important;">
-    <h5>@lang('form.estimate')</h5>
-    <hr>
+<div>
+     
     <div class="row">
         <div class="col-md-6">
             
@@ -85,12 +84,12 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label>@lang('form.estimate_date') <span class="required">*</span> </label>
-                    <input type="text" class="form-control form-control-sm {{ $date_class }}  @php if($errors->has('date')) { echo 'is-invalid'; } @endphp" name="date" value="{{ $date_value }}">
+                    <input type="text" class="form-control  {{ $date_class }}  @php if($errors->has('date')) { echo 'is-invalid'; } @endphp" name="date" value="{{ $date_value }}">
                     <div class="required">@php if($errors->has('date')) { echo $errors->first('date') ; } @endphp</div>
                 </div>
                 <div class="form-group col-md-4">
                     <label>@lang('form.expiry_date') </label>
-                    <input type="text" class="form-control form-control-sm initially_empty_datepicker  @php if($errors->has('expiry_date')) { echo 'is-invalid'; } @endphp" name="expiry_date" value="{{ $expiry_date_value }}">
+                    <input type="text" class="form-control  initially_empty_datepicker  @php if($errors->has('expiry_date')) { echo 'is-invalid'; } @endphp" name="expiry_date" value="{{ $expiry_date_value }}">
                     <div class="invalid-feedback">@php if($errors->has('expiry_date')) { echo $errors->first('expiry_date') ; } @endphp</div>
                 </div>
 
@@ -130,7 +129,7 @@
 
                 <div class="form-group col-md-6">
                     <label>@lang('form.reference')  </label>
-                    <input type="text" class="form-control form-control-sm" name="reference" value="{{ old_set('reference', NULL, $rec) }}">
+                    <input type="text" class="form-control " name="reference" value="{{ old_set('reference', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('reference')) { echo $errors->first('reference') ; } @endphp</div>
                 </div>
                 @php
@@ -160,7 +159,7 @@
             </div>
             
 
-            <?php echo bottom_toolbar(); ?>
+           
         </div>
         <div class="col-md-6">
 
@@ -174,19 +173,19 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
 
-                        <input type="text" class="form-control form-control-sm" placeholder="{{ __('form.city') }}" name="city" value="{{ old_set('city', NULL, $rec) }}">
+                        <input type="text" class="form-control " placeholder="{{ __('form.city') }}" name="city" value="{{ old_set('city', NULL, $rec) }}">
                         <div class="form-control-feedback">@php if($errors->has('city')) { echo $errors->first('city') ; } @endphp</div>
                     </div>
                     <div class="form-group col-md-6">
 
-                        <input type="text" class="form-control form-control-sm" placeholder="{{ __('form.state') }}" name="state" value="{{ old_set('state', NULL, $rec) }}">
+                        <input type="text" class="form-control " placeholder="{{ __('form.state') }}" name="state" value="{{ old_set('state', NULL, $rec) }}">
                         <div class="form-control-feedback">@php if($errors->has('state')) { echo $errors->first('state') ; } @endphp</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
 
-                        <input type="text" class="form-control form-control-sm" placeholder="{{ __('form.zip_code') }}" name="zip_code" value="{{ old_set('zip_code', NULL, $rec) }}">
+                        <input type="text" class="form-control " placeholder="{{ __('form.zip_code') }}" name="zip_code" value="{{ old_set('zip_code', NULL, $rec) }}">
                         <div class="form-control-feedback">@php if($errors->has('zip_code')) { echo $errors->first('zip_code') ; } @endphp</div>
                     </div>
                     <div class="form-group col-md-6">
@@ -204,28 +203,28 @@
 
             <div class="form-group">
                 <label>@lang('form.shipping_address')  </label>
-                <textarea id="shipping_address " name="shipping_address" placeholder="{{ __('form.street') }}" class="form-control form-control-sm">{{ old_set('shipping_address', NULL, $rec) }}</textarea>
+                <textarea id="shipping_address " name="shipping_address" placeholder="{{ __('form.street') }}" class="form-control ">{{ old_set('shipping_address', NULL, $rec) }}</textarea>
                 <div class="form-control-feedback">@php if($errors->has('shipping_address')) { echo $errors->first('shipping_address') ; } @endphp</div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input type="text" class="form-control form-control-sm" placeholder="{{ __('form.city') }}" name="shipping_city" value="{{ old_set('shipping_city', NULL, $rec) }}">
+                    <input type="text" class="form-control " placeholder="{{ __('form.city') }}" name="shipping_city" value="{{ old_set('shipping_city', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('shipping_city')) { echo $errors->first('shipping_city') ; } @endphp</div>
                 </div>
                 <div class="form-group col-md-6">
-                    <input type="text" class="form-control form-control-sm" placeholder="{{ __('form.state') }}" name="shipping_state" value="{{ old_set('shipping_state', NULL, $rec) }}">
+                    <input type="text" class="form-control " placeholder="{{ __('form.state') }}" name="shipping_state" value="{{ old_set('shipping_state', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('shipping_state')) { echo $errors->first('shipping_state') ; } @endphp</div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input type="text" class="form-control form-control-sm" placeholder="{{ __('form.zip_code') }}" name="shipping_zip_code" value="{{ old_set('shipping_zip_code', NULL, $rec) }}">
+                    <input type="text" class="form-control " placeholder="{{ __('form.zip_code') }}" name="shipping_zip_code" value="{{ old_set('shipping_zip_code', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('shipping_zip_code')) { echo $errors->first('shipping_zip_code') ; } @endphp</div>
                 </div>
 
                 <div class="form-group col-md-6">
                     <div class="select2-wrapper">
-                        <?php echo form_dropdown("shipping_country_id", $data['country_id_list'], old_set("shipping_country_id", NULL, $rec), "class='form-control form-control-sm  selectpicker '") ?>
+                        <?php echo form_dropdown("shipping_country_id", $data['country_id_list'], old_set("shipping_country_id", NULL, $rec), "class='form-control   selectpicker '") ?>
                     </div>
                     <div class="form-control-feedback">@php if($errors->has('shipping_country_id')) { echo $errors->first('shipping_country_id') ; } @endphp</div>
 

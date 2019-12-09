@@ -79,20 +79,20 @@
             <input v-if="row.component_id" type="hidden" :name="'items[' + index + '][component_id]'" v-model="row.component_id">
             
             <td>
-                <textarea :name="'items[' + index + '][description]'" v-model="row.description"  rows="2" class="form-control form-control-sm" placeholder="Description" aria-invalid="false"></textarea>
+                <textarea :name="'items[' + index + '][description]'" v-model="row.description"  rows="2" class="form-control " placeholder="Description" aria-invalid="false"></textarea>
                 <div class="invalid-feedback d-block" v-if="itemHasValidationError('description', index)">@{{ row.validation_error.description  }}</div>
             </td>
             <td>
-                <textarea :name="'items[' + index + '][long_description]'" v-model="row.long_description"  rows="2" class="form-control form-control-sm" placeholder="Long description" aria-invalid="false"></textarea>
+                <textarea :name="'items[' + index + '][long_description]'" v-model="row.long_description"  rows="2" class="form-control " placeholder="Long description" aria-invalid="false"></textarea>
             </td>
             <td style="width: 10%;">
-                <input  type="text" :name="'items[' + index + '][quantity]'" v-model="row.quantity" v-on:keypress="isNumber($event)"  class="form-control form-control-sm text-center" placeholder="Quantity">
+                <input  type="text" :name="'items[' + index + '][quantity]'" v-model="row.quantity" v-on:keypress="isNumber($event)"  class="form-control  text-center" placeholder="Quantity">
                 <div class="invalid-feedback d-block" v-if="itemHasValidationError('quantity', index)">@{{ row.validation_error.quantity  }}</div>
                 <input type="text" :name="'items[' + index + '][unit]'" v-model="row.unit" placeholder="Unit" class="form-control input-transparent text-right">
 
             </td>
             <td style="width: 12%;">
-                <input type="text" :name="'items[' + index + '][rate]'" v-model="row.rate" v-on:keypress="isNumber($event)"  class="form-control form-control-sm text-right" placeholder="Rate" aria-invalid="false">
+                <input type="text" :name="'items[' + index + '][rate]'" v-model="row.rate" v-on:keypress="isNumber($event)"  class="form-control text-right" placeholder="Rate" aria-invalid="false">
                  <div class="invalid-feedback d-block" v-if="itemHasValidationError('rate', index)">@{{ row.validation_error.rate  }}</div>
             </td>
             <td style="width: 15%;">

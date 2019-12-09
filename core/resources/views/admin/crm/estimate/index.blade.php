@@ -10,7 +10,7 @@
 <div id="estimate" v-cloak>
 
 <!-- Modal -->
-<div class="modal fade" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="sendEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -51,7 +51,7 @@
       </div>
       <div class="modal-footer">
         
-        <button type="button" class="btn btn-primary" v-on:click.prevent="send_to_email()">@lang('form.send')</button>
+        <button type="button" class="btn btn-success" v-on:click.prevent="send_to_email()">@lang('form.send')</button>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@
 <!-- End of Modal -->
 
 
-        <div class="white-background">
+        <div class="main-content">
             <div class="row">
               <div class="col-md-6">
                  <h5>@lang('form.estimates')</h5>
@@ -81,7 +81,7 @@
            <hr>
            @include('admin.crm.estimate.stats')          
             
-        </div>
+       
         <br>
 
     {{-- @if(check_perm('estimates_view') || check_perm('estimates_view_own'))      
@@ -89,10 +89,10 @@
          <div class="row">
 
             <div  v-bind:class="layout.left_pane">
-                <div class="main-content">
+                <div class="">
 
                     @include('admin.crm.estimate.filter')
-                    <table class="table table-estimates dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+                    <table class="table table-estimates dataTable table-bordered no-footer dtr-inline collapsed w-100"  id="data">
                         <thead>
                         <tr>
                             <th>@lang("form.estimate_#")</th>
@@ -113,7 +113,7 @@
             </div>
 
             <div  v-bind:class="layout.right_pane">
-                <div class="main-content">
+                <div class="">
 
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -139,18 +139,18 @@
 
                     <div class="row">
                        <div class="col-md-2">
-                           <button type="button" class="btn btn-sm btn-outline-primary">@{{ item_status.name }}</button>
+                           <button type="button" class="btn btn-sm btn-primary">@{{ item_status.name }}</button>
 
                        </div>
                         <div class="col-md-10">
                             <div class="float-md-right">
 
                                {{-- @if(check_perm('estimates_edit')) --}} 
-                                <a v-bind:href="'{{ route('edit_estimate_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-outline-info"><i class="far fa-edit"></i></a>
+                                <a v-bind:href="'{{ route('edit_estimate_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
                                 {{-- @endif --}}
 
                                 <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="far fa-file-pdf"></i>
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
@@ -161,12 +161,12 @@
                                 </div>
 
 
-                                <a href="#" v-on:click.prevent="open_send_to_email_modal(id)" data-toggle="tooltip" data-placement="top" title="{{ __('form.send_to_email') }}" class="btn btn-sm btn-outline-info"><i class="fas fa-envelope"></i></a>
+                                <a href="#" v-on:click.prevent="open_send_to_email_modal(id)" data-toggle="tooltip" data-placement="top" title="{{ __('form.send_to_email') }}" class="btn btn-sm btn-primary"><i class="fas fa-envelope"></i></a>
 
 
 
                                 <div class="btn-group" role="group">
-                                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         @lang('form.more')
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
@@ -186,7 +186,7 @@
 
                                 <!-- <a v-if="records.hide_status_dropdown" v-bind:href="records.link_to_converted_component" class="btn btn-primary btn-sm">@{{ records.link_text }}</a> -->
                                 @if(check_perm('invoices_create'))
-                                    <a v-if="!records.hide_status_dropdown" v-bind:href="'{{ route('convert_to_invoice_from_estimate') }}/'+ id" class="btn btn-sm btn-outline-success">@lang('form.convert_to_invoice')</a>
+                                    <a v-if="!records.hide_status_dropdown" v-bind:href="'{{ route('convert_to_invoice_from_estimate') }}/'+ id" class="btn btn-sm btn-primary">@lang('form.convert_to_invoice')</a>
                                 @endif
                             </div>
                         </div>
@@ -201,7 +201,7 @@
         </div>
     {{-- @endif --}}
     </div>
-
+ </div>
 
 
 <template id="estimate-template" >

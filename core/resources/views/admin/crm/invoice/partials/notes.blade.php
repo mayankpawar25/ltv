@@ -1,4 +1,4 @@
-<div class="main-content"  style="margin-top: 20px;" >
+<div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label>@lang('form.admin_note')  </label>

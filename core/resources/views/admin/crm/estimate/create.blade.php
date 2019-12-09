@@ -2,6 +2,9 @@
 @section('title', (isset($rec->id)) ? __('form.edit_estimate') : __('form.create_new_estimate'))
 @section('content')
 <div class="app-content">
+<div class="main-content" style="margin-bottom: 20px !important;">
+    <h5>@lang('form.estimate')</h5>
+    <hr>
     <div id="sales">
     <form method="post" action="{{ (isset($rec->id)) ? route( 'patch_estimate', $rec->id) : route('post_estimate') }}">
 
@@ -17,10 +20,14 @@
         @if(isset($rec->proposal_id) && $rec->proposal_id)
             <input type="hidden" name="proposal_id" value="{{ $rec->proposal_id }}" />
         @endif
-
+ <?php echo bottom_toolbar(); ?>
     </form>
     </div>
     </div>
+    </div>
+    <style>
+.select2-wrapper .select2-container {width:100% !important;}
+</style>
 @endsection
 @section('onPageJs')
 

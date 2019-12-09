@@ -43,6 +43,10 @@
 
       
     </div>    
+<div class="main-content" style="margin-bottom: 20px !important;">
+    
+    <h5>@lang('form.invoice')</h5>
+    <hr>
 
     <form method="post" action="{{ (isset($rec->id)) ? route( 'patch_invoice', $rec->id) : route('post_invoice') }}">
 
@@ -70,8 +74,9 @@
         @if((isset($rec->invoicing_for_project)) && $rec->invoicing_for_project)
             <input type="hidden" name="invoicing_for_project" value="{{ $rec->invoicing_for_project }}" />
         @endif
-
+<?php echo bottom_toolbar(__('form.submit')); ?>
     </form>
+    </div>
     </div>
 </div>    
 @endsection

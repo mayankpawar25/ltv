@@ -44,14 +44,14 @@
                 <input type="hidden" name="customer_id" id="customer_id" value="">
                 <div class="form-group">
                     <label for="project_id">@lang('form.email')</label>
-                    <?php echo form_dropdown('customer_contact_id', [], "", "class='form-control form-control-sm email'"); ?>
+                    <?php echo form_dropdown('customer_contact_id', [], "", "class='form-control  email'"); ?>
                     <div class="invalid-feedback d-block"></div>
                 </div>           
 
 
               <div class="form-group">
                 <label>@lang('form.cc')</label>
-                <input type="email" class="form-control form-control-sm" name="email_cc">
+                <input type="email" class="form-control " name="email_cc">
                 
               </div>
               <div class="custom-control custom-checkbox">
@@ -69,7 +69,7 @@
       </div>
       <div class="modal-footer">
         
-        <button type="button" class="btn btn-primary" v-on:click.prevent="send_to_email()">@lang('form.send')</button>
+        <button type="button" class="btn btn-success" v-on:click.prevent="send_to_email()">@lang('form.send')</button>
       </div>
     </div>
   </div>
@@ -78,7 +78,7 @@
 
 
 
-     <div class="white-background">
+     <div class="main-content">
 
         <div class="row">
               <div class="col-md-6">
@@ -103,7 +103,7 @@
         <hr>
          @include('admin.crm.invoice.stats')
 
-     </div>
+     
 
     @if(check_perm(['invoices_view', 'invoices_view_own'])) 
         <br>
@@ -111,10 +111,10 @@
     <div class="row">
 
         <div  v-bind:class="layout.left_pane">
-            <div class="main-content">
+            <div>
 
                 @include('admin.crm.invoice.filter')
-                <table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+                <table class="table table-bordered dataTable no-footer dtr-inline collapsed" width="100%" id="data">
                     <thead>
                     <tr>
                         <th>@lang("form.invoice_#")</th>
@@ -134,7 +134,7 @@
         </div>
 
         <div  v-bind:class="layout.right_pane">
-            <div class="main-content" v-if="id">
+            <div v-if="id">
 
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
@@ -164,18 +164,21 @@
 
                 <div class="row">
                    <div class="col-md-2">
-                       <button type="button" class="btn btn-sm btn-outline-primary">@{{ item_status.name }}</button>
-
+                   
+                      <!-- <button type="button" class="btn btn-sm btn-primary">@{{ item_status.name }}</button>-->
+				<h6 class="text-primary">
+                
+                <strong>@{{ item_status.name }}</strong></h6>
                    </div>
                     <div class="col-md-10">
                         <div class="float-md-right">
 
                             @if(check_perm('invoices_edit')) 
-                            <a v-bind:href="'{{ route('edit_invoice_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-outline-info"><i class="far fa-edit"></i></a>
+                            <a v-bind:href="'{{ route('edit_invoice_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
                             @endif
 
                             <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="far fa-file-pdf"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
@@ -186,11 +189,11 @@
                             </div>
 
 
-                            <a href="#" v-on:click.prevent="open_send_to_email_modal(id)" data-toggle="tooltip" data-placement="top" title="{{ __('form.send_to_email') }}" class="btn btn-sm btn-outline-info"><i class="fas fa-envelope"></i></a>
+                            <a href="#" v-on:click.prevent="open_send_to_email_modal(id)" data-toggle="tooltip" data-placement="top" title="{{ __('form.send_to_email') }}" class="btn btn-sm btn-primary"><i class="fas fa-envelope"></i></a>
 
 
                             <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     @lang('form.more')
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupDrop1">
@@ -210,7 +213,7 @@
                                 </div>
                             </div>
                             @if(check_perm('payments_create'))
-                                <button v-bind:disabled="item_status.id == '{{ INVOICE_STATUS_PAID }}'" type="button" @click.prevent="currentView='receive_payment'" class="btn btn-sm btn-outline-success">@lang('form.record_payment')</button>
+                                <button v-bind:disabled="item_status.id == '{{ INVOICE_STATUS_PAID }}'" type="button" @click.prevent="currentView='receive_payment'" class="btn btn-sm btn-primary">@lang('form.record_payment')</button>
                             @endif
                         </div>
                     </div>
@@ -222,10 +225,12 @@
                 <component :is="currentView" @changed_to_default_view="defaultView" @item_status="itemStatus" v-bind:id="id" v-bind:records="records" transition="fade" transition-mode="out-in"></component>
             </div>
         </div>
+        
     </div>
+    
     @endif
     </div>
-
+</div>
 <template id="payment_list_template" >
     <div>
         <table class="table" style="font-size: 13px;">
