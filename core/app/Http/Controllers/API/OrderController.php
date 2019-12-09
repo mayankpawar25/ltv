@@ -310,7 +310,7 @@ class OrderController extends Controller
 	                if(!empty($rattributes)){
 	                    foreach ($rattributes as $rkey => $rattribute) {
 	                        $r_attr[$i]['name'] = $rkey;
-	                        $r_attr[$i]['options'] = $rattribute;
+	                        $r_attr[$i]['options'] = $rattribute[0];
 	                        $i++;
 	                    }
 	                }
