@@ -174,9 +174,9 @@ class EstimateController extends Controller
                     ->orWhere('date', 'like', like_search_wildcard_gen(date2sql($search_key)))
                     ->orWhere('expiry_date', 'like', like_search_wildcard_gen(date2sql($search_key)))
                     ->orWhere('reference', 'like', like_search_wildcard_gen($search_key))
-                    ->orWhereHas('customer', function ($q) use ($search_key) {
+                    /*->orWhereHas('customer', function ($q) use ($search_key) {
                         $q->where('customers.name', 'like', $search_key.'%');
-                    })
+                    })*/
                     ->orWhereHas('tags', function ($q) use ($search_key) {
                         $q->where('name', 'like', $search_key.'%');
                     })
@@ -197,9 +197,18 @@ class EstimateController extends Controller
         {
             foreach ($data as $key => $row)
             {
+                if(check_perm('estimates_view')){
+                    $delete_btn = '<a href="'.route('estimate_customer_view', [$row->id, $row->url_slug ]).'" class="view_item btn btn-primary btn-sm" title="view"><i class="icon-eye icons icon"></i></a>';
+                }
+                if(check_perm('estimates_edit')){
+                    $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_estimate_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
+                }              
                 $rec[] = array(
 
                     a_links(vue_click_link($row->number, $row->id ) , [
+                       
+                    ]),
+                    /* a_links(vue_click_link($row->number, $row->id ) , [
                         [
                             'action_link' => route('estimate_customer_view', [$row->id, $row->url_slug ]), 
                             'action_text' => __('form.view'), 'action_class' => '', 'new_tab' => TRUE,
@@ -210,8 +219,13 @@ class EstimateController extends Controller
                             'action_text' => __('form.edit'), 'action_class' => '',
                             'permission' => 'estimates_edit',
                         ],
-                       // ['action_link' => route('delete_estimate', $row->id), 'action_text' => __('form.delete'), 'action_class' => 'delete_item']
-                    ]),
+                       [
+                        'action_link' => route('delete_estimate', $row->id),
+                        'action_text' => __('form.delete'), 
+                        'action_class' => 'delete_item'
+                    ]
+                    ]),*/
+
 
                     format_currency($row->total, TRUE, $row->get_currency_symbol()),
                     format_currency($row->tax_total, TRUE, $row->get_currency_symbol()),
@@ -226,6 +240,7 @@ class EstimateController extends Controller
                     sql2date($row->expiry_date),
                     $row->reference,
                     $row->status->name,
+                    $edit_btn.$delete_btn,
 
                 );
 
