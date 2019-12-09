@@ -30,6 +30,8 @@ class CreateShopkeeperTable extends Migration
             $table->integer('zipcode_id')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->string('employer_name')->nullable();
+            $table->string('employer_contactno')->nullable();
             $table->string('tags')->nullable();
             $table->tinyInteger('status')->default('0')->nullable()->comment('0 = Inactive ,1 = Active ');
             $table->string('user_role')->nullable();

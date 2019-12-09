@@ -31,6 +31,8 @@ class CreateLeadsTable extends Migration
             $table->unsignedInteger('country_id')->nullable();
             $table->string('zip_code')->nullable();
             $table->text('description')->nullable();
+            $table->string('employer_name')->nullable();
+            $table->string('employer_contactno')->nullable();
             $table->unsignedInteger('lead_status_id');
             $table->unsignedInteger('lead_source_id');
             $table->unsignedInteger('assigned_to')->nullable();

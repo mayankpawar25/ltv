@@ -15,6 +15,7 @@ use App\Product;
 use App\UserGroup;
 use App\Orderedproduct;
 use App\Orderpayment;
+use App\Refund;
 use App\GeneralSetting as GS;
 use Carbon\Carbon;
 use Auth;
@@ -500,4 +501,21 @@ class OrderController extends Controller
 	    // exit;
 	    return round($total, 2);
 	}
+
+	/*E- Commerce And Dealer Refund Request*/
+	public function refund(Request $request) {
+     $validator = Validator::make($request->all(),[
+        'reason' => 'required'
+      ]);
+
+      $refund = new Refund;
+      $refund->orderedproduct_id = $request->orderedproduct_id;
+      $refund->status = 0;
+      $refund->reason = $request->reason;
+      $refund->save();
+      $data['msg'] = 'Refund request sent successfully';
+	  $data['status'] = true;
+	  $status = $this-> successStatus;
+      return response()->json($data, $status); 
+    }
 }

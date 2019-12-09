@@ -234,6 +234,8 @@ Route::get('user/pay', 'API\UserController@pay');
 
 /*Latest Product*/
 Route::post('latestproduct', 'API\ProductController@latestProduct');
+/*User And Delaer refund request*/
+Route::post('refund', 'API\OrderController@refund');
 
 
 /*Home Slider*/
