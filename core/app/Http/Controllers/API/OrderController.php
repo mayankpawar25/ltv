@@ -284,7 +284,12 @@ class OrderController extends Controller
 			foreach ($order_history as $key => $value) {
 				$value->orderedproducts;
 				$value->total_products = count($value->orderedproducts);
-				
+				foreach ($value->orderedproducts as $p_key => $p_value) {
+					foreach($p_value->product->previewimages as $images){
+			            $images->image = asset('assets/user/img/products/'.$images->image);
+			            $images->big_image = asset('assets/user/img/products/'.$images->big_image);
+		          	}
+				}
 				/* Status */
 				if($value->approve == '1'){
 					if($value->shipping_status == '0'){
