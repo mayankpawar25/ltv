@@ -21,14 +21,14 @@
         ?>
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-2">
         <label>@lang('form.sales_agent')</label>
         <?php
             echo form_dropdown('sales_agent_id', $data['sales_agent_id_list'] , [], "class='form-control four-boot' multiple='multiple'");
         ?>
         </div>
 
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-2">
             <label for="name">@lang('form.date_range')</label>
             <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >                  
 
@@ -41,7 +41,7 @@
  
 </form>
 
-<table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+<table class="table dataTable table-bordered no-footer dtr-inline collapsed" width="100%" id="data">
     <thead>
         <tr>
             <th>@lang("form.invoice_#")</th>

@@ -14,7 +14,7 @@
             ?>
         </div>
 
-          <div class="form-group col-md-3">
+          <div class="form-group col-md-2">
             <label for="name">@lang('form.date_range')</label>
             <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >
                    

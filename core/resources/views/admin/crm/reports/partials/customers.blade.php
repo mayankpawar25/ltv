@@ -7,14 +7,14 @@
 
    <div class="form-row">
        
-        <div class="form-group col-md-2">
+        <div class="form-group col-lg-2 col-md-3">
             <label>@lang('form.status')</label>
             <?php
                 echo form_dropdown('currency_id', $data['currency_id_list'] , config('constants.default_currency_id') , "class='form-control four-boot' ");
             ?>
         </div>
 
-          <div class="form-group col-md-3">
+          <div class="form-group col-lg-2 col-md-3">
             <label for="name">@lang('form.date_range')</label>
             <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >
                    
@@ -28,7 +28,7 @@
  
 </form>
 
-<table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+<table class="table dataTable table-bordered no-footer dtr-inline collapsed" width="100%" id="data">
     <thead>
         <tr>
             <th>@lang("form.customer")</th>

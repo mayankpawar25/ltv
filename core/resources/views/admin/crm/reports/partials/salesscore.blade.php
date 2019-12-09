@@ -27,19 +27,19 @@ div#data_filter {
 <form>
    <div class="form-row">
         @if(Auth::user()->is_administrator)
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-2">
         <label>@lang('form.sales_agent')</label>
             <?php echo form_dropdown('sales_agent_id', $data['sales_agent_id_list'] , [], "class='form-control four-boot' multiple='multiple'"); ?>
         </div>
         @endif
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-2">
             <label for="name">@lang('form.date_range')</label>
             <input type="text" class="form-control form-control-sm" id="reportrange" name="date" >                  
         </div>
    </div>
 </form>
 
-<table class="table dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+<table class="table dataTable no-footer dtr-inline collapsed table-bordered" width="100%" id="data">
     <thead>
         <tr>
             <th>#@lang("form.unique_id")</th>

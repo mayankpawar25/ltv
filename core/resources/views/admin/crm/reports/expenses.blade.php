@@ -29,7 +29,7 @@
             
             <input type="hidden" name="year" value="{{ Request::get('year') }} ">
             <input type="hidden" name="exclude_billable" value="{{ Request::get('exclude_billable') }} ">
-            <button type="submit" class="btn btn-light float-md-right">
+            <button type="submit" class="btn btn-primary float-md-right">
             <i class="far fa-file-pdf"></i> @lang('form.download')
             </button>
          </form>

@@ -8,18 +8,12 @@
 </style>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css' />
   <main class="app-content">
-     <div class="app-title">
-       <div>
-          <h1><i class="fa fa-dashboard"></i>Task Schedule Management</h1>
-       </div>
-       <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-       </ul>
-    </div>
+      
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
+           <div class="main-content">
+           <h5>Task Schedule Management</h5>
+           <hr />
             <!-- <h3 class="tile-title float-left">All Product Attributes</h3>-->
               <div class="float-right icon-btn">
                 <?php 
@@ -27,8 +21,8 @@
                     <a href="{{route('admin.tasks.create')}}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add Task</a>
                    <!--  <a href="{{route('admin.tasks.arrivals',Auth::id())}}" class="" title=""><i class="fa fa-map-marker"></i>View Arrival</a> -->
                 <?php } else { ?>
-                  <a class="btn btn-info" href="{{route('admin.tasks.salesmanlist')}}">
-                    <i class="fa fa-arrow-left"></i> Back to Salesman List
+                  <a class="btn btn-primary" href="{{route('admin.tasks.salesmanlist')}}">
+                    <i class="fa fa-arrow-left"></i> Back
                   </a>
                <?php }?>
                 <p style="clear:both;margin-top:20px;"></p>
