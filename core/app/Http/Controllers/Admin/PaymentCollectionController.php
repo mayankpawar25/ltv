@@ -591,10 +591,10 @@ class PaymentCollectionController extends Controller
                         $cells['status']        = (strtolower($cells['status'])=='open')?'0':'1';
                         $cells['staff_user_id'] = ($request->assigned_to)?$request->assigned_to:auth()->user()->id;
                         $cells['address'] = $cells['address'];
-
+                        
                         if($cells['country']){
                           $country = Country::firstOrCreate(['name' => $cells['country'] ]);
-                          $cells['country_id']= $country->id;
+                          $cells['country_id'] = $country->id;
                         }
 
                         if($cells['state']){
@@ -634,7 +634,7 @@ class PaymentCollectionController extends Controller
                     }
                     catch (\Exception  $e)
                     {   
-                        dd($e);
+                        // dd($e);
                         DB::rollback();
                         $col = $next_column_after_highest.$indexOfRow;         
                         $this->write_error_messages_in_spreadsheet($extension, $spreadsheet, $col , __('form.system_error') , $path);

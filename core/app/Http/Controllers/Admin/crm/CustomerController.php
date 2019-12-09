@@ -101,7 +101,12 @@ class CustomerController extends Controller {
                 });
         }
         $recordsFiltered = $query->get()->count();
-        $query->skip(Input::get('start'))->take(Input::get('length'));
+        $length = Input::get('length');
+        if($length != '-1'){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        // $query->skip(Input::get('start'))->take(Input::get('length'));
+        
         $data = $query->get();
 
         // echo json_encode($data);

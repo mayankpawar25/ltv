@@ -36,7 +36,7 @@ class OrderController extends Controller
     // 'payment_method', 1 : COD
     // 'payment_method', 2 : Online
 
-    $data = Order::dropdown_for_filtering();    
+    $data = Order::dropdown_for_filtering();
     return view('admin.orders.index',compact('data'));
   }
 
@@ -268,6 +268,7 @@ class OrderController extends Controller
   }
 
   public function all(Request $request,$shopkeeper_id="") {
+    $data = Order::dropdown_for_filtering();
     if(empty($request->term)){
       $data['term'] = '';
       if($shopkeeper_id!=''){
@@ -284,7 +285,7 @@ class OrderController extends Controller
       }
     }
 
-    return view('admin.orders.index', $data);
+    return view('admin.orders.index', compact('data'));
   }
 
   public function cPendingOrders(Request $request) {

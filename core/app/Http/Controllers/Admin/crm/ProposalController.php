@@ -123,8 +123,13 @@ class ProposalController extends Controller
         {
             $query->where(function ($k) use ($search_key) {
 
-             $k->where('number', 'like', $search_key.'%')
-                ->orWhere('title', 'like', $search_key.'%');
+             $k->orwhere('number', 'like', $search_key.'%')
+                ->orwhere('total', 'like', $search_key.'%')
+                ->orWhere('open_till', 'like', like_search_wildcard_gen(date2sql($search_key)))
+                ->orWhere('date', 'like', like_search_wildcard_gen(date2sql($search_key)))
+                ->orWhere('title', 'like', $search_key.'%')
+                ->orWhere('send_to', 'like', $search_key.'%');
+
 
             });
         }

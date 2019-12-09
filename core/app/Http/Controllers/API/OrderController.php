@@ -105,7 +105,7 @@ class OrderController extends Controller
 
 		// store products in orderedproducts table
 		foreach($carts as $cart) {
-
+			
 			$op = new Orderedproduct;
 			$op->user_id = Auth::id();
 			$op->order_id = $order->id;

@@ -128,7 +128,7 @@ class LeadController extends Controller {
                 $query->whereNull('is_lost');
         }
         // Filtering Data
-
+        DB::enableQueryLog();
         $number_of_records  = $q->get()->count();
 
         if($search_key)
@@ -158,10 +158,16 @@ class LeadController extends Controller {
         }
 
         $recordsFiltered = $query->get()->count();
-        $query->skip(Input::get('start'))->take(Input::get('length'));
+        $length = Input::get('length');
+        if($length != '-1'){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        // $query->skip(Input::get('start'))->take(Input::get('length'));
+        
         $data = $query->get();
-        //
-
+        /*$data2 = DB::getQueryLog();
+        print_r($data2);
+        exit('here');*/
         $rec = [];
 
         if (count($data) > 0)
@@ -264,8 +270,8 @@ class LeadController extends Controller {
             'first_name' => 'required',
             'last_name' => 'required',
             'email'     => 'nullable|email|unique:leads',
-            'employer_name' => 'required',
-            'employer_contactno' => 'required',
+            /*'employer_name' => 'required',
+            'employer_contactno' => 'required',*/
         ]);
 
         if ($validator->fails()) {
@@ -382,8 +388,6 @@ class LeadController extends Controller {
                     'email',
                     Rule::unique('leads')->ignore($id),
                     ],
-                'employer_name' => 'required',
-                'employer_contactno' => 'required',
                 ]);
 
         if ($validator->fails()) {
