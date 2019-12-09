@@ -296,7 +296,7 @@
 
             //owl carousel activate function
 
-            function owlCarsouelActivate(selector,nav,responsive,thumbs=false,thumbsPrerendered=false,loop = false,autoplay=false,margin=30,dot=false){
+            function owlCarsouelActivate(selector,nav,responsive,thumbs=false,thumbsPrerendered=false,loop = false,autoplay=false,margin=15,dot=false){
                 var $selector = $(selector);
                 if ($selector.length > 0) {
                     $selector.owlCarousel({

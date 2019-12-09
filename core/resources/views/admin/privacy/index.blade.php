@@ -11,11 +11,11 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     {{-- <div class="app-title">
         <div>
            <h1>Privacy Policy</h1>
         </div>
-     </div>
+     </div> --}}
      <div class="row">
         <div class="col-md-12">
            <div class="tile">
@@ -24,15 +24,16 @@
                     <div class="form-body">
                        {{csrf_field()}}
                        <div class="form-group">
-                          <label><strong>Privacy Policy</strong></label>
-                          <textarea class="form-control" name="privacy" id="privacy" rows="10">{{$gs->privacy}}</textarea>
+                          <h5><strong>MPrivacy Policy</strong></h5><hr>
+                          <textarea class="form-control w-100" name="privacy" id="privacy" rows="10">{{$gs->privacy}}</textarea>
                           @if ($errors->has('privacy'))
                             <span style="color:red;">{{$errors->first('privacy')}}</span>
                           @endif
                        </div>
                     </div>
-                    <div class="form-actions">
-                       <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                    <hr>
+                    <div class="form-actions text-right">
+                       <button type="submit" class="btn btn-success btn-sm">Update</button>
                     </div>
                  </form>
               </div>

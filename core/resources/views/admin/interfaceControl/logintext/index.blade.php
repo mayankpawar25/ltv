@@ -16,15 +16,15 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     {{-- <div class="app-title">
         <div>
            <h1>Login Page Text</h1>
         </div>
-     </div>
+     </div> --}}
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <div class="tile-body">
+           <div class="main-content">
+                 <h5>Login Text</h5><hr>
                  <form role="form" method="POST" action="{{route('admin.logintext.update')}}" enctype="multipart/form-data">
                     <div class="form-body">
                        {{csrf_field()}}
@@ -43,8 +43,9 @@
                           @endif
                        </div>
                     </div>
-                    <div class="form-actions">
-                       <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                    <hr>
+                    <div class="form-actions text-right">
+                       <button type="submit" class="btn btn-success">Update</button>
                     </div>
                  </form>
               </div>

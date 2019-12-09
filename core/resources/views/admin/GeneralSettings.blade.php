@@ -84,7 +84,7 @@
                     <br>
                     <div class="row">
 
-                       <div class="col">
+                       <div class="col-md-3">
                           <div class="check-round">
                           <label>Email Verification</label>
                           <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
@@ -121,7 +121,7 @@
                     <br>
 
                     <div class="row">
-                       <div class="col">
+                       <div class="col-md-3">
                           <h6>Facebook Login Status</h6>
                           <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
                              data-width="100%" type="checkbox"

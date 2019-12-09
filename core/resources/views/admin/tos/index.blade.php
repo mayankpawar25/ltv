@@ -11,28 +11,30 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     {{-- <div class="app-title">
         <div>
            <h1>Terms & Conditios</h1>
         </div>
-     </div>
+     </div> --}}
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <div class="tile-body">
+           <div class="main-content">
+            <h5>Terms & Conditions</h5><hr>
+              <div class="">
                  <form role="form" method="POST" action="{{route('admin.tos.update')}}" enctype="multipart/form-data">
                     <div class="form-body">
                        {{csrf_field()}}
                        <div class="form-group">
-                          <label><strong>Terms & Conditions</strong></label>
-                          <textarea class="form-control" name="tos" id="tos" rows="10">{{$gs->tos}}</textarea>
+                          
+                          <textarea class="form-control w-100" name="tos" id="tos" rows="10">{{$gs->tos}}</textarea>
                           @if ($errors->has('tos'))
                             <span style="color:red;">{{$errors->first('tos')}}</span>
                           @endif
                        </div>
                     </div>
-                    <div class="form-actions">
-                       <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                    <hr>
+                    <div class="form-actions text-right">
+                       <button type="submit" class="btn btn-success btn-sm">Update</button>
                     </div>
                  </form>
               </div>

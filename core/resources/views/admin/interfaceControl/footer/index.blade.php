@@ -10,15 +10,12 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>Footer Text</h1>
-        </div>
-     </div>
+     
      <div class="row">
         <div class="col-md-12">
 
-          <div class="tile">
+          <div class="main-content">
+            <h5>Footer Text</h5><hr>
             <div class="row">
 
               <div class="col-md-12">
@@ -26,21 +23,18 @@
                   {{csrf_field()}}
                    <div class="form-body">
                       <div class="form-group">
-                         <label class="col-md-12"><strong style="text-transform: uppercase;">Footer Text</strong></label>
-                         <div class="col-md-12">
+                         
+                         <div class="">
                             <textarea id="footerTextArea" style="width:100%;" class="form-control" name="footer_text" rows="3" cols="80">{!! $gs->footer !!}</textarea>
                             @if ($errors->has('footer_text'))
                               <p class="text-danger">{{$errors->first('footer_text')}}</p>
                             @endif
                          </div>
                       </div>
-                      <br>
+                      <hr>
                       <div class="row">
-                         <div class="col-md-12">
-                           <div class="col-md-12">
-                             <button type="submit" class="btn btn-info btn-block btn-lg">UPDATE</button>
-
-                           </div>
+                           <div class="col-md-12 text-right">
+                             <button type="submit" class="btn btn-success">UPDATE</button>
                          </div>
                       </div>
                    </div>

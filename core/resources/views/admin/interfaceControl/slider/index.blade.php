@@ -13,18 +13,11 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>Slider Setting</h1>
-        </div>
-     </div>
-     <div class="row">
-        <div class="col-md-12">
+    <div class="row">
 
-          <div class="tile">
-            <div class="row">
-
-              <div class="col-md-12">
+      <div class="col-md-4">
+      <div class="main-content"> 
+             <h5>Slider Setting</h5><hr>
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
@@ -38,45 +31,49 @@
                   {{csrf_field()}}
                    <div class="form-body">
                      <div class="form-group">
-                        <label class="col-sm-12 control-label"><strong>Slider Image</strong></label>
-                        <div class="col-sm-12"><input type="file" name="slider"></div>
+                        <label class=" control-label"><strong>Slider Image</strong></label>
+                        <div class=""><input type="file" name="slider"></div>
                      </div>
                      <div class="form-group">
-                        <label class="col-sm-12 control-label"><strong>Title</strong></label>
-                        <div class="col-sm-12"><input type="text" name="title" class="form-control input-lg"></div>
+                        <label class=" control-label"><strong>Title</strong></label>
+                        <div class=""><input type="text" name="title" class="form-control input-lg"></div>
                      </div>
                      <div class="form-group">
-                        <label class="col-sm-12 control-label"><strong>Bold Text</strong></label>
-                        <div class="col-sm-12"><input type="text" name="btxt" class="form-control input-lg"></div>
+                        <label class=" control-label"><strong>Bold Text</strong></label>
+                        <div class=""><input type="text" name="btxt" class="form-control input-lg"></div>
                      </div>
                      <div class="form-group">
-                        <label class="col-sm-12 control-label"><strong>Small Text</strong></label>
-                        <div class="col-sm-12"><input type="text" name="stxt" class="form-control input-lg"></div>
+                        <label class=" control-label"><strong>Small Text</strong></label>
+                        <div class=""><input type="text" name="stxt" class="form-control input-lg"></div>
                      </div>
                      <div class="form-group">
-                        <label class="col-sm-12 control-label"><strong>Url</strong></label>
-                        <div class="col-sm-12"><input type="text" name="url" class="form-control input-lg"></div>
+                        <label class=" control-label"><strong>Url</strong></label>
+                        <div class=""><input type="text" name="url" class="form-control input-lg"></div>
                      </div>
                      <div class="row">
-                        <div class="col-md-12">
-                           <button type="submit" class="btn btn-primary btn-block">ADD NEW</button>
+                        <div class="col-md-12 text-right">
+                          <hr>
+                           <button type="submit" class="btn btn-success ">ADD NEW</button>
                         </div>
                      </div>
                    </div>
                 </form>
               </div>
+              </div>
+              
+      <div class="col-md-8">
+    <div class="main-content">
+     <h5>Slider Setting</h5><hr>
+     <div class="row">
+        <div class="col-md-12">
 
-            </div>
-
-            <br>
-
+          <div class="">
+        
             <div class="row">
               <div class="col-md-12">
-                <div class="card">
-                  <div class="card-header bg-primary">
-                    <h5 style="color:white;display:inline-block;">Sliders</h5>
-                  </div>
-                  <div class="card-body">
+                <div class="">
+                  
+                  <div class="">
                       @if (count($sliders) == 0)
                         <h3 class="text-center"> NO SLIDER FOUND</h3>
                       @else
@@ -86,8 +83,8 @@
                           @endif
                           <div class="col-md-4">
                             <div class="card testimonial">
-                              <div class="card-header bg-primary">
-                                <h5 style="color:white">Slider Text</h5>
+                              <div class="card-header">
+                                <h5 style="color:#2d2d2d">Slider Text</h5>
                               </div>
                               <div class="card-body text-center">
                                 <img src="{{asset('assets/user/interfaceControl/sliders/'.$slider->image)}}" alt="">
@@ -127,9 +124,17 @@
                   </div>
                 </div>
               </div>
+                
+
             </div>
           </div>
         </div>
      </div>
+    </div>
+</div>
+
+    
+
+</div>
   </main>
 @endsection

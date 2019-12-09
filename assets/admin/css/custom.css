@@ -1,8 +1,33 @@
 @charset "utf-8";
 /* CSS Document */
+/*sandeep css*/
+/*.table-bordered .dataTable td:last-child*/
+.table>tbody>tr>td:last-child
+{
+   text-align: right;
+}
+.table>tbody>tr>td:last-child .btn-info
+{
+	background-color: #84c529;
+	border-color: #84c529;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #f2f2f2;
+    color: #333;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #bfcbd9;
 
+}
+.dropdown-item {
+    color: #16181b !important;
+    
+}
+/*sandeep*/
 
-
+.main-content {
+    margin-bottom: 20px;
+}
 .toggle.btn {
 	min-width: 59px;
 	min-height: 36px;

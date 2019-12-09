@@ -13,15 +13,16 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     {{-- <div class="app-title">
         <div>
            <h1>Partner Setting</h1>
         </div>
-     </div>
+     </div> --}}
      <div class="row">
         <div class="col-md-12">
 
-          <div class="tile">
+          <div class="main-content">
+            <h5>Partner Setting</h5><hr>
             <div class="row">
 
               <div class="col-md-12">
@@ -37,17 +38,28 @@
                 <form action="{{route('admin.partner.store')}}" method="post" enctype="multipart/form-data">
                   {{csrf_field()}}
                    <div class="form-body">
+                    <div class="row">
+                      <div class="col-md-4">
                       <div class="form-group">
                          <label class="control-label"><strong>Partner Image</strong></label>
-                         <div><input type="file" name="partner"></div>
+                          <div class="custom-file">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                            <input type="file" class="form-control" id="customFile">
+                          </div>
+                         {{-- <div><input type="file" name="partner" class="form-control"></div> --}}
                       </div>
+                      </div>
+                      <div class="col-md-8">
                       <div class="form-group">
                          <label class="control-label"><strong>URL</strong></label>
                          <div><input type="text" name="url" class="form-control input-lg"></div>
                       </div>
+                      </div>
+                      </div>
+                      <hr>
                       <div class="row">
-                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-info btn-block">ADD NEW</button>
+                         <div class="col-md-12 text-right">
+                            <button type="submit" class="btn btn-success">ADD NEW</button>
                          </div>
                       </div>
                    </div>
@@ -61,8 +73,8 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="card">
-                  <div class="card-header bg-primary">
-                    <h5 style="color:white;display:inline-block;">Partners</h5>
+                  <div class="card-header">
+                    <h5 style="color:#212529;display:inline-block;">Partners</h5>
                   </div>
                   <div class="card-body">
                       @if (count($partners) == 0)

@@ -16,20 +16,21 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     {{-- <div class="app-title">
         <div>
            <h1>Register Page Text</h1>
         </div>
-     </div>
+     </div> --}}
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <div class="tile-body">
+           <div class="main-content">
+            <h5>Register Text</h5><hr>
+              <div class="">
                  <form role="form" method="POST" action="{{route('admin.registertext.update')}}" enctype="multipart/form-data">
                     <div class="form-body">
                        {{csrf_field()}}
                        <div class="form-group">
-                          <label><strong>User Register Text</strong></label>
+                        <label><strong>User Register Text</strong></label>
                           <textarea class="form-control" name="user_register_text" id="user" rows="10">{{$gs->user_register_text}}</textarea>
                           @if ($errors->has('user_register_text'))
                             <span style="color:red;">{{$errors->first('user_register_text')}}</span>
@@ -43,8 +44,9 @@
                           @endif
                        </div>
                     </div>
-                    <div class="form-actions">
-                       <button type="submit" class="btn btn-primary btn-block btn-lg">Update</button>
+                    <hr>
+                    <div class="form-actions text-right">
+                       <button type="submit" class="btn btn-success">Update</button>
                     </div>
                  </form>
               </div>

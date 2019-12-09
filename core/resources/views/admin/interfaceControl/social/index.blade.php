@@ -10,19 +10,13 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>SOCIAL SETTING</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-     </div>
+     
      <div class="row">
         <div class="col-md-12">
 
-          <div class="tile">
+          <div class="main-content">
+            <h5>Social Setting</h5>
+            <hr>
             <div class="row">
 
               <div class="col-md-12">
@@ -35,10 +29,10 @@
                        </ul>
                    </div>
                @endif
-                <div class="card">
-                  <div class="card-body">
+                <div class="">
+                  <div class="">
                     <div class="">
-                      <a href="https://fontawesome.com/icons?d=gallery" class="btn btn-primary float-left" target="_blank">Font awesome icons</a>
+                      <a href="https://fontawesome.com/icons?d=gallery" class="btn btn-secondary float-left" target="_blank">Font awesome icons</a>
                       <p class="mb-2" style="clear:both; margin: 0px;"></p>
                     </div>
                     <form class="" action="{{route('admin.social.store')}}" method="post">
@@ -59,8 +53,9 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-12">
-                          <button type="submit" class="btn btn-info btn-block btn-lg">SUBMIT</button>
+                        <div class="col-md-12 text-right">
+                        <hr/>
+                          <button type="submit" class="btn btn-success ">SUBMIT</button>
                         </div>
                       </div>
                     </form>
@@ -69,12 +64,15 @@
                 </div>
               </div>
               <div class="col-md-12" style="margin-top:20px;">
-                <div class="card">
-                  <div class="card-header bg-primary">
-                    <h5 style="color:white;margin:0px;"><i class="fa fa-list"></i> SOCIAL LIST</h5>
+                <div class="">
+                  <div class="">
+                    <h6>Social List</h6>
                   </div>
-                  <div class="card-body">
+                  <div class="">
                     @if (count($socials) == 0)
+                    <div class="text-center">
+                <img src="{{asset('assets/admin/images/no-data.jpg')}}" />
+              </div>
                       <h3 class="text-center">NO SOCIAL LINKS FOUND</h3>
                     @else
                       <table class="table table-bordered">
@@ -97,7 +95,7 @@
                               <td>{{$social->url}}</td>
                               <td>
                                <button type="button" class="btn btn-danger btn-sm delete_button" data-toggle="modal" data-target="#DelModal{{$social->id}}">
-                               <i class="fa fa-times"></i> DELETE
+                               <span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span>
                                </button>
                               </td>
                             </tr>
