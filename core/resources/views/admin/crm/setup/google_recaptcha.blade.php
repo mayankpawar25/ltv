@@ -13,12 +13,12 @@
 <div class="form-row">
 <div class="form-group col-md-6">
    <label>@lang('form.google_recaptcha_secret_key')</label>
-   <input type="text" class="form-control form-control-sm {!! $errors->has('settings.google_recaptcha_secret_key') ? ' is-invalid' : '' !!}" name="settings[google_recaptcha_secret_key]" value="{{ old_set('google_recaptcha_secret_key', NULL, $rec) }}">
+   <input type="text" class="form-control  {!! $errors->has('settings.google_recaptcha_secret_key') ? ' is-invalid' : '' !!}" name="settings[google_recaptcha_secret_key]" value="{{ old_set('google_recaptcha_secret_key', NULL, $rec) }}">
    <div class="invalid-feedback">@php if($errors->has('settings.google_recaptcha_secret_key')) { echo $errors->first('settings.google_recaptcha_secret_key') ; } @endphp</div>
 </div>
 <div class="form-group col-md-6">
    <label>@lang('form.google_recaptcha_site_key')</label>
-   <input type="text" class="form-control form-control-sm {!! $errors->has('settings.google_recaptcha_site_key') ? ' is-invalid' : '' !!}" name="settings[google_recaptcha_site_key]" value="{{ old_set('google_recaptcha_site_key', NULL, $rec) }}">
+   <input type="text" class="form-control  {!! $errors->has('settings.google_recaptcha_site_key') ? ' is-invalid' : '' !!}" name="settings[google_recaptcha_site_key]" value="{{ old_set('google_recaptcha_site_key', NULL, $rec) }}">
    <div class="invalid-feedback">@php if($errors->has('settings.google_recaptcha_site_key')) { echo $errors->first('settings.google_recaptcha_site_key') ; } @endphp</div>
 </div>
 </div>

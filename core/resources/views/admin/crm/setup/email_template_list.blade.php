@@ -4,7 +4,7 @@
   <div class="card">
     <div class="card-header" id="heading_{{ $key }}">
       <h5 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse_{{ $key }}" aria-expanded="true" 
+        <button class="btn btn-link-outline btn-block text-left" type="button" data-toggle="collapse" data-target="#collapse_{{ $key }}" aria-expanded="true" 
         aria-controls="collapse_{{ $key }}">
           {{ $row['component_name'] }}
         </button>
@@ -19,7 +19,13 @@
 		  	@endif
 		</ul>
     </div>
-  </div>  
+  </div> 
+<style>
+.accordion .card .card-header {
+    margin-bottom: 0px;
+}
+</style>
+   
 @endforeach
 </div>
 @endif

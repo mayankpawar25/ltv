@@ -24,12 +24,23 @@
     transition: all 0.3s;
     color: inherit;
 }
+ 
+#navbarSupportedContent .nav-link{
+	color:#444;
+}
+#navbarSupportedContent .nav-link:focus, #navbarSupportedContent .nav-link:hover, #navbarSupportedContent .nav-link.active {
+
+    color:#000;
+
+}
+
+
 </style>
 
-<nav class="navbar navbar-expand-lg bg-primary bg-light">
-   <a class="navbar-brand" href="{{ route('settings_main_page') }}"><i class="fas fa-cog menu-icon"></i></a>
-   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-   <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg ">
+ <!--  <a class="navbar-brand" href="{{ route('settings_main_page') }}"><i class="fas fa-cog menu-icon"></i></a>-->
+   <button class="navbar-toggler pull-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <i class="fa fa-align-justify" aria-hidden="true"></i>
    </button>
    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
