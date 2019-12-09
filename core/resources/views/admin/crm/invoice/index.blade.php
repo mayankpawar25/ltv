@@ -1,6 +1,29 @@
 @extends('admin.layout.master')
 @section('title', __('form.invoices'))
 @section('content')
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+#data tr td:last-child {
+  text-align: right;
+}
+
+</style>
 <style>
     .hide-content{
         display: none;
@@ -294,8 +317,8 @@
 
             dataTable = $('#data').DataTable({
 
-                dom: 'Bfrtip',
-                buttons: [
+                dom: 'lfBfrtip',
+               /* buttons: [
 
                     {
                         init: function(api, node, config) {
@@ -312,6 +335,25 @@
                             'print'
                         ]
                     }
+                ],*/
+                 buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
                 ],
                 "language": {
                     "lengthMenu": '_MENU_ ',
