@@ -105,7 +105,6 @@ class OrderController extends Controller
 
 		// store products in orderedproducts table
 		foreach($carts as $cart) {
-			
 			$op = new Orderedproduct;
 			$op->user_id = Auth::id();
 			$op->order_id = $order->id;
@@ -234,7 +233,7 @@ class OrderController extends Controller
 		$user = Shopkeeper::find(Auth::id());
 		$user_group = UserGroup::find($user->usergroup_id);
 		if(!empty($user_group)){
-			$group_disc = $user_group->percentage;
+			$group_disc = 0.00;
 		}
 
 		foreach ($product_details as $key => $product) {
@@ -258,14 +257,15 @@ class OrderController extends Controller
 			$subtotal += $products->cart_amount;
 			$total_items += $product->quantity;
 		}
+
 		$tax_percentage = $gs->tax;
 		$tax_amount = ( $subtotal * ( $tax_percentage / 100 ) );
 		$total = $subtotal+$tax_amount;
 		$data['total_items'] = $total_items;
-		$data['subtotal'] = number_format($subtotal,2);
+		$data['subtotal'] = number_format($this->getSubTotal($request->product_detail),2);
 		$data['tax_percentage'] = $tax_percentage;
 		$data['tax_amount'] = number_format($tax_amount,2);
-		$data['total'] = number_format($total,2);
+		$data['total'] = number_format($this->getTotal($request->product_detail),2);
 		return response()->json($data, $this->successStatus);
 	}
 
@@ -285,7 +285,6 @@ class OrderController extends Controller
                 foreach ($favorit as $fav_key => $fav_value) {
                     $fav_arr[$fav_key] = $fav_value->product_id;
                 }
-
             }
         }
 
@@ -295,7 +294,9 @@ class OrderController extends Controller
 			$data['status'] = false;
 			$status = 401;
 		}else{
+
 			foreach ($order_history as $key => $value) {
+				$value->tax_amount = number_format(($value->subtotal*$value->tax)/100,2);
 				$value->orderedproducts;
 				$value->total_products = count($value->orderedproducts);
 				foreach ($value->orderedproducts as $p_key => $p_value) {
@@ -465,11 +466,12 @@ class OrderController extends Controller
 	public function getSubTotal($cartdetail,$coupon_code=""){
 	    $cartItems = json_decode($cartdetail);
 	    $amo = 0;
-	    foreach ($cartItems as $item) {
+	    foreach ($cartItems as $item){
+	    	$product = Product::find($item->product_id);
 	      /*if (!empty($item->current_price)) {
 	        $amo += $item->current_price*$item->quantity;
 	      } else {*/
-	        $amo += $item->price*$item->quantity;
+	        $amo += $product->price*$item->quantity;
 	      // }
 	    }
 	    $char = 0;

@@ -214,7 +214,9 @@
                                                        <div class="single-new-collection-item "><!-- single new collections -->
                                                            
                                                            <div class="thumb">
+                                                            @if($topSoldPro->previewimages())
                                                                <img src="{{asset('assets/user/img/products/'.$topSoldPro->previewimages()->first()->image)}}" alt="new collcetion image">
+                                                            @endif
                                                                <div class="hover">
                                                                 <a href="{{route('user.product.details', [$topSoldPro->slug, $topSoldPro->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                                                                </div>
@@ -243,7 +245,9 @@
                                                    <div class="col-lg-3 col-md-6 px-2">
                                                      <div class="single-new-collection-item "><!-- single new collections -->
                                                          <div class="thumb">
+                                                          @if($topRatedPro->previewimages())
                                                              <img src="{{asset('assets/user/img/products/'.$topRatedPro->previewimages()->first()->image)}}" alt="new collcetion image">
+                                                          @endif
                                                              <div class="hover">
                                                                <a href="{{route('user.product.details', [$topRatedPro->slug, $topRatedPro->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                                                              </div>
@@ -333,7 +337,9 @@
                           @foreach ($cat->products()->where('deleted', 0)->orderBy('id', 'DESC')->limit(8)->get() as $key => $product)
                             <div class="single-new-collection-item "><!-- single new collections -->
                                 <div class="thumb">
+                                  @if(!$product->previewimages->isEmpty())
                                     <img src="{{asset('assets/user/img/products/'.$product->previewimages()->first()->image)}}" alt="new collcetion image">
+                                  @endif
                                     <div class="hover">
                                       <a href="{{route('user.product.details', [$product->slug, $product->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                                     </div>
@@ -389,7 +395,9 @@
                         <div class="row">
                           <div class="col-sm-12">
                           <div class="thumb">
+                            @if(!$latestPro->previewimages->isEmpty())
                               <img src="{{asset('assets/user/img/products/'.$latestPro->previewimages()->first()->image)}}" alt="new collcetion image">
+                            @endif
                               <div class="hover">
                                 <a href="{{route('user.product.details', [$latestPro->slug,$latestPro->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                               </div>
@@ -459,9 +467,10 @@
                                                    @foreach ($topSoldPros as $key => $topSoldPro)
                                                      <div class="col-lg-3 col-md-6 px-2">
                                                        <div class="single-new-collection-item "><!-- single new collections -->
-                                                           
                                                            <div class="thumb">
+                                                              @if(!$topSoldPro->previewimages->isEmpty())
                                                                <img src="{{asset('assets/user/img/products/'.$topSoldPro->previewimages()->first()->image)}}" alt="new collcetion image">
+                                                               @endif
                                                                <div class="hover">
                                                                 <a href="{{route('user.product.details', [$topSoldPro->slug, $topSoldPro->id])}}" class="view-btn"><i class="fa fa-eye"></i></a>
                                                                </div>

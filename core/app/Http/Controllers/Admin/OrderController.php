@@ -41,7 +41,7 @@ class OrderController extends Controller
   }
 
   public function paginate(Request $request){
-
+    $gs = GS::first();
     $status_id = Input::get('status_id');
     $delivery_status = Input::get('delivery_status');
     $payment_method = Input::get('payment_method');
@@ -120,6 +120,7 @@ class OrderController extends Controller
             ->orWhere('phone', 'like', like_search_wildcard_gen($search_key))
             ->orWhere('email', 'like', like_search_wildcard_gen($search_key))
             ->orWhere('total', 'like', like_search_wildcard_gen($search_key))
+            ->orWhere('tax', 'like', like_search_wildcard_gen($search_key))
             ->orWhere('subtotal', 'like', like_search_wildcard_gen($search_key))
             ->orWhere('created_at', 'like', like_search_wildcard_gen(date2sql($search_key)))
             ->orWhere('first_name', 'like', like_search_wildcard_gen($search_key))
@@ -198,6 +199,7 @@ class OrderController extends Controller
               $row->phone,
               $row->email,
               format_currency($row->subtotal, true , $currency_symbol),
+              format_currency($row->subtotal*($gs->tax/100), true , $currency_symbol),
               format_currency($row->total, true , $currency_symbol),
               $shipping_status,
               ($row->payment_method == 2)?'<span class="badge badge-warning">Advance</span>':'<span class="badge badge-warning">COD</span>',
@@ -228,7 +230,7 @@ class OrderController extends Controller
 
           $subtotal           += $row->subtotal;
           $total              += $row->total;
-          // $tax_total          += ($row->tax!=null)?$row->tax:0.00;
+          $tax_total          += ($gs->tax==null)?0.00:$row->subtotal*($gs->tax/100);
           // $discount_total     += $row->discount_total;
           // $adjustment         += $row->adjustment;
           // $applied_credits    += $row->applied_credits;
@@ -243,12 +245,11 @@ class OrderController extends Controller
           "",
           "",
           '<b>'. format_currency($subtotal, true , $currency_symbol  ). '<b>',
+          '<b>'.format_currency($tax_total, true , $currency_symbol ) . '<b>',                    
           '<b>'. format_currency($total, true , $currency_symbol  ). '<b>',
           "",
           "",
           "",
-          "",
-          // '<b>'.format_currency($tax_total, true , $currency_symbol ) . '<b>',                    
           // '<b>'.format_currency($discount_total, true , $currency_symbol ) . '<b>',                
           // '<b>'.format_currency($adjustment, true , $currency_symbol ). '<b>',    
           // '<b>'.format_currency($applied_credits, true , $currency_symbol ). '<b>', 

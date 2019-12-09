@@ -243,6 +243,7 @@ div#data_filter {
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Sub-Total</th>
+                        <th>Tax</th>
                         <th>Total</th>
                         <th>Shipping Status</th>
                         <th>Payment Method</th>
