@@ -150,6 +150,7 @@ div#data_filter {
                         <th>@lang("form.due_date")</th>
                         {{--<th>@lang("form.reference")</th>--}}
                         <th>@lang("form.status")</th>
+                         <th>@lang("form.action")</th>
                     </tr>
                     </thead>
                 </table>

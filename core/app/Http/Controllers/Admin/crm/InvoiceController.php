@@ -194,11 +194,16 @@ class InvoiceController extends Controller
                         'permission' => 'invoices_edit',
                     ]);
                 }
-                
+
+                if(check_perm('invoices_view')){
+                    $delete_btn = '<a href="'.route('invoice_customer_view', [$row->id, $row->url_slug]).'" class="view_item btn btn-primary btn-sm" title="view"><i class="icon-eye icons icon"></i></a>';
+                }
+                if(check_perm('invoices_edit')){
+                    $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_invoice_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
+                }              
 
                 $rec[] = array(
-
-                    a_links(vue_click_link($row->number, $row->id, route('show_invoice_page', $row->id)), $act),
+                    a_links(vue_click_link($row->number, $row->id), $act),
                     format_currency($row->total, TRUE, $row->get_currency_symbol().'. '),
                     format_currency($row->tax_total, TRUE, $row->get_currency_symbol().'. ') ,
                     // $row->total,
@@ -214,6 +219,7 @@ class InvoiceController extends Controller
                     isset(($row->due_date)) ? sql2date($row->due_date) : "",
 
                     $row->status->name,
+                    $edit_btn.$delete_btn,
 
                 );
 
