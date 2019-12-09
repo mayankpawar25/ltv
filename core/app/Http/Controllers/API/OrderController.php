@@ -19,7 +19,7 @@ use App\Refund;
 use App\GeneralSetting as GS;
 use Carbon\Carbon;
 use Auth;
-use App\Cart;
+use App\Cart,App\Favorit;
 use App\PlacePayment;
 use Session;
 use Validator;
@@ -277,8 +277,8 @@ class OrderController extends Controller
 		}
 			
 		$fav_arr = [];
-        if(!empty($request->user('api'))){
-            $user = $request->user('api');
+        if(!empty(auth::user())){
+            $user = auth::user();
             $favorit = Favorit::where('user_id',$user->id)->get();
             // echo json_encode($favorit);
             if(!empty($favorit)){
