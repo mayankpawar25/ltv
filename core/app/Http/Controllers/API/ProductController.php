@@ -18,6 +18,9 @@ class ProductController extends Controller
     	foreach ($category as $key => $value) {
             $value->image = ($value->image!='')?asset('assets/user/img/category/'.$value->image):'';
     		$value->subcategories;
+            foreach ($value->subcategories as $key => $value) {
+                $value->image = ($value->image!='')?asset('assets/user/img/subcategory/'.$value->image):'';
+            }
     	}
     	$data['categories'] = $category;
     	$data['msg'] = 'Category List';
