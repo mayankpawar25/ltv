@@ -298,14 +298,13 @@ class OrderController extends Controller
 			foreach ($order_history as $key => $value) {
 				$value->orderedproducts;
 				$value->total_products = count($value->orderedproducts);
-
 				foreach ($value->orderedproducts as $p_key => $p_value) {
 					foreach($p_value->product->previewimages as $images){
 			            $images->image = asset('assets/user/img/products/'.$images->image);
 			            $images->big_image = asset('assets/user/img/products/'.$images->big_image);
 		          	}
 
-		          	$rattributes = json_decode($value->orderedproducts->attributes);
+		          	$rattributes = json_decode($p_value->attributes);
 	                $r_attr = [];
 	                $i = 0;
 	                if(!empty($rattributes)){
@@ -315,8 +314,8 @@ class OrderController extends Controller
 	                        $i++;
 	                    }
 	                }
-	                $value->orderedproducts->attributes = $r_attr;
-	                $value->orderedproducts->favorite = in_array($value->orderedproducts->id,$fav_arr)?1:0;
+	                $p_value->attributes = $r_attr;
+	                $p_value->favorite = in_array($p_value->id,$fav_arr)?1:0;
 
 				}
 				/* Status */
