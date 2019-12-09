@@ -46,13 +46,13 @@
 
                        <div class="form-group col-md-6">
                            <label>@lang('form.date') <span class="required">*</span></label>
-                           <input type="text" class="form-control datepicker form-control-sm" name="date" value="{{ old_set('date', NULL, $rec) }}">
+                           <input type="text" class="form-control datepicker " name="date" value="{{ old_set('date', NULL, $rec) }}">
                        </div>
 
                        <div class="form-group col-md-6">
                            <label>@lang('form.category') <span class="required">*</span></label>
                            <div class="select2-wrapper">
-                               <?php echo form_dropdown("expense_category_id", $data['categories'], old_set("expense_category_id", NULL, $rec), "class='form-control form-control-sm selectpicker' ") ?>
+                               <?php echo form_dropdown("expense_category_id", $data['categories'], old_set("expense_category_id", NULL, $rec), "class='form-control  selectpicker' ") ?>
                            </div>
                            <div class="invalid-feedback d-block">@php if($errors->has('expense_category_id')) { echo $errors->first('expense_category_id') ; } @endphp</div>
                        </div>
@@ -61,7 +61,7 @@
 
                    <div class="form-group">
                        <label>@lang('form.amount') <span class="required">*</span></label>
-                       <input type="text" class="form-control form-control-sm {{ showErrorClass($errors, 'amount') }}" name="amount" value="{{ old_set('amount', NULL,$rec) }}">
+                       <input type="text" class="form-control  {{ showErrorClass($errors, 'amount') }}" name="amount" value="{{ old_set('amount', NULL,$rec) }}">
                         <div class="invalid-feedback d-block">{{ showError($errors, 'amount') }}</div>
                    </div>
 
@@ -69,7 +69,7 @@
                       <label>@lang('form.vendor')</label>
                       <label>Dealer</label>
                       <div class="select2-wrapper">
-                          <?php //echo form_dropdown("vendor_id", $data['vendor_id_list'], old_set("vendor_id", NULL, $rec), "class='form-control form-control-sm selectpicker'") ?>
+                          <?php //echo form_dropdown("vendor_id", $data['vendor_id_list'], old_set("vendor_id", NULL, $rec), "class='form-control  selectpicker'") ?>
                       </div>
                       <div class="invalid-feedback d-block">@php if($errors->has('vendor_id')) { echo $errors->first('vendor_id') ; } @endphp</div>
                     </div> -->
@@ -115,12 +115,12 @@
 
                    <div class="form-group">
                        <label>@lang('form.name') <i data-toggle="tooltip" data-placement="top" title="{{ __('form.tooltip.expense.form.name') }}" class="fas fa-question-circle"></i> </label>
-                       <input type="text" class="form-control form-control-sm" name="name" value="{{ old_set('name', NULL,$rec) }}">
+                       <input type="text" class="form-control " name="name" value="{{ old_set('name', NULL,$rec) }}">
                    </div>
 
                    <div class="form-group">
                        <label>@lang('form.note') <i data-toggle="tooltip" data-placement="top" title="{{ __('form.tooltip.expense.form.note') }}" class="fas fa-question-circle"></i></label>
-                       <textarea name="note" class="form-control form-control-sm" >{{ old_set('note', NULL,$rec) }}</textarea>
+                       <textarea name="note" class="form-control " >{{ old_set('note', NULL,$rec) }}</textarea>
                    </div>
 
 
@@ -147,7 +147,7 @@
 
                           $default_currency_id = (old_set("currency_id", NULL, $rec)) ? old_set("currency_id", NULL, $rec) :  config('constants.default_currency_id');
                           ?>
-                            <?php echo form_dropdown("currency_id", $data['currency_id_list'], $default_currency_id, "class='form-control form-control-sm selectpicker' ") ?>
+                            <?php echo form_dropdown("currency_id", $data['currency_id_list'], $default_currency_id, "class='form-control  selectpicker' ") ?>
                         </div>
                         <div class="invalid-feedback d-block">@php if($errors->has('currency_id')) { echo $errors->first('currency_id') ; } @endphp</div>
                     </div>
@@ -157,14 +157,14 @@
                         <div class="form-group col-md-6">
                             <label>@lang('form.payment_mode')</label>
                             <div class="select2-wrapper">
-                                <?php echo form_dropdown("payment_mode_id", $data['payment_mode_id_list'], old_set("payment_mode_id", NULL, $rec), "class='form-control form-control-sm selectpicker'") ?>
+                                <?php echo form_dropdown("payment_mode_id", $data['payment_mode_id_list'], old_set("payment_mode_id", NULL, $rec), "class='form-control  selectpicker'") ?>
                             </div>
                             <div class="invalid-feedback d-block">@php if($errors->has('payment_mode_id')) { echo $errors->first('payment_mode_id') ; } @endphp</div>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label>@lang('form.reference')</label>
-                            <input type="text" class="form-control form-control-sm" name="reference" value="{{ old_set('reference', NULL,$rec) }}">
+                            <input type="text" class="form-control " name="reference" value="{{ old_set('reference', NULL,$rec) }}">
                         </div>
 
 
@@ -173,7 +173,7 @@
                     <div class="form-group">
                         <label>@lang('form.tax') <span class="required">*</span></label>
                         <div class="select2-wrapper">
-                            <?php echo form_dropdown("tax_id[]", $data['tax_id_list'], old_set("tax_id", NULL, $rec), "class='form-control form-control-sm select2-multiple' multiple='multiple' ") ?>
+                            <?php echo form_dropdown("tax_id[]", $data['tax_id_list'], old_set("tax_id", NULL, $rec), "class='form-control  select2-multiple' multiple='multiple' ") ?>
                         </div>
                         <div class="invalid-feedback d-block">@php if($errors->has('tax_id')) { echo $errors->first('tax_id') ; } @endphp</div>
                     </div>
