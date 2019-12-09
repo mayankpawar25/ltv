@@ -22,9 +22,6 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-<<<<<<< HEAD
-                      <label>Attributes (Optional)</label>
-=======
                       <strong>Image</strong>
                       <input type="file" value="{{old('image')}}" class="form-control" id="image" name="image">
                     </div>
@@ -32,7 +29,6 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <strong>Attributes (Optional)</strong>
->>>>>>> LTV-Development
                       <div class="">
                         @foreach ($pas as $pa)
                           <div class="form-check form-check-inline">

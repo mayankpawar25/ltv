@@ -21,9 +21,6 @@
                      <input type="text" value="{{$subcat->name}}" class="form-control" id="name" name="name" placeholder="Enter subcategory name" >
                   </div>
                   <div class="col-md-12 mb-10">
-<<<<<<< HEAD
-                    <label>Status</label>
-=======
                       @if($subcat->image)
                       <div class="image">
                         <input type="hidden" name="old_image" value="{{ $subcat->image }}">
@@ -36,7 +33,6 @@
                   </div>
                   <div class="col-md-12 mb-10">
                     <strong>Status</strong>
->>>>>>> LTV-Development
                     <select class="form-control" name="status">
                       <option value="1" {{($subcat->status==1) ? 'selected' : ''}}>Active</option>
                       <option value="0" {{($subcat->status==0) ? 'selected' : ''}}>Deactive</option>
