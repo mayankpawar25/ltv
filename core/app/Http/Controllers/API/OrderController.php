@@ -285,6 +285,20 @@ class OrderController extends Controller
 			foreach ($order_history as $key => $value) {
 				$value->orderedproducts;
 				$value->total_products = count($value->orderedproducts);
+
+				$rattributes = json_decode($value->attributes);
+                $r_attr = [];
+                $i = 0;
+                if(!empty($rattributes)){
+                    foreach ($rattributes as $rkey => $rattribute) {
+                        $r_attr[$i]['name'] = $rkey;
+                        $r_attr[$i]['options'] = $rattribute;
+                        $i++;
+                    }
+                }
+                $value->attributes = $r_attr;
+                $value->favorite = in_array($rproduct->id,$fav_arr)?1:0;
+
 				foreach ($value->orderedproducts as $p_key => $p_value) {
 					foreach($p_value->product->previewimages as $images){
 			            $images->image = asset('assets/user/img/products/'.$images->image);

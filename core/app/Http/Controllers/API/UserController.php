@@ -603,8 +603,8 @@ class UserController extends Controller
 
     $validator = Validator::make($request->all(),[
         'product_detail' => 'required',
-        'sub_total' => 'required',
-        'total' => 'required',
+        // 'sub_total' => 'required',
+        // 'total' => 'required',
         'payment_method' => 'required',
         'payment_method' => 'required',
         ],['product_detail.required'=>'Add Product in Cart']);
