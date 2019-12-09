@@ -38,7 +38,8 @@ div#data_filter {
                 <th>@lang("form.transaction_id")</th>
                 <th>@lang("form.customer")</th>
                 <th class="text-right">@lang("form.amount")</th>
-                <th>@lang("form.date")</th>                
+                <th>@lang("form.date")</th>
+                <th>@lang("form.action")</th>                         
             </tr>
             </thead>
         </table>

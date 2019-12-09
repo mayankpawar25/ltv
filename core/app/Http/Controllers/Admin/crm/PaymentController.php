@@ -105,9 +105,17 @@ class PaymentController extends Controller
         {
             foreach ($data as $key => $row)
             {
-
+                 if(check_perm('payments_delete')){
+                    $delete_btn = '<a href="'.route('delete_payment_page', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
+                }
+                if(check_perm('payments_edit')){
+                    $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_payment_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
+                }              
                 $rec[] = array(
                     a_links(anchor_link($row->number, route('show_payment_page', $row->id )), [
+                        
+                    ]),
+                     /*a_links(anchor_link($row->number, route('show_payment_page', $row->id )), [
                         [
                             'action_link' => route('edit_payment_page', $row->id), 
                             'action_text' => __('form.edit'), 'action_class' => '',
@@ -118,7 +126,7 @@ class PaymentController extends Controller
                             'action_text' => __('form.delete'), 'action_class' => 'delete_item',
                             'permission' => 'payments_delete',
                         ]
-                    ]),
+                    ]),*/
                     anchor_link($row->invoice->number, route('invoice_link', $row->invoice_id)),
                     $row->payment_mode->name,
                     $row->transaction_id,
@@ -128,6 +136,7 @@ class PaymentController extends Controller
                     /*format_currency($row->amount, TRUE, $row->invoice->get_currency_symbol()),*/
                     $row->amount,
                     sql2date($row->date),
+                    $edit_btn.$delete_btn,
 
                 );
 
