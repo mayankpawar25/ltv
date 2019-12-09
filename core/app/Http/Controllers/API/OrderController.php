@@ -305,7 +305,7 @@ class OrderController extends Controller
 			            $images->big_image = asset('assets/user/img/products/'.$images->big_image);
 		          	}
 
-		          	$rattributes = json_decode($p_value->product->attributes);
+		          	$rattributes = json_decode($value->orderedproducts->attributes);
 	                $r_attr = [];
 	                $i = 0;
 	                if(!empty($rattributes)){
@@ -315,8 +315,8 @@ class OrderController extends Controller
 	                        $i++;
 	                    }
 	                }
-	                $p_value->product->attributes = $r_attr;
-	                $p_value->product->favorite = in_array($p_value->product->id,$fav_arr)?1:0;
+	                $value->orderedproducts->attributes = $r_attr;
+	                $value->orderedproducts->favorite = in_array($value->orderedproducts->id,$fav_arr)?1:0;
 
 				}
 				/* Status */
