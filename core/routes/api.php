@@ -246,18 +246,19 @@ Route::post('/slider/user', 'API\UserController@slider');
 **/
 	/* Without Login */
     /* Category - SubCategory - Attributes  - Without Login */
-	Route::get('categories/{category_id?}', 'API\ProductController@categories');
-	Route::get('subcategories/{category_id?}/{subcategory_id?}', 'API\ProductController@subcategories');
+    Route::group(['prefix'=>'user'], function(){
+		Route::get('categories/{category_id?}', 'API\ProductController@categories');
+		Route::get('subcategories/{category_id?}/{subcategory_id?}', 'API\ProductController@subcategories');
 
-	Route::get('products/{category_id?}/{subcategory_id?}/{product_id?}', 'API\ProductController@products');
+		Route::get('products/{category_id?}/{subcategory_id?}/{product_id?}', 'API\ProductController@products');
 
-	Route::get('productdetail/{product_id?}', 'API\ProductController@productDetail');
-	
-	/* Category - SubCategory - Attributes - Without Login */
-	
-	/*Product Search*/
-	Route::get('productsearch/{product_search?}', 'API\ProductController@productSearch');
-	
+		Route::get('productdetail/{product_id?}', 'API\ProductController@productDetail');
+
+		/* Category - SubCategory - Attributes - Without Login */
+
+		/*Product Search*/
+		Route::get('productsearch/{product_search?}', 'API\ProductController@productSearch');
+	});
 	/* Without Login */
 
 
