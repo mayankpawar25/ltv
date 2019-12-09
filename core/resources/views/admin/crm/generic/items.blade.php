@@ -1,5 +1,7 @@
-<div class="main-content" style="margin-bottom: 0 !important;">
+<div>
+<hr />
     <div class="row">
+    
         <div class="col-md-6">
             <div class="form-group">
 
@@ -26,27 +28,30 @@
                     </label>
                 </div>
                 <div class="form-check form-check-inline">
+                <label class="form-check-label">
                     <input class="form-check-input" type="radio" name="show_quantity_as" value="{{ __(('form.qty')) }}" {{ (($show_quantity_as == __(('form.qty'))) || ($show_quantity_as == '')) ? 'checked' : ''  }}>
-                    <label class="form-check-label">
+                    
                         @lang('form.qty')
                     </label>
                 </div>
                 <div class="form-check form-check-inline">
+                 <label class="form-check-label">
                     <input class="form-check-input" type="radio" name="show_quantity_as" value="{{ __(('form.hours')) }}" {{ (($show_quantity_as == __(('form.hours'))) ) ? 'checked' : '' }}>
-                    <label class="form-check-label">
+                   
                         @lang('form.hours')
                     </label>
                 </div>
                 <div class="form-check form-check-inline">
+                  <label class="form-check-label">
                     <input class="form-check-input" type="radio" name="show_quantity_as" value="{{ __(('form.qty_slash_hours')) }}" {{ (($show_quantity_as == __(('form.qty_slash_hours'))) ) ? 'checked' : '' }}>
-                    <label class="form-check-label">
+                  
                         @lang('form.qty_slash_hours')
                     </label>
                 </div>
             </div>
         </div>
     </div>
-
+<div class="table-responsive">
     <table class="table items">
         <thead>
             <tr>
@@ -61,8 +66,8 @@
         </thead>
         <tfoot>
             <tr>
-                <td colspan="7"><a class="btn btn-success btn-sm" id="add_new_line" v-on:click="addRow($event);" href="#">
-                        <i class="fas fa-plus"></i> @lang('form.add_new_line')</a>
+                <td colspan="7"><a class="btn btn-primary btn-sm" id="add_new_line" v-on:click="addRow($event);" href="#">
+                        @lang('form.add_new_line')</a>
                 </td>
             </tr>
         </tfoot>
@@ -74,11 +79,11 @@
             <input v-if="row.component_id" type="hidden" :name="'items[' + index + '][component_id]'" v-model="row.component_id">
             
             <td>
-                <textarea :name="'items[' + index + '][description]'" v-model="row.description"  rows="4" class="form-control form-control-sm" placeholder="Description" aria-invalid="false"></textarea>
+                <textarea :name="'items[' + index + '][description]'" v-model="row.description"  rows="2" class="form-control form-control-sm" placeholder="Description" aria-invalid="false"></textarea>
                 <div class="invalid-feedback d-block" v-if="itemHasValidationError('description', index)">@{{ row.validation_error.description  }}</div>
             </td>
             <td>
-                <textarea :name="'items[' + index + '][long_description]'" v-model="row.long_description"  rows="4" class="form-control form-control-sm" placeholder="Long description" aria-invalid="false"></textarea>
+                <textarea :name="'items[' + index + '][long_description]'" v-model="row.long_description"  rows="2" class="form-control form-control-sm" placeholder="Long description" aria-invalid="false"></textarea>
             </td>
             <td style="width: 10%;">
                 <input  type="text" :name="'items[' + index + '][quantity]'" v-model="row.quantity" v-on:keypress="isNumber($event)"  class="form-control form-control-sm text-center" placeholder="Quantity">
@@ -86,11 +91,11 @@
                 <input type="text" :name="'items[' + index + '][unit]'" v-model="row.unit" placeholder="Unit" class="form-control input-transparent text-right">
 
             </td>
-            <td style="width: 15%;">
+            <td style="width: 12%;">
                 <input type="text" :name="'items[' + index + '][rate]'" v-model="row.rate" v-on:keypress="isNumber($event)"  class="form-control form-control-sm text-right" placeholder="Rate" aria-invalid="false">
                  <div class="invalid-feedback d-block" v-if="itemHasValidationError('rate', index)">@{{ row.validation_error.rate  }}</div>
             </td>
-            <td>
+            <td style="width: 15%;">
                 <div class="select2-wrapper">
                         <select2-multiple :name="'items[' + index + '][tax_id][]'" v-model="row.tax_id"   :options="options" >
 
@@ -102,14 +107,15 @@
                 <input type="hidden" :name="'items[' + index + '][sub_total]'" v-model="row.sub_total">
             </td>
             <td>
-                <button type="button" v-on:click="removeItem(index);"  class="btn btn-sm pull-right btn-info"><i class="far fa-trash-alt"></i></button>
+                <button type="button" v-on:click="removeItem(index);"  class="btn btn-sm pull-right btn-danger"><i class="icon icon-trash"></i></button>
             </td>
         </tr>
         </tbody>
 
 
     </table>
-
+</div>
+<div class="table-responsive">
     <table class="table text-right">
         <tbody>
         <tr id="subtotal">
@@ -130,9 +136,9 @@
                             <input type="hidden" value="" v-model="discount_method_id" name="discount_method_id">
 
                             <div class="input-group">
-                                <input type="text" name="discount_rate" v-model="discount_rate" v-on:keypress="isNumber($event)"  class="form-control form-control-sm text-right">
+                                <input type="text" name="discount_rate" v-model="discount_rate" v-on:keypress="isNumber($event)"  class="form-control  text-right">
                                 <div class="input-group-append">
-                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle discount_method_btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">%</button>
+                                    <button class="btn  btn-outline-primary dropdown-toggle discount_method_btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">%</button>
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <a class="dropdown-item" v-on:click="discountMethodChanged('%', {{ DISCOUNT_METHOD_PERCENTAGE }}, $event);" href="#">%</a>
                                         <a class="dropdown-item" v-on:click="discountMethodChanged('{{ __('form.fixed_amount') }}',{{ DISCOUNT_METHOD_FIXED }}, $event);" href="#" >@lang('form.fixed_amount')</a>
@@ -167,7 +173,7 @@
                         <span class="bold">@lang('form.adjustment')</span>
                     </div>
                     <div class="col-md-5">
-                        <input type="text" v-model="adjustment" v-on:keypress="isNumber($event)" class="form-control form-control-sm text-right" name="adjustment">
+                        <input type="text" v-model="adjustment" v-on:keypress="isNumber($event)" class="form-control  text-right" name="adjustment">
                     </div>
                 </div>
             </td>
@@ -180,7 +186,7 @@
         </tr>
         </tbody>
     </table>
-
+</div>
 </div>
 
 @{{ runOperation }}

@@ -1,4 +1,5 @@
 <div class="main-content" style="margin-top: 20px;">
+ 
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -46,7 +47,7 @@
             </div>
         </div>
     </div>
-
+<div class="table-responsive">
     <table class="table items">
         <thead>
             <tr>
@@ -71,18 +72,18 @@
 
             <input type="hidden" :name="'items[' + index + '][id]'" v-model="row.id">
             <td>
-                <textarea :name="'items[' + index + '][description]'" v-model="row.description"  rows="4" class="form-control form-control-sm" placeholder="Description" aria-invalid="false"></textarea>
+                <textarea :name="'items[' + index + '][description]'" v-model="row.description"  rows="2" class="form-control " placeholder="Description" aria-invalid="false"></textarea>
             </td>
             <td>
-                <textarea :name="'items[' + index + '][long_description]'" v-model="row.long_description"  rows="4" class="form-control form-control-sm" placeholder="Long description" aria-invalid="false"></textarea>
+                <textarea :name="'items[' + index + '][long_description]'" v-model="row.long_description"  rows="2" class="form-control " placeholder="Long description" aria-invalid="false"></textarea>
             </td>
             <td style="width: 10%;">
-                <input  type="text" :name="'items[' + index + '][quantity]'" v-model="row.quantity" v-on:keypress="isNumber($event)"  class="form-control form-control-sm text-center" placeholder="Quantity">
+                <input  type="text" :name="'items[' + index + '][quantity]'" v-model="row.quantity" v-on:keypress="isNumber($event)"  class="form-control  text-center" placeholder="Quantity">
                 <input type="text" :name="'items[' + index + '][unit]'" v-model="row.unit" placeholder="Unit" class="form-control input-transparent text-right">
 
             </td>
             <td style="width: 15%;">
-                <input type="text" :name="'items[' + index + '][rate]'" v-model="row.rate" v-on:keypress="isNumber($event)"  class="form-control form-control-sm text-right" placeholder="Rate" aria-invalid="false">
+                <input type="text" :name="'items[' + index + '][rate]'" v-model="row.rate" v-on:keypress="isNumber($event)"  class="form-control text-right" placeholder="Rate" aria-invalid="false">
             </td>
             <td>
                 <div class="select2-wrapper">
@@ -96,20 +97,21 @@
                 <input type="hidden" :name="'items[' + index + '][sub_total]'" v-model="row.sub_total">
             </td>
             <td>
-                <button type="button" v-on:click="removeItem(index);"  class="btn btn-sm pull-right btn-info"><i class="far fa-trash-alt"></i></button>
+                <button type="button" v-on:click="removeItem(index);"  class="btn btn-sm pull-right btn-danger"><i class="icon icon-trash"></i></button>
             </td>
         </tr>
         </tbody>
 
 
     </table>
-
+</div>
+<div class="table-responsive">
     <table class="table text-right">
         <tbody>
         <tr id="subtotal">
-            <td><span class="bold">@lang('form.sub_total') :</span>
+            <td width="168"><span class="bold">@lang('form.sub_total') :</span>
             </td>
-            <td class="sub_total"> @{{ sub_total | formatNumber }} <input type="hidden" v-model="sub_total" name="sub_total"></td>
+            <td width="285" class="sub_total"> @{{ sub_total | formatNumber }} <input type="hidden" v-model="sub_total" name="sub_total"></td>
         </tr>
         <tr id="discount_area">
             <td>
@@ -171,6 +173,7 @@
         </tr>
         </tbody>
     </table>
+    </div>
 
 </div>
 

@@ -1,11 +1,11 @@
-<div class="main-content" style="margin-bottom: 0 !important;">
+<div >
     <h5>@lang('form.proposal')</h5>
     <hr>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label>@lang('form.title') <span class="required">*</span> </label>
-                <input type="text" class="form-control form-control-sm  @php if($errors->has('title')) { echo 'is-invalid'; } @endphp" name="title" value="{{ old_set('title', NULL,$rec) }}">
+                <input type="text" class="form-control   @php if($errors->has('title')) { echo 'is-invalid'; } @endphp" name="title" value="{{ old_set('title', NULL,$rec) }}">
                 <div class="invalid-feedback">@php if($errors->has('title')) { echo $errors->first('title') ; } @endphp</div>
             </div>
             <div class="form-row">
@@ -65,12 +65,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>@lang('form.date') <span class="required">*</span> </label>
-                    <input type="text" class="form-control form-control-sm {{ $date_class }}  @php if($errors->has('date')) { echo 'is-invalid'; } @endphp" name="date" value="{{ $date_value }}">
+                    <input type="text" class="form-control  {{ $date_class }}  @php if($errors->has('date')) { echo 'is-invalid'; } @endphp" name="date" value="{{ $date_value }}">
                     <div class="invalid-feedback">@php if($errors->has('date')) { echo $errors->first('date') ; } @endphp</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label>@lang('form.open_till') </label>
-                    <input type="text" class="form-control form-control-sm initially_empty_datepicker  @php if($errors->has('open_till')) { echo 'is-invalid'; } @endphp" name="open_till" value="{{ $open_till_value }}">
+                    <input type="text" class="form-control  initially_empty_datepicker  @php if($errors->has('open_till')) { echo 'is-invalid'; } @endphp" name="open_till" value="{{ $open_till_value }}">
                     <div class="invalid-feedback">@php if($errors->has('open_till')) { echo $errors->first('open_till') ; } @endphp</div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="invalid-feedback">@php if($errors->has('tag_id')) { echo $errors->first('group_id') ; } @endphp</div>
             </div>
-            <?php echo bottom_toolbar(__('form.submit'));?>
+            
         </div>
         <div class="col-md-6">
             <div class="form-row">
@@ -124,7 +124,7 @@
             </div>
             <div class="form-group">
                 <label>@lang('form.to') <span class="required">*</span> </label>
-                <input type="text" class="form-control form-control-sm  @php if($errors->has('send_to')) { echo 'is-invalid'; } @endphp" name="send_to" value="{{ old_set('send_to', NULL,$rec) }}">
+                <input type="text" class="form-control   @php if($errors->has('send_to')) { echo 'is-invalid'; } @endphp" name="send_to" value="{{ old_set('send_to', NULL,$rec) }}">
                 <div class="invalid-feedback">@php if($errors->has('send_to')) { echo $errors->first('send_to') ; } @endphp</div>
             </div>
             <div class="form-group">
@@ -135,19 +135,19 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>@lang('form.city')  </label>
-                    <input type="text" class="form-control form-control-sm" name="city" value="{{ old_set('city', NULL, $rec) }}">
+                    <input type="text" class="form-control " name="city" value="{{ old_set('city', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('city')) { echo $errors->first('city') ; } @endphp</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label>@lang('form.state')  </label>
-                    <input type="text" class="form-control form-control-sm" name="state" value="{{ old_set('state', NULL, $rec) }}">
+                    <input type="text" class="form-control " name="state" value="{{ old_set('state', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('state')) { echo $errors->first('state') ; } @endphp</div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>@lang('form.zip_code')  </label>
-                    <input type="text" class="form-control form-control-sm" name="zip_code" value="{{ old_set('zip_code', NULL, $rec) }}">
+                    <input type="text" class="form-control " name="zip_code" value="{{ old_set('zip_code', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('zip_code')) { echo $errors->first('zip_code') ; } @endphp</div>
                 </div>
                 <div class="form-group col-md-6">
@@ -161,16 +161,18 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>@lang('form.email') <span class="required">*</span> </label>
-                    <input type="text" class="form-control form-control-sm" name="email" value="{{ old_set('email', NULL, $rec) }}">
+                    <input type="text" class="form-control " name="email" value="{{ old_set('email', NULL, $rec) }}">
 
                     <div class="invalid-feedback">@php if($errors->has('email')) { echo $errors->first('email') ; } @endphp</div>
                 </div>
                 <div class="form-group col-md-6">
                     <label>@lang('form.phone')  </label>
-                    <input type="text" class="form-control form-control-sm" name="phone" value="{{ old_set('phone', NULL, $rec) }}">
+                    <input type="text" class="form-control " name="phone" value="{{ old_set('phone', NULL, $rec) }}">
                     <div class="form-control-feedback">@php if($errors->has('phone')) { echo $errors->first('phone') ; } @endphp</div>
                 </div>
+                
             </div>
         </div>
+      
     </div>
 </div>

@@ -3,8 +3,8 @@
 @section('content')
 <div class="app-content">
     <div class="">
-        <div class="tile-body">
-            <div id="sales" style="margin-bottom: 20%;">
+        <div class="main-content">
+            <div id="sales">
                 <form method="post" action="{{ (isset($rec->id)) ? route( 'patch_proposal', $rec->id) : route('post_proposal') }}">
                     {{ csrf_field()  }}
                     @if(isset($rec->id))
@@ -12,12 +12,19 @@
                     @endif
                     @include('admin.crm.proposal.partials.general')
                     @include('admin.crm.generic.items')
+                       
+                       <div class="clearfix"></div>
+                       
+                <?php echo bottom_toolbar(__('form.submit'));?>
+              
                 </form>
             </div>
         </div>
     </div>
 </div>
-
+<style>
+.select2-wrapper .select2-container {width:100% !important;}
+</style>
     
 @endsection
 @section('onPageJs')
