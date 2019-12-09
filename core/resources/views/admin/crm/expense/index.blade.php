@@ -8,10 +8,11 @@
 </style>
 <div class="app-content">
 <div id="expense" v-cloak>
-   <div class="white-background">
+   <div class="main-content">
       <div class="row">
          <div class="col-md-6">
             <h5>@lang('form.expenses')</h5>
+           
          </div>
          <div class="col-md-6">
             <div class="float-md-right">
@@ -27,13 +28,13 @@
             </div>
          </div>
       </div>
-   </div>
+   <hr />
   @if(check_perm(['expenses_view', 'expenses_view_own']))
    <br>
    <div class="row">
       <div  v-bind:class="layout.left_pane">
-         <div class="main-content">
-            <table class="table table-expenses dataTable no-footer dtr-inline collapsed" width="100%" id="data">
+         <div class="">
+            <table class="table table-expenses dataTable no-footer dtr-inline collapsed table-bordered w-100"  id="data">
                <thead>
                   <tr>
                      <th>@lang("form.category")</th>
@@ -53,7 +54,7 @@
          </div>
       </div>
       <div  v-bind:class="layout.right_pane">
-         <div class="main-content" v-if="id">
+         <div class="" v-if="id">
             <ul class="nav nav-tabs">
                <li class="nav-item">
                   <a class="nav-link" v-bind:class="{'active':(currentView === 'expense_details' )}" href="#" @click.prevent="currentView='expense_details'">@lang('form.expense')</a>
@@ -72,8 +73,8 @@
                </div>
                <div class="col-md-10">
                   <div class="float-md-right">
-                     <a v-if="!records.invoice_id" v-bind:href="'{{ route('edit_expense_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-outline-info"><i class="far fa-edit"></i></a>
-                     <a v-if="!records.invoice_id" v-bind:href="'{{ route('delete_expense') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.delete') }}" class="btn btn-sm btn-outline-info delete_item"><i class="far fa-trash-alt"></i></a>
+                     <a v-if="!records.invoice_id" v-bind:href="'{{ route('edit_expense_page') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.edit') }}" class="btn btn-sm btn-success"><i class="icon icon-pencil"></i></a>
+                     <a v-if="!records.invoice_id" v-bind:href="'{{ route('delete_expense') }}/'+ id" data-toggle="tooltip" data-placement="top" title="{{ __('form.delete') }}" class="btn btn-sm btn-danger delete_item"><i class="icon icon-trash"></i></a>
                      <a v-if="records.customer_id && !records.invoice_id" v-bind:href="'{{ route('convert_to_invoice_from_expense') }}/'+ id" class="btn btn-sm btn-outline-success">@lang('form.convert_to_invoice')</a>
                   </div>
                </div>
@@ -83,51 +84,54 @@
          </div>
       </div>
    </div>
+   <div class="clearfix"></div>
+    </div>
+   
   @endif
 </div>
 <template id="expense-template" >
    <div>
       <div v-if="rec">
-         <table class="table table-sm" style="font-size: 13px;">
+         <table class="table table-bordered table-sm" style="font-size: 13px;">
             <tbody>
                <tr>
-                  <td>@lang('form.amount')</td>
+                  <td><strong>@lang('form.amount')</strong></td>
                   <td><span class="text-danger">@{{ rec.amount }}</span></td>
                </tr>
                <tr v-if="rec.tax_id">
-                  <td>@lang('form.tax')</td>
+                  <td><strong>@lang('form.tax')</strong></td>
                   <td>@{{ rec.tax_information }}</td>
                </tr>
                <tr v-if="rec.tax_id">
-                  <td>@lang('form.total_with_tax')</td>
+                  <td><strong>@lang('form.total_with_tax')</strong></td>
                   <td><span class="text-danger">@{{ rec.amount_after_tax }}</span></td>
                </tr>
                <tr v-if="rec.payment_mode">
-                  <td>@lang('form.payment_mode')</td>
+                  <td><strong>@lang('form.payment_mode')</strong></td>
                   <td>@{{ rec.payment_mode.name }}</td>
                </tr>
                <tr>
-                  <td>@lang('form.date')</td>
+                  <td><strong>@lang('form.date')</strong></td>
                   <td>@{{ rec.date }}</td>
                </tr>
                <tr>
-                  <td>@lang('form.reference')</td>
+                  <td><strong>@lang('form.reference')</strong></td>
                   <td>@{{ rec.reference }}</td>
                </tr>
                <tr v-if="rec.customer">
-                  <td>@lang('form.customer')</td>
+                  <td><strong>@lang('form.customer')</strong></td>
                   <td v-html="rec.customer_page_link"></td>
                </tr>
                <tr v-if="rec.project">
-                  <td>@lang('form.project')</td>
+                  <td><strong>@lang('form.project')</strong></td>
                   <td v-html="rec.project_page_link"></td>
                </tr>
                <tr>
-                  <td>@lang('form.note')</td>
+                  <td><strong>@lang('form.note')</strong></td>
                   <td>@{{ rec.note }}</td>
                </tr>
                <tr v-if="rec.attachment_url">
-                  <td>@lang('form.attachment')</td>
+                  <td><strong>@lang('form.attachment')</strong></td>
                   <td v-html="rec.attachment_url"></td>
                </tr>
             </tbody>

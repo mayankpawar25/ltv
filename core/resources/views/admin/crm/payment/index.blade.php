@@ -6,7 +6,7 @@
         <h5>@lang('form.payments')</h5>
         <hr>
         {{--@if(check_perm(['payments_view', 'invoices_view', 'invoices_view_own']))--}}
-        <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+        <table class="table table-bordered w-100" cellspacing="0" width="100%" id="data">
             <thead>
             <tr>
                <th>@lang("form.payment_#")</th>
