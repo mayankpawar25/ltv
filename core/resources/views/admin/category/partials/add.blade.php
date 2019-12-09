@@ -15,11 +15,11 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <strong>Category Name</strong>
+                      <label>Category Name</label>
                       <input type="text" value="{{old('name')}}" class="form-control" id="name" name="name" placeholder="Enter Category Name" >
                     </div>
                     <div class="form-group">
-                      <strong>Image</strong>
+                      <label>Image</label>
                       <input type="file" value="{{old('image')}}" class="form-control" id="image" name="image">
                     </div>
                   </div>
@@ -27,7 +27,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">ADD</button>
+            <button type="submit" class="btn btn-success">ADD</button>
           </div>
       </form>
     </div>

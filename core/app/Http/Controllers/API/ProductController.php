@@ -30,8 +30,14 @@ class ProductController extends Controller
     public function subcategories($category_id="",$subcategory_id=""){
     	if($category_id!=""){
     		$subcategories = Subcategory::where('category_id',$category_id)->where('status',1)->get();
+            foreach ($subcategories as $key => $value) {
+                $value->image = ($value->image!='')?asset('assets/user/img/subcategory/'.$value->image):'';
+            }
     	}else{
     		$subcategories = Subcategory::get();
+            foreach ($subcategories as $key => $value) {
+                $value->image = ($value->image!='')?asset('assets/user/img/subcategory/'.$value->image):'';
+            }
     	}
     	if(!$subcategories->isEmpty()){
     		$data['subcategories'] = $subcategories;

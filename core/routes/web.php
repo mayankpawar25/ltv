@@ -424,6 +424,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	Route::post('/flashsale/changestatus', 'Admin\FlashsaleController@changestatus')->name('admin.flashsale.changestatus');
 
 	// Order Routes...
+	Route::get('/orders', 'Admin\OrderController@index')->name('admin.orders');
+	Route::post('/orders_paginate', 'Admin\OrderController@paginate')->name('orders_paginate');
+
+
 	Route::get('/orders/all/{shopkeeper_id?}', 'Admin\OrderController@all')->name('admin.orders.all');
 	Route::get('/orders/confirmation/pending', 'Admin\OrderController@cPendingOrders')->name('admin.orders.cPendingOrders');
 	Route::get('/orders/confirmation/accepted', 'Admin\OrderController@cAcceptedOrders')->name('admin.orders.cAcceptedOrders');

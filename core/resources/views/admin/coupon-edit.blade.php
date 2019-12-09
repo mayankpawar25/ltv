@@ -4,28 +4,34 @@
   <main class="app-content">
      <div class="app-title">
         <div class="row" style="width:100%">
-          <div class="col-md-6">
-            <h1 class="float-left">Edit Coupon</h1>
-          </div>
-          <div class="col-md-6">
-            <a href="{{route('admin.coupon.index')}}" class="btn btn-primary float-right">Coupon Lists</a>
-          </div>
+         
         </div>
      </div>
 
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-              <div class="tile-body">
+           <div class="main-content">
+           <div class="row">
+            <div class="col-md-6">
+            <h5 >Edit Coupon</h5>
+          </div>
+          <div class="col-md-6">
+            <a href="{{route('admin.coupon.index')}}" class="btn btn-primary float-right">Coupon Lists</a>
+          </div>
+         
+           </div>
+            <hr />
+           
+              <div class="">
                  <form role="form" class="product-upload-form" method="POST" action="{{route('admin.coupon.update')}}" enctype="multipart/form-data">
                     <div class="form-body">
                        {{csrf_field()}}
                        <input type="hidden" name="coupon_id" value="{{$coupon->id}}">
                      
                      <div class="row">
-                     <div class="col-md-6">
+                     <div class="col-md-3">
                      <div class="form-group">
-                          <label><strong>Coupon Code</strong></label>
+                          <label>Coupon Code</label>
                           <input type="text" name="coupon_code" class="form-control input-lg" value="{{$coupon->coupon_code}}">
                           @if ($errors->has('coupon_code'))
                             <span style="color:red;">{{$errors->first('coupon_code')}}</span>
@@ -33,9 +39,10 @@
                        </div>
                      </div>
                      
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                      <div class="form-group">
-                          <label><strong>Type</strong></label><br>
+                          <label>Type</label><br />
+
                           <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" name="coupon_type" id="inlineRadio1" value="fixed" {{$coupon->coupon_type=='fixed'?'checked':''}} onchange="changePlaceholder(this.value)">
                             <label class="form-check-label" for="inlineRadio1">Fixed</label>
@@ -51,9 +58,9 @@
                        </div>
                      </div>
                      
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                      <div class="form-group">
-                          <label><strong>Amount</strong></label>
+                          <label>Amount</label>
                           <input type="text" name="coupon_amount" class="form-control input-lg" value="{{$coupon->coupon_amount}}" {{empty($coupon->coupon_amount)?'disabled':''}}>
                           @if ($errors->has('coupon_amount'))
                             <span style="color:red;">{{$errors->first('coupon_amount')}}</span>
@@ -61,18 +68,18 @@
                        </div>
                      </div>
                      
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                      <div class="form-group" id="minamount">
-                          <label><strong>Minimum Amount</strong></label>
+                          <label>Minimum Amount</label>
                           <input type="text" name="minimum_amount" class="form-control input-lg" value="{{$coupon->coupon_min_amount}}" placeholder="Minimum Amount">
                           @if ($errors->has('minimum_amount'))
                             <span style="color:red;">{{$errors->first('minimum_amount')}}</span>
                           @endif
                        </div>
                      </div>
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                      <div class="form-group">
-                          <label><strong>Valid Till</strong></label>
+                          <label>Valid Till</label>
                           <input id="validtill" type="text" name="valid_till" class="form-control input-lg" value="{{$coupon->valid_till}}" readonly>
                           @if ($errors->has('valid_till'))
                             <span style="color:red;">{{$errors->first('valid_till')}}</span>
@@ -88,8 +95,9 @@
                     
                     	 
                     
-                   <div class="btn-wrapper mt-4 d-block text-center">
-                       <button type="submit" class="submit-btn">Update</button>
+                   <div class="text-right">
+                   <hr />
+                       <button type="submit" class="btn btn-success">Update</button>
                     </div>
                  </form>
               </div>

@@ -72,7 +72,7 @@ display: none;
         </div>
          --}}
        
-        <div class="card-body">
+        <div class="">
           <div class="">
             <div class="bottom-content">
               <table class="table table-bordered w-100" id="data">

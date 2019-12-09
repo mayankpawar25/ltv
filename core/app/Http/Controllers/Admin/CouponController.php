@@ -67,8 +67,8 @@ class CouponController extends Controller
                     $row->coupon_amount,
                     $row->coupon_min_amount,
                     $row->valid_till,
-                    '<a href="'.route('admin.coupon.edit', $row->id).'" class="btn btn-success btn-sm" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"><i class="fas fa-times"></i></a>',
+                    '<a href="'.route('admin.coupon.edit', $row->id).'" class="btn btn-success btn-sm" data-toggle="tooltip" title="Edit"><i class="icon icon-pencil"></i></a>
+                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Delete"><i class="icon icon-trash"></i></a>',
                     
                     /*a_links('Action',[
                         [

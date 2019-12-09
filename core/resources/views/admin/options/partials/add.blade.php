@@ -15,11 +15,11 @@
                 <input type="hidden" name="product_attribute_id" value="{{$pa->id}}">
                 <div class="row">
                   <div class="col-md-12 mb-10">
-                     <strong>Option Name</strong>
+                     <label>Option Name</label>
                      <input type="text" value="" class="form-control" id="name" name="name" placeholder="Enter option name" >
                   </div>
                   <div class="col-md-12 mb-10">
-                    <strong>Status</strong>
+                    <label>Status</label>
                     <select class="form-control" name="status">
                       <option value="1">Active</option>
                       <option value="0">Deactive</option>
@@ -29,7 +29,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">ADD</button>
+            <button type="submit" class="btn btn-success">ADD</button>
           </div>
       </form>
     </div>

@@ -60,8 +60,8 @@ class CategoryController extends Controller
                 $rec[] = array(
                     anchor_link($row->name,route('admin.subcategory.index', $row->id)),
                    ($row->status==0)?'<span class="badge badge-danger">Deactive</span>':'<span class="badge badge-success">Active</span>',
-                   '<a href="'.route('admin.subcategory.index', $row->id).'" data-toggle="tooltip" title="Add Sub Category" class="btn btn-info btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                                 <button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit"><span data-toggle="modal" data-target="#editModal'.$row->id.'"><i class="fas fa-pencil-alt"></i></span></button>',
+                   '<a href="'.route('admin.subcategory.index', $row->id).'" data-toggle="tooltip" title="Add Sub Category" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                 <button type="button" class="btn btn-success btn-sm float-right" data-toggle="tooltip" title="Edit"><span data-toggle="modal" data-target="#editModal'.$row->id.'"><i class="icon-pencil icon"></i></span></button>',
                     
                     
                     /*a_links('Action',[

@@ -2,7 +2,7 @@
 <div class="modal fade" id="editModal{{$subcat->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form class="" action="{{route('admin.subcategory.update')}}" method="post">
+      <form class="" action="{{route('admin.subcategory.update')}}" method="post" enctype="multipart/form-data">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
               Edit Subcategory
@@ -17,8 +17,19 @@
               <div class="form-group">
                 <div class="row">
                   <div class="col-md-12 mb-10">
-                     <strong>Subcategory Name</strong>
+                     <label>Subcategory Name</label>
                      <input type="text" value="{{$subcat->name}}" class="form-control" id="name" name="name" placeholder="Enter subcategory name" >
+                  </div>
+                  <div class="col-md-12 mb-10">
+                      @if($subcat->image)
+                      <div class="image">
+                        <input type="hidden" name="old_image" value="{{ $subcat->image }}">
+                        <!-- <i class="fa fa-trash removeimage" data-id={{ $subcat->id }}></i> -->
+                        <img src="{{ asset('assets/user/img/subcategory/'.$subcat->image) }}">
+                      </div>
+                      @endif
+                    <strong>Image</strong>
+                    <input type="file" value="{{old('image')}}" class="form-control" id="image" name="image">
                   </div>
                   <div class="col-md-12 mb-10">
                     <strong>Status</strong>
@@ -29,7 +40,7 @@
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
-                      <strong>Attributes (Optional)</strong>
+                      <label>Attributes (Optional)</label>
                       <div class="">
                         @php
                           $attrarr = json_decode($subcat->attributes, true);
@@ -50,7 +61,7 @@
               </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button type="submit" class="btn btn-success">UPDATE</button>
           </div>
       </form>
     </div>
