@@ -275,7 +275,20 @@ class OrderController extends Controller
 		}else{
 			$order_history = Order::where(['user_id' => Auth::id()])->orderby('id','DESC')->get();
 		}
-		
+			
+		$fav_arr = [];
+        if(!empty($request->user('api'))){
+            $user = $request->user('api');
+            $favorit = Favorit::where('user_id',$user->id)->get();
+            // echo json_encode($favorit);
+            if(!empty($favorit)){
+                foreach ($favorit as $fav_key => $fav_value) {
+                    $fav_arr[$fav_key] = $fav_value->product_id;
+                }
+
+            }
+        }
+
 		if($order_history->isEmpty()){
 			$data['order_history'] = [];
 			$data['msg'] = "No Order Found";
@@ -286,24 +299,25 @@ class OrderController extends Controller
 				$value->orderedproducts;
 				$value->total_products = count($value->orderedproducts);
 
-				$rattributes = json_decode($value->attributes);
-                $r_attr = [];
-                $i = 0;
-                if(!empty($rattributes)){
-                    foreach ($rattributes as $rkey => $rattribute) {
-                        $r_attr[$i]['name'] = $rkey;
-                        $r_attr[$i]['options'] = $rattribute;
-                        $i++;
-                    }
-                }
-                $value->attributes = $r_attr;
-                $value->favorite = in_array($rproduct->id,$fav_arr)?1:0;
-
 				foreach ($value->orderedproducts as $p_key => $p_value) {
 					foreach($p_value->product->previewimages as $images){
 			            $images->image = asset('assets/user/img/products/'.$images->image);
 			            $images->big_image = asset('assets/user/img/products/'.$images->big_image);
 		          	}
+
+		          	$rattributes = json_decode($p_value->product->attributes);
+	                $r_attr = [];
+	                $i = 0;
+	                if(!empty($rattributes)){
+	                    foreach ($rattributes as $rkey => $rattribute) {
+	                        $r_attr[$i]['name'] = $rkey;
+	                        $r_attr[$i]['options'] = $rattribute;
+	                        $i++;
+	                    }
+	                }
+	                $p_value->product->attributes = $r_attr;
+	                $p_value->product->favorite = in_array($p_value->product->id,$fav_arr)?1:0;
+
 				}
 				/* Status */
 				if($value->approve == '1'){
