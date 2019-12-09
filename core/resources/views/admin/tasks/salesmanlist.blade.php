@@ -6,31 +6,22 @@
 
 @section('content')
 <main class="app-content">
-	<div class="app-title">
-		<div>
-			<h1><i class="fa fa-dashboard"></i>Task Schedule Management</h1>
-		</div>
-	<!--	<ul class="app-breadcrumb breadcrumb">
-			<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-			<li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-		</ul>-->
-	</div>
+	 
 	<div class="row">
 		<div class="col-md-12">
-			<div class="tile">
-				<div class="col-lg-12">
-        	<div class="">
-            	<div class="">
+			<div class="main-content">
+				<div class="">
+        	 
                 	<div class="">
-                  	<h3 class="tile-title">
+                  	 <h5>Task Schedule Management <a href="{{route('admin.tasks.create')}}" class="btn btn-primary float-right">Add Salesman Task</a></h5>
                       
-                      <a href="{{route('admin.tasks.create')}}" class="btn btn-success float-right"><i class="fa fa-plus"></i> Add Salesman Task</a>
-                  	<p style="clear:both;margin-top:50px;"></p>
-                      </h3>
+                      
+                  	 
+                     <hr />
                 	</div>
                 	<div class="sellers-product-inner">
                     	<div class="bottom-content">
-                        	<table class="table table-default" id="datatableOne">
+                        	<table class="table table-bordered" id="datatableOne">
                             	<thead>
                                 	<tr>
                                     <th>S.No.</th>
@@ -87,8 +78,7 @@
                         </div>
                     	</div>
                 	</div>
-            	</div>
-        	</div>
+            	 
       	</div>
 			</div>
 		</div>

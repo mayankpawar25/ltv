@@ -2,25 +2,20 @@
 
 @section('content')
  <main class="app-content">
-     <div class="app-title">
-       <div>
-          <h1><i class="fa fa-dashboard"></i>Task Schedule Management</h1>
-       </div>
-       <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-       </ul>
-    </div>
+      
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-            <div class="float-right icon-btn">
-                <a class="btn btn-success" href="{{route('admin.tasks.salesmanlist')}}">
-                  <i class="fa fa-arrow-left"></i> Back to Task List
+      
+           <div class="main-content">
+            <h5>Task Schedule Management
+         <a class="btn btn-primary pull-right" href="{{route('admin.tasks.salesmanlist')}}">
+                    Back to Task List
                 </a>
-              </div>
-              <p style="clear:both;margin-top:50px;"></p>
-                <div class="col-sm-12">
+        
+        </h5>
+        <hr />
+              
+                
                  <form action="{{ route('admin.tasks.store') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data" id="task-section">
                     {{csrf_field()}}
                    <input type="hidden" name="country_id" id="country_select" value="1">
@@ -101,7 +96,7 @@
                       </div>
 
                     
-                      </div>
+                     
                       
                      <!--  <div class="col-sm-3">
                         <div class="form-group">
@@ -132,7 +127,7 @@
                         </div>
                       </div>  -->
 
-                    </div>
+                     
                  
                 
                    <!--  <h4>Task</h4> -->
@@ -169,9 +164,12 @@
                       </div>
                     </div> -->
                    <!--  <span id="put_clone_here"></span> -->
-                    <div class="form-group">
+                   <div class="col-md-12">
+                    <div class="text-right">
+                    <hr />
                       <button type="submit" class="btn btn-success">Save</button>
-                    </div>
+                    </div></div>
+                     </div>
                   </form>
                  <!--  <div class="row" id="clone_this_row" style="display:none">
                       <div class="col-sm-2">
@@ -528,7 +526,8 @@
         errorClass: "text-danger help-block",
         errorPlacement: function ( error, element ) {
         if(element.parent('.form-group').length) {
-              error.insertAfter(element.parent());
+			console.log(element);
+			  error.insertAfter(element.parent().find('input, select:visible, textarea, .select2'));
           } else {
               error.insertAfter(element);
           }
