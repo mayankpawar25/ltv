@@ -35,9 +35,9 @@
                       <th>Username</th>
                       <th>Customer Phone</th>
                       <th>Customer Email</th>
-                      <th>Shop Name</th>
+                      <!-- <th>Shop Name</th>
                       <th>Vendor Phone</th>
-                      <th>Vendor Email</th>
+                      <th>Vendor Email</th> -->
                       <th>Product Title</th>
                       <th>Money to Return</th>
                       <th>Reason</th>
@@ -52,9 +52,10 @@
                         <td><a href="{{route('admin.userDetails', $refund->orderedproduct->user_id)}}">{{$refund->orderedproduct->user->username}}</a></td>
                         <td>{{$refund->orderedproduct->user->phone}}</td>
                         <td>{{$refund->orderedproduct->user->email}}</td>
-                        <td><a href="{{route('admin.vendorDetails', $refund->orderedproduct->vendor_id)}}">{{$refund->orderedproduct->vendor->shop_name}}</a></td>
+                        {{-- <td><a href="{{route('admin.vendorDetails', $refund->orderedproduct->vendor_id)}}">{{$refund->orderedproduct->vendor->shop_name}}</a></td>
                         <td>{{$refund->orderedproduct->vendor->phone}}</td>
-                        <td>{{$refund->orderedproduct->vendor->email}}</td>
+                        <td>{{$refund->orderedproduct->vendor->email}}</td> --}}
+                        
                         <td><a href="{{route('user.product.details', [$refund->orderedproduct->product->slug, $refund->orderedproduct->product->id])}}">{{$refund->orderedproduct->product->title}}</a></td>
                         <td>{{$gs->base_curr_symbol}} {{$refund->orderedproduct->product_total}}</td>
                         <td>
