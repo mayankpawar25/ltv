@@ -231,7 +231,7 @@ class EstimateController extends Controller
                     format_currency($row->tax_total, TRUE, $row->get_currency_symbol()),
                     sql2date($row->date),
                   /*  ($row->related_to->name)?ucwords($row->related_to->name):ucwords($row->related_to->first_name.' '.$row->related_to->last_name),*/
-                    (isset($row->related_to->name)) ? $row->related_to->name : $row->related_to->first_name. .$row->related_to->last_name,
+                    (isset($row->related_to->name)) ? $row->related_to->name : $row->related_to->first_name.$row->related_to->last_name,
 
                     // anchor_link($row->customer->name, route('view_customer_page', $row->customer_id)),
                     
