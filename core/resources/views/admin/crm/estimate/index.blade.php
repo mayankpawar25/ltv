@@ -1,5 +1,28 @@
 @extends('admin.layout.master')
 @section('title', __('form.estimates'))
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#data_filter {
+    display: none;
+}
+#data tr td:last-child {
+  text-align: right;
+}
+
+</style>
 @section('content')
 <style>
     .hide-content{
@@ -139,7 +162,10 @@
 
                     <div class="row">
                        <div class="col-md-2">
-                           <button type="button" class="btn btn-sm btn-primary">@{{ item_status.name }}</button>
+                           <!-- <button type="button" class="btn btn-sm btn-primary">@{{ item_status.name }}</button> -->
+                            <h6 class="text-primary">
+                               <strong>@{{ item_status.name }}</strong>
+                           </h6>
 
                        </div>
                         <div class="col-md-10">
@@ -228,8 +254,8 @@
 
             dataTable = $('#data').DataTable({
 
-                dom: 'Bfrtip',
-                buttons: [
+                dom: 'lfBfrtip',
+               /* buttons: [
 
                     {
                         init: function(api, node, config) {
@@ -246,6 +272,25 @@
                             'print'
                         ]
                     }
+                ],*/
+                buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
                 ],
                 "language": {
                     "lengthMenu": '_MENU_ ',
