@@ -299,22 +299,23 @@ class OrderController extends Controller
 				$value->orderedproducts;
 				$value->total_products = count($value->orderedproducts);
 				foreach ($value->orderedproducts as $p_key => $p_value) {
+					$attr = [];
+      				$i = 0;
 					foreach($p_value->product->previewimages as $images){
 			            $images->image = asset('assets/user/img/products/'.$images->image);
 			            $images->big_image = asset('assets/user/img/products/'.$images->big_image);
 		          	}
 
-		          	$rattributes = json_decode($p_value->attributes);
-	                $r_attr = [];
-	                $i = 0;
-	                if(!empty($rattributes)){
-	                    foreach ($rattributes as $rkey => $rattribute) {
-	                        $r_attr[$i]['name'] = $rkey;
-	                        $r_attr[$i]['options'] = $rattribute[0];
-	                        $i++;
-	                    }
-	                }
-	                $p_value->attributes = $r_attr;
+		          	if($p_value->attributes!='[]' || $p_value->attributes!='' || $p_value->attributes!='""'){
+			            $attributes = json_decode($p_value->attributes);
+			            if(!empty($attributes))
+			              foreach ($attributes as $key => $attribute) {
+			                  $attr[$i]['name'] = $key;
+			                  $attr[$i]['options'] = (isset($attribute[0]))?$attribute[0]:'';
+			                  $i++;
+			              }
+			            $p_value->attributes = $attr;
+			          }
 	                $p_value->favorite = in_array($p_value->id,$fav_arr)?1:0;
 
 				}
