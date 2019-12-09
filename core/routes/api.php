@@ -244,6 +244,24 @@ Route::post('/slider/user', 'API\UserController@slider');
 |  User (Customer)
 |---------------------------------------------------------------
 **/
+	/* Without Login */
+    /* Category - SubCategory - Attributes  - Without Login */
+    Route::group(['prefix'=>'user'], function(){
+		Route::get('categories/{category_id?}', 'API\ProductController@categories');
+		Route::get('subcategories/{category_id?}/{subcategory_id?}', 'API\ProductController@subcategories');
+
+		Route::get('products/{category_id?}/{subcategory_id?}/{product_id?}', 'API\ProductController@products');
+
+		Route::get('productdetail/{product_id?}', 'API\ProductController@productDetail');
+
+		/* Category - SubCategory - Attributes - Without Login */
+
+		/*Product Search*/
+		Route::get('productsearch/{product_search?}', 'API\ProductController@productSearch');
+	});
+	/* Without Login */
+
+
 	Route::group(['prefix'=>'user','middleware' => 'auth:api'], function(){
 		Route::post('smsverify', 'API\UserController@verifyOTP');
 		Route::get('resendotp', 'API\UserController@resendOTP');
@@ -254,17 +272,8 @@ Route::post('/slider/user', 'API\UserController@slider');
 	    Route::post('changepassword', 'API\UserController@updatePassword');
 	    //Route::post('sendResetPassMail', 'API\UserController@sendResetPassMail');
 
-	    /* Category - SubCategory - Attributes */
-		Route::get('categories/{category_id?}', 'API\ProductController@categories');
-		Route::get('subcategories/{category_id?}/{subcategory_id?}', 'API\ProductController@subcategories');
 
-		Route::get('products/{category_id?}/{subcategory_id?}/{product_id?}', 'API\ProductController@products');
-
-		Route::get('productdetail/{product_id?}', 'API\ProductController@productDetail');
-		/* Category - SubCategory - Attributes */
-
-		/*Product Search*/
-		Route::get('productsearch/{product_search?}', 'API\ProductController@productSearch');
+		
 
 		/* Category and Sub-Category */
 		//Route::post('itemcategories', 'API\CategoryController@itemCategories');
