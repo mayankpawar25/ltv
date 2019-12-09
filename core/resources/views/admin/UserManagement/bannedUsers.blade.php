@@ -2,16 +2,13 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>Banned Users Management</h1>
-        </div>
-     </div>
+      
      <div class="row">
         <div class="col-md-12">
           @if (count($bannedUsers) == 0)
-            <div class="tile">
-              <h3 class="tile-title float-left">Banned Users List</h3>
+            <div class="main-content">
+              <h5 >Banned Users List</h5>
+              <hr />
               <div class="float-right icon-btn">
                 <form method="GET" class="form-inline" action="{{route('admin.bannedUsersSearchResult')}}">
                    <input type="text" name="term" class="form-control" placeholder="Search by username">
@@ -20,7 +17,8 @@
                 </form>
               </div>
               <p style="clear:both;margin:0px;"></p>
-              <h2 class="text-center">NO BANNED USERS FOUND</h2>
+              <div class="text-center"><img src="{{asset('assets/admin/images/no-data.jpg')}}" /></div>
+            <h3 class="text-center">NO BANNED USERS FOUND</h3>
             </div>
           @else
             <div class="tile">

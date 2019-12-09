@@ -2,12 +2,14 @@
 
 
 @section('content')
+<style>
+table tr td:last-child{
+text-align:right;	
+}
+</style>
+
   <main class="app-content">
-     <div class="app-title">
-        <div>
-           <h1>All Users Management</h1>
-        </div>
-     </div>
+      
      <div class="row">
         <div class="col-md-12">
           @if (count($users) == 0)
@@ -21,7 +23,8 @@
                </form>
             </div>
             <p style="clear:both;margin:0px;"></p>
-            <h2 class="text-center">NO USERS FOUND</h2>
+            <div class="text-center"><img src="{{asset('assets/admin/images/no-data.jpg')}}" /></div>
+            <h3 class="text-center">NO USERS FOUND</h3>
           </div>
           @else
           <div class="tile">
