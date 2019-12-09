@@ -116,6 +116,7 @@ div#data_filter {
                             <th>@lang("form.title")</th>
                             <th>@lang("form.to")</th>
                             <th>@lang("form.total")</th>
+                            <th>@lang("form.assigned_to")</th>
                             <th>@lang("form.date")</th>
                             <th>@lang("form.open_till")</th>
                             <th>@lang("form.tags")</th>
