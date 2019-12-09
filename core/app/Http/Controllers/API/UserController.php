@@ -602,16 +602,16 @@ class UserController extends Controller
   public function placeOrder(Request $request){
 
     $validator = Validator::make($request->all(),[
-        'product_detail' => 'required',
+        // 'product_detail' => 'required',
         // 'sub_total' => 'required',
         // 'total' => 'required',
         'payment_method' => 'required',
         'payment_method' => 'required',
         ],['product_detail.required'=>'Add Product in Cart']);
 
-        if ($validator->fails()) { 
-          return response()->json($validator->errors(), 401);                
-        }
+    if ($validator->fails()) { 
+      return response()->json($validator->errors(), 401);                
+    }
 
     $gs = GS::first();
     // store in order table
@@ -624,15 +624,15 @@ class UserController extends Controller
       $group_disc = $user_group->percentage;
     }*/
     $in['user_id']     = Auth::id();
-    $in['first_name']  = $request->name;
-    $in['last_name']   = $request->last_name;
-    $in['phone']       = $request->phone;
-    $in['email']       = $request->email;
-    $in['address']     = $request->address;
-    $in['country']     = $request->country;
-    $in['state']       = $request->state;
-    $in['city']        = $request->city;
-    $in['zip_code']    = $request->zip_code;
+    $in['first_name']  = ucwords($user->first_name);
+    $in['last_name']   = ucwords($user->last_name);
+    $in['phone']       = $user->phone;
+    $in['email']       = $user->email;
+    $in['address']     = $user->address;
+    $in['country']     = $user->country;
+    $in['state']       = $user->state;
+    $in['city']        = $user->city;
+    $in['zip_code']    = $user->zip_code;
     $in['order_notes'] = $request->order_notes;
     $in['subtotal']    = $this->getSubTotal($request->product_detail,$request->coupon_code);
     $in['total']       = $this->getTotal($request->product_detail,$request->payment_method,$request->place,$request->shipping_charge,$request->coupon_code);
@@ -781,6 +781,9 @@ class UserController extends Controller
     );
     $this->addNotification(uniqid(),$order,$member,$member->id,$message);
     /* Admin Notification */
+
+    /*$cart = Cart::where('cart_id',Auth::id())->get();
+    $cart->destroy();*/
 
     if ($request->payment_method == 1) {
       $success['status'] = true;
