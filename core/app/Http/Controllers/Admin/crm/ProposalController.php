@@ -144,9 +144,18 @@ class ProposalController extends Controller
         if (count($data) > 0)
         {
             foreach ($data as $key => $row)
-            {               
+            { 
+                if(check_perm('proposals_delete')){
+                    $delete_btn = '<a href="'.route('delete_proposal', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
+                }
+                if(check_perm('proposals_edit')){
+                    $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_proposal_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
+                }              
                 $rec[] = array(
                     a_links(
+                        vue_click_link($row->number, $row->id ),
+                        []),
+                      /*a_links(
                         vue_click_link($row->number, $row->id ),
                         [
                             [
@@ -159,7 +168,7 @@ class ProposalController extends Controller
                                 'action_text' => __('form.delete'), 'action_class' => 'delete_item',
                                 'permission' => 'proposals_delete',
                             ]
-                    ]),
+                    ]),*/
                     $row->title,
                     $row->send_to,
                     format_currency($row->total, TRUE, $row->get_currency_symbol() ),
@@ -169,6 +178,7 @@ class ProposalController extends Controller
                     $row->get_tags_as_badges(true),
                     sql2date($row->created_at),
                     $row->status->name,
+                    $edit_btn.$delete_btn,
 
                 );
 

@@ -122,6 +122,7 @@ div#data_filter {
                             <th>@lang("form.tags")</th>
                             <th>@lang("form.date_created")</th>
                             <th>@lang("form.status")</th>
+                            <th>@lang("form.action")</th>
                         </tr>
                         </thead>
                     </table>
