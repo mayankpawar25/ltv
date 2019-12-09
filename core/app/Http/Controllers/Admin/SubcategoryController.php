@@ -8,6 +8,7 @@ use App\Subcategory;
 use App\Category;
 use App\ProductAttribute;
 use Session;
+use Image;
 use Illuminate\Support\Facades\Input;
 class SubcategoryController extends Controller
 {
@@ -102,11 +103,26 @@ class SubcategoryController extends Controller
         'name' => 'required',
       ]);
 
-      $attributes = json_encode($request->except('_token', 'name', 'category_id'));
+      $subcategory_image = '';
+      if($request->hasFile('image')){
+        $subcategory_image = rand().uniqid() . '.jpg';
+        $location = 'assets/user/img/subcategory/' . $subcategory_image;
+        $image_value = $request->file('image');
+
+        $background = Image::canvas(150, 200);
+        $resizedImage = Image::make($image_value)->resize(150, 200, function ($c) {
+          $c->aspectRatio();
+        });
+        $background->insert($resizedImage, 'center'); // insert resized image centered into background
+        $background->save($location); // save or do whatever you like
+      }
+
+      $attributes = json_encode($request->except('_token', 'name', 'category_id','image'));
       $subcat = new Subcategory;
       $subcat->category_id = $request->category_id;
       $subcat->name = $request->name;
       $subcat->attributes = $attributes;
+      $subcat->image = $subcategory_image;
       $subcat->save();
 
       Session::flash('success', 'Subcategory stored successfully');
@@ -118,11 +134,27 @@ class SubcategoryController extends Controller
         'name' => 'required',
       ]);
       // return $request;
-      $attributes = json_encode($request->except('_token', 'name', 'status', 'statusId'));
+
+      $subcategory_image = $request->old_image;
+      if($request->hasFile('image')){
+        $subcategory_image = rand().uniqid() . '.jpg';
+        $location = 'assets/user/img/subcategory/' . $subcategory_image;
+        $image_value = $request->file('image');
+
+        $background = Image::canvas(150, 200);
+        $resizedImage = Image::make($image_value)->resize(150, 200, function ($c) {
+          $c->aspectRatio();
+        });
+        $background->insert($resizedImage, 'center'); // insert resized image centered into background
+        $background->save($location); // save or do whatever you like
+      }
+
+      $attributes = json_encode($request->except('_token', 'name', 'status', 'statusId','old_image'));
       $subcat = Subcategory::find($request->statusId);
       $subcat->name = $request->name;
       $subcat->attributes = $attributes;
       $subcat->status = $request->status;
+      $subcat->image = $subcategory_image;
       $subcat->save();
 
       Session::flash('success', 'Subcategory updated successfully');
