@@ -2,7 +2,7 @@
 
 @section('content')
   <?php
- /*  print_r($show);
+/* print_r($show);
     die;*/
   ?>
   <main class="app-content">
@@ -43,6 +43,7 @@
                     </thead>
                     <tbody>
                       <tr>
+                        {{ dd($show) }}
                         <td>{{ $show->name }}</td>
                         <td>{{ $show->salesman_first_name }} {{ $show->salesman_last_name }}</td>
                         <td>{{ $show->description }}</td>
