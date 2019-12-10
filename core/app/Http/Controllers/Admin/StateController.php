@@ -31,7 +31,7 @@ class StateController extends Controller
                 ->select('t.id', 't.name','countries.name as country_name','t.status')
                 ->get())   
             ->addColumn('action', function($data){
-                $button = '<a href="'.route('states.index',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>';
+                $button = '<a href="'.route('states.index',$data->id).'" name="edit" id="'.$data->id.'" class="edit btn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="icon icon-pencil"></i></a>';
                 return $button;
             })
             ->addColumn('status', function($data){

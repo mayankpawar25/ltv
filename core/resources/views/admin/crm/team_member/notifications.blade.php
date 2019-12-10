@@ -13,7 +13,7 @@ $s =  (is_current_user($rec->id)) ? __('form.my_account') : __('form.team_member
     <div class="main-content">
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+                <table class="table table-bordered" cellspacing="0" width="100%" id="data">
                     <thead>
                         <tr>
                             <th>@lang("form.description")</th>

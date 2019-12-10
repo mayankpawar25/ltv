@@ -29,7 +29,7 @@ class CountryController extends Controller
         if($request->ajax()){
            return datatables()->of(Country::all())   
             ->addColumn('action', function($data){
-                $button = '<a href="'.route('countries.index',$data->id).'" name="edit" id="'.$data->id.'" class="editbtn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>';
+                $button = '<a href="'.route('countries.index',$data->id).'" name="edit" id="'.$data->id.'" class="editbtn btn-info btn-sm " data-toggle="tooltip" title="Edit"><i class="icon-pencil icon"></i></a>';
                 return $button;
             })
              ->addColumn('status', function($data){

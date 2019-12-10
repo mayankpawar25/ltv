@@ -248,6 +248,16 @@
         </div>
      </div>
   </main> -->
+  
+  <style>
+.clock-timepicker{
+	width:100%;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 0px !important;
+}
+
+</style>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js">

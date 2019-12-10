@@ -36,11 +36,13 @@ div#admins-table_filter {
       <h5>Task Schedule Management <a href="{{route('admin.tasks.create')}}" class="btn btn-sm btn-primary float-right">Add Salesman Task</a></h5><hr />
     </div>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-2">
+        <div class="form-group">
         <label>Salesman</label>
         <?php
           echo form_dropdown('salesman_id', $assigned_to , ''  , "class='form-control four-boot' multiple='multiple' ");
         ?>
+        </div>
       </div>
       <div class="col-md-12">
       	<div class="sellers-product-inner">

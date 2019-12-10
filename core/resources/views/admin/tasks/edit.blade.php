@@ -2,25 +2,20 @@
 
 @section('content')
  <main class="app-content">
-     <div class="app-title">
-       <div>
-          <h1><i class="fa fa-dashboard"></i>Task Schedule Management</h1>
-       </div>
-       <ul class="app-breadcrumb breadcrumb">
-          <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-       </ul>
-    </div>
+      
      <div class="row">
         <div class="col-md-12">
-           <div class="tile">
-            <div class="float-right icon-btn">
-               <a class="btn btn-info" href="{{route('admin.tasks.salesmanlist')}}">
+           <div class="main-content">
+           <h5>Task Schedule Management
+           
+               <a class="btn btn-primary btn-sm pull-right" href="{{route('admin.tasks.salesmanlist')}}">
                   <i class="fa fa-arrow-left"></i> Back to Task List
                 </a>
-              </div>
-              <p style="clear:both;margin-top:50px;"></p>
-                <div class="col-sm-12">
+           
+           </h5>
+           <hr />
+           
+                
                  <form action="{{ route('admin.tasks.update') }}" method="post" accept-charset="utf-8" enctype="multipart/form-data">
                     {{csrf_field()}}
                    <input type="hidden" name="salesman_id" id="salesman_id_select" value="{{ $task->salesman_id }}">
@@ -100,12 +95,14 @@
                           </div>
                       </div>
                     </div>
-                  </div>
-                    <div class="form-group">
+               
+                    <div class="text-right">
+                    <hr />
                       <button type="submit" class="btn btn-success">Save</button>
                     </div>
                   </form>
                 </div>
+               </div>
            </div>
         </div>
      </div>
@@ -152,6 +149,16 @@
         </div>
      </div>
   </main> -->
+<style>
+.clock-timepicker{
+	width:100%;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    top: 0px !important;
+}
+
+</style>
+  
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js">
