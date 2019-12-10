@@ -110,7 +110,7 @@
                                    {{csrf_field()}}
                                    <input type="hidden" name="sliderID" value="{{$slider->id}}">
                                    <button style="color:white;" type="submit" class="btn btn-danger btn-block" name="button">
-                                     <i class="fa fa-trash"></i>
+                                     <span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span>
                                      Delete
                                    </button>
                                  </form>

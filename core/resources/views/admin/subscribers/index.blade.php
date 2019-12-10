@@ -35,9 +35,6 @@
             <div class="col-md-4">
               <div class="main-content">
                 <h5>All Subscribers</h5><hr>
-                <div class="">
-                  <div class="">
-                  </div>
                   <div class="subscriber-body">
                     <ul class="pl-3">
                     @foreach ($subscribers as $subscriber)
@@ -50,13 +47,13 @@
                     , &nbsp;
                     @endif --}}
                   </div>
-                </div>
               </div>
             </div>
 
             <div class="col-md-8">
               <div class="main-content">
                 <h5>Send News Letter</h5><hr>
+                <div class="send-news-body">
                 <form role="form" method="POST" action="{{route('admin.mailtosubsc')}}" enctype="multipart/form-data">
                   {{ csrf_field() }}
                   <div class="form-body">
@@ -69,7 +66,7 @@
                     </div>
                     <div class="form-group">
                       <label>Email Message</label>
-                      <textarea id="message" class="form-control" name="message" rows="5" style="min-height: 200px">
+                      <textarea id="message" class="form-control" name="message" rows="8" style=" overflow-y: scroll">
                       </textarea>
                       @if ($errors->has('message'))
                       <p style="color:red;">{{$errors->first('message')}}</p>
@@ -81,6 +78,7 @@
                     <button type="submit" class="btn btn-success login-button">Broadcast Email</button>
                   </div>
                 </form>
+              </div>
               </div>
             </div>
           </div>
