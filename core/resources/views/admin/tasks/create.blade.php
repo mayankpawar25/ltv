@@ -425,6 +425,8 @@
         method: 'POST',
         success: function(data) {
           $('#salesman_select').html(data.html);
+          console.log(data.html);
+          $('#salesman_id_select').val($('#salesman_select').val());
         }
       });
 
