@@ -312,11 +312,9 @@ class ShopkeeperController extends Controller
 
         // If Lead was converted to Customer then Update Lead Status
         if(isset($request->lead_id) && $request->lead_id)
-        {                
+        {
             $lead                   = Lead::withTrashed()->find($request->lead_id);
-
-            if($lead)
-            {
+            if($lead){
                 $lead->dealer_id        = $shopkeeper->id;
                 $lead->lead_status_id   = LEAD_STATUS_DEALER;
                 $lead->is_lost          = NULL;
