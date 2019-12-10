@@ -205,7 +205,7 @@
                            </div>
                             <div class="col-md-3">
                              <div class="form-group">
-                                    <label for="name">@lang('form.employer_name') <span class="required">*</span> </label>
+                                    <label for="name">@lang('form.employer_name') </label>
                                     <input type="text" class="form-control  {{ showErrorClass($errors, 'employer_name') }}"
                                            id="employer_name" name="employer_name" value="{{ old_set('employer_name', NULL, $rec) }}">
                                     <div class="invalid-feedback">{{ showError($errors, 'employer_name') }}</div>
@@ -214,7 +214,7 @@
 
                              <div class="col-md-3">
                              <div class="form-group">
-                                    <label for="name">@lang('form.employer_phoneno') <span class="required">*</span> </label>
+                                    <label for="name">@lang('form.employer_phoneno')  </label>
                                     <input type="text" class="form-control  {{ showErrorClass($errors, 'employer_contactno') }}"
                                            id="employer_contactno" name="employer_contactno" value="{{ old_set('employer_contactno', NULL, $rec) }}">
                                     <div class="invalid-feedback">{{ showError($errors, 'employer_contactno') }}</div>

@@ -168,7 +168,7 @@ $page_title = (isset($rec->id)) ? __('form.edit_dealer') . " : " .$rec->name : _
 
               <div class="col-sm-3">
                 <div class="form-group">
-                  <label>{{ __('form.employer_name') }}:<span class="text-danger">*</span></label>
+                  <label>{{ __('form.employer_name') }}:</label>
                   <input type="text" name="employer_name" class="form-control" value="{{ old_set('employer_name',NULL,$rec) }}">
                   @if($errors->has('employer_name'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('employer_name') }}</strong></span></p>
@@ -179,7 +179,7 @@ $page_title = (isset($rec->id)) ? __('form.edit_dealer') . " : " .$rec->name : _
 
                <div class="col-sm-3">
                 <div class="form-group">
-                  <label>{{ __('form.employer_contactno') }}:<span class="text-danger">*</span></label>
+                  <label>{{ __('form.employer_contactno') }}:</label>
                   <input type="text" name="employer_contactno" class="form-control" value="{{ old_set('employer_contactno',NULL,$rec) }}">
                   @if($errors->has('employer_contactno'))
                   <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('employer_contactno') }}</strong></span></p>
@@ -756,11 +756,11 @@ $page_title = (isset($rec->id)) ? __('form.edit_dealer') . " : " .$rec->name : _
 	          address:{
 	            required:true,
 	          },
-            employer_name:{
+            /*employer_name:{
               required:true,
-            },
+            },*/
             employer_contactno:{
-              required:true,
+              //required:true,
               mobile_regex: true,
             },
 	          /*owner_pic:{
@@ -814,12 +814,12 @@ $page_title = (isset($rec->id)) ? __('form.edit_dealer') . " : " .$rec->name : _
 	          address:{
 	            required : "Please Enter Address",
 	          },
-            employer_name:{
+           /* employer_name:{
               required : "Please Enter Employer Name",
-            },
-            employer_contactno:{
+            },*/
+           /* employer_contactno:{
               required : "Please Enter Employer Contact no",
-            },
+            },*/
 	          /*owner_pic:{
 	            required : "Please Select Owner Profile Image",
 	          },
