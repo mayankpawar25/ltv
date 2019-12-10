@@ -3,6 +3,7 @@
     @if(check_perm('customers_edit'))  
       <a style="font-size: 16px;" href="{{ route('edit_customer_page', $rec->id) }}" title="Edit"><i class="icon icon-pencil"></i></a>
     @endif
+    <a href="{{route('admin.emailToUser', $rec->id)}}" class="btn btn-sm btn-primary pull-right" title="Send Mail"><i class="fa fa-envelope"></i></a>
    @lang('form.profile') 
       
   </h5>
@@ -91,7 +92,6 @@
         </form>
         <div class="row">
           <div class="col-md-12">
-              <a href="{{route('admin.emailToUser', $rec->id)}}" style="color:white;" class="btn btn-sm btn-danger btn-block"><i class="fa fa-envelope"></i> SEND MAIL</a>
           </div>
         </div>
       </div>
