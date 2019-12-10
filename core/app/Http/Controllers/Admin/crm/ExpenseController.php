@@ -141,11 +141,19 @@ class ExpenseController extends Controller
                                     ]
                                 ];
                 }  
-
+                 if(check_perm('expenses_delete')){
+                    $delete_btn = '<a href="'.route('delete_expense', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
+                }
+                if(check_perm('expenses_edit')){
+                    $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_expense_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
+                }              
                 $rec[] = array(
-                    a_links(vue_click_link($row->category->name . $invoice_status_text, $row->id, route('expense_list'). '?id='.$row->id),
+                   /* a_links(vue_click_link($row->category->name . $invoice_status_text, $row->id, route('expense_list'). '?id='.$row->id),
                             $action_link
-                        ),
+                        ),*/
+                    a_links(anchor_link($row->category->name, route('expense_list').'?id='.$row->id), [
+                        
+                    ]),
 
 
 
@@ -161,6 +169,7 @@ class ExpenseController extends Controller
                     $row->reference,
                     (isset($row->payment_mode->name)) ? $row->payment_mode->name : '',
                     isset($attachment_url) ? $attachment_url : '',
+                     $edit_btn.$delete_btn,
 
                 );
 

@@ -71,6 +71,7 @@ div#data_filter {
                      <th>@lang("form.reference")</th>
                      <th>@lang("form.payment_mode")</th>
                      <th>@lang("form.attachment")</th>
+                     <th>@lang("form.action")</th>
                   </tr>
                </thead>
             </table>
