@@ -19,26 +19,22 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     <div class="main-content">
        <div class="row" style="width:100%;">
          <div class="col-md-6">
-           <h1 class="d-inline-block">Menu Edit</h1>
+           <h5 class="d-inline-block">Menu Edit</h5>
          </div>
          <div class="col-md-6 text-right">
            <a href="{{route('admin.menuManager.index')}}" class="float-right btn btn-primary">Menu Lists</a>
          </div>
        </div>
-     </div>
-     <div class="row">
-        <div class="col-md-12">
+       <hr>
 
-          <div class="tile">
-            <div class="row">
-
-              <div class="col-md-12">
+         
+            
                 <form action="{{route('admin.menuManager.update', $menu->id)}}" method="post" role="form">
+                  <div class="row">
                    {{ csrf_field() }}
-                   <div class="form-body">
                        <div class="col-md-12">
                          <div class="form-group">
                            <label for="title">Menu Name:</label>
@@ -66,20 +62,11 @@
                            @endif
                          </div>
                       </div>
-                      <div class="row">
-                         <div class="col-md-12">
-                           <div class="col-md-12">
-                             <button type="submit" class="btn btn-info btn-block btn-lg">UPDATE</button>
+                           <div class="col-md-12 text-right">
+                             <button type="submit" class="btn btn-success">UPDATE</button>
                            </div>
-                         </div>
-                      </div>
                    </div>
                 </form>
-              </div>
-
-            </div>
-          </div>
-        </div>
-     </div>
+   </div>
   </main>
 @endsection

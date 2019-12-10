@@ -9,7 +9,7 @@
             <form role="form" method="POST" action="{{route('admin.UpdateGenSetting')}}">
               <div class="row">
               {{csrf_field()}}
-              <div class="col-md-6">
+              <div class="col-md-8">
                 <div class="row">
                   <div class="col-md-6">
                     <label>Website Title</label>
@@ -38,7 +38,7 @@
                 <span style="color:red;">{{$errors->first('baseColorCode')}}</span>
                 @endif
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-1">
                 <label>Base Currency Text</label>
                 <div class="">
                   <input type="text" class="form-control " value="{{$gs->base_curr_text}}" name="baseCurrencyText">
@@ -51,7 +51,7 @@
               <span style="color:red;">{{$errors->first('baseCurrencyText')}}</span>
               @endif
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mt-1">
               <label>Base Currency Symbol</label>
               <div class="">
                 <input type="text" class="form-control " value="{{$gs->base_curr_symbol}}" name="baseCurrencySymbol">
@@ -64,7 +64,7 @@
             <span style="color:red;">{{$errors->first('baseCurrencySymbol')}}</span>
             @endif
           </div>
-          <div class="col-md-12">
+          <div class="col-md-6 mt-1">
             <label>Main Hub Location</label>
             <div class="">
               <input type="text" class="form-control " value="{{$gs->main_city}}" name="main_city">
@@ -77,9 +77,23 @@
           <span style="color:red;">{{$errors->first('baseCurrencySymbol')}}</span>
           @endif
         </div>
+        <div class="col-md-6 mt-1">
+          <label>Facebook APP ID</label>
+          <input class="form-control " name="app_id" value="{{$provider->client_id}}" type="text">
+          @if ($errors->has('app_id'))
+          <p class="text-danger">{{$errors->first('app_id')}}</p>
+          @endif
+        </div>
+        <div class="col-md-12 mt-1">
+          <label>Facebook APP Secret</label>
+          <input class="form-control " name="app_secret" value="{{$provider->client_secret}}" type="text">
+          @if ($errors->has('app_secret'))
+          <p class="text-danger">{{$errors->first('app_secret')}}</p>
+          @endif
+        </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="row">
         <div class="col-md-6">
           <div class="check-round">
@@ -95,25 +109,25 @@
           data-width="100%" type="checkbox"
           name="smsVerification" {{$gs->sms_verification == 0 ? 'checked' : ''}}>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-1">
           <label>Email Notification</label>
           <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
           data-width="100%" type="checkbox"
           name="emailNotification" {{$gs->email_notification == 1 ? 'checked' : ''}}>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-1">
           <label>SMS Notification</label>
           <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
           data-width="100%" type="checkbox"
           name="smsNotification" {{$gs->sms_notification == 1 ? 'checked' : ''}}>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-1">
           <label>Registration</label>
           <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
           data-width="100%" type="checkbox"
           name="registration" {{$gs->registration == 1 ? 'checked' : ''}}>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-1">
           <label>Facebook Login Status</label>
           <input data-toggle="toggle" data-onstyle="success" data-offstyle="danger"
           data-width="100%" type="checkbox"
@@ -121,26 +135,6 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12">
-      <div class="row">
-        
-        <div class="col">
-          <h6>Facebook APP ID</h6>
-          <input class="form-control " name="app_id" value="{{$provider->client_id}}" type="text">
-          @if ($errors->has('app_id'))
-          <p class="text-danger">{{$errors->first('app_id')}}</p>
-          @endif
-        </div>
-        <div class="col">
-          <h6>Facebook APP Secret</h6>
-          <input class="form-control " name="app_secret" value="{{$provider->client_secret}}" type="text">
-          @if ($errors->has('app_secret'))
-          <p class="text-danger">{{$errors->first('app_secret')}}</p>
-          @endif
-        </div>
-      </div>
-    </div>
-    <br>
       <hr>
       <div class="col-md-12 text-right">
         <hr />

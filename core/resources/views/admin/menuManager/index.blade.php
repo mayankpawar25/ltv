@@ -142,7 +142,7 @@ div#data_filter {
           <hr>
      <div class="row">
         <div class="col-md-12">
-            <div class="col-md-12">
+            <div class="">
                @if (count($menus) == 0)
                   @else
                     @foreach ($menus as $key => $menu)
