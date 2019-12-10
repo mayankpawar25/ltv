@@ -1656,6 +1656,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	Route::post('/subcategorylist', 'Admin\SubcategoryController@paginate')->name('datatable_subcategory');
 	Route::post('/gatewayslist', 'Admin\GatewayController@paginate')->name('datatable_gateways');
 	Route::post('/pageslist', 'Admin\menuManagerController@paginate')->name('datatable_pages');
+	Route::post('/refundlist', 'Admin\RefundController@paginate')->name('datatable_refund');
 	/*Datatable*/
 
 
