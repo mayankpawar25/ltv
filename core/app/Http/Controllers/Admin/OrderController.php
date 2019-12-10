@@ -143,7 +143,9 @@ class OrderController extends Controller
     }
 
     $recordsFiltered = $query->get()->count();
-    $query->skip(Input::get('start'))->take(Input::get('length'));
+    if(Input::get('length') > 0){
+      $query->skip(Input::get('start'))->take(Input::get('length'));
+    }
     $data = $query->get();
 
     $rec = [];
@@ -162,23 +164,16 @@ class OrderController extends Controller
 
       foreach ($data as $key => $row){
           $name = '-';
-          /*if($row->user_type == 1){
-              // $name = $row->user_id;
-              $shopkeeper = Shopkeeper::find($row->user_id);
-              $name = $shopkeeper->name;
-              $email = $shopkeeper->email;
-              $phone = $shopkeeper->phone;
-          }else if($row->user_type == 2){
-              $customer = User::find($row->user_id);
-              $name = $customer->name;
-              $email = $customer->email;
-              $phone = $customer->phone;
-          }*/
+
           $order_accept_btn = '';
           if($row->approve == 0){
             $order_accept_btn = '<a href="#" class="btn btn-sm btn-danger" onclick="cancelOrder(event, '.$row->id.')" title="Reject Order"><i class="fa fa-times"></i></a>';
 
             $order_accept_btn .= '<a href="#" class="btn btn-sm btn-success" onclick="acceptOrder(event, '.$row->id.')" title="Accept Order"><i class="fa fa-check"></i></a>';
+          }
+
+          if($row->approve == 2){
+            $order_accept_btn = '<span class="badge badge-success">Cancelled By User</span>';
           }
 
           if($row->user_type==1){
@@ -194,15 +189,19 @@ class OrderController extends Controller
           if($row->approve == -1){
             $order_accept_btn = '<span class="badge badge-danger">Rejected</span>';
           }
-          
+          $disabled ='';
+          if($row->approve == 2){
+            $disabled = 'disabled';
+          }
+
           $checked1 = ($row->shipping_status==0)?"checked":"";
-          $shipping_status = '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'1" value="0" '.$checked1.' onchange="shippingChange(event, this.value, '.$row->id.')">Pending</label>';
+          $shipping_status = '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'1" value="0" '.$checked1.' onchange="shippingChange(event, this.value, '.$row->id.')" '.$disabled.'>Pending</label>';
         
           $checked2 = ($row->shipping_status==1)?"checked":"";
-          $shipping_status .= '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'2" value="1" '.$checked2.' onchange="shippingChange(event, this.value, '.$row->id.')">Ready to dispatch</label>';
+          $shipping_status .= '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'2" value="1" '.$checked2.' onchange="shippingChange(event, this.value, '.$row->id.')" '.$disabled.'>Ready to dispatch</label>';
 
           $checked3 = ($row->shipping_status==2)?"checked":"";
-          $shipping_status .= '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'3" value="2" '.$checked3.' onchange="shippingChange(event, this.value, '.$row->id.')">Delivered</label>';
+          $shipping_status .= '<label><input type="radio" name="shipping'.$row->id.'" id="inlineRadio'.$row->id.'3" value="2" '.$checked3.' onchange="shippingChange(event, this.value, '.$row->id.')" '.$disabled.'>Delivered</label>';
 
           $rec[] = array(        
 
@@ -524,6 +523,13 @@ class OrderController extends Controller
       $nop = Orderedproduct::find($op->id);
       $nop->approve = 1;
       $nop->save();
+      
+      /* Product Quantity */
+      $product = Product::find($nop->product_id);
+      $product->quantity = $product->quantity - $nop->quantity;
+      $product->save();
+      /* Product Quantity */
+
     }
 
 
@@ -531,10 +537,12 @@ class OrderController extends Controller
 
     // sending mails to vendor
     foreach ($order->orderedproducts as $key => $op) {
-      if (!in_array($op->vendor->id, $sentVendors)) {
+      /* Remove Vendor and Add Admin */
+      /*if (!in_array($op->vendor->id, $sentVendors)) {
         $sentVendors[] = $op->vendor->id;
         send_email($op->vendor->email, $op->vendor->shop_name, 'Order accepted', "Order ID #".$order->unique_id." has been accepted.<p><strong>Order details: </strong><a href='".url('/')."/vendor"."/".$order->id."/orderdetails'>".url('/')."/vendor"."/".$order->id."/orderdetails"."</a></p>");
-      }
+      }*/
+      /* Remove Vendor and Add Admin */
     }
     // sending mail to user
     send_email($order->user->email, $order->user->first_name, 'Order accepted', "Your order has been accepted.<p><strong>Order Number: </strong>$order->unique_id</p><p><strong>Order details: </strong><a href='".url('/')."/".$order->id."/orderdetails'>".url('/')."/".$order->id."/orderdetails"."</a></p>");

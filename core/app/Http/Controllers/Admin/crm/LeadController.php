@@ -51,6 +51,7 @@ class LeadController extends Controller {
         $source_id                  = Input::get('source_id');
         $assigned_to                = Input::get('assigned_to');
         $additional_filter          = Input::get('additional_filter');
+        $tag_id                     = Input::get('tag_id');
 
         $q                          = Lead::query();
         $query                      = Lead::orderBy('id', 'DESC')->with(['tags', 'assigned', 'status', 'source']);
@@ -68,6 +69,12 @@ class LeadController extends Controller {
             
         }
         
+        if($tag_id){
+            $query->whereHas('tags',function ($q) use ($search_key){
+                $q->where('taggables.id', 'like', $search_key.'%');
+            });
+        }
+
         // Filtering Data                        
         if($status_id)
         {
@@ -84,13 +91,10 @@ class LeadController extends Controller {
 
         if($assigned_to){
             if($assigned_to == 'unassigned'){
-                //$q->whereNull('assigned_to');
                 $query->whereNull('assigned_to');
             }else{
-                //$q->whereIn('assigned_to', $assigned_to );
                 $query->where('assigned_to', $assigned_to );
             }
-            
         }
         if($additional_filter)
         {

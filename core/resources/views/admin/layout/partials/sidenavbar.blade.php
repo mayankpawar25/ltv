@@ -79,10 +79,16 @@
     </li>
     @endif
     <!-- E-commerce -->
+    
+    <!-- Orders -->
+    @if(is_menu_enable('orders'))
+      <li><a class="app-menu__item @if(request()->path() == 'admin/orders' || request()->path() == 'admin/orders/*') active @endif" href="{{route('admin.orders')}}"><i class="app-menu__icon icon-basket-loaded icons"></i><span class="app-menu__label">Orders</span></a></li>
+    @endif
 
-     <!-- Orders -->
-     @if(is_menu_enable('orders'))
-    <li class="treeview
+    <li><a class="app-menu__item @if(request()->path() == 'admin/refunds/all') active @endif" href="{{route('admin.refunds.all')}}"><i class="app-menu__icon fa fa-undo"></i><span class="app-menu__label">Refund Request</span></a></li>
+
+    @if(is_menu_enable('orders'))
+    <li class="d-none treeview
       @if(request()->path() == 'admin/orders/all')
         is-expanded
       @elseif(request()->path() == 'admin/orders/confirmation/pending')
@@ -118,7 +124,7 @@
     @endif
     <!-- Orders -->
 
-    <li class="treeview
+    <li class="d-none treeview
       @if(request()->path() == 'admin/refunds/all')
         is-expanded
       @elseif(request()->path() == 'admin/refunds/pending')
@@ -137,9 +143,13 @@
       </ul>
     </li>
 
-     <!-- Customers -->
+    <!-- Customers -->
     @if(is_menu_enable('users'))
-    <li class="treeview
+    <li><a class="app-menu__item @if(request()->path() == 'admin/customers' || request()->is('admin/customers/create') || request()->is('admin/customers/*')) active @endif" href="{{route('customers_list')}}"><i class="app-menu__icon fa fa-users"></i><span class="app-menu__label">Customers</span></a></li>
+    @endif
+
+    @if(is_menu_enable('users'))
+    <li class="d-none treeview
       @if (request()->path() == 'admin/userManagement/allUsers')
         is-expanded
       @elseif (request()->path() == 'admin/userManagement/bannedUsers')
