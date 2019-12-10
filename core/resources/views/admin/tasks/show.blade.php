@@ -46,7 +46,7 @@
                         <td>{{ $show->name }}</td>
                         <td>{{ $show->salesman_first_name }} {{ $show->salesman_last_name }}</td>
                         <td>{{ $show->description }}</td>
-                        <td>{{ $show->task_date }}</td>
+                        <td>{{ date('d-m-Y',strtotime($show->task_date)) }}</td>
                         <td>{{ date('H:i', strtotime($show->from_time))}}-{{ date('H:i', strtotime($show->to_time))}}</td>
                         <?php 
                           if($show->client_type_id ==1){ ?>

@@ -53,12 +53,12 @@ class TasksController extends Controller
           'client_type_id' => 'required',
           'client_id' => 'required',
         ]);
-
+        
         $arra = array();
         $task               = new Task();
         $task->name         = $request->name;
         $task->description  = $request->description;
-        $task->task_date    = $request->task_date;
+        $task->task_date    = date('Y-m-d',strtotime($request->task_date));
         $task->to_time      = $request->to_time;
         $task->from_time    = $request->from_time;
         $task->salesman_id  = $request->salesman_id;
@@ -146,7 +146,7 @@ class TasksController extends Controller
         $task               = Task::find($request->id);
         $task->name         = $request->name;
         $task->description  = $request->description;
-        $task->task_date    = $request->task_date;
+        $task->task_date    =  date('Y-m-d',strtotime($request->task_date));;
         $task->from_time    = $request->from_time;
         $task->to_time      = $request->to_time;
         $task->salesman_id  = $request->salesman_id;

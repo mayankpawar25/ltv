@@ -258,7 +258,7 @@
 <script>
   $('.date').datepicker({
         autoclose: true,
-        dateFormat: "yy-mm-dd"
+        dateFormat: "dd-mm-yy"
   });
  
   $('.to_timepicker').clockTimePicker({
