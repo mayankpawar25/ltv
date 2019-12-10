@@ -194,28 +194,29 @@ class LeadController extends Controller {
                             'permission' => 'leads_delete',
                         ]
                     ]),*/
-                     a_links(anchor_link($row->first_name . " " .$row->last_name.$is_lost, route('show_lead_page', $row->id)), [ ]),
+                    a_links(anchor_link($row->company, route('show_lead_page', $row->id)), [ ]),
+                    $row->first_name . " " .$row->last_name.$is_lost,
+                    $row->phone,
+                    $row->alternate_number,
                     $row->position,
-                    $row->company,
-                    $row->description,
-                    Country::find($row->country_id)->name,
-                    $row->zip_code,
+                    $row->address, 
                     $row->city, 
                     $row->state,
-                    $row->address, 
+                    $row->description,
+                    Country::find($row->country_id)->name,
                     $row->email,
                     $row->website,
-                    $row->phone,
+                    $row->employer_name,
+                    $row->employer_contactno,
+                    $row->zip_code,
                     $row->get_tags_as_badges(true),
-                    $row->alternate_number,
+
                     (isset($row->assigned))? anchor_link($row->assigned->first_name . " ". $row->assigned->last_name, route('member_profile', $row->assigned->id)) : '',
                     $row->status->name,
                     (isset($row->source)) ? $row->source->name : '',
-                    $row->employer_name,
-                    $row->employer_contactno,
                     ($row->last_contacted) ? Carbon::parse($row->last_contacted)->format("d-m-Y h:i A") : ''  ,
-                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_lead_page', $row->id),'','leads_edit').' '.
-                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_lead', $row->id),'','leads_delete'),
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_lead', $row->id),'','leads_delete').' '.
+                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_lead_page', $row->id),'','leads_edit'),
 
                 );
 
