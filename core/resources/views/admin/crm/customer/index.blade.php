@@ -46,7 +46,7 @@ div#data_filter {
             @endif
 
             @if(check_perm('customers_view_own'))
-              <a class="btn btn-primary btn-sm" href="{{ route('customer_contacts') }}">@lang('form.contacts')</a>
+             <!--  <a class="btn btn-primary btn-sm" href="{{ route('customer_contacts') }}">@lang('form.contacts')</a> -->
             @endif
 
             @if(check_perm('customers_view_own'))

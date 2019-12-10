@@ -38,9 +38,9 @@ $page_title = (isset($rec->id)) ? __('form.customer') . " : " .$rec->name : __('
          <li class="nav-item">
             <a class="nav-link {{ is_active_nav('', $group_name) }}" href="{{ $main_url }}"><i class="fas fa-user"></i> @lang('form.profile')</a>
          </li>
-         <li class="nav-item">
+        <!--  <li class="nav-item">
             <a class="nav-link {{ is_active_nav('contacts', $group_name) }}" href="{{ $main_url }}?group=contacts"><i class="fas fa-users"></i> @lang('form.contacts')</a>
-         </li>
+         </li> -->
          <li class="nav-item">
             <a class="nav-link {{ is_active_nav('invoices', $group_name) }}" href="{{ $main_url }}?group=invoices"><i class="fas fa-file-alt"></i> @lang('form.invoices')</a>
          </li>
