@@ -87,7 +87,7 @@ class TasksController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id,$type_id,$client_id)
-    {
+    {   
         if($type_id == 1){
             $data['show'] = DB::table('tasks As t')
                           ->where('t.id',$id)
@@ -104,6 +104,7 @@ class TasksController extends Controller
                           ->join('staff_users', 't.salesman_id', '=', 'staff_users.id')
                           ->select('t.id', 't.name','t.description','t.task_date','t.to_time','t.from_time','t.salesman_id','t.client_type_id','t.client_id','leads.first_name as client_name','leads.last_name as client_last_name','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
                           ->first();
+                         
          }else {
            $data['show'] = DB::table('tasks As t')
                          ->where('t.id',$id)
@@ -115,8 +116,11 @@ class TasksController extends Controller
 
                         
         }
-                     
-       return view('admin/tasks/show',$data);    }
+        /*die('test');*/
+                  /*print_r($data);  
+                  die; */
+       return view('admin/tasks/show',$data); 
+          }
 
     /**
      * Show the form for editing the specified resource.
