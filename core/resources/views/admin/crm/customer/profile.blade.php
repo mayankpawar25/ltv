@@ -89,6 +89,11 @@
             </div>
           </div>
         </form>
+        <div class="row">
+          <div class="col-md-12">
+              <a href="{{route('admin.emailToUser', $rec->id)}}" style="color:white;" class="btn btn-sm btn-danger btn-block"><i class="fa fa-envelope"></i> SEND MAIL</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
