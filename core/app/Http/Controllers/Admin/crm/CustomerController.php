@@ -310,12 +310,11 @@ class CustomerController extends Controller {
      * @return  \Illuminate\Http\Response
      */
     public function profile($id)
-    {
+    {   
         $customer = User::withTrashed()->findorfail($id);
-
         $data                       = $customer->dropdowns();
+        $data['user']               = $customer;
         $customer['group_id']       = $customer->groups()->pluck('group_id')->toArray();
-
         return view('admin.crm.customer.main', compact('data'))->with('rec',$customer);
     }
 
