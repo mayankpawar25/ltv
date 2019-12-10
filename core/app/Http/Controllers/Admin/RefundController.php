@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Refund;
+use Illuminate\Support\Facades\DB; 
 use App\Orderedproduct;
 use App\Product;
 use App\GeneralSetting as GS;
@@ -77,31 +78,23 @@ class RefundController extends Controller
         if($search_key)
         {
             $query->where(function ($k) use ($search_key) {
-                $k->where('name', 'like', $search_key.'%')
-                ->orWhere('shopname', 'like', $search_key.'%')
+                $k->where('reason', 'like', $search_key.'%')
+                /*->orWhere('shopname', 'like', $search_key.'%')
                 ->orWhere('email', 'like', $search_key.'%')
                 ->orWhere('mobile', 'like', $search_key.'%')
                 ->orWhere('phone', 'like', $search_key.'%')
                 ->orWhere('employer_name', 'like', $search_key.'%')
-                ->orWhere('employer_contactno', 'like', $search_key.'%')
-                ->orwhereHas('usergroup',function ($q) use ($search_key){
-                    $q->where('user_groups.name', 'like', $search_key.'%');
+                ->orWhere('employer_contactno', 'like', $search_key.'%')*/
+                 
+                ->orwhereHas('orderedproduct',function ($q) use ($search_key){
+                    $q->where('orderedproducts.product_name', 'like', $search_key.'%');
                 })
-                ->orwhereHas('country',function ($q) use ($search_key){
-                    $q->where('countries.name', 'like', $search_key.'%');
+                ->orwhereHas('orderedproduct',function ($q) use ($search_key){
+                    $q->where('orderedproducts.product_total', 'like', $search_key.'%');
                 })
-                ->orwhereHas('state',function ($q) use ($search_key){
-                    $q->where('states.name', 'like', $search_key.'%');
-                })
-                ->orwhereHas('city',function ($q) use ($search_key){
-                    $q->where('cities.name', 'like', $search_key.'%');
-                })
-                ->orwhereHas('zipcode',function ($q) use ($search_key){
-                    $q->where('zipcodes.area_name', 'like', $search_key.'%');
+                ->orwhereHas('orderedproduct',function ($q) use ($search_key){
+                    $q->where('orderedproducts.created_at', 'like', date('Y-m-d', strtotime($search_key)).'%');
                 });
-
-
-
             });
         }
 
@@ -134,7 +127,7 @@ class RefundController extends Controller
                 $row->orderedproduct->product_name,
                 $row->orderedproduct->product_total,
                 $row->reason,
-                date('jS F, Y', strtotime($row->orderedproduct->created_at)),
+                date('d-m-Y', strtotime($row->orderedproduct->created_at)),
                 $action_btn,
               );
             }
