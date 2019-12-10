@@ -151,6 +151,7 @@ class ExpenseController extends Controller
                    /* a_links(vue_click_link($row->category->name . $invoice_status_text, $row->id, route('expense_list'). '?id='.$row->id),
                             $action_link
                         ),*/
+                        
                     a_links(anchor_link($row->category->name, route('expense_list').'?id='.$row->id), [
                         
                     ]),
