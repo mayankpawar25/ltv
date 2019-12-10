@@ -53,9 +53,9 @@ $page_title = (isset($rec->id)) ? __('form.customer') . " : " .$rec->name : __('
          <li class="nav-item">
             <a class="nav-link {{ is_active_nav('estimates', $group_name) }}" href="{{ $main_url }}?group=estimates"><i class="fas fa-clipboard"></i> @lang('form.estimates')</a>
          </li>
-         <li class="nav-item">
+        <!--  <li class="nav-item">
             <a class="nav-link {{ is_active_nav('expenses', $group_name) }}" href="{{ $main_url }}?group=expenses"><i class="fas fa-money-bill-alt"></i> @lang('form.expenses')</a>
-         </li>
+         </li> -->
        <!--   <li class="nav-item">
             <a class="nav-link {{ is_active_nav('tasks', $group_name) }}" href="{{ $main_url }}?group=tasks"><i class="fas fa-tasks"></i> @lang('form.tasks')</a>
          </li> -->
@@ -89,3 +89,6 @@ $page_title = (isset($rec->id)) ? __('form.customer') . " : " .$rec->name : __('
 
 
 @endsection
+
+
+
