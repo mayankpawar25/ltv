@@ -7,7 +7,7 @@ use App\Order;
 use App\Lead;
 use App\Invoice;
 use App\Currency;
-use App\Shopkeeper;
+use App\Shopkeeper,App\Task;
 use App\Models\StaffUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -33,8 +33,6 @@ class SalesmanController extends Controller
     public function index()
     {
         $data['taxes'] = Salesman::paginate(10);
-        /*print_r($data['taxes']);
-        die;*/
         return view('admin.salesman.index',$data);
     }
 

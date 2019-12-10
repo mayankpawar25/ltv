@@ -664,6 +664,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 		]
 	]);
 	Route::post('/salesman/{id}/update', 'Admin\SalesmanController@update')->name('admin.salesman.update');
+	
+	
 
 	/*Add Sales Score*/
 	Route::post('/addscore', 'Admin\SalesmanController@addSalesScore')->name('admin.salesman.addsalesscore');
@@ -1458,6 +1460,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
     	Route::get('/arrival/{salesman_id?}/', 'Admin\TasksController@myarrivals')->name('admin.tasks.arrivals');
     	Route::get('/json', 'Admin\TasksController@jsonView')->name('admin.json');
 
+		Route::post('/datatables_salesman_paginate', 'Admin\TasksController@paginate')->name('datatables_salesman_paginate');
 
 
 			/*Tasks Management Section Or To Do List END*/
