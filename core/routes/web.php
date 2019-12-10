@@ -721,7 +721,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
         Route::post('/remove/social-link/{lead}', 'Admin\crm\LeadController@remove_social_link')->name('remove_social_link');
         Route::post('/save/smart-summary/{lead}', 'Admin\crm\LeadController@save_smart_summary')->name('post_smart_summary');
         Route::post('/remove/smart-summary/{lead}', 'Admin\crm\LeadController@remove_smart_summary')->name('remove_smart_summary');
-        Route::post('/report/conversion/by/month', 'LeadController@get_report_conversion_by_month_for_graph')->name('get_report_conversion_by_month_for_graph');
+        Route::post('/report/conversion/by/month', 'Admin\crm\LeadController@get_report_conversion_by_month_for_graph')->name('get_report_conversion_by_month_for_graph');
         Route::post('/report/salesscores', 'Admin\SalesmanController@get_salesscore_report')->name('get_salesscore_report');
 
 
