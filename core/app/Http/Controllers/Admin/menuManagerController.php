@@ -62,7 +62,7 @@ class menuManagerController extends Controller
                 $rec[] = array(
                   anchor_link($row->name,route('admin.menuManager.edit', $row->id)),
                   $row->title,
-                  '<a href="'.route('admin.menuManager.edit',$row->id).'" title="Edit" id="'.$row->id.'" class="btn btn-sm btn-success pull-right"><i class="icon-pencil icon"></i></a><button type="button" class="btn btn-danger btn-sm delete_button" data-toggle="modal" data-target="#DelModal'.$row->id.'" data-id="2"><i class="icon-trash icon"></i></button>',
+                  '<a href="'.route('admin.menuManager.edit',$row->id).'" title="Edit" id="'.$row->id.'" class="btn btn-sm btn-success"><i class="icon-pencil icon"></i></a><button type="button" class="btn btn-danger btn-sm delete_button" data-toggle="modal" data-target="#DelModal'.$row->id.'" data-id="2"><i class="icon-trash icon"></i></button>',
                     
                     
                     /*a_links('Action',[
