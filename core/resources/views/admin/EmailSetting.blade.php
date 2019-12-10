@@ -57,20 +57,21 @@
                     <div class="form-body">
                        {{csrf_field()}}
                        <div class="form-group">
-                          <label><strong>EMAIL SENT FROM</strong></label>
+                          <label><strong>Email Send From</strong></label>
                           <input type="email" name="emailSentFrom" class="form-control input-lg" value="{{$gs->email_sent_from}}">
                           @if ($errors->has('emailSentFrom'))
                             <span style="color:red;">{{$errors->first('emailSentFrom')}}</span>
                           @endif
                        </div>
                        <div class="form-group">
-                          <label><strong>EMAIL TEMPLATE</strong></label>
+                          <label><strong>Email Template</strong></label>
                           <textarea class="form-control" name="emailTemplate" id="emailTemplate" rows="10">{{$gs->email_template}}</textarea>
                           @if ($errors->has('emailTemplate'))
                             <span style="color:red;">{{$errors->first('emailTemplate')}}</span>
                           @endif
                        </div>
                     </div>
+                    <hr>
                     <div class="text-right">
                        <button type="submit" class="btn btn-success ">Update</button>
                     </div>

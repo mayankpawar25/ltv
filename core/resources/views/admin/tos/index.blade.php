@@ -20,13 +20,13 @@
         <div class="col-md-12">
            <div class="main-content">
             <h5>Terms & Conditions</h5><hr>
-              <div class="">
+              <div>
                  <form role="form" method="POST" action="{{route('admin.tos.update')}}" enctype="multipart/form-data">
-                    <div class="form-body">
+                    <div class="">
                        {{csrf_field()}}
                        <div class="form-group">
                           
-                          <textarea class="form-control w-100" name="tos" id="tos" rows="10">{{$gs->tos}}</textarea>
+                          <textarea class="form-control" name="tos" id="tos" rows="10">{{$gs->tos}}</textarea>
                           @if ($errors->has('tos'))
                             <span style="color:red;">{{$errors->first('tos')}}</span>
                           @endif

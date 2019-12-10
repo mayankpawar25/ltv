@@ -43,7 +43,7 @@
      <div class="row">
         <div class="col-md-12">
            <div class="main-content">
-           <h5>SMS API</h5>
+           <h5>Sms Api</h5>
            <hr />
               <div class="">
                  <form role="form" method="POST" action="{{route('admin.UpdateSmsSetting')}}" >
@@ -57,6 +57,7 @@
                           @endif
                        </div>
                     </div>
+                    <hr>
                     <div class="text-right">
                     <button type="submit" class="btn btn-success">Update</button>
                     </div>

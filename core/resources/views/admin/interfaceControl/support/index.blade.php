@@ -30,7 +30,7 @@
                     <div class="row">
                     <div class="col-md-6">
                      <div class="form-group">
-                        <label class=" "><strong style="text-transform: uppercase;">Phone</strong></label>
+                        <label class=" ">Phone</label>
                         <div class="">
                            <input class="form-control input-lg" name="support_phone" value="{{$gs->support_phone}}" type="text">
                            @if ($errors->has('support_phone'))
@@ -42,7 +42,7 @@
 
                      <div class="col-md-6">
                      <div class="form-group">
-                        <label class=" "><strong style="text-transform: uppercase;">Email</strong></label>
+                        <label class=" ">Email</label>
                         <div class="">
                            <input class="form-control input-lg" name="support_email" value="{{$gs->support_email}}" type="text">
                            @if ($errors->has('support_email'))

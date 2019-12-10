@@ -34,7 +34,7 @@
                     <div class="row">
                     <div class="col-md-3">
                      <div class="form-group">
-                        <label class=""><strong style="text-transform: uppercase;">Phone</strong></label>
+                        <label class="">Phone</label>
                         <div class="">
                            <input class="form-control input-lg" name="con_phone" value="{{$gs->con_phone}}" type="text">
                            @if ($errors->has('con_phone'))
@@ -46,7 +46,7 @@
 
                     <div class="col-md-3">
                      <div class="form-group">
-                        <label class=""><strong style="text-transform: uppercase;">Email</strong></label>
+                        <label class="">Email</label>
                         <div class="">
                            <input class="form-control input-lg" name="con_email" value="{{$gs->con_email}}" type="text">
                            @if ($errors->has('con_email'))
@@ -58,7 +58,7 @@
 
                     <div class="col-md-3">
                      <div class="form-group">
-                        <label class=""><strong style="text-transform: uppercase;">Address</strong></label>
+                        <label class="">Address</label>
                         <div class="">
                            <input class="form-control input-lg" name="con_address" value="{{$gs->con_address}}" type="text">
                            @if ($errors->has('con_address'))
@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-md-3">
                      <div class="form-group">
-                        <label class=""><strong style="text-transform: uppercase;">Working Time</strong></label>
+                        <label class="">Working Time</label>
                         <div class="">
                            <input class="form-control input-lg" name="work_hours" value="{{$gs->work_hours}}" type="text">
                            @if ($errors->has('work_hours'))

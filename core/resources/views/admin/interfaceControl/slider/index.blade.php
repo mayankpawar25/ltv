@@ -15,7 +15,7 @@
   <main class="app-content">
     <div class="row">
 
-      <div class="col-md-4">
+      <div class="col-md-3">
       <div class="main-content"> 
              <h5>Slider Setting</h5><hr>
                 @if ($errors->any())
@@ -32,7 +32,11 @@
                    <div class="form-body">
                      <div class="form-group">
                         <label class=" control-label"><strong>Slider Image</strong></label>
-                        <div class=""><input type="file" name="slider"></div>
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="icon" name="icon">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                        {{-- <div class=""><input type="file" name="slider"></div> --}}
                      </div>
                      <div class="form-group">
                         <label class=" control-label"><strong>Title</strong></label>
@@ -61,7 +65,7 @@
               </div>
               </div>
               
-      <div class="col-md-8">
+      <div class="col-md-9">
     <div class="main-content">
      <h5>Slider Setting</h5><hr>
      <div class="row">

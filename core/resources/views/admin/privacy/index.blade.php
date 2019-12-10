@@ -24,7 +24,7 @@
                     <div class="form-body">
                        {{csrf_field()}}
                        <div class="form-group">
-                          <h5><strong>MPrivacy Policy</strong></h5><hr>
+                          <h5><strong>My Privacy Policy</strong></h5><hr>
                           <textarea class="form-control w-100" name="privacy" id="privacy" rows="10">{{$gs->privacy}}</textarea>
                           @if ($errors->has('privacy'))
                             <span style="color:red;">{{$errors->first('privacy')}}</span>

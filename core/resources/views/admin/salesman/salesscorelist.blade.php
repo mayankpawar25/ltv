@@ -28,22 +28,15 @@ div#data_filter {
 }
 </style>
 <main class="app-content">
-  <div class="app-title">
-    <div>
-      <h1><i class="fa"></i>Salesman Sales Score</h1>
-    </div>
-  <!--  <ul class="app-breadcrumb breadcrumb">
-      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-      <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-    </ul>-->
-  </div>
-  <div class="tile">
+  
+  {{-- <div class="main-content"> --}}
+    {{-- <h5>Salesman Sales Score</h5><hr> --}}
     <div class="row">
       <div class="col-md-3 {{(check_perm('salesscores_create'))?'':'d-none'}}">
-        <div class="">
+        <div class="main-content">
+          <h5 class="tile-title">Add Sales Score</h5><hr>
           <form action="{{ route('admin.salesman.addsalesscore') }}" method="post" accept-charset="utf-8" id="salesscores-register">
             {{csrf_field()}}
-            <h3 class="tile-title pull-left">Add Sales Score<strong></strong></h3>
             <p style="clear:both;margin:0px;"></p>
             <div class="form-group">
               <label>Order ID: </label>
@@ -82,14 +75,15 @@ div#data_filter {
              </div>
 
 
-            <div class="form-group">
+            <div class="form-group text-right">
               <button type="submit" class="btn btn-success">Save</button>
             </div>
           </form>
         </div>
       </div>
       <div class="col-md-{{(check_perm('salesscores_create'))?'9':'12'}}">
-        <h3 class="tile-title">Sales Score Report</h3>
+        <div class="main-content">
+        <h5 class="tile-title">Sales Score Report</h5><hr>
         <div class="sellers-product-inner">
           <form>
             <div class="form-row">
@@ -119,6 +113,7 @@ div#data_filter {
               </thead>
           </table>
         </div>
+      </div>
       </div>
     </div>
   </div>
