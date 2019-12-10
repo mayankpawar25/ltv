@@ -30,11 +30,15 @@ div#data_filter {
 </div>
 
     <div class="main-content">
-
+<h5> Coustomer Group
+   <!-- Button trigger modal -->
+   <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">
+   @lang('form.new_customer_group')
+   </button>
+   </h5>
+    
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-            @lang('form.new_customer_group')
-        </button>
+       
 
         <!-- Modal -->
         <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -53,14 +57,14 @@ div#data_filter {
                             <input type="hidden" name="id" value="">
                             <div class="form-group">
                                 <label>@lang('form.name') <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="name">
+                                <input type="text" class="form-control" name="name">
                                 <div class="error name"></div>
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('form.close')</button>
-                        <button type="button" class="btn btn-primary" id="submitForm">@lang('form.submit')</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">@lang('form.close')</button>
+                        <button type="button" class="btn btn-success" id="submitForm">@lang('form.submit')</button>
                     </div>
                 </div>
             </div>

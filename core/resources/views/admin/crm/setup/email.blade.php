@@ -134,12 +134,12 @@
               
                
               
-               <textarea  rows="8" class="form-control  {!! $errors->has('settings.email_predefined_header') ? ' is-invalid' : '' !!}" name="settings[email_predefined_header]">{{ old_set('email_predefined_header', NULL, $rec) }}</textarea>
+               <textarea  rows="6" class="form-control  {!! $errors->has('settings.email_predefined_header') ? ' is-invalid' : '' !!}" name="settings[email_predefined_header]">{{ old_set('email_predefined_header', NULL, $rec) }}</textarea>
                <div class="invalid-feedback">@php if($errors->has('settings.email_predefined_header')) { echo $errors->first('settings.email_predefined_header') ; } @endphp</div>
             </div>
             <div class="form-group">
                <label>@lang('form.predefined_footer') </label>
-               <textarea  rows="8" class="form-control  {!! $errors->has('settings.email_predefined_footer') ? ' is-invalid' : '' !!}" name="settings[email_predefined_footer]">{{ old_set('email_predefined_footer', NULL, $rec) }}</textarea>
+               <textarea  rows="7" class="form-control  {!! $errors->has('settings.email_predefined_footer') ? ' is-invalid' : '' !!}" name="settings[email_predefined_footer]">{{ old_set('email_predefined_footer', NULL, $rec) }}</textarea>
                <div class="invalid-feedback">@php if($errors->has('settings.email_predefined_footer')) { echo $errors->first('settings.email_predefined_footer') ; } @endphp</div>
             </div>
          </div>

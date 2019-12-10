@@ -6,11 +6,11 @@
 <div class="app-title">    
  @include('admin.crm.setup.menu')
 </div>
-
+<div class="main-content">
 <form role="form" class="form-horizontal" action="" enctype="multipart/form-data" action="{{ route('patch_settings_proposal') }}" method="post" autocomplete="off" >
    {{ csrf_field()  }}
    {{ method_field('PATCH') }}
-   <div class="main-content">
+   
       <h5>@lang('form.proposal')</h5>
       <hr>
       <div class="row">
@@ -29,9 +29,10 @@
          <textarea id="template_proposal" rows="8" class="form-control form-control-sm {{ showErrorClass($errors ,'template_proposal') }}" name="template_proposal">{{ old_set('template_proposal', NULL, $rec) }}</textarea>
          <div class="invalid-feedback">{{ showError($errors, 'template_proposal') }}</div>
       </div>
-   </div>
+   
     <?php echo bottom_toolbar(); ?>
 </form>
+</div>
 </div>
 @endsection
 @section('onPageJs')

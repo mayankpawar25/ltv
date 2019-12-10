@@ -83,7 +83,7 @@
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
              <!--   <a class="dropdown-item" href="{{ route('customer_configuration_page') }}">@lang('form.configuration')</a> -->
-               <div class="dropdown-divider"></div>
+                
                <a class="dropdown-item" href="{{ route('customer_groups_list') }}">@lang('form.groups')</a>
             </div>
          </li>

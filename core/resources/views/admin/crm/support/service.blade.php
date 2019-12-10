@@ -30,7 +30,16 @@ div#data_filter {
  @include('admin.crm.setup.menu')
 </div>
 
+
+       
     <div class="main-content">
+     <h5>Services
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#myModal">
+          @lang('form.new_service')
+        </button>
+</h5>
+    <hr>
         @if($flash = session('error_message'))
             <div class="alert alert-primary" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -40,12 +49,9 @@ div#data_filter {
             </div>
         @endif
 
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-            @lang('form.new_service')
-        </button>
+       
 
-        <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div id="myModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -61,7 +67,7 @@ div#data_filter {
                             <input type="hidden" name="id" value="">
                             <div class="form-group">
                                 <label>@lang('form.name') <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="name">
+                                <input type="text" class="form-control " name="name">
                                 <div class="invalid-feedback d-block name"></div> 
                             </div>
 
@@ -70,16 +76,16 @@ div#data_filter {
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('form.close')</button>
-                        <button type="button" class="btn btn-primary" id="submitForm">@lang('form.submit')</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">@lang('form.close')</button>
+                        <button type="button" class="btn btn-success" id="submitForm">@lang('form.submit')</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <hr>
+        
 
-        <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+        <table class="table  table-bordered" cellspacing="0" width="100%" id="data">
             <thead>
             <tr>
                 <th>@lang("form.name")</th>                

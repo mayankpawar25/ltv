@@ -10,7 +10,7 @@
    <h5>@lang('form.invoice')</h5>
    <hr>
    <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-12">
          <form role="form" class="form-horizontal" action="" enctype="multipart/form-data" action="{{ route('patch_settings_invoice') }}" method="post" autocomplete="off" >
             {{ csrf_field()  }}
             {{ method_field('PATCH') }}

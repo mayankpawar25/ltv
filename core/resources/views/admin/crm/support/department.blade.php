@@ -29,8 +29,17 @@ div#data_filter {
 <div class="app-title">    
  @include('admin.crm.setup.menu')
 </div>
-    <div class="tile">
-        <div class="tile-body">
+    <div class="main-content">
+     
+      <h5>Department
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary pull-right btn-sm" data-toggle="modal" data-target="#myModal">
+            @lang('form.new_department')
+        </button>
+</h5>
+ <hr>
+       
+        <div class="">
            @if($flash = session('error_message'))
            <div class="alert alert-primary" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -39,11 +48,8 @@ div#data_filter {
               {{ $flash }}
            </div>
            @endif
-           <!-- Button trigger modal -->
-           <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
-           @lang('form.new_department')
-           </button>
-           <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+           
+           <div id="myModal" class="modal " tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                  <div class="modal-content">
                     <div class="modal-header">
@@ -57,13 +63,13 @@ div#data_filter {
                           <input type="hidden" name="id" value="">
                           <div class="form-group">
                              <label>@lang('form.name') <span class="required">*</span></label>
-                             <input type="text" class="form-control form-control-sm" name="name">
+                             <input type="text" class="form-control " name="name">
                              <div class="invalid-feedback d-block name"></div>
                           </div>
 
                           <div class="form-group">
                               <label>@lang('form.department_email') <span class="required">*</span></label>
-                              <input type="email" class="form-control form-control-sm" name="email">
+                              <input type="email" class="form-control " name="email">
                               <div class="invalid-feedback d-block email"></div>
                           </div>
 
@@ -84,13 +90,13 @@ div#data_filter {
                           <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>@lang('form.imap_host')</label>
-                                <input type="text" class="form-control form-control-sm" name="imap_host">
+                                <input type="text" class="form-control " name="imap_host">
                                 <div class="invalid-feedback d-block imap_host"></div>
                              </div>
 
                              <div class="form-group col-md-6">
                                 <label>@lang('form.imap_port')</label>
-                                <input type="email" class="form-control form-control-sm" name="imap_port">
+                                <input type="email" class="form-control" name="imap_port">
                                 <div class="invalid-feedback d-block imap_port"></div>
                              </div>
                              
@@ -98,12 +104,12 @@ div#data_filter {
                           <div class="form-row">
                              <div class="form-group col-md-6">
                                 <label>@lang('form.imap_username') <i class="fa fa-question-circle" data-toggle="tooltip" data-title="@lang('form.tooltip_imap_username')" data-original-title="" title=""></i> </label>
-                                <input type="text" class="form-control form-control-sm" name="imap_username">
+                                <input type="text" class="form-control " name="imap_username">
                                 <div class="invalid-feedback d-block imap_username"></div>
                              </div>
                              <div class="form-group col-md-6">
                                 <label>@lang('form.imap_password')</label>
-                                <input type="text" class="form-control form-control-sm" name="imap_password">
+                                <input type="text" class="form-control " name="imap_password">
                                 <div class="invalid-feedback d-block imap_password"></div>
                              </div>
                           </div>
@@ -128,19 +134,19 @@ div#data_filter {
                           </div> -->
                           <hr>
                           <div class="form-group">
-                             <button id="test_imap_connection" class="btn btn-success btn-sm">@lang('form.test_connection')</button>
+                             <button id="test_imap_connection" class="btn btn-primary btn-sm">@lang('form.test_connection')</button>
                           </div>
                        </form>
                     </div>
                     <div class="modal-footer">
-                       <button type="button" class="btn btn-secondary closebtn" data-dismiss="modal">@lang('form.close')</button>
-                       <button type="button" class="btn btn-primary" id="submitForm">@lang('form.submit')</button>
+                       <button type="button" class="btn btn-light closebtn" data-dismiss="modal">@lang('form.close')</button>
+                       <button type="button" class="btn btn-success" id="submitForm">@lang('form.submit')</button>
                     </div>
                  </div>
               </div>
            </div>
-           <hr>
-           <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+          
+           <table class="table table-bordered" cellspacing="0" width="100%" id="data">
               <thead>
                  <tr>
                     <th>@lang("form.name")</th>

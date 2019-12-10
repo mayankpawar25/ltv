@@ -70,7 +70,7 @@ class ExpenseCategoryController extends Controller {
                             'action_class' => 'delete_item',
                             'permission'    => 'expense_categories_delete'
                         ]
-                    ]).' '.
+                    ]).''.
                     anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_expense_category',$row->id),'','expense_categories_delete'),
 
                 );

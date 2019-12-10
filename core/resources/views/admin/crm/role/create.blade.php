@@ -14,7 +14,7 @@
                     {{ method_field('PATCH') }}
                 @endif
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-3">
                         <label>@lang('form.role_name') <span class="required">*</span> </label>
                         <input type="text" class="form-control form-control-sm  @php if($errors->has('name')) { echo 'is-invalid'; } @endphp" name="name" value="{{ old_set('name', NULL,$rec) }}">
                         <div class="invalid-feedback">@php if($errors->has('name')) { echo $errors->first('name') ; } @endphp</div>

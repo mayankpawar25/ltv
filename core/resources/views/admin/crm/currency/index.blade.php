@@ -41,11 +41,15 @@ div#data_filter {
             </div>
         @endif
 
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+<h5> Currency
+   <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">
             @lang('form.new_currency')
         </button>
+   </h5>
+    
+        <!-- Button trigger modal -->
+       
 
         <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -63,21 +67,21 @@ div#data_filter {
                             <input type="hidden" name="id" value="">
                             <div class="form-group">
                                 <label>@lang('form.iso_code') <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="code">
+                                <input type="text" class="form-control " name="code">
                                 <div class="invalid-feedback d-block code"></div>
                             </div>
 
                             <div class="form-group">
                                 <label>@lang('form.symbol') <span class="required">*</span></label>
-                                <input type="text" class="form-control form-control-sm" name="symbol">
+                                <input type="text" class="form-control " name="symbol">
                                 <div class="invalid-feedback d-block symbol"></div>
                             </div>
 
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('form.close')</button>
-                        <button type="button" class="btn btn-primary" id="submitForm">@lang('form.submit')</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">@lang('form.close')</button>
+                        <button type="button" class="btn btn-success" id="submitForm">@lang('form.submit')</button>
                     </div>
                 </div>
             </div>
@@ -85,7 +89,7 @@ div#data_filter {
 
         <hr>
 
-        <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+        <table class="table  table-bordered" cellspacing="0" width="100%" id="data">
             <thead>
             <tr>
                 <th>@lang("form.iso_code")</th>

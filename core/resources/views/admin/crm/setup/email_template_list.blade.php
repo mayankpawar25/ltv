@@ -24,6 +24,9 @@
 .accordion .card .card-header {
     margin-bottom: 0px;
 }
+.card-header {
+    padding: 2px;
+}
 </style>
    
 @endforeach

@@ -29,13 +29,17 @@ div#data_filter {
 </style>  
  @include('admin.crm.setup.menu')
 </div>
-    <div class="tile">
-        <div class="tile-body">
-            <a href="{{ route('create_role_page') }}" class="btn btn-primary btn-sm">
+    <div class="main-content">
+    <h5>
+    User Role
+    <a href="{{ route('create_role_page') }}" class="btn btn-primary btn-sm pull-right">
                 @lang('form.new_user_role')
             </a>
+    </h5>
+        <div class="">
+            
             <hr>
-            <table class="table table-striped table-bordered" cellspacing="0" width="100%" id="data">
+            <table class="table table-bordered" cellspacing="0" width="100%" id="data">
                 <thead>
                 <tr>
                     <th>@lang("form.name")</th>
