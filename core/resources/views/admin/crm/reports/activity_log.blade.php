@@ -42,7 +42,7 @@
                 processing: true,
                 serverSide: true,
                 //iDisplayLength: 5
-                pageLength: 100,
+                pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
                 ordering: false,
                 // "columnDefs": [
                 //     { targets: [2,3,4,5], visible: false}
