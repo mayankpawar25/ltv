@@ -109,25 +109,27 @@ div#data_filter {
    <table class="table w-100 table-bordered" cellspacing="0" width="100%" id="data">
       <thead>
          <tr>
-            <th>@lang("form.name")</th>
-            <th>@lang("form.position")</th>
             <th>@lang("form.company")</th>
-            <th>@lang("form.description")</th>
-            <th>@lang("form.country")</th>
-            <th>Pincode</th>
+            <th>@lang("form.name")</th>
+            <th>@lang("form.phone")</th>
+            <th>@lang("form.alternate_number")</th>
+            <th>@lang("form.position")</th>
+            <th>@lang("form.address")</th>
             <th>@lang("form.city")</th>
             <th>@lang("form.state")</th>
-            <th>@lang("form.address")</th>
+            <th>@lang("form.description")</th>
+            <th>@lang("form.country")</th>
             <th>@lang("form.email")</th>
             <th>@lang("form.website")</th>
-            <th>@lang("form.phone")</th>
+            <th>@lang("form.employer_name")</th>
+            <th>@lang("form.employer_phoneno")</th>
+            <th>Pincode</th>
             <th>@lang("form.tags")</th>
-            <th>@lang("form.alternate_number")</th>
+            
+
             <th>@lang("form.assigned")</th>
             <th>@lang("form.status")</th>
             <th>@lang("form.source")</th>
-            <th>@lang("form.employer_name")</th>
-            <th>@lang("form.employer_phoneno")</th>
             <th>@lang("form.last_contacted")</th>
             <th>@lang("form.action")</th>
          </tr>
@@ -216,25 +218,36 @@ div#data_filter {
                     { "name": "0",   "targets": 0 },
                     { "name": "1",  "targets": 1 },
                     { "name": "2", "targets": 2 },
-                    { "name": "3",  "targets": 3 },
-                    { "name": "4",  "targets": 4 },
+                    { "name": "3",  "targets": 3 ,visible: false},
+                    { "name": "4",  "targets": 4 ,visible: false},
                     { "name": "5",  "targets": 5 },
                     { "name": "6",  "targets": 6 ,orderable:false},
                     { "name": "7",  "targets": 7,orderable:false},
                     { "name": "8",  "targets": 8,orderable:false},
-                    { "name": "9",  "targets": 8,orderable:false},
-                    { "name": "10",  "targets": 8,orderable:false},
-                    {targets: -3, visible: false},
-                    {targets: -4, visible: false},
+                    { "name": "9",  "targets": 9,orderable:false},
+                    { "name": "10",  "targets": 10,orderable:false},
+                    { "name": "11",  "targets": 11 ,visible: false},
+                    { "name": "12", "targets": 12 ,visible: false},
+                    { "name": "13",  "targets": 13 ,visible: false},
+                    { "name": "14",  "targets": 14 ,visible: false},
+                    { "name": "15",  "targets": 15 ,visible: false},
+                    { "name": "16",  "targets": 16 ,orderable:false},
+                    { "name": "17",  "targets":17,orderable:false},
+                    { "name": "18",  "targets": 18,orderable:false},
+                    { "name": "19",  "targets": 19,orderable:false},
+                    { "name": "20",  "targets": 20,orderable:false},
+                  /*  {targets: -6, visible: false},
+                    {targets: -7, visible: false},
                     {targets: -8, visible: false},
-                    {targets: -6, visible: false},
-                    {targets: -5, visible: false},
-                    {targets: -10, visible: false},
+                    {targets: -9, visible: false},
+                    {targets: -10, visible: false},*/
+                   /* {targets: -3, visible: false},*/
+                   /* {targets: -4, visible: false},
                     {targets: -12, visible: false},
                     {targets: -13, visible: false},
                     {targets: -14, visible: false},
                     {targets: -15, visible: false},
-                    {targets: -16, visible: false},
+                    {targets: -16, visible: false},*/
 
                  
                    
