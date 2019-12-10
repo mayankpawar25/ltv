@@ -147,8 +147,7 @@ class CustomerController extends Controller {
                     $row->get_groups_as_badges(true),
                     date("d-m-Y", strtotime($row->created_at)),
                     anchor_link('<button class="btn btn-primary btn-sm"><span class="icon icon-eye" data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'3'])).
-                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_customer_page', $row->id),'','shopkeepers_edit').' '.
-                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_customer', $row->id),'','shopkeepers_delete'),
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_customer', $row->id),'','shopkeepers_delete').anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_customer_page', $row->id),'','shopkeepers_edit'),
 
                 );
 

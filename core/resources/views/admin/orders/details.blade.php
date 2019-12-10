@@ -75,6 +75,8 @@
                                 <span class="badge badge-success">Accpeted</span>
                               @elseif ($order->approve == -1)
                                 <span class="badge badge-danger">Rejected</span>
+                              @elseif ($order->approve == 2)
+                                <span class="badge badge-danger">Cancelled By User</span>
                               @endif
                             </p>
                             <p><strong>Order Date: </strong> {{date('jS F, Y', strtotime($order->created_at))}}</p>
@@ -87,7 +89,7 @@
                             <h6 class="white-txt no-margin">Payment / Shipping Method</h6>
                           </div>
                           <div class="card-body">
-                            <p>
+                            <p class="d-none">
                               <strong>Shipping Method: </strong>
                               @if ($order->shipping_method == 'around')
                                 Arround {{$gs->main_city}}
@@ -281,8 +283,13 @@
                                   <li><span class="left">SUBTOTAL</span> <span class="right">{{$gs->base_curr_symbol}} {{$order->subtotal}}</span></li>
                                   <li><span class="left">TAX</span> <span class="right">{{$gs->base_curr_symbol}} 
                                     {{$order->subtotal*($gs->tax/100)}}</span></li>
-                                  <li><span class="left">SHIPPING COST</span> <span class="right">{{$gs->base_curr_symbol}} {{$order->shipping_charge}}</span></li>
-
+                                  <li>
+                                    <span class="left">SHIPPING COST</span>
+                                    <span class="right">
+                                      {{$gs->base_curr_symbol}}
+                                      {{($order->shipping_charge)?$order->user->billing_email:'0.00'}}
+                                    </span>
+                                  </li>
                                   <li class="li-total"><span class="left total">TOTAL</span> <span class="right total">{{$gs->base_curr_symbol}} {{$order->total}}</span></li>
                                 </ul>
                               </div>
