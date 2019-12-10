@@ -142,12 +142,13 @@ class ExpenseController extends Controller
                                 ];
                 }  
 
-                /* if(check_perm('expenses_delete')){
+                 if(check_perm('expenses_delete')){
                     $delete_btn = '<a href="'.route('delete_expense', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
-                }*/
-                if(check_perm('expenses_edit')||check_perm('expenses_delete')){
-                    $delete_btn = '<a href="'.route('delete_expense', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
+                }
+                if(check_perm('expenses_edit')){
+
                     $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_expense_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
+                    $delete_btn;
                 }              
                 $rec[] = array(
 
