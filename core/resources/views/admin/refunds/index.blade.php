@@ -2,37 +2,59 @@
 
 
 @section('content')
+<style type="text/css" media="screen">
+.dataTables_length, .dt-buttons {
+    float: left;
+    width: 100%;
+}
+
+.dataTables_wrapper .dt-buttons {
+    float: left;
+    text-align: center;
+    width: auto;
+}
+div.dataTables_wrapper div.dataTables_filter {
+    text-align: right;
+    width: auto;
+}
+div#admins-table_filter {
+    display: none;
+}
+#data tr td:last-child {
+  text-align: right;
+}
+
+
+</style>
   <main class="app-content">
-      
-     <div class="row">
-        <div class="col-md-12">
-        
-            <div class="main-content">
-            <h5 class="">
-             @if (request()->path() == 'admin/refunds/all')
-               All
-             @elseif (request()->path() == 'admin/refunds/pending')
-               Pending
-             @elseif (request()->path() == 'admin/refunds/accepted')
-               Accepted
-             @elseif (request()->path() == 'admin/refunds/rejected')
-               Rejected
-             @endif
-             Requests
-           </h5>
-           <hr />
-              @if (count($refunds) == 0)
-               
-               <div class="text-center">
-                <img src="{{asset('assets/admin/images/no-data.jpg')}}" />
-                <h3 class="text-center"> NO DATA FOUND !</h3>
-                </div>
-                
-              @else
-                <table class="table table-bordered" style="width:100%;">
+      <div class="main-content">
+        <h5 class="">
+          @if (request()->path() == 'admin/refunds/all')
+            All
+          @elseif (request()->path() == 'admin/refunds/pending')
+            Pending
+          @elseif (request()->path() == 'admin/refunds/accepted')
+            Accepted
+          @elseif (request()->path() == 'admin/refunds/rejected')
+            Rejected
+          @endif
+            Requests
+        </h5>
+        <hr />
+        <div class="row">
+          <div class="col-md-2">
+            <label>Status</label>
+            <?php
+              echo form_dropdown('status_id', $status , $status  , "class='form-control four-boot' multiple='multiple' ");
+            ?>
+          </div>
+          <hr>
+          <div class="col-md-12">
+              <div class="">
+                <table class="table table-bordered" id="admins-table" style="width:100%;">
                   <thead>
                     <tr>
-                      <th>Username</th>
+                      <th>Name</th>
                       <th>Customer Phone</th>
                       <th>Customer Email</th>
                       <!-- <th>Shop Name</th>
@@ -45,76 +67,21 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    @foreach ($refunds as $key => $refund)
-
-                      <tr>
-                        <td><a href="{{route('admin.userDetails', $refund->orderedproduct->user_id)}}">{{$refund->orderedproduct->user->username}}</a></td>
-                        <td>{{$refund->orderedproduct->user->phone}}</td>
-                        <td>{{$refund->orderedproduct->user->email}}</td>
-                        {{-- <td><a href="{{route('admin.vendorDetails', $refund->orderedproduct->vendor_id)}}">{{$refund->orderedproduct->vendor->shop_name}}</a></td>
-                        <td>{{$refund->orderedproduct->vendor->phone}}</td>
-                        <td>{{$refund->orderedproduct->vendor->email}}</td> --}}
-                        
-                        <td><a href="{{route('user.product.details', [$refund->orderedproduct->product->slug, $refund->orderedproduct->product->id])}}">{{$refund->orderedproduct->product->title}}</a></td>
-                        <td>{{$gs->base_curr_symbol}} {{$refund->orderedproduct->product_total}}</td>
-                        <td>
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#refundModal{{$refund->id}}">Reason</button>
-                        </td>
-                        <td>{{date('jS F, Y', strtotime($refund->orderedproduct->created_at))}}</td>
-                        <td>
-                          @if ($refund->status == 0)
-                            <a href="#" title="Accept Request" onclick="accept(event, {{$refund->id}})" style="font-size: 20px;margin-right: 5px;">
-                              <i class="fa fa-check-circle text-success"></i>
-                            </a>
-                            <a href="#" title="Reject Request" onclick="reject(event, {{$refund->id}})" style="font-size: 20px;">
-                              <i class="fa fa-times-circle text-danger"></i>
-                            </a>
-                          @elseif ($refund->status == 1)
-                            <span class="badge badge-success">Accepted</span>
-                          @elseif ($refund->status == -1)
-                            <span class="badge badge-danger">Rejected</span>
-                          @endif
-
-                        </td>
-                      </tr>
-
-                      <!-- Reason Modal -->
-                      <div class="modal fade" id="refundModal{{$refund->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLongTitle">Reason</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-                              <textarea class="form-control" name="name" rows="5" cols="80" readonly>{{$refund->reason}}</textarea>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    @endforeach
-                  </tbody>
                 </table>
-              @endif
 
-               <!-- print pagination -->
-               <div class="row">
-                 <div class="col-md-12">
-                   <div class="text-center">
-                      {{$refunds->links()}}
+                 <!-- print pagination -->
+                 <div class="row">
+                   <div class="col-md-12">
+                     <div class="text-center">
+                        {{$refunds->links()}}
+                     </div>
                    </div>
                  </div>
-               </div>
-               <!-- row -->
+                 <!-- row -->
+          </div>
+          </div>
         </div>
-     </div>
-   </div>
+      </div>
   </main>
 
 @endsection
@@ -179,7 +146,88 @@
           });
         }
       });
-
     }
   </script>
+  <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
+<script type="text/javascript">
+  $(function() {
+    dataTable = $('#admins-table').DataTable({
+        dom: 'lfBfrtip',
+        buttons: [
+                    {
+                      extend: 'copyHtml5',
+                      exportOptions: {
+                          columns: ':visible'
+                      }
+                    },{
+                      extend: 'excelHtml5',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },{
+                      extend: 'print',
+                      exportOptions: {
+                        columns: ':visible'
+                      }
+                    },
+                    'colvis'
+                  ],
+        "language": {
+            "lengthMenu": '_MENU_ ',
+            "search": '',
+            "searchPlaceholder": "{{ __('form.search') }}"
+        },
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        //iDisplayLength: 5
+        "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500,-1], [10, 20, 50, 100,150,200,250,300,350,450,500,'All'] ],
+        pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
+        ordering: true,
+        "columnDefs": [
+          { className: "text-right", "targets": [5] },
+          { "name": "id",   "targets": 0 },
+          /*{ "name": "shopname",  "targets": 1 },
+          { "name": "email", "targets": 2 },
+          { "name": "mobile",  "targets": 3 },
+          { "name": "phone",  "targets": 4 ,visible: false},
+          { "name": "address",  "targets": 5 ,visible: false},
+          { "name": "country_id",  "targets": 6 ,orderable:false,visible: false},
+          { "name": "state_id",  "targets": 7,orderable:false},
+          { "name": "city_id",  "targets": 8,orderable:false},
+          { "name": "status",  "targets": 9 },
+          { "name": "usergroup",  "targets": 10,orderable:false },
+          { "name": "is_verified",  "targets": 11 },
+          { "name": "employer_name",  "targets": 12 ,visible: false},
+          { "name": "employer_contactno",  "targets": 13,visible: false },
+          { "name": "status",  "targets": 14},
+          { "name": "action",  "targets": 15,orderable:false },*/
+        ],
+        "ajax": {
+            "url": '{!! route("datatables_refund_request") !!}',
+            "type": "POST",
+            'headers': {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            "data": function (d) {
+                d.status_id   = $("select[name=status_id]").val();
+                // d.is_verified = $('select[name=is_verified]').val();
+                // d.groups = $('select[name=groups]').val();
+            }
+        }
+    }).
+    on('mouseover', 'tr', function() {
+        jQuery(this).find('div.row-options').show();
+    }).
+    on('mouseout', 'tr', function() {
+        jQuery(this).find('div.row-options').hide();
+    });
+
+    $('select').change(function(){
+        // console.log('change here');
+        dataTable.draw();
+    });
+  });
+  $('.select2').select2();
+</script>
 @endpush

@@ -457,6 +457,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
 	Route::post('/cancelOrder', 'Admin\OrderController@cancelOrder')->name('admin.cancelOrder');
 	Route::post('/acceptOrder', 'Admin\OrderController@acceptOrder')->name('admin.acceptOrder');
 
+	Route::post('/refunds_paginate', 'Admin\RefundController@paginate')->name('datatables_refund_request');
+
 	// Deposit Routes...
   	Route::get('/deposit/pending','Admin\DepositController@pending')->name('admin.deposit.pending');
 	Route::get('/deposit/showReceipt', 'Admin\DepositController@showReceipt')->name('admin.deposit.showReceipt');

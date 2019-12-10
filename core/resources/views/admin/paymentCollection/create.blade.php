@@ -312,9 +312,6 @@ color:
                   city: {
                       required: true,
                   },
-                  address: {
-                      required: true,
-                  },
                   mobile_no: {
                       required: true,
                       mobile_regex: true,
@@ -369,17 +366,14 @@ color:
                   city:{
                       required: "Please Select City .",
                   },
-                  address:{
-                      required: "Please Enter Address.",
-                  },
               },
               errorElement: "span",
               errorClass: "text-danger help-block",
               errorPlacement: function ( error, element ) {
               if(element.parent('.form-group').length) {
-                    error.insertAfter(element.parent());
+                  error.insertAfter(element.parent().find('input, select, textarea, .select2').last());
                 } else {
-                    error.insertAfter(element);
+                  error.insertAfter(element);
                 }
              },
           });
@@ -389,7 +383,6 @@ color:
       $('#putclonehere').html('');
       var total_installments = 1;
       var tds = $('.clone-fields').clone().html();
-      console.log(tds);
       for (i = 0; i < total_installments; i++) {
         $(tds).find('input.date2').datepicker({
           autoclose: true,
@@ -402,7 +395,6 @@ color:
         autoclose: true,
         dateFormat: "dd-mm-yy"
       });
-      console.log('date initiated');
     });
 
     $(document).on('change','.installments',function(){
@@ -421,12 +413,7 @@ color:
           dateFormat: "dd-mm-yy"
          });
       });
-
       reAssignVariableProuctsNames();
-      // $('.date').datepicker();
-      // $.each(function(index, el) {
-      //   console.log(index,el);
-      // });
     });
 
   function reAssignVariableProuctsNames(){
@@ -438,7 +425,7 @@ color:
         var new_elem_name = rest+'['+tr_index+']';
         // console.log(td_index,td_ele,elem_name,new_elem_name);
         $(td_ele).attr('name',new_elem_name);
-        console.log($(td_ele).attr('name'));
+        // console.log($(td_ele).attr('name'));
       });
     });
   }
@@ -454,13 +441,14 @@ color:
   $(document).on('blur','.countamount',function(){
     var total_amount = 0.00;
     $('.countamount').each(function(index, el) {
-      console.log(index,el);
+      // console.log(index,el);
       total_amount = parseInt(total_amount) + parseInt(($(el).val())?$(el).val():0.00);
     });
     $('#total_amount').text('Rs. '+total_amount.toFixed(2));
   });
 
   $('.select2').select2();
+  
   $(document).on('change','select[name=country]',function(){
     var country_id = $(this).val();
     $.ajax({
