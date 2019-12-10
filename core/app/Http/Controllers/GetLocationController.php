@@ -273,14 +273,14 @@ class GetLocationController extends Controller
             $html .= '<option  value="">-- Select Leads --</option>';
             foreach ($datas as $lead) {
                 $sel = ($selected==$lead->id)?'selected':'';
-                $html .= '<option  value="' . $lead->id . '" '.$sel.'>' . ucwords($lead->first_name).$lead->last_name. '</option>';
+                $html .= '<option  value="' . $lead->id . '" '.$sel.'>' . ucwords($lead->first_name).' '.$lead->last_name. '</option>';
                 }
         }else if($request->input('client_id') == 3){
             $datas = User::where(['assigned_to' => $request->input('salesman_id')])->get();
             $html .= '<option  value="">-- Select Customers --</option>';
             foreach ($datas as $lead) {
                 $sel = ($selected==$lead->id)?'selected':'';
-                $html .= '<option  value="' . $lead->id . '" '.$sel.'>' . ucwords($lead->first_name).$lead->last_name. '</option>';
+                $html .= '<option  value="' . $lead->id . '" '.$sel.'>' . ucwords($lead->first_name).' '.$lead->last_name. '</option>';
             }
         }else{
             $html .= '<option  value="">-- No Shopkeeper / Lead / Customers --</option>';
