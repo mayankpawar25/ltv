@@ -141,6 +141,8 @@ class ExpenseController extends Controller
                                     ]
                                 ];
                 }  
+                $delete_btn;
+                 $edit_btn;
                  if(check_perm('expenses_delete')){
                     $delete_btn = '<a href="'.route('delete_expense', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
                 }
