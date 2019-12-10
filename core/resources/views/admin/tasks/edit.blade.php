@@ -74,7 +74,7 @@
                       <div class="col-sm-3">
                         <div class="form-group">
                           <label>Task Date: </label>
-                          <input type="text" name="task_date" value="{{ $task->task_date }}"  class="form-control date" id="task_date">
+                          <input type="text" name="task_date" value="{{ date('d-m-Y',strtotime($task->task_date)) }}"  class="form-control date" id="task_date">
                           @if($errors->has('task_date'))
                           <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('task_date') }}</strong></span></p>
                           @endif
@@ -162,7 +162,7 @@
 <script>
   $('.date').datepicker({
         autoclose: true,
-        dateFormat: "yy-mm-dd"
+        dateFormat: "dd-mm-yy"
   });
  
   $('.to_timepicker').clockTimePicker({
