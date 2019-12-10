@@ -1325,7 +1325,7 @@ return [
 
     'delivery_status' => 'Shipping Status',
     'payment_status' => 'Payment Status',
-
+    'user_type'      => 'User Type',
     // 'payment_method' => 'Payment Status',
 
     /* Author : 225 */

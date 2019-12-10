@@ -299,7 +299,10 @@ class OrderController extends Controller
 				$value->tax_amount = number_format(($value->subtotal*$value->tax)/100,2);
 				$value->orderedproducts;
 				$value->total_products = count($value->orderedproducts);
+				$coupon_amount = 0;
 				foreach ($value->orderedproducts as $p_key => $p_value) {
+					$p_value->refund;
+					$coupon_amount += $p_value->coupon_amount;
 					$attr = [];
       				$i = 0;
 					foreach($p_value->product->previewimages as $images){
@@ -320,6 +323,7 @@ class OrderController extends Controller
 	                $p_value->favorite = in_array($p_value->id,$fav_arr)?1:0;
 
 				}
+				$value->coupon_amount = $coupon_amount;
 				/* Status */
 				if($value->approve == '1'){
 					if($value->shipping_status == '0'){

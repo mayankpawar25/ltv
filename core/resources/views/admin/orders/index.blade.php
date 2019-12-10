@@ -124,6 +124,7 @@ div#data_filter {
                       <th>Order id</th>
                       <th>Order Date</th>
                       <th>Dealer Name</th>
+                      <th>User Type</th>
                       <th>Phone</th>
                       <th>Email</th>
                       <th>Total</th>
@@ -199,9 +200,10 @@ div#data_filter {
 
               <div class="form-row">
                 <div class="form-group col-md-2">
-                   <label>@lang('form.team_member')</label>
+                   <label>@lang('form.user_type')</label>
+                   @php $data['user_type'] = ['unassigned'=>'Nothing Selected']+['1'=>'Dealer','2'=>'Customer'] @endphp
                    <?php
-                      echo form_dropdown('assigned_to', $data['assigned_to_list'] , '' , "class='form-control four-boot' multiple='multiple' ");
+                      echo form_dropdown('user_type', $data['user_type'] , '' , "class='form-control four-boot' multiple='multiple' ");
                       ?>
                 </div>
                 <div class="form-group col-md-2">
@@ -240,6 +242,7 @@ div#data_filter {
                         <th>Order id</th>
                         <th>Order Date</th>
                         <th>Dealer Name</th>
+                        <th>User Type</th>
                         <th>Phone</th>
                         <th>Email</th>
                         <th>Sub-Total</th>
@@ -502,7 +505,7 @@ div#data_filter {
           pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
           ordering: false,
           "columnDefs": [
-              { className: "text-right", "targets": [10] }
+              { className: "text-right", "targets": [11] }
           ],
           "ajax": {
               "url": '{!! route("orders_paginate") !!}',
@@ -512,6 +515,7 @@ div#data_filter {
               },
               "data":function(d){
                   d.status_id       = $("select[name=status_id]").val();
+                  d.user_type       = $("select[name=user_type]").val();
                   d.delivery_status = $('select[name=delivery_status]').val();
                   d.payment_method  = $('select[name=payment_method]').val();
                   d.payment_status  = $('select[name=payment_status]').val();

@@ -47,6 +47,7 @@ class OrderController extends Controller
     $payment_method = Input::get('payment_method');
     $payment_status = Input::get('payment_status');
     $assigned_to    = Input::get('assigned_to');
+    $user_type      = Input::get('user_type');
 
     $query_key          = Input::get('search');
     $search_key         = $query_key['value'];
@@ -73,6 +74,12 @@ class OrderController extends Controller
       $q->whereIn('approve', $status_id);
       $query->whereIn('approve', $status_id);
 
+    }
+
+    if($user_type){
+      // shipping_status
+      $q->whereIn('user_type', $user_type);
+      $query->whereIn('user_type', $user_type);
     }
 
     if($delivery_status){
@@ -174,6 +181,12 @@ class OrderController extends Controller
             $order_accept_btn .= '<a href="#" class="btn btn-sm btn-success" onclick="acceptOrder(event, '.$row->id.')" title="Accept Order"><i class="fa fa-check"></i></a>';
           }
 
+          if($row->user_type==1){
+            $user_type_name = '<span class="badge badge-danger">Dealer</span>';
+          }else{
+            $user_type_name = '<span class="badge badge-success">Customer</span>';
+          }
+
           if($row->approve == 1){
             $order_accept_btn = '<span class="badge badge-success">Accepted</span>';
           }
@@ -196,6 +209,7 @@ class OrderController extends Controller
               $row->unique_id,
               date('d-m-Y',strtotime($row->created_at)),
               $row->first_name.' '.$row->last_name,
+              $user_type_name,
               $row->phone,
               $row->email,
               format_currency($row->subtotal, true , $currency_symbol),
@@ -204,7 +218,7 @@ class OrderController extends Controller
               $shipping_status,
               ($row->payment_method == 2)?'<span class="badge badge-warning">Advance</span>':'<span class="badge badge-warning">COD</span>',
               ($row->payment_status == 0)?'<span class="badge badge-danger paidstatus" data-orderid="'.$row->id.'" data-status="1">Unpaid</span>':'<span class="badge badge-success paidstatus"  data-orderid="'.$row->id.'" data-status="0">Paid</span>',
-              anchor_link('<span class="icon-eye icon"></span>',route('admin.orderdetails', $row->id)).$order_accept_btn,
+              anchor_link('<button class="btn btn-sm btn-primary"><i class="icon-eye icon"></i></button>',route('admin.orderdetails', $row->id)).$order_accept_btn,
 
               // $row->unique_id,
               // $name,
@@ -240,6 +254,7 @@ class OrderController extends Controller
       array_push($rec, [
 
           '<b>'. __('form.total_per_page'). '<b>',
+          "",
           "",
           "",
           "",

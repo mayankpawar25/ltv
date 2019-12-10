@@ -8,6 +8,8 @@ use App\Models\StaffUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
+
 
 class TasksController extends Controller
 {
@@ -171,8 +173,21 @@ class TasksController extends Controller
         //
     }
 
+    public function salesmanList2()
+    {   
+            $data['assigned_to'] = DB::table('staff_users')->where('role_id',1)->select(DB::raw("CONCAT(first_name,' ',last_name) AS name"),'id')->pluck('name', 'id')->toArray();
+        if(empty(auth()->user()->is_administrator)){
+            return view('admin.tasks.index', compact('data'));
+        }else {
+            $data['salesmans'] =StaffUser::whereNull('inactive')->whereNull('is_administrator')->where('role_id',1)->get();
+            return view('admin.tasks.salesmanlist',$data);
+        }
+
+    }
+
     public function salesmanList()
     {   
+        $data['assigned_to'] = DB::table('staff_users')->where('role_id',1)->select(DB::raw("CONCAT(first_name,' ',last_name) AS name"),'id')->pluck('name', 'id')->toArray();
         if(empty(auth()->user()->is_administrator)){
             /*$data['salesmans'] = StaffUser::where('id',auth()->user()->id)->where('role_id',1)->get();
                 return view('admin.tasks.salesmanlist',$data);*/
@@ -200,5 +215,82 @@ class TasksController extends Controller
         echo json_encode($tasks);
     }
 
+    public function paginate(Request $request){
+
+        $order       = Input::get('order');
+        $columns     = Input::get('columns');
+        $query_key   = Input::get('search');
+        $search_key  = $query_key['value'];
+        $customer_id = Input::get('customer_id');
+        $salesman_id = Input::get('salesman_id');
+        $is_verified = Input::get('is_verified');
+        $groups      = Input::get('groups');
+        $q           = StaffUser::query();
+        $query       = StaffUser::where('role_id',1)->orderBy($columns[$order[0]['column']]['name'], $order[0]['dir']);
+
+        // If the user has permission to view only the ones that are created by himself;
+        if(!check_perm('tasks_view') && check_perm('tasks_view_own'))
+        {
+            $q->where(function($k){
+                $k->where('salesman_id', auth()->user()->id);
+            });
+            $query->where(function($k){
+                $k->where('salesman_id', auth()->user()->id);
+            });                   
+            
+        }
+
+        if($salesman_id){
+            $q->whereIn('id', $salesman_id);
+            $query->whereIn('id', $salesman_id);
+        }
+
+        $number_of_records  = $q->where('role_id',1)->get()->count();
+
+        if($search_key)
+        {
+            $query->where(function ($k) use ($search_key) {
+                $k->where('first_name', 'like', $search_key.'%')
+                ->orwhere('last_name', 'like', $search_key.'%')
+                ->orwhere(DB::raw('CONCAT(first_name," ",last_name)'), 'like', $search_key.'%')
+                ->orwhere('phone', 'like', $search_key.'%')
+                ->orwhere('email', 'like', $search_key.'%');
+            });
+        }
+
+        $recordsFiltered = $query->get()->count();
+        $length = Input::get('length');
+        if($length != '-1'){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        $data = $query->get();
+        //
+        // echo json_encode($data);
+        // exit;
+        $rec = [];
+
+        if (count($data) > 0)
+        {       
+            $i=0;
+            foreach ($data as $key => $row)
+            {  
+              $rec[] = array(
+                ++$i,
+                ucwords($row->first_name).' '.ucwords($row->last_name),
+                $row->email,
+                $row->phone,
+                anchor_link('<button class="btn btn-primary btn-sm" title="View Task"><i class="fa fa-eye"></i></button>',route('admin.salesmans.task',$row->id)),
+              );
+            }
+        }
+        /*class="btn btn-warning btn-sm"  data-toggle="tooltip" title="View Ledger"*/
+        $output = array(
+            "draw" => intval(Input::get('draw')),
+            "recordsTotal" => $number_of_records,
+            "recordsFiltered" => $recordsFiltered,
+            "data" => $rec
+        );
+        return response()->json($output);
+    }
 
 }
