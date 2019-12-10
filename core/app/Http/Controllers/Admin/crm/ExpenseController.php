@@ -148,7 +148,7 @@ class ExpenseController extends Controller
                 if(check_perm('expenses_edit')){
 
                     $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_expense_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
-                    $delete_btn;
+                    
                 }              
                 $rec[] = array(
 
