@@ -7,6 +7,7 @@ use App\EstimateStatus;
 use App\Invoice;
 use App\Item;
 use App\Lead;
+use App\Tag;
 use App\NumberGenerator;
 use App\Estimate;
 use App\EstimateItem;
@@ -97,6 +98,7 @@ class EstimateController extends Controller
      
         $data['stat_total_estimates']        = $total;
 
+        $data['tag_id_list'] = Tag::orderBy('name','ASC')->pluck('name', 'id')->toArray();
 
         $rec['item_statuses'] = EstimateStatus::all();
 
@@ -167,6 +169,9 @@ class EstimateController extends Controller
 
         if($search_key)
         {
+            // customer
+            // dealer
+            // lead
             $query->where(function ($k) use ($search_key) {
                 $k->where('number', 'like', like_search_wildcard_gen($search_key))
                     ->orWhere('total', 'like', like_search_wildcard_gen($search_key))
@@ -174,9 +179,15 @@ class EstimateController extends Controller
                     ->orWhere('date', 'like', like_search_wildcard_gen(date2sql($search_key)))
                     ->orWhere('expiry_date', 'like', like_search_wildcard_gen(date2sql($search_key)))
                     ->orWhere('reference', 'like', like_search_wildcard_gen($search_key))
-                    /*->orWhereHas('customer', function ($q) use ($search_key) {
-                        $q->where('customers.name', 'like', $search_key.'%');
-                    })*/
+                    ->orWhereHas('customer', function ($q) use ($search_key) {
+                        $q->where('users.name', 'like', $search_key.'%');
+                    })
+                    ->orWhereHas('dealer', function ($q) use ($search_key) {
+                        $q->where('shopkeepers.name', 'like', $search_key.'%');
+                    })
+                    ->orWhereHas('lead', function ($q) use ($search_key) {
+                        $q->where(DB::raw('CONCAT(leads.first_name," ",leads.last_name)'), 'like', $search_key.'%');
+                    })
                     ->orWhereHas('tags', function ($q) use ($search_key) {
                         $q->where('name', 'like', $search_key.'%');
                     })
@@ -188,7 +199,11 @@ class EstimateController extends Controller
         }
 
         $recordsFiltered = $query->get()->count();
-        $query->skip(Input::get('start'))->take(Input::get('length'));
+        $length = Input::get('length');
+        if($length != '-1'){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        // $query->skip(Input::get('start'))->take(Input::get('length'));
         $data = $query->get();
 
         $rec = [];
@@ -196,13 +211,23 @@ class EstimateController extends Controller
         if (count($data) > 0)
         {
             foreach ($data as $key => $row)
-            {
+            {       
                 if(check_perm('estimates_view')){
                     $delete_btn = '<a href="'.route('estimate_customer_view', [$row->id, $row->url_slug ]).'" class="view_item btn btn-primary btn-sm" title="view"><i class="icon-eye icons icon"></i></a>';
                 }
                 if(check_perm('estimates_edit')){
                     $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_estimate_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
-                }              
+                }
+
+                if($row->component_id == COMPONENT_TYPE_LEAD){
+                    $type = '<span>Lead</span>';
+                }else if($row->component_id == COMPONENT_TYPE_CUSTOMER){
+                    $type = '<span>Customer</span>';
+                }else{
+                    // COMPONENT_TYPE_SHOPKEEPER
+                    $type = '<span>Dealer</span>';
+                }
+
                 $rec[] = array(
 
                     a_links(vue_click_link($row->number, $row->id ) , [
@@ -230,11 +255,8 @@ class EstimateController extends Controller
                     format_currency($row->total, TRUE, $row->get_currency_symbol()),
                     format_currency($row->tax_total, TRUE, $row->get_currency_symbol()),
                     sql2date($row->date),
-                    ($row->related_to->name)?ucwords($row->related_to->name):ucwords($row->related_to->first_name.' '.$row->related_to->last_name),
-                   
-
+                    (isset($row->related_to->name))?ucwords($row->related_to->name):ucwords($row->related_to->first_name.' '.$row->related_to->last_name),
                     // anchor_link($row->customer->name, route('view_customer_page', $row->customer_id)),
-                    
                     // isset($row->project->name) ? anchor_link($row->project->name, route('show_project_page', $row->project->id)) : "",
 
                     $row->get_tags_as_badges(true),                    

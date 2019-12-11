@@ -151,11 +151,23 @@ class InvoiceController extends Controller
                     ->orWhere('tax_total', 'like', like_search_wildcard_gen($search_key))
                     ->orWhere('date', 'like', like_search_wildcard_gen(date2sql($search_key)))
                     ->orWhere('due_date', 'like', like_search_wildcard_gen(date2sql($search_key)))
-                   ->orWhere('reference', 'like', like_search_wildcard_gen($search_key))
+                    ->orWhere('reference', 'like', like_search_wildcard_gen($search_key))
                     ->orWhereHas('customer', function ($q) use ($search_key) {
-                        $q->where('customers.name', 'like', $search_key . '%');
+                        $q->where('users.name', 'like', $search_key.'%');
                     })
-                     ->orWhereHas('project', function ($q) use ($search_key) {
+                    ->orWhereHas('dealer', function ($q) use ($search_key) {
+                        $q->where('shopkeepers.name', 'like', $search_key.'%');
+                    })
+                    ->orWhereHas('lead', function ($q) use ($search_key) {
+                        $q->where(DB::raw('CONCAT(leads.first_name," ",leads.last_name)'), 'like', $search_key.'%');
+                    })
+                    ->orWhereHas('lead', function ($q) use ($search_key) {
+                        $q->where('leads.first_name', 'like', $search_key.'%');
+                    })
+                    ->orWhereHas('lead', function ($q) use ($search_key) {
+                        $q->where('leads.last_name', 'like', $search_key.'%');
+                    })
+                    ->orWhereHas('project', function ($q) use ($search_key) {
                         $q->where('projects.name', 'like', $search_key . '%');
                     })
                     ->orWhereHas('tags', function ($q) use ($search_key) {
@@ -168,10 +180,13 @@ class InvoiceController extends Controller
         }
 
         $recordsFiltered = $query->get()->count();
-        $query->skip(Input::get('start'))->take(Input::get('length'));
+        $length = Input::get('length');
+        if($length != '-1'){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        // $query->skip(Input::get('start'))->take(Input::get('length'));
         $data = $query->get();
         //
-
         $rec = [];
 
         if (count($data) > 0) {
@@ -200,7 +215,7 @@ class InvoiceController extends Controller
                 }
                 if(check_perm('invoices_edit')){
                     $edit_btn = '<a class="edit_item  btn btn-success btn-sm" data-id="'.$row->id.'" href="'.route('edit_invoice_page', $row->id).'"><i class="icon-pencil icon"></i></a>';
-                }              
+                }
 
                 $rec[] = array(
                     a_links(vue_click_link($row->number, $row->id), $act),

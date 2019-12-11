@@ -210,7 +210,7 @@
                },
 
                 ajax: {
-                    url: '{{ route("related_component") }}',
+                    url: "{{ route('related_component') }}",
                     data: function (params) {
                         return {
                             search: params.term,
@@ -247,8 +247,8 @@
                     return obj.name || "<?php echo __('form.searching'); ?>" ;
                 },
                 templateSelection: function (obj) {
-
-                    if(obj && obj.email)
+                    console.log(obj);
+                    if(obj)
                     {
                         $("input[name=send_to]").val(( obj.contact_name) ? obj.contact_name : obj.name );
                         $("input[name=email]").val(obj.email);
@@ -280,7 +280,7 @@
                                 $(this).data('placeholder');
                             },
                             maximumSelectionSize: 6
-                        }).val(obj.shipping_country_id).trigger("change");
+                        }).val(obj.country_id).trigger("change");
                         
                     }
 

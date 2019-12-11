@@ -444,6 +444,7 @@
       $(document).on('change', '#salesman_select', function(event) {
         salesman = $('#salesman_select').val();
         $('#salesman_id_select').val(salesman);
+        $('#client_select').val('');
       });
        $(document).on('change', '#client_select', function(event) {
         client = $('#client_select').val();

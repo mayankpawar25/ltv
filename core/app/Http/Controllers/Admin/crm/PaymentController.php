@@ -78,13 +78,23 @@ class PaymentController extends Controller
                 $k->where('number', 'like', $search_key.'%')
                 ->orWhere('transaction_id', 'like', $search_key.'%')
                 ->orWhere('amount', 'like', $search_key.'%')
+                ->orWhere('date', 'like', like_search_wildcard_gen(date2sql($search_key)))
                 ->orWhereHas('invoice', function ($q) use ($search_key) {
                     $q->where('invoices.number', 'like', $search_key.'%');
                 })
                 ->orwhereHas('invoice',function ($q) use ($search_key){
-
-                    $q->leftJoin('customers', 'invoices.customer_id', '=', 'customers.id')
-                        ->where('customers.name', 'like', $search_key.'%');
+                    $q->leftJoin('users', 'invoices.component_number', '=', 'users.id')
+                        ->where('users.name', 'like', $search_key.'%');
+                })
+                ->orwhereHas('invoice',function ($q) use ($search_key){
+                    $q->leftJoin('leads', 'invoices.component_number', '=', 'leads.id')
+                        ->where('leads.first_name', 'like', $search_key.'%')
+                        ->where('leads.last_name', 'like', $search_key.'%')
+                        ->where(DB::raw('CONCAT(leads.first_name," ",leads.last_name)'), 'like', $search_key.'%');
+                })
+                ->orwhereHas('invoice',function ($q) use ($search_key){
+                    $q->leftJoin('shopkeepers', 'invoices.component_number', '=', 'shopkeepers.id')
+                        ->where('shopkeepers.name', 'like', $search_key.'%');
                 })
                 ->orWhereHas('payment_mode', function ($q) use ($search_key) {
                     $q->where('payment_modes.name', 'like', $search_key.'%');
@@ -95,7 +105,11 @@ class PaymentController extends Controller
         }
 
         $recordsFiltered = $query->get()->count();
-        $query->skip(Input::get('start'))->take(Input::get('length'));
+        $length = Input::get('length');
+        if($length != '-1'){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        // $query->skip(Input::get('start'))->take(Input::get('length'));
         $data = $query->get();
         //
 
