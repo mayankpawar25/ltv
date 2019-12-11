@@ -487,7 +487,7 @@ class ProductController extends Controller
          $cart->product_id = $product->id;
          $cart->title = $product->title;
          $cart->price = $product->price;
-         $cart->price = $product->current_price;
+         $cart->current_price = $product->current_price;
          $cart->quantity = $request->quantity;
          $cart->attributes = $request->attribute;
          $cart->save();
