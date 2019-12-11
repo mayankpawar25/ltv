@@ -287,7 +287,7 @@
                                     <span class="left">SHIPPING COST</span>
                                     <span class="right">
                                       {{$gs->base_curr_symbol}}
-                                      {{($order->shipping_charge)?$order->user->billing_email:'0.00'}}
+                                      {{($order->shipping_charge)?$order->shipping_charge:'0.00'}}
                                     </span>
                                   </li>
                                   <li class="li-total"><span class="left total">TOTAL</span> <span class="right total">{{$gs->base_curr_symbol}} {{$order->total}}</span></li>
