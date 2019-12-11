@@ -565,6 +565,11 @@ class UserController extends Controller
     if(!empty($user_group)){
       $group_disc = $user_group->percentage;
     }*/
+    if(empty($product_details)){
+      $data['msg'] = 'Invalid Cart';
+      $data['status'] = false;
+      return response()->json($data, 401);
+    }
 
     foreach ($product_details as $key => $product) {
       $products = Product::find($product->product_id);
