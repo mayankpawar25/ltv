@@ -568,12 +568,16 @@ class UserController extends Controller
 
     foreach ($product_details as $key => $product) {
       $products = Product::find($product->product_id);
-
       $product_price = $products->price;
-      if($group_disc !='0'){
+      if (!empty($products->current_price)) {
+        $product_price = $products->current_price;
+      } else {
+        $product_price = $products->price;
+      }
+      /*if($group_disc !='0'){
         $group_disc_amount = ($products->price*$group_disc)/100;
         $product_price = $product_price - $group_disc_amount;
-      }
+      }*/
       $products->price = $product_price;
       $products->description = strip_tags($products->description);
       $products->attributes = $product->attributes;
