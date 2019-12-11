@@ -583,7 +583,7 @@ class UserController extends Controller
         $group_disc_amount = ($products->price*$group_disc)/100;
         $product_price = $product_price - $group_disc_amount;
       }*/
-      $products->price = $product_price;
+      // $products->price = $product_price;
       $products->description = strip_tags($products->description);
       $products->attributes = $product->attributes;
       $products->cart_quantity = $product->quantity;
