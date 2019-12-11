@@ -529,7 +529,7 @@ class SalesmanController extends Controller
                     }
                   $p_value->attributes = $attr;
                 }
-                  $p_value->favorite = in_array($p_value->id,$fav_arr)?1:0;
+                  // $p_value->favorite = in_array($p_value->id,$fav_arr)?1:0;
 
         }
         $value->coupon_amount = $coupon_amount;
