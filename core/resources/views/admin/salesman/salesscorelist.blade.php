@@ -73,10 +73,11 @@ div#data_filter {
                 <p class="text-danger m-t-20"><span class="help-block"><strong>{{ $errors->first('staff_user_remarks') }}</strong></span></p>
                 @endif
              </div>
-             <hr>
-            <div class="text-right">
-              <button type="submit" class="btn btn-success">Save</button>
-            </div>
+             <div class="row">
+              <div class="col-md-12 text-right"><hr>
+                <button type="submit" class="btn btn-success">Save</button>
+              </div>
+            </div>  
           </form>
         </div>
       </div>

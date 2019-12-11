@@ -6,28 +6,25 @@
 
 @section('content')
 <main class="app-content">
-	<div class="app-title">
+	<div class="main-content">
 		<div>
-			<h1><i class="fa fa-dashboard"></i>Add Job Card Template</h1>
+			<h5>Add Job Card Template</h5>
 		</div>
+		<hr>
 	<!--	<ul class="app-breadcrumb breadcrumb">
 			<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
 			<li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
 		</ul>-->
-	</div>
 	<form class="product-upload-form" action="{{ route('admin.jobcardtemplate.store') }}" method="post">
 		{{ csrf_field() }}
 		<div class="row">
 			<div class="col-md-12">
-				<div class="tile">
-                
-					<h3 class="tile-title">Add Job Card Template</h3>
-				
+				<div class="">
                 	<div class="">
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="form-group">
-									<label><strong>Form Title</strong></label>
+									<label>Form Title</label>
 									<input type="text" name="form_title" value="" placeholder="" class="form-control">
 								</div>
 							</div>
@@ -35,13 +32,13 @@
 						<div class="row">
 							<div class="col-sm-5">
 								<div class="form-group">
-									<label><strong>Label Name</strong> : </label>
+									<label>Label Name : </label>
 									<input type="text" name="label[]" value="" placeholder="" class="form-control">
 								</div>
 							</div>
 							<div class="col-sm-3">
 								<div class="form-group">
-									<label><strong>Type</strong> : </label>
+									<label>Type : </label>
 									<select name="type[]" id="input-type" class="form-control">
 										<optgroup label="Choose">
 											<option value="select">Select</option>
@@ -67,7 +64,7 @@
 							</div>
 							<div class="col-sm-2">
 								<div class="form-group">
-									<label><strong>Sort Order</strong> : </label>
+									<label>Sort Order : </label>
 									<input type="text" name="sort_order[]" value="" placeholder="" class="form-control">
 								</div>
 							</div>
@@ -78,12 +75,11 @@
 							</div>
 						</div>
 						<div class="put_clone_here"></div>
+						<hr>
 						<div class="row">
-							
-                             
-                            <div class="col-sm-12">
-                            <div class="btn-wrapper mt-4 d-block text-center">
-								<button type="submit" class="submit-btn">Save</button>
+                            <div class="col-sm-12 text-right">
+                            <div class="btn-wrapper">
+								<button type="submit" class="btn btn-success">Save</button>
 							</div></div>
 						</div>
 					</div>
@@ -95,13 +91,13 @@
 	<div class="row d-none clone_fields">
 		<div class="col-sm-5">
 			<div class="form-group">
-				<label><strong>Label Name</strong> : </label>
+				<label>Label Name : </label>
 				<input type="text" name="label[]" value="" placeholder="" class="form-control">
 			</div>
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label><strong>Type</strong> : </label>
+				<label>Type: </label>
 				<select name="type[]" id="input-type" class="form-control">
 					<optgroup label="Choose">
 						<option value="select">Select</option>
@@ -127,10 +123,11 @@
 		</div>
 		<div class="col-sm-2">
 			<div class="form-group">
-				<label><strong>Sort Order</strong> : </label>
+				<label>Sort Order : </label>
 				<input type="text" name="sort_order[]" value="" placeholder="" class="form-control">
 			</div>
 		</div>
+	</div>
 	</div>
 </main>
 @endsection

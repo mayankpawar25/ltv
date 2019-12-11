@@ -16,6 +16,15 @@
     text-align: center;
     width: auto;
 }
+.table>tbody>tr>td:last-child 
+{
+   text-align: right;
+}
+.table>tbody>tr>td:last-child .btn-info
+{
+	background-color: #84c529;
+	border-color: #84c529;
+}
 div.dataTables_wrapper div.dataTables_filter {
     text-align: right;
     width: auto;

@@ -20,11 +20,11 @@
 @section('content')
   <main class="app-content">
      <div class="main-content">
-       <div class="row" style="width:100%;">
+       <div class="row">
          <div class="col-md-6">
            <h5 class="d-inline-block">Menu Edit</h5>
          </div>
-         <div class="col-md-6 text-right">
+         <div class="col-md-6">
            <a href="{{route('admin.menuManager.index')}}" class="float-right btn btn-primary">Menu Lists</a>
          </div>
        </div>

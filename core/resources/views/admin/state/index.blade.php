@@ -11,6 +11,15 @@
     float: left;
     width: 100%;
 }
+.table>tbody>tr>td:last-child 
+{
+   text-align: right;
+}
+.table>tbody>tr>td:last-child .btn-info
+{
+	background-color: #84c529;
+	border-color: #84c529;
+}
 
 .dataTables_wrapper .dt-buttons {
     float: left;

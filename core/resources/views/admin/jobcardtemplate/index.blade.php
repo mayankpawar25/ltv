@@ -6,23 +6,25 @@
 
 @section('content')
 <main class="app-content">
-	<div class="app-title">
+	<div class="main-content">
 		<div>
-			<h1><i class="fa fa-dashboard"></i>Job Card Template List</h1>
+			<h5>Job Card Templates
+				<a href="{{ route('admin.jobcardtemplate.create') }}" class="float-right btn btn-success"> <i class="fa fa-plus"></i> Add Job Card</a></h3>
+			</h5>
 		</div>
+		<hr>
 		<!--<ul class="app-breadcrumb breadcrumb">
 			<li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
 			<li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
 		</ul>-->
-	</div>
 	<div class="row">
 		<div class="col-sm-12">
-			<div class="tile">
-				<div class="">
-                <h3 class="tile-title">
+			<div class="">
+				{{-- <div class="">
+                <h3 >
 					Job Card Templates
 					<a href="{{ route('admin.jobcardtemplate.create') }}" class="float-right btn btn-success"> <i class="fa fa-plus"></i> Add Job Card</a></h3>
-				</div>
+				</div> --}}
 				<div class="">
 					<table class="table table-stripe">
 						<thead>

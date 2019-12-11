@@ -22,6 +22,13 @@ div#data_filter {
 #data tr td:last-child {
   text-align: right;
 }
+table .btn-sm {
+    padding: 6px 6px !important;
+}
+.btn-secondary {
+    font-size: .875rem !important;
+    padding: 10px 10px !important;
+}
 
 </style>
 @section('content')

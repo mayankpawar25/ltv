@@ -6,8 +6,17 @@
  
 <style type="text/css" media="screen">
 .dataTables_length, .dt-buttons {
-    float: left;
+    float: right;
     width: 100%;
+}
+.table>tbody>tr>td:last-child 
+{
+   text-align: right;
+}
+.table>tbody>tr>td:last-child .btn-info
+{
+	background-color: #84c529;
+	border-color: #84c529;
 }
 
 .dataTables_wrapper .dt-buttons {
@@ -123,7 +132,7 @@ div#admins-table_filter {
 									<!-- <th>ISO Code</th>
 									<th>Country Code</th> -->
 									<th>Status</th>
-									<th>Action</th>
+									<th class="">Action</th>
 								</tr>
 							</thead>
 						<!-- 	<tfoot>
