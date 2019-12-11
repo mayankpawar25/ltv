@@ -139,7 +139,6 @@ class ProposalController extends Controller
             });
         }
 
-        DB::enableQueryLog();
         $recordsFiltered = $query->get()->count();
         $length = Input::get('length');
         if($length != '-1'){
@@ -147,9 +146,10 @@ class ProposalController extends Controller
         }
         // $query->skip(Input::get('start'))->take(Input::get('length'));
         $data = $query->get();
+        /*DB::enableQueryLog();
         $data2 = DB::getQueryLog();
         print_r($data2);
-        exit('here');
+        exit('here');*/
 
         $rec = [];
 

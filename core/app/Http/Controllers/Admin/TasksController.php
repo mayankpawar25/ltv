@@ -284,7 +284,7 @@ class TasksController extends Controller
                 ucwords($row->first_name).' '.ucwords($row->last_name),
                 $row->email,
                 $row->phone,
-                anchor_link('<button class="btn btn-primary btn-sm" title="View Task"><i class="fa fa-eye"></i></button>',route('admin.salesmans.task',$row->id)),
+                anchor_link('<button class="btn btn-primary btn-sm" title="View Task"><i class="fa fa-eye"></i></button>',route('admin.salesmans.task',$row->id)).' '.anchor_link('<button class="btn btn-success btn-sm" title="Map"><i class="fa fa-map"></i></button>',route('admin.tasks.arrivals',$row->id),TRUE),
               );
             }
         }
