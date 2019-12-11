@@ -505,9 +505,34 @@ class SalesmanController extends Controller
       $status = 401;
     }else{
       foreach ($order_history as $key => $value) {
+        $value->tax_amount = number_format(($value->subtotal*$value->tax)/100,2);
         $value->orderedproducts;
         $value->total_products = count($value->orderedproducts);
-        
+        $coupon_amount = 0;
+        foreach ($value->orderedproducts as $p_key => $p_value) {
+          $p_value->refund;
+          $coupon_amount += $p_value->coupon_amount;
+          $attr = [];
+              $i = 0;
+          foreach($p_value->product->previewimages as $images){
+                  $images->image = asset('assets/user/img/products/'.$images->image);
+                  $images->big_image = asset('assets/user/img/products/'.$images->big_image);
+                }
+
+                if($p_value->attributes!='[]' || $p_value->attributes!='' || $p_value->attributes!='""'){
+                  $attributes = json_decode($p_value->attributes);
+                  if(!empty($attributes))
+                    foreach ($attributes as $key => $attribute) {
+                        $attr[$i]['name'] = $key;
+                        $attr[$i]['options'] = (isset($attribute[0]))?$attribute[0]:'';
+                        $i++;
+                    }
+                  $p_value->attributes = $attr;
+                }
+                  $p_value->favorite = in_array($p_value->id,$fav_arr)?1:0;
+
+        }
+        $value->coupon_amount = $coupon_amount;
         /* Status */
         if($value->approve == '1'){
           if($value->shipping_status == '0'){
