@@ -74,7 +74,7 @@ div#data_filter {
    <div class="form-row">
     
       <div class="form-group col-md-2">
-         <label>@lang('form.status')</label>
+         <label>@lang('form.tag')</label>
          <?php
             echo form_dropdown('tag_id', $data['lead_tags_list'] , ''  , "class='form-control four-boot' multiple='multiple' ");
             ?>
@@ -88,7 +88,7 @@ div#data_filter {
       <div class="form-group col-md-2">
          <label>@lang('form.source')</label>
          <?php
-            echo form_dropdown('source_id', $data['lead_source_id_list'] ,  [] , "class='form-control four-boot' multiple='multiple' ");
+            echo form_dropdown('source_id', $data['lead_source_id_list'] ,  '' , "class='form-control four-boot' multiple='multiple' ");
             ?>
       </div>
       
@@ -96,7 +96,7 @@ div#data_filter {
        <div class="form-group col-md-2">
          <label>@lang('form.assigned_to')</label>
          <?php
-            echo form_dropdown('assigned_to', $data['assigned_to_list'] , [], "class='form-control four-boot'");
+            echo form_dropdown('assigned_to', $data['assigned_to_list'] , '', "class='form-control four-boot multiple'");
             ?>
       </div>
 
@@ -270,8 +270,6 @@ div#data_filter {
                         d.assigned_to               = $('select[name=assigned_to]').val();
                         d.additional_filter         = $('select[name=additional_filter]').val();
                         d.tag_id                    = $('select[name=tag_id]').val();
-
-                       
                         // etc
                     }
                 }

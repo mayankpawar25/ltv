@@ -69,7 +69,7 @@ class Lead extends Model {
         $data['lead_tags_list'] = ['unassigned'=> __('form.none')]+Tag::orderBy('name','ASC')->pluck('name', 'id')->toArray();
         $data['lead_status_id_list'] = LeadStatus::orderBy('name','ASC')->pluck('name', 'id')->toArray();
         $data['lead_source_id_list'] = LeadSource::orderBy('name','ASC')->pluck('name', 'id')->toArray();
-        $data['assigned_to_list']    = array('' => __('form.all')) + array('unassigned' => __('form.not_assigned')) +  self::sales_agent_dropdown();
+        $data['assigned_to_list']    = array('unassigned' => __('form.not_assigned')) +  self::sales_agent_dropdown();
         // $data['assigned_to_list']    = User::get();
         $data['additional_filter_list'] = [
             ''                      => __('form.none'),

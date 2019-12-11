@@ -78,25 +78,25 @@ class LeadController extends Controller {
         // Filtering Data                        
         if($status_id)
         {
-            //$q->whereIn('lead_status_id', $status_id );
+            $q->whereIn('lead_status_id', $status_id );
             $query->whereIn('lead_status_id', $status_id );
         }
 
         if($source_id)
         {
-            //$q->whereIn('lead_source_id', $source_id );
+            $q->whereIn('lead_source_id', $source_id );
             $query->whereIn('lead_source_id', $source_id );
         }
             
 
-        if($assigned_to){
+        if($assigned_to!=''){
             if($assigned_to == 'unassigned'){
                 $query->whereNull('assigned_to');
             }else{
                 $query->where('assigned_to', $assigned_to );
             }
         }
-        if($additional_filter)
+        if($additional_filter!='')
         {
             if($additional_filter == 'lost')
             {
@@ -126,41 +126,37 @@ class LeadController extends Controller {
 
             
         }
-        else
-        {
-            $q->whereNull('is_lost');
-                $query->whereNull('is_lost');
-        }
         // Filtering Data
         DB::enableQueryLog();
         $number_of_records  = $q->get()->count();
 
         if($search_key)
-        {
-            $query->where('first_name', 'like', $search_key.'%')
-                ->orWhere('last_name', 'like', $search_key.'%')
-                ->orWhere('company', 'like', $search_key.'%')
-                ->orWhere('email', 'like', $search_key.'%')
-                ->orWhere('phone', 'like', $search_key.'%')
-                ->orWhere('position', 'like', $search_key.'%')
-                ->orWhere('company', 'like', $search_key.'%')
-                ->orWhere('description', 'like', $search_key.'%')
-                ->orWhere('zip_code', 'like', $search_key.'%')
-                ->orWhere('city', 'like', $search_key.'%')
-                ->orWhere('state', 'like', $search_key.'%')
-                ->orWhere('employer_name', 'like', $search_key.'%')
-                ->orWhere('employer_contactno', 'like', $search_key.'%')
-                 ->orwhereHas('country',function ($q) use ($search_key){
-                    $q->where('countries.name', 'like', $search_key.'%');
-                })
-                ->orWhereHas('tags', function ($q) use ($search_key) {
-                    $q->where('name', 'like', $search_key.'%');
-                })
-                ->orWhere('address', 'like', $search_key.'%')
-                ->orWhere('website', 'like', $search_key.'%')
-                ->orWhere('alternate_number', 'like', $search_key.'%')
-               
-            ;
+        {   
+            $query->where(function ($k) use ($search_key) {
+                $k->orwhere('first_name', 'like', $search_key.'%')
+                    ->orWhere('last_name', 'like', $search_key.'%')
+                    ->orWhere(DB::raw('CONCAT(first_name," ",last_name)'), 'like', $search_key.'%')
+                    ->orWhere('company', 'like', $search_key.'%')
+                    ->orWhere('email', 'like', $search_key.'%')
+                    ->orWhere('phone', 'like', $search_key.'%')
+                    ->orWhere('position', 'like', $search_key.'%')
+                    ->orWhere('company', 'like', $search_key.'%')
+                    ->orWhere('description', 'like', $search_key.'%')
+                    ->orWhere('zip_code', 'like', $search_key.'%')
+                    ->orWhere('city', 'like', $search_key.'%')
+                    ->orWhere('state', 'like', $search_key.'%')
+                    ->orWhere('employer_name', 'like', $search_key.'%')
+                    ->orWhere('employer_contactno', 'like', $search_key.'%')
+                     ->orwhereHas('country',function ($q) use ($search_key){
+                        $q->where('countries.name', 'like', $search_key.'%');
+                    })
+                    ->orWhereHas('tags', function ($q) use ($search_key) {
+                        $q->where('name', 'like', $search_key.'%');
+                    })
+                    ->orWhere('address', 'like', $search_key.'%')
+                    ->orWhere('website', 'like', $search_key.'%')
+                    ->orWhere('alternate_number', 'like', $search_key.'%');
+            });
                 
         }
 
