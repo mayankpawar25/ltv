@@ -24,6 +24,9 @@
 	height: 420px;
 	overflow-y: auto;
 }
+.dropdown-menu.show {
+    z-index: 9999 !important;
+}
 
 /*sandeep*/
 
@@ -225,6 +228,7 @@
 .app-content {
 	padding: 20px;
 	background-color: #e3e8ee;
+	overflow-x: hidden;
 }
 .dropdown-item {
 	padding: 8px 16px;
