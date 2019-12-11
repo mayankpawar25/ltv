@@ -7,7 +7,7 @@
         <div class="col-md-12">
       
            <div class="main-content">
-            <h5>Task Schedule Management
+            <h5>Task Management
          <a class="btn btn-primary pull-right" href="{{route('admin.tasks.salesmanlist')}}">
                     Back to Task List
                 </a>
@@ -444,6 +444,7 @@
       $(document).on('change', '#salesman_select', function(event) {
         salesman = $('#salesman_select').val();
         $('#salesman_id_select').val(salesman);
+        $('#client_select').val('');
       });
        $(document).on('change', '#client_select', function(event) {
         client = $('#client_select').val();

@@ -12,13 +12,13 @@
      <div class="row">
         <div class="col-md-12">
            <div class="main-content">
-           <h5>Task Schedule Management</h5>
+           <h5>Task Management</h5>
            <hr />
             <!-- <h3 class="tile-title float-left">All Product Attributes</h3>-->
               <div class="float-right icon-btn">
                 <?php 
                 if(empty(auth()->user()->is_administrator)){ ?>
-                    <a href="{{route('admin.tasks.create')}}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add Task</a>
+                    <a href="{{route('admin.tasks.create')}}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add Task</a>
                    <!--  <a href="{{route('admin.tasks.arrivals',Auth::id())}}" class="" title=""><i class="fa fa-map-marker"></i>View Arrival</a> -->
                 <?php } else { ?>
                   <a class="btn btn-primary" href="{{route('admin.tasks.salesmanlist')}}">

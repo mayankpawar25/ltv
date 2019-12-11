@@ -83,15 +83,19 @@ class Invoice extends Model
         return ($this->currency_id && isset($this->currency->symbol)) ? $this->currency->symbol : NULL ;
     }
 
-
     function customer()
     {
-        return $this->belongsTo(User::class)->withTrashed();
+        return $this->belongsTo(User::class,'component_number','id')->withTrashed();
     }
 
     function dealer()
     {
-        return $this->belongsTo(Shopkeeper::class,'component_number', 'id');
+        return $this->belongsTo(Shopkeeper::class,'component_number','id');
+    }
+
+    function lead()
+    {
+        return $this->belongsTo(Lead::class,'component_number','id');
     }
 
     function project()

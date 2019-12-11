@@ -508,7 +508,7 @@ class ShopkeeperController extends Controller
 
   /* Task Client User type */
   public function userType(){
-    $data = [['id'=>1,'name'=>'shopkeeper'],['id'=>2,'name'=>'leads'],['id'=>3,'name'=>'customers']];
+    $data = [['id'=>1,'name'=>'Dealers'],['id'=>2,'name'=>'leads'],['id'=>3,'name'=>'customers']];
     return response()->json($data, $this-> successStatus);
   }
   /* Task Client User type */
