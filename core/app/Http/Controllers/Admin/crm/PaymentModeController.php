@@ -63,7 +63,10 @@ class PaymentModeController extends Controller
                     a_links('<a class="edit_item" data-id="'.$row->id.'" href="#">'.$row->name.'</a>' , []),
                     $row->description,
                     ' <input '.$checked.' data-id="'.$row->id.'" class="tgl tgl-ios payment_mode_status" id="cb'.$row->id.'" type="checkbox"/><label class="tgl-btn" for="cb'.$row->id.'"></label>',
-                    side_by_side_links($row->id, route('delete_payment_mode', $row->id) )
+                    /*side_by_side_links($row->id, route('delete_payment_mode', $row->id) )*/
+
+                     anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_payment_mode',$row->id),'','settings_').' '.
+                     a_links('<a class="edit_item btn btn-sm btn-success pull-right" data-id="'.$row->id.'" href="#"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>', [] ),
 
                 );
 

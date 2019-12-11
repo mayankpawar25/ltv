@@ -57,13 +57,16 @@ class LeadStatusController extends Controller
                 }
                 else
                 {
-                    $action = route('delete_leads_status', $row->id);
+                    $action =  anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_leads_status',$row->id),'','settings_');
                 }
 
                 $rec[] = array(
                     a_links('<a class="edit_item" data-name="'.$row->name.'" data-id="'.$row->id.'" href="#">'.$row->name.'</a>' , []),
                   
-                     side_by_side_links(NULL, $action)
+                     /*side_by_side_links(NULL, $action)*/
+                      $action.' '.
+                     a_links('<a class="edit_item btn btn-sm btn-success pull-right" data-name="'.$row->name.'" data-id="'.$row->id.'" href="#"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>', [] ),
+
 
                 );
 

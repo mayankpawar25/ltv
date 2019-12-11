@@ -53,7 +53,8 @@ class LeadSourceController extends Controller {
                 $rec[] = array(
                     a_links('<a class="edit_item" data-name="'.$row->name.'" data-id="'.$row->id.'" href="#">'.$row->name.'</a>' , []),
                    
-                    '<a class="delete_item btn btn-danger btn-sm" href="' . route('delete_leads_source', $row->id) . '"><i class="far fa-trash-alt"></i></a>'
+                    /*'<a class="delete_item btn btn-danger btn-sm" href="' . route('delete_leads_source', $row->id) . '"><i class="far fa-trash-alt"></i></a>'*/
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_leads_source',$row->id),'','settings_').' '. a_links('<a class="edit_item btn btn-sm btn-success pull-right" data-name="'.$row->name.'" data-id="'.$row->id.'" href="#"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></a>', [] ),
 
                 );
 
