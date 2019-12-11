@@ -48,10 +48,13 @@ class ExpenseController extends Controller
 
 
         if(!$expenses->isEmpty()){
+            $total_expenses = 0;
             foreach ($expenses as $keys => $expense) {
                 $expense->category;
                 $expense->user;
+                $total_expenses += ($expense->amount_after_tax!='0.00')?$expense->amount_after_tax:$expense->amount;
             }
+            $data['expense']['total'] = $total_expenses;
             $data['expense'] = $expenses;
             $data['month']['expense'] = $monthlyexpenses;
             $data['msg'] = 'Salesman Expenses List';
