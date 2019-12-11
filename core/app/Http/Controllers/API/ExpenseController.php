@@ -55,7 +55,7 @@ class ExpenseController extends Controller
                 $total_expenses += ($expense->amount_after_tax!='0.00')?$expense->amount_after_tax:$expense->amount;
             }
             $data['expense'] = $expenses;
-            $data['final_expenses'] = $total_expenses;
+            $data['final_expenses'] = number_format($total_expenses,2);
             $data['month']['expense'] = $monthlyexpenses;
             $data['msg'] = 'Salesman Expenses List';
             $data['month']['total'] = number_format($total_expense,2);
