@@ -912,6 +912,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin','set_user_permi
             Route::post('expense/categories/update', 'Admin\crm\ExpenseCategoryController@update')->name('patch_expense_category');
             Route::get('expense/categories/remove/{obj}', 'Admin\crm\ExpenseCategoryController@destroy')->name('delete_expense_category');
 
+            Route::get('/search_staff', 'Admin\crm\ExpenseController@search_staff')->name('search_staff');
+
 
 
             Route::prefix('payment/modes')->group(function (){

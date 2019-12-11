@@ -64,10 +64,10 @@ div#data_filter {
                      <th>@lang("form.amount")</th>
                      <th>@lang("form.name")</th>
                      <th>@lang("form.date")</th>
-                     <th>@lang("form.project")</th>
-                     <th>@lang("form.customer")</th>
-                     <th>@lang("form.invoice")</th>
-                     <th>@lang("form.vendor")</th>
+                     <!-- <th>@lang("form.project")</th> -->
+                     <th>@lang("form.staff")</th>
+                     <!-- <th>@lang("form.invoice")</th> -->
+                     <!-- <th>@lang("form.vendor")</th> -->
                      <th>@lang("form.reference")</th>
                      <th>@lang("form.payment_mode")</th>
                      <th>@lang("form.attachment")</th>
@@ -232,10 +232,11 @@ div#data_filter {
                 serverSide: true,
                 // iDisplayLength: 5,
                 //pageLength: {{ data_table_page_length() }},
+                "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500,-1], [10, 20, 50, 100,150,200,250,300,350,450,500,'All'] ],
                 pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
                 ordering: false,
                 "columnDefs": [
-                    { className: "text-right", "targets": [1,9] },
+                    { className: "text-right", "targets": [1,7] },
                     { className: "text-center", "targets": [3] },
                     { responsivePriority: 1},
                     { responsivePriority: 2},

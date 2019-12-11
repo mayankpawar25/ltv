@@ -39,9 +39,14 @@ class Expense extends Model
     {
         return $this->belongsTo(User::class);
     }*/
-      public function customer()
+    public function customer()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function members()
+    {
+        return $this->belongsTo(Models\StaffUser::class ,'customer_id','id');
     }
 
     public function vendor()
@@ -68,7 +73,8 @@ class Expense extends Model
         $nothing_selected = __('form.nothing_selected');
         $select = __('form.dropdown_select_text');
 
-        $data['customer_id_list'] =  array('' => $nothing_selected) + User::pluck('name', 'id')->toArray();
+        $data['customer_id_list'] =  array('' => $nothing_selected) + Models\StaffUser::select(
+                DB::raw("CONCAT(first_name,' ',last_name ) AS name") , "id")->pluck('name', 'id')->toArray();
         $data['project_id_list'] = [];
         $data['categories'] = array('' => $nothing_selected) + ExpenseCategory::pluck('name', 'id')->toArray();
         $data['currency_id_list'] = array('' => $nothing_selected ) + Currency::orderBy('code', 'ASC')->pluck('code', 'id')->toArray();

@@ -75,7 +75,7 @@
                     </div> -->
 
                    <div class="form-group">
-                       <label>Customer</label>
+                       <label>Staff Members</label>
                        <?php
                        $errorClass = ($errors->has('customer_id')) ? 'is-invalid' : '';
                        echo form_dropdown('customer_id', $data['customer_id_list'] , old_set('customer_id', NULL,$rec), "class='form-control  customer_id $errorClass '");
@@ -101,7 +101,7 @@
 
                
 
-                  <div id="is_billable" style="{{ ($customer_id) ? '' : 'display:none' }}">
+                  {{-- <div id="is_billable" style="display:none">
                    <div class="form-check">
                         <input class="form-check-input" name="is_billable" type="checkbox" value="1" {{ (old_set('is_billable', NULL,$rec)) ? 'checked' : '' }}>
                         <label class="form-check-label" for="defaultCheck1">
@@ -110,7 +110,7 @@
 
                     </div>
                     <br>
-                  </div>  
+                  </div>  --}}
 
 
                    <div class="form-group">
@@ -273,7 +273,7 @@
                 allowClear: true,
 
                 ajax: {
-                    url: '{{ route("search_customer") }}',
+                    url: '{{ route("search_staff") }}',
                     data: function (params) {
                         return {
                             search: params.term
@@ -324,7 +324,7 @@
 
             customer_id.on("change", function(e) {
 
-                if(!$(this).val())
+                /*if(!$(this).val())
                 {
                     project_id.val(null).trigger("change");
                     $('select[name=currency_id]').val("<?php echo config('constants.default_currency_id'); ?>").trigger('change');
@@ -334,17 +334,17 @@
                 {
                   $('#is_billable').hide();                   
                   $( "input[name=is_billable]" ).prop( "checked", false );
-                }
+                }*/
             });
 
             customer_id.on('select2:select', function(selection){
             
-                    $('#is_billable').show();
+                    // $('#is_billable').show();
             });
 
             function selectProject() {
 
-                $('.project_selection').show();
+                // $('.project_selection').show();
 
                 project_id = $( ".project_id" ).select2( {
                     theme: "bootstrap",

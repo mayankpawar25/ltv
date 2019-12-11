@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\crm;
 
 use App\Expense;
-
+use App\Models\StaffUser;
 use App\Rules\ValidDate;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-
+use DB;
 use App\Http\Controllers\Controller;
 class ExpenseController extends Controller
 {
@@ -83,8 +83,16 @@ class ExpenseController extends Controller
                 $k->where('note', 'like', like_search_wildcard_gen($search_key) )
                 ->orWhere('date', 'like', like_search_wildcard_gen( date2sql($search_key)) )
                 ->orWhere('amount', 'like', like_search_wildcard_gen( $search_key ) )
+                ->orwhere('reference', 'like', like_search_wildcard_gen($search_key))
+                ->orwhere('name', 'like', like_search_wildcard_gen($search_key))
                 ->orWhereHas('category', function ($q) use ($search_key) {
                     $q->where('expense_categories.name', 'like', like_search_wildcard_gen($search_key) );
+                })
+                ->orWhereHas('members', function ($q) use ($search_key) {
+                    $q->where('staff_users.first_name', 'like', like_search_wildcard_gen($search_key) )
+                    ->orWhere('staff_users.last_name', 'like', like_search_wildcard_gen($search_key) )
+                    ->orWhere((DB::raw('CONCAT(staff_users.first_name," ",staff_users.last_name)')), 'like', like_search_wildcard_gen($search_key) )
+                    ;
                 })
                
                 ;
@@ -94,18 +102,19 @@ class ExpenseController extends Controller
 
         }
         $recordsFiltered = $query->get()->count();
-        $query->skip(Input::get('start'))->take(Input::get('length'));
-        $data = $query->get();
-//
+        if(Input::get('length') > 0){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        $data = $query->get();    
 
         $rec = [];
  
         if (count($data) > 0)
         {
             foreach ($data as $key => $row)
-            {
+            {   
 
-                if($row->attachment)
+                if($row->attachment!=null)
                 {
                     $attachment_url = '<a href="'.route('download_attachment_expense', Crypt::encryptString($row->attachment) ).'">'.__('form.download').'</a>';
                 }
@@ -142,7 +151,7 @@ class ExpenseController extends Controller
                                 ];
                 }  
 
-                 if(check_perm('expenses_delete')){
+                if(check_perm('expenses_delete')){
                     $delete_btn = '<a href="'.route('delete_expense', $row->id).'" class="delete_item btn btn-danger btn-sm" title="Delete"><i class="icon-trash icon"></i></a>';
                 }
                 if(check_perm('expenses_edit')){
@@ -165,15 +174,15 @@ class ExpenseController extends Controller
                     $row->amount_after_tax,
                     $row->name,
                     sql2date($row->date) ,
-                    (isset($row->project->name))    ? anchor_link($row->project->name, route('show_project_page', $row->project_id)) : '',
-                    (isset($row->customer->name))   ? anchor_link($row->customer->name, route('view_customer_page', $row->customer_id)) : '',
-                    (isset($row->invoice->number))  ? anchor_link($row->invoice->number, route('show_invoice_page', $row->invoice->id) ) : '',
-                    (isset($row->vendor->name))     ? anchor_link($row->vendor->name, route('view_vendor_page', $row->vendor->id) ) : '',
+                    // (isset($row->project->name))    ? anchor_link($row->project->name, route('show_project_page', $row->project_id)) : '',
+                    (isset($row->members->first_name)) ? anchor_link($row->members->first_name.' '.$row->members->last_name, route('view_customer_page', $row->customer_id)):'',
+                    // (isset($row->invoice->number))  ? anchor_link($row->invoice->number, route('show_invoice_page', $row->invoice->id) ) : '',
+                    // (isset($row->vendor->name))     ? anchor_link($row->vendor->name, route('view_vendor_page', $row->vendor->id) ) : '',
 
                     
                     $row->reference,
                     (isset($row->payment_mode->name)) ? $row->payment_mode->name : '',
-                    isset($attachment_url) ? $attachment_url : '',
+                    ($row->attachment) ? $attachment_url : '',
                      $edit_btn.$delete_btn,
 
                 );
@@ -507,4 +516,40 @@ class ExpenseController extends Controller
             abort(404);
         }
     }
+
+    function search_staff()
+    {   
+        $search_key = Input::get('search');
+
+        //$data = StafUser::where('first_name', 'like', $search_key.'%')->where('role_id', 1)->get();
+        $data = StaffUser::select(DB::raw('CONCAT(first_name," ",last_name) as first_name') , 'email','id')->where(DB::raw('CONCAT(first_name," ",last_name)'), 'like', $search_key.'%')->get();
+
+        if(count($data) > 0)
+        {
+            foreach ($data as $key=>$row)
+            {
+                
+                if(isset($data))
+                {
+                    $data[$key]['contact_name']     = $row->first_name;
+                    $data[$key]['email']            = $row->email;
+                }
+                else
+                {
+                    $data[$key]['contact_name']     = "";
+                    $data[$key]['email']            = "";
+                }
+
+            }
+
+        }
+
+
+        $results = ($data->count() > 0) ? $data : [];
+
+        return response()->json([
+            'results' => $results
+        ]);
+    }
+
 }
