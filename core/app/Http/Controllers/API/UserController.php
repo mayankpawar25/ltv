@@ -418,11 +418,13 @@ class UserController extends Controller
       $status = 401;
     }else{
       foreach ($order_history as $key => $value) {
-        $products = $value->orderedproducts;
         $value->total_products = count($value->orderedproducts);
-
+        $value->tax_amount  = number_format(($value->subtotal*$value->tax)/100,2);
+        $products           = $value->orderedproducts;
+        $coupon_amount      = 0;
         foreach($products as $p_key => $p_value){
           $attr = [];
+          $coupon_amount += $p_value->coupon_amount;
           $i = 0;
           if($p_value->attributes!='[]' || $p_value->attributes!='' || $p_value->attributes!='""'){
             $attributes = json_decode($p_value->attributes);
@@ -434,6 +436,7 @@ class UserController extends Controller
               }
             $p_value->attributes = $attr;
           }
+          $value->coupon_amount = $coupon_amount;
           
           foreach($p_value->product->previewimages as $images){
             $images->image = asset('assets/user/img/products/'.$images->image);
