@@ -257,7 +257,7 @@ class OrderController extends Controller
 			$subtotal += $products->cart_amount;
 			$total_items += $product->quantity;
 		}
-
+		$subtotal = $this->getSubTotal($request->product_detail);
 		$tax_percentage = $gs->tax;
 		$tax_amount = ( $subtotal * ( $tax_percentage / 100 ) );
 		$total = $subtotal+$tax_amount;
