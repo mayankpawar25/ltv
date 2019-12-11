@@ -23,6 +23,9 @@ div#data_filter {
 #data tr td:last-child {
   text-align: right;
 }
+#data tr td:last-child .btn-danger{
+    width: 28px;
+}
 </style>
   <main class="app-content">
      <!--<div class="app-title">

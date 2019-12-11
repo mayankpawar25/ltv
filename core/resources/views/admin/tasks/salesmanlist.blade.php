@@ -26,6 +26,9 @@ div#admins-table_filter {
 #data tr td:last-child {
   text-align: right;
 }
+table.table-bordered.dataTable td:last-child {
+    text-align: right;
+}
 
 
 </style>

@@ -25,6 +25,7 @@ div#admins-table_filter {
 }
 
 
+
 </style>
   <main class="app-content">
       <div class="main-content">
@@ -42,10 +43,10 @@ div#admins-table_filter {
         </h5>
         <hr />
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-2 form-group">
             <label>Status</label>
             <?php
-              echo form_dropdown('status_id', $status , $status  , "class='form-control four-boot' multiple='multiple' ");
+              echo form_dropdown('status_id', $status , $status  , "class='form-control four-boot ' multiple='multiple' ");
             ?>
           </div>
           <hr>

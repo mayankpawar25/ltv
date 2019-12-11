@@ -42,28 +42,21 @@
 
 @section('content')
   <main class="app-content">
-     <div class="app-title">
+     <div class="main-content">
         <div>
-           <h3 class="page-title uppercase bold"> <i class="fa fa-desktop"></i> All Orders</h3>
+           <h5>Order Information</h5>
         </div>
-        <ul class="app-breadcrumb breadcrumb">
-           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-        </ul>
-     </div>
+        <hr>
      <div class="row">
         <div class="col-md-12">
-            <div class="tile">
+            <div class="">
               <!-- sellers product content area start -->
               <div class="sellers-product-content-area">
                   <div class="">
                     <div class="row mb-2">
-                      <div class="col-md-12">
-                        <h2 style="font-size: 32px;margin-bottom: 28px;" class="order-heading">Order Information</h2>
-                      </div>
                       <div class="col-md-6">
                         <div class="card">
-                          <div class="card-header bg-primary text-white">
+                          <div class="card-header">
                             <h6 class="white-txt no-margin">Order ID # {{$order->unique_id}}</h6>
                           </div>
                           <div class="card-body">
@@ -85,7 +78,7 @@
                       </div>
                       <div class="col-md-6">
                         <div class="card">
-                          <div class="card-header bg-primary text-white">
+                          <div class="card-header">
                             <h6 class="white-txt no-margin">Payment / Shipping Method</h6>
                           </div>
                           <div class="card-body">
@@ -127,7 +120,7 @@
                       @if (!empty($order->user->billing_last_name))
                         <div class="col-md-6">
                           <div class="card">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header">
                               <h6 class="white-txt no-margin">Biling Details</h6>
                             </div>
                             <div class="card-body">
@@ -141,7 +134,7 @@
                       @else
                         <div class="col-md-6">
                           <div class="card">
-                            <div class="card-header bg-primary text-white">
+                            <div class="card-header">
                               <h6 class="white-txt no-margin">Biling Details</h6>
                             </div>
                             <div class="card-body">
@@ -155,7 +148,7 @@
                       @endif
                       <div class="col-md-6">
                         <div class="card">
-                          <div class="card-header bg-primary text-white">
+                          <div class="card-header">
                             <h6 class="white-txt no-margin">Shipping Details</h6>
                           </div>
                           <div class="card-body">
@@ -171,7 +164,7 @@
                     <div class="row mb-4">
                       <div class="col-md-6">
                         <div class="card">
-                          <div class="card-header bg-primary text-white">
+                          <div class="card-header">
                             <h6 class="white-txt no-margin">Order Note</h6>
                           </div>
                           <div class="card-body">
@@ -188,7 +181,7 @@
                                       <div class="sellers-product-inner">
                                           <div class="table-responsive">
                                               <table class="table table-bordered" id="datatableOne">
-                                                  <thead class="bg-primary text-white">
+                                                  <thead class="">
                                                       <tr>
                                                           <th>Product</th>
                                                           <th>Product Code</th>
@@ -266,7 +259,7 @@
 
                           <div class="col-md-4">
                             <div class="card order-summary">
-                              <div class="card-header bg-primary text-white">
+                              <div class="card-header">
                                 <h4 class="white-txt no-margin">Order Summary</h4>
                               </div>
                               <div class="card-body">
@@ -301,6 +294,7 @@
               <!-- sellers product content area end -->
         </div>
      </div>
+   </div>
    </div>
   </main>
 
