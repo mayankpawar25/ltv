@@ -12,7 +12,7 @@
         <div class="col-md-12">
           
             <div class="main-content">
-           <h5> Task Schedule Management 
+           <h5> Task Management 
            
             <a class="btn btn-primary btn-sm pull-right ml-2" href="{{ route('admin.tasks.edit',$show->id) }}"><i class="icon icon-pencil"></i></a>
            <a class="btn btn-primary btn-sm pull-right" href="{{route('admin.tasks.salesmanlist')}}">

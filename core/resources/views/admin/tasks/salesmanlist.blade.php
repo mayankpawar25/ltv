@@ -33,7 +33,7 @@ div#admins-table_filter {
 	 
   <div class="main-content">
     <div class="">
-      <h5>Task Schedule Management <a href="{{route('admin.tasks.create')}}" class="btn btn-sm btn-primary float-right">Add Salesman Task</a></h5><hr />
+      <h5>Task Management <a href="{{route('admin.tasks.create')}}" class="btn btn-sm btn-primary float-right">Add Task For Salesman</a></h5><hr />
     </div>
     <div class="row">
       <div class="col-md-2">

@@ -6,7 +6,7 @@
      <div class="row">
         <div class="col-md-12">
            <div class="main-content">
-           <h5>Task Schedule Management
+           <h5>Task Management
            
                <a class="btn btn-primary btn-sm pull-right" href="{{route('admin.tasks.salesmanlist')}}">
                   <i class="fa fa-arrow-left"></i> Back to Task List
