@@ -30,7 +30,7 @@ div#data_filter {
 </div>
 
     <div class="main-content">
-<h5> Coustomer Group
+<h5> Customer Group
    <!-- Button trigger modal -->
    <button type="button" class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#myModal">
    @lang('form.new_customer_group')
