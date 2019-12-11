@@ -472,11 +472,11 @@ class OrderController extends Controller
 	    $amo = 0;
 	    foreach ($cartItems as $item){
 	    	$product = Product::find($item->product_id);
-	      /*if (!empty($item->current_price)) {
-	        $amo += $item->current_price*$item->quantity;
-	      } else {*/
+	      if (!empty($product->current_price)) {
+	        $amo += $product->current_price*$item->quantity;
+	      } else {
 	        $amo += $product->price*$item->quantity;
-	      // }
+	      }
 	    }
 	    $char = 0;
 	    $coupon = $coupon_code;
@@ -527,12 +527,9 @@ class OrderController extends Controller
 	    */
 	    }
 
-
 	    $total = $subtotal + (($gs->tax*$subtotal)/100);
 	    $total = $total+$scharge;
 
-	    // echo json_encode([$total,$total1,$scharge]);
-	    // exit;
 	    return round($total, 2);
 	}
 
