@@ -52,7 +52,13 @@ div#data_filter {
                
                 <hr />
               <p style="clear:both;margin:0px;"></p>
-             
+              @if (count($cats) == 0)
+                 @else
+                 @foreach ($cats as $key => $cat)
+                   @includeif('admin.usergroup.partials.edit')
+                  
+                   @endforeach
+                 @endif             
 
               <div class="">
                 <div class="sellers-product-inner">
