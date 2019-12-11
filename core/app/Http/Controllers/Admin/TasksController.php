@@ -210,13 +210,18 @@ class TasksController extends Controller
         return view('admin.tasks.index', compact('tasks'));
     }
 
-    public function myarrivals(Request $request){
-        $tasks = Task::where('salesman_id',auth()->user()->id)->get();
-        return view('admin.tasks.mapview', compact('tasks'));
+    public function myarrivals(Request $request,$id){
+        $data['id'] = $id;
+        $data['tasks'] = Task::where('salesman_id',$id)->get();
+        return view('admin.tasks.mapview', compact('data'));
     }
 
-    public function jsonView(){
-        $tasks = Task::where('salesman_id',18)->where('task_date',date('Y-m-d'))->get();
+    public function jsonView(Request $request){
+        $date = date('Y-m-d');
+        if($request->date!='Y-m-d'){
+          $date = date('Y-m-d',strtotime($request->date));
+        }
+        $tasks = Task::where('salesman_id',$request->id)->where('task_date',$date)->get();
         echo json_encode($tasks);
     }
 
