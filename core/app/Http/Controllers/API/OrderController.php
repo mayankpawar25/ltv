@@ -219,7 +219,6 @@ class OrderController extends Controller
 	public function cartDetail(Request $request){
 			
 		$gs = GS::first();
-
 		$product_details = json_decode($request->product_detail);
 		$data = [];
 		$subtotal = 0;

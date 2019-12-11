@@ -30,355 +30,355 @@ use App\Gateway as Gateway;
 use App\UserNotification;
 class UserController extends Controller 
 {
-    public $successStatus = 200;
-    /** 
-     * login API 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-    public function login(){ 
+  public $successStatus = 200;
+  /** 
+   * login API 
+   * 
+   * @return \Illuminate\Http\Response 
+   */ 
+  public function login(){ 
 
-    	if(is_numeric(request('email'))){
-    	 	if(Auth::attempt(['phone' => request('email'), 'password' => request('password')])){ 
-	            $user = Auth::user();
-              if($user->sms_verified!=1){
-                $error['token'] = $user->createToken('MyApp')-> accessToken;
-                $error['status'] = false;
-                $error['msg'] = 'Mobile OTP not Verified';
-                $error['sms_otp'] = $user->sms_ver_code;
-                $error['verified'] = false;
-                return response()->json($error, 401);
-              }
-	            $fcm_id = request('fcm_id'); 
-	            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-	            $success['user_id'] =  $user->id;
-              $success['name'] =  $user->first_name.' '.$user->last_name;
-	            if(isset($success['token'])){
-	            	User::where('id', $user->id)->update(['fcm_id' => $fcm_id]);
-	            }
-              $success['status'] = true;
-              $success['verified'] = true;
-              $success['msg'] = 'Log in success';
-	            return response()->json($success, $this-> successStatus); 
-	        } 
-	        else{ 
-                $error['status'] = false;
-                $error['msg'] = 'Unauthorised Username or Password';
-	            return response()->json($error, 401); 
-	        } 
-        }
-        elseif (filter_var(request('email'), FILTER_VALIDATE_EMAIL)) {
-	        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-	            $user = Auth::user();
-              if($user->sms_verified!=1){
-                $error['token'] = $user->createToken('MyApp')-> accessToken;
-                $error['status'] = false;
-                $error['msg'] = 'Mobile OTP not Verified';
-                $error['sms_otp'] = $user->sms_ver_code;
-                $error['verified'] = false;
-                return response()->json($error, 401);
-              }
-	            $fcm_id = request('fcm_id');  
-	            $success['token'] =  $user->createToken('MyApp')-> accessToken;
-	            $success['user_id'] =  $user->id;
-              $success['name'] =  $user->first_name.' '.$user->last_name;
-	            if(isset($success['token'])){
-	            	User::where('id', $user->id)->update(['fcm_id' => $fcm_id]);
-	            } 
-              $success['status'] = true;
-              $success['msg'] = 'Log in success';
-              $success['verified'] = true;
-	            return response()->json($success, $this-> successStatus); 
-	        } 
-	        else{ 
+  	if(is_numeric(request('email'))){
+  	 	if(Auth::attempt(['phone' => request('email'), 'password' => request('password')])){ 
+            $user = Auth::user();
+            if($user->sms_verified!=1){
+              $error['token'] = $user->createToken('MyApp')-> accessToken;
               $error['status'] = false;
-              $error['msg'] = 'Unauthorised Username or Password';
-	            return response()->json($error, 401);
-	        } 
-        }
-        else{ 
-            $error['status'] = false;
-                $error['msg'] = 'Unauthorised Username or Password';
-            return response()->json($error, 401); 
-        }
-        
-        /*if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
-            $user = Auth::user(); 
+              $error['msg'] = 'Mobile OTP not Verified';
+              $error['sms_otp'] = $user->sms_ver_code;
+              $error['verified'] = false;
+              return response()->json($error, 401);
+            }
+            $fcm_id = request('fcm_id'); 
             $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-            return response()->json(['success' => $success], $this-> successStatus); 
+            $success['user_id'] =  $user->id;
+            $success['name'] =  $user->first_name.' '.$user->last_name;
+            if(isset($success['token'])){
+            	User::where('id', $user->id)->update(['fcm_id' => $fcm_id]);
+            }
+            $success['status'] = true;
+            $success['verified'] = true;
+            $success['msg'] = 'Log in success';
+            return response()->json($success, $this-> successStatus); 
         } 
         else{ 
-            return response()->json(['error'=>'Unauthorised'], 401); 
-        } */
-    }
-     /** 
-     * Register API 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-    public function register(Request $request) { 
-        $validator = Validator::make($request->all(), [ 
-            'email'    => 'required|email|max:255|unique:users', 
-            'password' => 'required',
-            'phone'    => 'required', 
-            'fcm_id'   => 'required', 
-            'first_name' => 'required',
-            'username' => 'required',
-        ]);
-        if ($validator->fails()) { 
-            return response()->json($validator->errors(), 401);            
-        }
-        /*$input = $request->all(); 
-        $input['password'] = bcrypt($input['password']); 
-        $user = User::create($input); */
-
-        $user             = new User;
-        $user->name       = $request->username;
-        $user->username   = $request->username;
-        $user->first_name = $request->first_name;
-        $user->last_name  = $request->last_name;
-        $user->email      = $request->email;;
-        $user->phone      = $request->phone;
-        $user->password   = Hash::make($request->password);
-        $user->fcm_id     = $request->fcm_id;
-        $user->sms_ver_code = '1234';
-        $user->token      =  $user->createToken('MyApp')-> accessToken; 
-        $user->save(); 
-
-        $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-        $success['first_name'] =  $user->first_name;
-        $success['sms_otp'] =  $user->sms_ver_code;
-        $success['user_id'] =  $user->id;
-        return response()->json($success, $this-> successStatus); 
-    }
-     /** 
-     * details API 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-    public function details() { 
-        $user = Auth::user();
-        $user['status'] = true; 
-        return response()->json($user, $this-> successStatus); 
-    } 
-
-    /** 
-     * Update Profile API 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-
-    public function infoupdate(Request $request){
-	    $validator = Validator::make($request->all(),[
-	        'first_name' => 'required',
-	        'last_name' => 'required',
-	        'gender' => 'required',
-	        'date_of_birth' => 'required',
-	        'phone' => 'required',
-	        'address' => 'required',
-	        'country' => 'required',
-	        'state' => 'required',
-	        'city' => 'required',
-	        'zip_code' => 'required',
-	    ]);
-	    	if ($validator->fails()) { 
-                 //$error['status'] = false;
-                 //$error['msg'] =$validator->errors(); 
-                return response()->json($validator->errors(), 401);                
-	        }
-	       
-	       /* $in = $request->except('_token');
-	        $user = User::find(Auth::user()->id);
-		    if (empty($user->shipping_first_name)) {
-		        $in['shipping_first_name'] = $request->first_name;
-		    }
-		    if (empty($user->shipping_last_name)) {
-		        $in['shipping_last_name'] = $request->last_name;
-		    }
-		    if (empty($user->shipping_phone)) {
-		        $in['shipping_phone'] = $request->phone;
-		    }
-  		$user->fill($in)->save();
-          //$success['status'] = true;*/
-        $user = User::find(Auth::user()->id);
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->gender = $request->gender;
-        $user->date_of_birth = $request->date_of_birth;
-        $user->phone = $request->phone;
-        $user->latitude = $request->latitude;
-        $user->longitude = $request->longitude;
-        $user->address = $request->address;
-        $user->country = $request->country;
-        $user->country_id = $request->country_id;
-        $user->state = $request->state;
-        $user->city = $request->city;
-        $user->zip_code = $request->zip_code;
-
-        $user->billing_first_name = $request->billing_first_name;
-        $user->billing_last_name  = $request->billing_last_name;
-        $user->billing_email      = $request->billing_email;
-        $user->billing_phone      = $request->billing_phone;
-        $user->billing_address= $request->billing_address;
-        $user->billing_country= $request->billing_country;
-        $user->billing_state = $request->billing_state;
-        $user->billing_city       = $request->billing_city;
-        $user->billing_zip_code    = $request->billing_zip_code;
-
-        $user->shipping_first_name = $request->shipping_first_name;
-        $user->shipping_last_name = $request->shipping_last_name;
-        $user->shipping_email = $request->shipping_email;
-        $user->shipping_phone = $request->shipping_phone;
-        $user->shipping_address = $request->shipping_address;
-        $user->shipping_city = $request->shipping_city;
-        $user->shipping_state  = $request->shipping_state;  
-        $user->shipping_zip_code  = $request->shipping_zip_code;   
-        $user->shipping_country_id = $request->shipping_country_id;
-        $user->shipping_is_same_as_billing = $request->shipping_is_same_as_billing;
-        $user->save();
-
-  		$success['user_id'] = $user->id;
-  		$success['msg'] =  'Informations updated successfully';
-  		return response()->json($success, $this-> successStatus); 
-    }
-
-    /** 
-     * Forgot Password API 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-
-    public function updatePassword(Request $request) {
-      $messages = [
-          'password.required' => 'The new password field is required',
-          'password.confirmed' => "Password does'nt match"
-      ];
-
-      $validator = Validator::make($request->all(), [
-          'old_password' => 'required',
-          'password' => 'required'
-      ], $messages);
-
+              $error['status'] = false;
+              $error['msg'] = 'Unauthorised Username or Password';
+            return response()->json($error, 401); 
+        } 
+      }
+      elseif (filter_var(request('email'), FILTER_VALIDATE_EMAIL)) {
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
+            $user = Auth::user();
+            if($user->sms_verified!=1){
+              $error['token'] = $user->createToken('MyApp')-> accessToken;
+              $error['status'] = false;
+              $error['msg'] = 'Mobile OTP not Verified';
+              $error['sms_otp'] = $user->sms_ver_code;
+              $error['verified'] = false;
+              return response()->json($error, 401);
+            }
+            $fcm_id = request('fcm_id');  
+            $success['token'] =  $user->createToken('MyApp')-> accessToken;
+            $success['user_id'] =  $user->id;
+            $success['name'] =  $user->first_name.' '.$user->last_name;
+            if(isset($success['token'])){
+            	User::where('id', $user->id)->update(['fcm_id' => $fcm_id]);
+            } 
+            $success['status'] = true;
+            $success['msg'] = 'Log in success';
+            $success['verified'] = true;
+            return response()->json($success, $this-> successStatus); 
+        } 
+        else{ 
+            $error['status'] = false;
+            $error['msg'] = 'Unauthorised Username or Password';
+            return response()->json($error, 401);
+        } 
+      }
+      else{ 
+          $error['status'] = false;
+              $error['msg'] = 'Unauthorised Username or Password';
+          return response()->json($error, 401); 
+      }
+      
+      /*if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
+          $user = Auth::user(); 
+          $success['token'] =  $user->createToken('MyApp')-> accessToken; 
+          return response()->json(['success' => $success], $this-> successStatus); 
+      } 
+      else{ 
+          return response()->json(['error'=>'Unauthorised'], 401); 
+      } */
+  }
+  /** 
+   * Register API 
+   * 
+   * @return \Illuminate\Http\Response 
+   */ 
+  public function register(Request $request) { 
+      $validator = Validator::make($request->all(), [ 
+          'email'    => 'required|email|max:255|unique:users', 
+          'password' => 'required',
+          'phone'    => 'required', 
+          'fcm_id'   => 'required', 
+          'first_name' => 'required',
+          'username' => 'required',
+      ]);
       if ($validator->fails()) { 
-               $error['status'] = false;
-               $error['msg'] =$validator->errors(); 
-              return response()->json($error, 401);      
-                        
-        }
-
-      // if given old password matches with the password of this authenticated user...
-      if(Hash::check($request->old_password, Auth::user()->password)) {
-          $oldPassMatch = 'matched';
-      } else {
-          $oldPassMatch = 'not_matched';
+          return response()->json($validator->errors(), 401);            
       }
-      if ($validator->fails() || $oldPassMatch=='not_matched') {
-          if($oldPassMatch == 'not_matched') {
-             //$error['status'] = false;
-             $error['msg'] = "Old Password does'nt match";
-             return response()->json($error, 401);  
-          }
-           //$error['status'] = false;
-           //$error['msg'] =$validator->errors(); 
-           return response()->json($validator->errors(), 401);      
-          
-      }
+      /*$input = $request->all(); 
+      $input['password'] = bcrypt($input['password']); 
+      $user = User::create($input); */
 
-      // updating password in database...
-      $user = User::find(Auth::user()->id);
-      $user->password = bcrypt($request->password);
-      $user->save();
-      //$success['status'] = true;
-      $success['user_id'] = $user->id;
-  		$success['msg'] =  'Password changed successfully!';
+      $user             = new User;
+      $user->name       = $request->username;
+      $user->username   = $request->username;
+      $user->first_name = $request->first_name;
+      $user->last_name  = $request->last_name;
+      $user->email      = $request->email;;
+      $user->phone      = $request->phone;
+      $user->password   = Hash::make($request->password);
+      $user->fcm_id     = $request->fcm_id;
+      $user->sms_ver_code = '1234';
+      $user->token      =  $user->createToken('MyApp')-> accessToken; 
+      $user->save(); 
+
+      $success['token'] =  $user->createToken('MyApp')-> accessToken; 
+      $success['first_name'] =  $user->first_name;
+      $success['sms_otp'] =  $user->sms_ver_code;
+      $success['user_id'] =  $user->id;
       return response()->json($success, $this-> successStatus); 
+  }
+  /** 
+   * details API 
+   * 
+   * @return \Illuminate\Http\Response 
+   */ 
+  public function details() { 
+      $user = Auth::user();
+      $user['status'] = true; 
+      return response()->json($user, $this-> successStatus); 
+  } 
+
+  /** 
+   * Update Profile API 
+   * 
+   * @return \Illuminate\Http\Response 
+   */ 
+
+  public function infoupdate(Request $request){
+    $validator = Validator::make($request->all(),[
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'gender' => 'required',
+        'date_of_birth' => 'required',
+        'phone' => 'required',
+        'address' => 'required',
+        'country' => 'required',
+        'state' => 'required',
+        'city' => 'required',
+        'zip_code' => 'required',
+    ]);
+    	if ($validator->fails()) { 
+               //$error['status'] = false;
+               //$error['msg'] =$validator->errors(); 
+              return response()->json($validator->errors(), 401);                
+        }
+       
+       /* $in = $request->except('_token');
+        $user = User::find(Auth::user()->id);
+	    if (empty($user->shipping_first_name)) {
+	        $in['shipping_first_name'] = $request->first_name;
+	    }
+	    if (empty($user->shipping_last_name)) {
+	        $in['shipping_last_name'] = $request->last_name;
+	    }
+	    if (empty($user->shipping_phone)) {
+	        $in['shipping_phone'] = $request->phone;
+	    }
+		$user->fill($in)->save();
+        //$success['status'] = true;*/
+      $user = User::find(Auth::user()->id);
+      $user->first_name = $request->first_name;
+      $user->last_name = $request->last_name;
+      $user->gender = $request->gender;
+      $user->date_of_birth = $request->date_of_birth;
+      $user->phone = $request->phone;
+      $user->latitude = $request->latitude;
+      $user->longitude = $request->longitude;
+      $user->address = $request->address;
+      $user->country = $request->country;
+      $user->country_id = $request->country_id;
+      $user->state = $request->state;
+      $user->city = $request->city;
+      $user->zip_code = $request->zip_code;
+
+      $user->billing_first_name = $request->billing_first_name;
+      $user->billing_last_name  = $request->billing_last_name;
+      $user->billing_email      = $request->billing_email;
+      $user->billing_phone      = $request->billing_phone;
+      $user->billing_address= $request->billing_address;
+      $user->billing_country= $request->billing_country;
+      $user->billing_state = $request->billing_state;
+      $user->billing_city       = $request->billing_city;
+      $user->billing_zip_code    = $request->billing_zip_code;
+
+      $user->shipping_first_name = $request->shipping_first_name;
+      $user->shipping_last_name = $request->shipping_last_name;
+      $user->shipping_email = $request->shipping_email;
+      $user->shipping_phone = $request->shipping_phone;
+      $user->shipping_address = $request->shipping_address;
+      $user->shipping_city = $request->shipping_city;
+      $user->shipping_state  = $request->shipping_state;  
+      $user->shipping_zip_code  = $request->shipping_zip_code;   
+      $user->shipping_country_id = $request->shipping_country_id;
+      $user->shipping_is_same_as_billing = $request->shipping_is_same_as_billing;
+      $user->save();
+
+		$success['user_id'] = $user->id;
+		$success['msg'] =  'Informations updated successfully';
+		return response()->json($success, $this-> successStatus); 
+  }
+
+  /** 
+   * Forgot Password API 
+   * 
+   * @return \Illuminate\Http\Response 
+   */ 
+
+  public function updatePassword(Request $request) {
+    $messages = [
+        'password.required' => 'The new password field is required',
+        'password.confirmed' => "Password does'nt match"
+    ];
+
+    $validator = Validator::make($request->all(), [
+        'old_password' => 'required',
+        'password' => 'required'
+    ], $messages);
+
+    if ($validator->fails()) { 
+             $error['status'] = false;
+             $error['msg'] =$validator->errors(); 
+            return response()->json($error, 401);      
+                      
+      }
+
+    // if given old password matches with the password of this authenticated user...
+    if(Hash::check($request->old_password, Auth::user()->password)) {
+        $oldPassMatch = 'matched';
+    } else {
+        $oldPassMatch = 'not_matched';
+    }
+    if ($validator->fails() || $oldPassMatch=='not_matched') {
+        if($oldPassMatch == 'not_matched') {
+           //$error['status'] = false;
+           $error['msg'] = "Old Password does'nt match";
+           return response()->json($error, 401);  
+        }
+         //$error['status'] = false;
+         //$error['msg'] =$validator->errors(); 
+         return response()->json($validator->errors(), 401);      
+        
     }
 
+    // updating password in database...
+    $user = User::find(Auth::user()->id);
+    $user->password = bcrypt($request->password);
+    $user->save();
+    //$success['status'] = true;
+    $success['user_id'] = $user->id;
+		$success['msg'] =  'Password changed successfully!';
+    return response()->json($success, $this-> successStatus); 
+  }
+
+
+  /** 
+   * Instamojo Success URL API 
+   * 
+   * @return \Illuminate\Http\Response 
+   */ 
+  public function success($order_id="",Request $request){
+    $instamojo = Gateway::find(100);
+    try {
+        $api = new \Instamojo\Instamojo(
+            $instamojo->val1, //API Key
+            $instamojo->val2, //Auth Key
+            $instamojo->val3 // Instamojo url
+        );
+        $response = $api->paymentRequestStatus(request('payment_request_id'));
+
+        if( (!isset($response['payments'][0]['status'])) && ($response['payments'][0]['status'] != 'Credit') && ($request->status != 'Completed') ) {
+           /*Payment failed*/
+           $user           = Orderpayment::where('order_id', $order_id)->first();
+           $user->trx      = $response['payments'][0]['payment_id'];
+           $user->status   =$status = ($response['status'] =='Completed') ? 1 : 0;
+           $user->save();  
+           $success['msg'] = "Faild!";
+           //return response()->json($success);
+           return view('payment_fail');
+        } else {  
+        
+          /*Payment Success*/
+           //print_r($response);
+           $user           = Orderpayment::where('order_id', $order_id)->first();
+           $user->trx      = $response['payments'][0]['payment_id'];
+           $user->status   =$status = ($response['status'] =='Completed') ? 1 : 0;
+           $user->save();  
+            $success['payment_id'] = $response['payments'][0]['payment_id'];
+            $success['msg'] = "successfully!";
+           //return response()->json($success);
+
+            return view('payment_success',$success);
+
+        } 
+      }catch (\Exception $e) {
+        /*Payment failed*/
+           $user           = Orderpayment::where('order_id', $order_id)->first();
+           $user->trx      = $response['payments'][0]['payment_id'];
+           $user->status   =$status = ($response['status'] =='Completed') ? 1 : 0;
+           $user->save();  
+           $success['msg'] = "Faild!";
+           //return response()->json($success);
+           return view('payment_fail');
+         //dd('payment failed');
+     }
+     
+  }
+
+  /* Function For Testing Purpose*/
 
    /** 
-     * Instamojo Success URL API 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-    public function success($order_id="",Request $request){
-      $instamojo = Gateway::find(100);
-      try {
-          $api = new \Instamojo\Instamojo(
-              $instamojo->val1, //API Key
-              $instamojo->val2, //Auth Key
-              $instamojo->val3 // Instamojo url
-          );
-          $response = $api->paymentRequestStatus(request('payment_request_id'));
+   * Instamojo Create Payment API 
+   * 
+   * @return \Illuminate\Http\Response 
+   */ 
+  public function pay(Request $request){
+    $instamojo = Gateway::find(100);
+    $api = new \Instamojo\Instamojo(
+    $instamojo->val1, //API Key
+    $instamojo->val2, //Auth Key
+    $instamojo->val3 // Instamojo url
+    );
+    try {
+      $response = $api->paymentRequestCreate(array(
+        "purpose" => "FIFA 16",
+        "amount" => $request->amount,
+        "buyer_name" => "$request->name",
+        "send_email" => true,
+        "email" => "$request->email",
+        "phone" => "$request->mobile_number",
+        "redirect_url" => "http://localhost:8080/computer_shoppie/api/pay-success/21/"
+      ));
 
-          if( (!isset($response['payments'][0]['status'])) && ($response['payments'][0]['status'] != 'Credit') && ($request->status != 'Completed') ) {
-             /*Payment failed*/
-             $user           = Orderpayment::where('order_id', $order_id)->first();
-             $user->trx      = $response['payments'][0]['payment_id'];
-             $user->status   =$status = ($response['status'] =='Completed') ? 1 : 0;
-             $user->save();  
-             $success['msg'] = "Faild!";
-             //return response()->json($success);
-             return view('payment_fail');
-          } else {  
-          
-            /*Payment Success*/
-             //print_r($response);
-             $user           = Orderpayment::where('order_id', $order_id)->first();
-             $user->trx      = $response['payments'][0]['payment_id'];
-             $user->status   =$status = ($response['status'] =='Completed') ? 1 : 0;
-             $user->save();  
-              $success['payment_id'] = $response['payments'][0]['payment_id'];
-              $success['msg'] = "successfully!";
-             //return response()->json($success);
-
-              return view('payment_success',$success);
-
-          } 
-        }catch (\Exception $e) {
-          /*Payment failed*/
-             $user           = Orderpayment::where('order_id', $order_id)->first();
-             $user->trx      = $response['payments'][0]['payment_id'];
-             $user->status   =$status = ($response['status'] =='Completed') ? 1 : 0;
-             $user->save();  
-             $success['msg'] = "Faild!";
-             //return response()->json($success);
-             return view('payment_fail');
-           //dd('payment failed');
-       }
-       
+      header('Location: ' . $response['longurl']);
+      exit();
+    }catch (Exception $e) {
+      print('Error: ' . $e->getMessage());
     }
- 
-    /* Function For Testing Purpose*/
-
-     /** 
-     * Instamojo Create Payment API 
-     * 
-     * @return \Illuminate\Http\Response 
-     */ 
-    public function pay(Request $request){
-      $instamojo = Gateway::find(100);
-      $api = new \Instamojo\Instamojo(
-      $instamojo->val1, //API Key
-      $instamojo->val2, //Auth Key
-      $instamojo->val3 // Instamojo url
-      );
-      try {
-        $response = $api->paymentRequestCreate(array(
-          "purpose" => "FIFA 16",
-          "amount" => $request->amount,
-          "buyer_name" => "$request->name",
-          "send_email" => true,
-          "email" => "$request->email",
-          "phone" => "$request->mobile_number",
-          "redirect_url" => "http://localhost:8080/computer_shoppie/api/pay-success/21/"
-        ));
-
-        header('Location: ' . $response['longurl']);
-        exit();
-      }catch (Exception $e) {
-        print('Error: ' . $e->getMessage());
-      }
-    }
+  }
   /* Function For Testing Purpose*/
 
   /** 
@@ -467,7 +467,7 @@ class UserController extends Controller
     return response()->json($data, $status);
   }
 
-   /*{ User : Customer} Cancel Order */
+  /*{ User : Customer} Cancel Order */
   public function orderCancel(Request $request){
     $order = Order::find($request->order_id);
     if(!empty($order)){
@@ -498,7 +498,6 @@ class UserController extends Controller
     }
 
     return response()->json($data, $this-> successStatus);
-
   }
 
   public function sendNotification($regId,$orderId){
@@ -609,7 +608,6 @@ class UserController extends Controller
 
   /*User Place Order*/
   public function placeOrder(Request $request){
-
     $validator = Validator::make($request->all(),[
         // 'product_detail' => 'required',
         // 'sub_total' => 'required',
@@ -694,7 +692,7 @@ class UserController extends Controller
       $op->product_id = $cart->product_id;
       $op->product_name = $cart->title;
       $op->product_price = $cart->price;
-      //$op->offered_product_price = $cart->current_price;
+      $op->offered_product_price = $cart->current_price;
       $op->attributes = $cart->attributes;
 
       if ($request->coupon_code) {
@@ -860,11 +858,11 @@ class UserController extends Controller
     $cartItems = Cart::where('cart_id', Auth::user()->id)->get();
     $amo = 0;
     foreach ($cartItems as $item) {
-      /*if (!empty($item->current_price)) {
+      if (!empty($item->current_price)) {
         $amo += $item->current_price*$item->quantity;
-      } else {*/
+      } else {
         $amo += $item->price*$item->quantity;
-      // }
+      }
     }
     $char = 0;
     $coupon = $coupon_code;
@@ -1013,7 +1011,6 @@ class UserController extends Controller
       }
       return response()->json($data, $status);
   }
-
 
   public function socialLogin(Request $request){
     if(!empty($request->email)){
@@ -1266,7 +1263,7 @@ class UserController extends Controller
     return response()->json($success, $status);
   }
 
-   public function NotificationList(Request $request){
+  public function NotificationList(Request $request){
    if($request->q == 'last'){
         $resp = UserNotification::where('customer_id',Auth::id())->orderby('id','DESC')->first();
     }else{
