@@ -102,13 +102,13 @@ div#data_filter {
               </div>
            </div>
            <hr>
-           @include('admin.crm.estimate.stats')          
+           @include('admin.crm.estimate.stats')
             
        
         <br>
 
-    {{-- @if(check_perm('estimates_view') || check_perm('estimates_view_own'))      
-         --}}
+        @if(check_perm('estimates_view') || check_perm('estimates_view_own'))      
+    
          <div class="row">
 
             <div  v-bind:class="layout.left_pane">
@@ -123,7 +123,7 @@ div#data_filter {
                             <th>@lang("form.amount")</th>
                             <th>@lang("form.total_tax")</th>
                             <th>@lang("form.date")</th>
-                            <th>@lang("form.customer")</th>
+                            <th>@lang("form.to")</th>
                             <!-- <th>@lang("form.project")</th> -->
                             <th>@lang("form.tags")</th>                        
                             <th>@lang("form.expiry_date")</th>
@@ -226,7 +226,7 @@ div#data_filter {
                 </div>
             </div>
         </div>
-    {{-- @endif --}}
+        @endif
     </div>
  </div>
 
@@ -311,7 +311,7 @@ div#data_filter {
                 serverSide: true,
                 // iDisplayLength: 5,
                 //pageLength: {{ data_table_page_length() }},
-                
+                "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500,-1], [10, 20, 50, 100,150,200,250,300,350,450,500,'All'] ],
                 pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
                 ordering: false,
                 "columnDefs": [

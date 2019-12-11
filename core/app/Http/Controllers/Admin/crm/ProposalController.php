@@ -128,14 +128,23 @@ class ProposalController extends Controller
                 ->orWhere('open_till', 'like', like_search_wildcard_gen(date2sql($search_key)))
                 ->orWhere('date', 'like', like_search_wildcard_gen(date2sql($search_key)))
                 ->orWhere('title', 'like', $search_key.'%')
-                ->orWhere('send_to', 'like', $search_key.'%');
+                ->orWhere('send_to', 'like', $search_key.'%')
+                ->orwhereHas('assigned',function ($q) use ($search_key){
+                    $q->where(DB::raw('CONCAT(staff_users.first_name," ",staff_users.last_name)'), 'like', $search_key.'%')
+                        ->orwhere('staff_users.first_name', 'like', $search_key.'%')
+                        ->orwhere('staff_users.last_name', 'like', $search_key.'%');
+                });
 
 
             });
         }
 
         $recordsFiltered = $query->get()->count();
-        $query->skip(Input::get('start'))->take(Input::get('length'));
+        $length = Input::get('length');
+        if($length != '-1'){
+            $query->skip(Input::get('start'))->take(Input::get('length'));
+        }
+        // $query->skip(Input::get('start'))->take(Input::get('length'));
         $data = $query->get();
         //
 
@@ -170,7 +179,8 @@ class ProposalController extends Controller
                             ]
                     ]),*/
                     $row->title,
-                    $row->send_to,
+                    ucwords($row->send_to),
+                    // $row->related_to->first_name.' '.$row->related_to->last_name,
                     format_currency($row->total, TRUE, $row->get_currency_symbol() ),
                     (isset($row->assigned_to))? anchor_link($row->assigned->first_name . " ". $row->assigned->last_name, route('member_profile', $row->assigned->id)) : '',
                     sql2date($row->date),

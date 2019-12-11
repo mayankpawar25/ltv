@@ -70,8 +70,8 @@ class LeadController extends Controller {
         }
         
         if($tag_id){
-            $query->whereHas('tags',function ($q) use ($search_key){
-                $q->where('taggables.id', 'like', $search_key.'%');
+            $query->whereHas('tags',function ($q) use ($tag_id){
+                $q->whereIn('tags.id', $tag_id);
             });
         }
 
@@ -152,6 +152,9 @@ class LeadController extends Controller {
                 ->orWhere('employer_contactno', 'like', $search_key.'%')
                  ->orwhereHas('country',function ($q) use ($search_key){
                     $q->where('countries.name', 'like', $search_key.'%');
+                })
+                ->orWhereHas('tags', function ($q) use ($search_key) {
+                    $q->where('name', 'like', $search_key.'%');
                 })
                 ->orWhere('address', 'like', $search_key.'%')
                 ->orWhere('website', 'like', $search_key.'%')
