@@ -69,8 +69,8 @@ class TasksController extends Controller
         $save               = $task->save();
 
         $members = StaffUser::where('id',$task->salesman_id)->first();
-        $title = "New Task Assigned";
-        $message =  'New Task Assigned to you '.'Date '.$request->task_date.'Time '.$task->from_time.'-'.$task->to_time
+        $title = "New Task";
+        $message =  'Assigned to you '.'Date '.$request->task_date.'Time '.$task->from_time.'-'.$task->to_time
         ;
         sendNotification($members->fcm_id,$title,$message);
         //Success and Error Message 
