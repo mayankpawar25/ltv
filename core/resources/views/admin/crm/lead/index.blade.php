@@ -129,10 +129,8 @@ div#data_filter {
             <th>@lang("form.website")</th>
             <th>@lang("form.employer_name")</th>
             <th>@lang("form.employer_phoneno")</th>
-            <th>Pincode</th>
+            <th>Pin Code</th>
             <th>@lang("form.tags")</th>
-            
-
             <th>@lang("form.assigned")</th>
             <th>@lang("form.status")</th>
             <th>@lang("form.source")</th>
@@ -221,17 +219,17 @@ div#data_filter {
                  ordering: true,
                   "columnDefs": [
                     { className: "text-right", "targets": [5] },
-                    { "name": "0",   "targets": 0 },
-                    { "name": "1",  "targets": 1 },
-                    { "name": "2", "targets": 2 },
-                    { "name": "3",  "targets": 3 ,visible: false},
-                    { "name": "4",  "targets": 4 ,visible: false},
-                    { "name": "5",  "targets": 5 },
-                    { "name": "6",  "targets": 6 ,orderable:false},
-                    { "name": "7",  "targets": 7,orderable:false},
-                    { "name": "8",  "targets": 8,orderable:false},
-                    { "name": "9",  "targets": 9,orderable:false},
-                    { "name": "10",  "targets": 10,orderable:false},
+                    { "name": "company",   "targets": 0 },
+                    { "name": "first_name",  "targets": 1 },
+                    { "name": "phone", "targets": 2 },
+                    { "name": "alternate_number",  "targets": 3 ,visible: false},
+                    { "name": "position",  "targets": 4 ,visible: false},
+                    { "name": "address",  "targets": 5 },
+                    { "name": "city",  "targets": 6 },
+                    { "name": "state",  "targets": 7},
+                    { "name": "description",  "targets": 8,orderable:false},
+                    { "name": "country",  "targets": 9,orderable:false},
+                    { "name": "email",  "targets": 10},
                     { "name": "11",  "targets": 11 ,visible: false},
                     { "name": "12", "targets": 12 ,visible: false},
                     { "name": "13",  "targets": 13 ,visible: false},
@@ -242,21 +240,6 @@ div#data_filter {
                     { "name": "18",  "targets": 18,orderable:false},
                     { "name": "19",  "targets": 19,orderable:false},
                     { "name": "20",  "targets": 20,orderable:false},
-                  /*  {targets: -6, visible: false},
-                    {targets: -7, visible: false},
-                    {targets: -8, visible: false},
-                    {targets: -9, visible: false},
-                    {targets: -10, visible: false},*/
-                   /* {targets: -3, visible: false},*/
-                   /* {targets: -4, visible: false},
-                    {targets: -12, visible: false},
-                    {targets: -13, visible: false},
-                    {targets: -14, visible: false},
-                    {targets: -15, visible: false},
-                    {targets: -16, visible: false},*/
-
-                 
-                   
                   ],
                 "ajax": {
                     "url": '{!! route("datatables_leads") !!}',

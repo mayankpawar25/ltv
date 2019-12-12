@@ -118,4 +118,9 @@ class Shopkeeper extends Authenticatable
         return $data;
     }
 
+    function assigned()
+    {
+        return $this->belongsTo('App\Models\StaffUser' ,'salesman_id','id');
+    }
+
 }

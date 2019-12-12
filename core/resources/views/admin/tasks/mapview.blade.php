@@ -65,93 +65,92 @@
           data : {id:"{{$data['id']}}",date:date},
         })
         .done(function(resp) {
-          $.each(resp,function(index,i){
-            var coordinates = {
-                'position': new google.maps.LatLng(i.latitude, i.longitude), 
-                'icon' : iconBase + '/marker.png',
-                'id': i.id, 
-                'name': i.name, 
-                'description': i.description, 
-                'task_date': i.task_date, 
-                'from_time': i.from_time,
-                'to_time': i.to_time,
-                'task_status_id': i.task_status_id,
-                'client_name': i.client_name,
-                'client_type': i.client_type,
-                'address': i.address,
-                'created_at': i.created_at,
-                'salesman_name': i.salesman,
-                'status': i.status,
-              };
-            // console.log(coordinates);
-            features.push(coordinates);
-          });
-          for (var i = 0; i < features.length; i++) {
-            if(features[i] != undefined){
-              var contentString = '';
-              contentString += '<div class="map-dec-tbl">'+
-              '<tr>'+
-              '<td colspan="2"><h2>'+features[i].name+'</h2></td>'+
-              '</tr>';
-              contentString +=  '<td width="73%"><p><strong>Description</strong>: '+features[i].description+'</p>'+
-                          '<p><strong>'+features[i].client_type+' Name: </strong>'+features[i].client_name+'</p>'+
-                          '<p><strong>Salesman Name </strong>.: '+features[i].salesman_name+'</p>'+
-                          '<p><strong>Date </strong>: '+features[i].task_date+'</p>'+
-                          '<p><strong>Address </strong>: '+features[i].address+'</p>'+
-                          '<p><strong>Status </strong>: '+features[i].status+'</p>'+
-                          '</td>'+
-                          '</tr></table></div></a>';
-              contentString +=    '</div>';
-            }
-
-            if( $.trim(features[i].name).length > 0){
-
-              /* Marker */
-              const marker = new google.maps.Marker({
-                            position: features[i].position,
-                            icon: features[i].icon,
-                            title: features[i].name,
-                            fillColor: '#000000',
-                            label: {
-                              text: features[i].description,
-                              color: 'white',
-                              fontSize: '11px',
-                              fontWeight: 'bold',
-                            },
-                            labelAnchor: new google.maps.Point(22, 0),
-                            map: map
-                          });
+          if(resp.length > 0){
+            $.each(resp,function(index,i){
+                  var coordinates = {
+                    'position': new google.maps.LatLng(i.latitude, i.longitude), 
+                    'icon' : iconBase + '/marker.png',
+                    'id': i.id, 
+                    'name': i.name, 
+                    'description': i.description, 
+                    'task_date': i.task_date, 
+                    'from_time': i.from_time,
+                    'to_time': i.to_time,
+                    'task_status_id': i.task_status_id,
+                    'client_name': i.client_name,
+                    'client_type': i.client_type,
+                    'address': i.address,
+                    'created_at': i.created_at,
+                    'salesman_name': i.salesman,
+                    'status': i.status,
+                  };
+                  features.push(coordinates);
+            });
+            for (var i = 0; i < features.length; i++) {
+              if(features[i] != undefined){
+                var contentString = '';
+                contentString += '<div class="map-dec-tbl">'+
+                '<tr>'+
+                '<td colspan="2"><h5><strong>'+features[i].name+'</strong></h4></td>'+
+                '</tr>';
+                contentString +=  '<td width="73%"><p><strong>Description</strong>: '+features[i].description+'</p>'+
+                            '<p><strong>'+features[i].client_type+' Name: </strong>'+features[i].client_name+'</p>'+
+                            '<p><strong>Salesman Name </strong>.: '+features[i].salesman_name+'</p>'+
+                            '<p><strong>Date </strong>: '+features[i].task_date+'</p>'+
+                            '<p><strong>Address </strong>: '+features[i].address+'</p>'+
+                            '<p><strong>Status </strong>: '+features[i].status+'</p>'+
+                            '</td>'+
+                            '</tr></table></div></a>';
+                contentString +=    '</div>';
+              }
+              if( $.trim(features[i].name).length > 0){
+                /* Marker */
+                const marker = new google.maps.Marker({
+                              position: features[i].position,
+                              icon: features[i].icon,
+                              title: features[i].name,
+                              fillColor: '#000000',
+                              label: {
+                                text: 'LTV',
+                                color: '#51647c',
+                                fontSize: '11px',
+                                fontWeight: 'bold',
+                              },
+                              labelAnchor: new google.maps.Point(22, 0),
+                              map: map
+                            });
 
 
 
-              
-              const infowindow = new google.maps.InfoWindow({
-                                  content: contentString,
-                                  maxWidth: 300,
-                                  maxHeight: 400
-                                });
+                
+                const infowindow = new google.maps.InfoWindow({
+                                    content: contentString,
+                                    maxWidth: 300,
+                                    maxHeight: 400
+                                  });
 
-              marker.addListener('click', function() {
-                closeOtherInfo();
-                infowindow.open(marker.get('map'), marker);
-                InforObj[0] = infowindow;
-              });
+                marker.addListener('click', function() {
+                  closeOtherInfo();
+                  infowindow.open(marker.get('map'), marker);
+                  InforObj[0] = infowindow;
+                });
 
-              marker.addListener('mouseover', function() {
-                closeOtherInfo();
-                infowindow.open(marker.get('map'), marker);
-                InforObj[0] = infowindow;
-              });
-            }
+                marker.addListener('mouseover', function() {
+                  closeOtherInfo();
+                  infowindow.open(marker.get('map'), marker);
+                  InforObj[0] = infowindow;
+                });
+              }
 
-            function closeOtherInfo() {
-              if (InforObj.length > 0) {
-                  /* detach the info-window from the marker ... undocumented in the API docs */
-                  InforObj[0].set("marker", null);
-                  /* and close it */
-                  InforObj[0].close();
-                  /* blank the array */
-                  InforObj.length = 0;
+              function closeOtherInfo() {
+                if (InforObj.length > 0) {
+                    /* detach the info-window from the marker ... undocumented in the API docs */
+                    InforObj[0].set("marker", null);
+                    /* and close it */
+                    InforObj[0].close();
+                    /* blank the array */
+                    InforObj.length = 0;
+                }
               }
             }
           }

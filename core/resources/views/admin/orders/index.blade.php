@@ -449,29 +449,12 @@ div#data_filter {
       });
     });
 
+    var shopkeeper = "{{isset($data['shopkeeper_id'])?$data['shopkeeper_id']:''}}";
+
     $(function () {
 
       dataTable = $('#data').DataTable({
-
           dom: 'lfBfrtip',
-          /*buttons: [
-
-              {
-                  init: function(api, node, config) {
-                      $(node).removeClass('btn-secondary')
-                  },
-                  className: "btn-light btn-sm",
-                  extend: 'collection',
-                  text: 'Export',
-                  buttons: [
-                      'copy',
-                      'excel',
-                      'csv',
-                      'pdf',
-                      'print'
-                  ]
-              }
-          ],*/
           buttons: [
                     {
                       extend: 'copyHtml5',
@@ -524,6 +507,7 @@ div#data_filter {
                   d.payment_method  = $('select[name=payment_method]').val();
                   d.payment_status  = $('select[name=payment_status]').val();
                   d.assigned_to     = $('select[name=assigned_to]').val();
+                  d.shopkeeper_id   = shopkeeper; 
                   // d.date_range      = $("#reportrange").val();
               }
           }
@@ -540,8 +524,12 @@ div#data_filter {
       });
 
       $("#reportrange").on("change paste keyup", function() {
-          dataTable.draw();
+        dataTable.draw();
       });
+
+      if(shopkeeper){
+        dataTable.draw();
+      }
 
       $('.dataTables_info').append('<div class="clearfix"></div>');
 

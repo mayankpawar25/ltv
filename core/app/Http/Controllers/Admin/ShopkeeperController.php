@@ -141,10 +141,16 @@ class ShopkeeperController extends Controller
             foreach ($data as $key => $row)
             {  
              
-				$view_ledger = '<a href="'.route('admin.shopkeeper.transaction',[$row->id,'1']).'" title="View Ledger" id="'.$row->id.'" class="btn btn-sm btn-primary pull-right"><i class="icon-eye icons icon"></i></a>';
+                $view_ledger = '<a href="'.route('admin.shopkeeper.transaction',[$row->id,'1']).'" title="View Ledger" id="'.$row->id.'" class="btn btn-sm btn-primary"><i class="icon-list icon"></i></a>';
+
+                $view = '<a href="'.route('admin.shopkeeper.show',$row->id).'" title="View" id="'.$row->id.'" class="btn btn-sm btn-primary"><i class="icon-eye icons icon"></i></a>';
+
 				$order = '<a href="'.route('admin.orders.all',$row->id).'" title="Order" id="'.$row->id.'" class="btn btn-sm btn-warning"><i class="icon-basket icon"></i></a>';
-				$edit = '<a href="'.route('admin.shopkeeper.edit',$row->id).'" title="Edit" id="'.$row->id.'" class="btn btn-sm btn-success pull-right"><i class="icon-pencil icon"></i></a>';
+
+				$edit = '<a href="'.route('admin.shopkeeper.edit',$row->id).'" title="Edit" id="'.$row->id.'" class="btn btn-sm btn-success"><i class="icon-pencil icon"></i></a>';
+
 				$delete = '<a href="'.route('admin.shopkeeper.delete',$row->id).'" title="Delete" id="'.$row->id.'" class="btn btn-sm btn-danger"><i class="icon-trash icon"></i></a>';
+
                 $rec[] = array(
                     anchor_link($row->name,route('admin.shopkeeper.show',$row->id)),
                     $row->shopname,
@@ -156,34 +162,14 @@ class ShopkeeperController extends Controller
                     (isset($row->state_id)) ? State::find($row->state_id)->name : '',
                     (isset($row->city_id)) ? City::find($row->city_id)->name : '',
                     (isset($row->zipcode_id)) ? Zipcode::find($row->zipcode_id)->area_name : '',
+                    ($row->assigned)?$row->assigned->first_name.' '.$row->assigned->last_name:'Not Assigned',
                     (!empty($row->usergroup))?$row->usergroup->name:'-',
                     ($row->is_verified==0)?'<span class="badge badge-warning">Not Verified</span>':(($row->is_verified==1)?'<span class="badge badge-primary">Verified</span>':'<span class="badge badge-primary">Not Interested</span>'),
                     $row->employer_name,
                     $row->employer_contactno,
                     ($row->status==0)?'<span class="badge badge-warning">Inactive</span>':'<span class="badge badge-success">Active</span>',
                  	
-					$view_ledger. $order. $edit. $delete,
-					
-					
-					   
-				    //anchor_link('<button class="btn btn-sm btn-primary pull-right"><span class="icon-eye icons " data-toggle="tooltip" title="View Ledger"></span></button>',route('admin.shopkeeper.transaction',[$row->id,'1'])).''.
-//                    anchor_link('<button class="btn btn-sm btn-warning pull-right"><span class="icon-basket" data-toggle="tooltip" title="Orders"></span></button>',route('admin.orders.all',$row->id)).''.
-//                    anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('admin.shopkeeper.edit',$row->id),'','shopkeepers_edit').''.
-//                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('admin.shopkeeper.delete',$row->id),'','shopkeepers_delete'),
-					  
-
-                    /*a_links('Action',[
-                        [
-                            'action_link' => route('admin.shopkeeper.edit', $row->id), 
-                            'action_text' => __('form.edit'), 'action_class' => '',
-                            'permission' => 'shopkeepers_edit',
-                        ],
-                        [
-                            'action_link' => route('admin.shopkeeper.delete', $row->id), 
-                            'action_text' => __('form.delete'), 'action_class' => 'delete_item',
-                            'permission' => 'shopkeepers_delete',
-                        ]
-                    ]),*/
+					$view.$edit.$view_ledger.$order.$delete,
                 );
             }
         }
@@ -234,8 +220,10 @@ class ShopkeeperController extends Controller
             $rec->mobile     = $rec->phone;
             $rec->phone      = (isset($number[0]))?$number[0]:'';
             $rec->country_id = $rec->country_id;
-            $rec->state_id   = State::where('name' ,$rec->state)->first()->id;
-            $rec->city_id    = City::where('name' ,$rec->city)->first()->id;
+            // $rec->state_id   = State::where('name' ,$rec->state)->first()->id;
+            // $rec->city_id    = City::where('name' ,$rec->city)->first()->id;
+            $rec->state_id   = State::firstOrCreate(['name' => $rec->state,'country_id'=>$rec->country_id])->id;
+            $rec->city_id    = City::firstOrCreate(['name' => $rec->city,'state_id' => $rec->state_id])->id;
             $rec->salesman_id = $rec->assigned_to;
             $rec->address     = ucwords($rec->address);
             $data['states']  = ["" => __('form.nothing_selected')]  + State::where('country_id' ,$rec->country_id)->orderBy('name','ASC')->pluck('name','id')->toArray();

@@ -86,6 +86,7 @@ div#data_filter {
                           <th>State</th>
                           <th>City</th>
                           <th>Area</th>
+                          <th>Assigned To</th>
                           <th>Group</th>
                           <th>Verification</th>
                           <th>Employer Name</th>

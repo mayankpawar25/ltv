@@ -37,24 +37,26 @@ class LeadController extends Controller {
         // $data['leads'] = Lead::get()
 
         // Remove customer from the selected statuses
-        unset($data['default_lead_status_id_list'][LEAD_STATUS_DEALER]);
-        unset($data['default_lead_status_id_list'][LEAD_STATUS_CUSTOMER]);
+        unset($data['default_lead_status_id_list'][LEAD_STATUS_CUSTOMER]); // Customer
+        unset($data['default_lead_status_id_list'][2]); // Dealer
         return view('admin.crm.lead.index', compact('data'));
     }
 
     public function paginate(){
 
-        $query_key                  = Input::get('search');
-        $search_key                 = $query_key['value'];
+        $order             = Input::get('order');
+        $columns           = Input::get('columns');
+        $query_key         = Input::get('search');
+        $search_key        = $query_key['value'];
 
-        $status_id                  = Input::get('status_id');
-        $source_id                  = Input::get('source_id');
-        $assigned_to                = Input::get('assigned_to');
-        $additional_filter          = Input::get('additional_filter');
-        $tag_id                     = Input::get('tag_id');
+        $status_id         = Input::get('status_id');
+        $source_id         = Input::get('source_id');
+        $assigned_to       = Input::get('assigned_to');
+        $additional_filter = Input::get('additional_filter');
+        $tag_id            = Input::get('tag_id');
 
-        $q                          = Lead::query();
-        $query                      = Lead::orderBy('id', 'DESC')->with(['tags', 'assigned', 'status', 'source']);
+        $q                 = Lead::query();
+        $query             = Lead::orderBy($columns[$order[0]['column']]['name'], $order[0]['dir'])->with(['tags', 'assigned', 'status', 'source']);
 
         // If the user has permission to view only the leads that are assigned to him or created by himself;
         if(!check_perm('leads_view') && check_perm('leads_view_own'))

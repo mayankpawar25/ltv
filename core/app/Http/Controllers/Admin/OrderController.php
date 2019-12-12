@@ -41,24 +41,30 @@ class OrderController extends Controller
   }
 
   public function paginate(Request $request){
-    $gs = GS::first();
-    $status_id = Input::get('status_id');
-    $delivery_status = Input::get('delivery_status');
-    $payment_method = Input::get('payment_method');
-    $payment_status = Input::get('payment_status');
-    $assigned_to    = Input::get('assigned_to');
-    $user_type      = Input::get('user_type');
+    $gs               = GS::first();
+    $status_id        = Input::get('status_id');
+    $delivery_status  = Input::get('delivery_status');
+    $payment_method   = Input::get('payment_method');
+    $payment_status   = Input::get('payment_status');
+    $assigned_to      = Input::get('assigned_to');
+    $user_type        = Input::get('user_type');
 
-    $query_key          = Input::get('search');
-    $search_key         = $query_key['value'];
-    $date_range         = Input::get('date_range');
-    $currency_id        = Input::get('currency_id');
+    $query_key     = Input::get('search');
+    $search_key    = $query_key['value'];
+    $date_range    = Input::get('date_range');
+    $currency_id   = Input::get('currency_id');
+    $shopkeeper_id = Input::get('shopkeeper_id');
 
     $q = Order::orderBy('id','DESC');
     $query = Order::orderBy('id','DESC');
 
     $date_from          = "";
     $date_to            = "";
+
+    if($shopkeeper_id!=''){
+      $q->where('user_id', $shopkeeper_id)->where('user_type',1);
+      $query->where('user_id', $shopkeeper_id)->where('user_type',1);
+    }
 
     if($date_range)
     {
@@ -218,27 +224,6 @@ class OrderController extends Controller
               ($row->payment_method == 2)?'<span class="badge badge-warning">Advance</span>':'<span class="badge badge-warning">COD</span>',
               ($row->payment_status == 0)?'<span class="badge badge-danger paidstatus" data-orderid="'.$row->id.'" data-status="1">Unpaid</span>':'<span class="badge badge-success paidstatus"  data-orderid="'.$row->id.'" data-status="0">Paid</span>',
               anchor_link('<button class="btn btn-sm btn-primary"><i class="icon-eye icon"></i></button>',route('admin.orderdetails', $row->id)).$order_accept_btn,
-
-              // $row->unique_id,
-              // $name,
-              // ($row->staff_user_id!='')?StaffUser::select(DB::raw('CONCAT(first_name," ",last_name) as name'))->find($row->staff_user_id)->name:'',
-              // $row->staff_user_remarks,
-              // format_currency($row->subtotal,true,$currency_symbol),
-              // format_currency($row->total,true,$currency_symbol),
-              // date('d-m-Y',strtotime($row->created_at)),
-              // anchor_link( $row->number, route('show_invoice_page', $row->id)),
-              /*anchor_link($row->related_to->first_name .' '. $row->related_to->last_name, route('view_customer_page', $row->customer_id )),*/
-              // ($row->related_to->name)?$row->related_to->name:$row->related_to->first_name.' '.$row->related_to->last_name,
-              // isset(($row->date)) ? sql2date($row->date) : "",
-              // isset(($row->due_date)) ? sql2date($row->due_date) : "",
-              // format_currency($row->total, true, $currency_symbol  ),
-              // format_currency($row->tax_total, true , $currency_symbol ),                    
-              // format_currency($row->discount_total, true , $currency_symbol ),                
-              // format_currency($row->adjustment, true , $currency_symbol ),    
-              // format_currency($row->applied_credits, true , $currency_symbol ), 
-              // format_currency($row->total - ($row->amount_paid + $row->applied_credits), true , $currency_symbol  ), 
-              // $row->status->name,
-
           );
 
           $subtotal           += $row->subtotal;
@@ -284,6 +269,7 @@ class OrderController extends Controller
 
   public function all(Request $request,$shopkeeper_id="") {
     $data = Order::dropdown_for_filtering();
+    $data['shopkeeper_id'] = $shopkeeper_id;
     if(empty($request->term)){
       $data['term'] = '';
       if($shopkeeper_id!=''){
