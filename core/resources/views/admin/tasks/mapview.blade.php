@@ -7,28 +7,31 @@
  <main class="app-content">
      <div class="app-title">
        <div>
-          <h1><i class="fa fa-dashboard"></i>Arrivals</h1>
+          <h1><i class="fa fa-map"></i>Arrivals</h1>
        </div>
        <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
           <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
        </ul>
     </div>
-    <div class="row">
+    <div class="row card">
+      <div class="card-header"><h4>Arrivals</h4></div>
+      <div class="card-body">
         <div class="col-sm-3">
-          <input type="text" name="date" class="form-control datepicker2" value="<?php echo date('d-m-Y') ?>" placeholder="">
-        </div>
-        <div class="col-md-12">
-          <div class="card">
-            <div class="card-header"></div>
-            <div class="card-body">
-              <div class="tile">
-                <div id="map" style="width: 100%; height: 800px;"></div>  
-              </div>
-            </div>
-            <div class="card-footer"></div>
+          <div class="form-group">
+            <label>Date: </label>
+            <input type="text" name="date" class="form-control datepicker2" value="<?php echo date('d-m-Y') ?>" placeholder="">
           </div>
         </div>
+        <div class="col-md-12">
+          <div class="form-group">
+            <div class="tile">
+              <div id="map" style="width: 100%; height: 800px;"></div>  
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer"></div>
     </div>
   </main>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -37,12 +40,13 @@
       var map;
       var marker;
       var iconBase;
-
+      var base_url = '';
+      var InforObj = [];
+      var features = [];
       function initMap(date = 'Y-m-d') {
         map = new google.maps.Map(
             document.getElementById('map'),
             {center: new google.maps.LatLng(22.7529391,75.8915093), zoom: 13});
-
         get_lat_long(date);
         // console.log(features);
       }
@@ -62,21 +66,184 @@
         })
         .done(function(resp) {
           $.each(resp,function(index,i){
-            console.log(i);
-            console.log(date);
-            marker = new google.maps.Marker({
-              position: new google.maps.LatLng(i.latitude, i.longitude),
-              icon: iconBase + '/marker.png',
-              map: map
-            });
+            var coordinates = {
+                                'position': new google.maps.LatLng(i.latitude, i.longitude), 
+                                'icon' : iconBase + '/marker.png',
+                                'id': i.id, 
+                                'name': i.name, 
+                                'description': i.description, 
+                                'task_date': i.task_date, 
+                                'from_time': i.from_time,
+                                'to_time': i.to_time,
+                                'task_status_id': i.task_status_id,
+                                'client_id': i.client_id,
+                              };
+            // console.log(coordinates);
+            features.push(coordinates);
           });
-        })
-        .fail(function() {
+            console.log(features);
+                  
+            for (var i = 0; i < features.length; i++) {
+              if(features[i] != undefined){
+                var contentString = '';
+                contentString += '<div class="map-dec-tbl">'+
+                '<tr>'+
+                '<td colspan="2"><h2>'+features[i].name+'</h2></td>'+
+                '</tr>';
+
+                /* For other property types */
+                contentString +=        '<td width="73%"><p>Description: '+features[i].description+'</p>'+
+                            // '<p><strong>Property Name</strong></p>'+
+                            '<p>Date.: '+features[i].task_date+'</p>'+
+                            ''+
+                            '</td>'+
+                            '</tr></table></div></a>';
+            contentString +=    '</div>';
+          }
+
+                    if( $.trim(features[i].name).length > 0){
+
+                      /* Marker */
+                      const marker = new google.maps.Marker({
+                                    position: features[i].position,
+                                    icon: features[i].icon,
+                                    title: features[i].name,
+                                    fillColor: '#000000',
+                                    label: {
+                                      text: features[i].description,
+                                      color: 'white',
+                                      fontSize: '11px',
+                                      fontWeight: 'bold',
+                                    },
+                                    labelAnchor: new google.maps.Point(22, 0),
+                                    map: map
+                                  });
+
+
+
+                      
+                      const infowindow = new google.maps.InfoWindow({
+                                          content: contentString,
+                                          maxWidth: 300,
+                                          maxHeight: 400
+                                        });
+
+                      marker.addListener('click', function() {
+                        closeOtherInfo();
+                        infowindow.open(marker.get('map'), marker);
+                        InforObj[0] = infowindow;
+                      });
+
+                      marker.addListener('mouseover', function() {
+                        closeOtherInfo();
+                        infowindow.open(marker.get('map'), marker);
+                        InforObj[0] = infowindow;
+                      });
+                    }
+
+                    function closeOtherInfo() {
+                      if (InforObj.length > 0) {
+                          /* detach the info-window from the marker ... undocumented in the API docs */
+                          InforObj[0].set("marker", null);
+                          /* and close it */
+                          InforObj[0].close();
+                          /* blank the array */
+                          InforObj.length = 0;
+                      }
+                    }
+
+                  
+                  }
+                  console.log(marker);
+                
+
+
+
+
+            /*console.log(i);
+            console.log(date);*/
+            /*marker = new google.maps.Marker({
+              'position': new google.maps.LatLng(i.latitude, i.longitude),
+              'icon': iconBase + '/marker.png',
+              'map': map,
+              'id': i.id, 
+              'property_type': i.property_type, 
+              'sub_type': i.type, 
+              'title': i.title, 
+              'image': i.image,
+              'price': i.price,
+              'area': i.area,
+              'property': i.property,
+            });*/
+
+            /*var coordinates = {
+              'position': new google.maps.LatLng(i.latitude, i.longitude), 
+              'icon': iconBase + '/marker.png',
+              'map': map,
+              'id': i.id, 
+              'property_type': i.description, 
+              'sub_type': i.name, 
+              'title': 'Title', 
+              'image': 'Image',
+              'price': 'item.price',
+              'area': 'item.area',
+              'property': 'item.property',
+            }
+            features.push(coordinates);*/
+          // });
+            // console.log(coordinates);
+            /*const infowindow = new google.maps.InfoWindow({
+              content: 'Sawan',
+              maxWidth: 300,
+              maxHeight: 400
+            });
+
+            marker.addListener('click', function() {
+              closeOtherInfo();
+              infowindow.open(marker.get('map'), marker);
+              InforObj[0] = infowindow;
+            });
+
+            marker.addListener('mouseover', function() {
+              closeOtherInfo();
+              infowindow.open(marker.get('map'), marker);
+              InforObj[0] = infowindow;
+            });*/
+        }).fail(function() {
           console.log("error");
         })
         .always(function() {
           console.log("complete");
         });
+      }
+
+      function closeOtherInfo() {
+        if (InforObj.length > 0) {
+            /* detach the info-window from the marker ... undocumented in the API docs */
+            InforObj[0].set("marker", null);
+            /* and close it */
+            InforObj[0].close();
+            /* blank the array */
+            InforObj.length = 0;
+        }
+      }
+
+      function icon_generator(type, price){
+        // console.log(type, price, price.length);
+        var property_type = '';
+        switch(type){
+          case 'Residential':
+            property_type = 'r';
+            break;
+          case 'Commercial':
+            property_type = 'c';
+            break;
+          case 'Agricultural':
+            property_type = 'a';
+            break;
+          default:
+            property_type = 'c';
+        }
       }
 
     </script>
