@@ -30,7 +30,7 @@ class LeadController extends Controller
         $user = Auth::guard('salesman')->user();
         $salesman = StaffUser::where('id', Auth::id())->where('role_id', 1)->first();
         if(!empty($request->lead_id)){
-            $Leads = Lead::where('assigned_to',$salesman->id )->where('id',$request->lead_id)->orderby('id','DESC')->get();
+            $Leads = Lead::where('assigned_to',$salesman->id )->where('id',$request->lead_id)->whereNULL('dealer_id')->whereNULL('customer_id')->orderby('id','DESC')->get();
             if(!$Leads->isEmpty()){
                 $data['Leads'] = $Leads;
                 $data['msg'] = 'Salesman Leads List';
