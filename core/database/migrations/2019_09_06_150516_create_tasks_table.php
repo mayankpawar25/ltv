@@ -23,7 +23,7 @@ class CreateTasksTable extends Migration
             $table->integer('salesman_id')->nullable();
             $table->integer('client_type_id')->nullable();
             $table->integer('client_id')->nullable();
-            $table->integer('task_status_id')->nullable()->default('0');
+            $table->integer('task_status_id')->nullable()->default('1');
             $table->timestamps();
         });
     }
