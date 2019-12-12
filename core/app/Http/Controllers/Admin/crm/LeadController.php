@@ -481,7 +481,7 @@ class LeadController extends Controller {
             if($current_date > $previous_date)
             {
                 // Update
-                $lead->last_contacted       = $current_date->format('Y-m-d H:i:s');
+                $lead->last_contacted       = date('Y-m-d H:i:s');
                 $lead->last_contacted_by    = auth()->user()->id;
                 $lead->save();
             }
