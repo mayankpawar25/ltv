@@ -261,7 +261,7 @@ class GetLocationController extends Controller
         /*client_id :- 1 == Shopkeeper*/
         if($request->input('client_id') == 1){
             $datas = Shopkeeper::where(['is_verified' => 1, 'salesman_id' => $request->input('salesman_id')])->get();
-            $html .= '<option  value="">-- Select Shopkeeper --</option>';
+            $html .= '<option  value="">-- Select Dealer --</option>';
             foreach ($datas as $shopkeeper) {
                 $sel = ($selected==$shopkeeper->id)?'selected':'';
                 $html .= '<option  value="' . $shopkeeper->id . '" '.$sel.'>' . ucwords($shopkeeper->name). '</option>';
@@ -283,7 +283,7 @@ class GetLocationController extends Controller
                 $html .= '<option  value="' . $lead->id . '" '.$sel.'>' . ucwords($lead->first_name).' '.$lead->last_name. '</option>';
             }
         }else{
-            $html .= '<option  value="">-- No Shopkeeper / Lead / Customers --</option>';
+            $html .= '<option  value="">-- No Dealer / Lead / Customers --</option>';
         }
         return response()->json(['html' => $html]);            
     }

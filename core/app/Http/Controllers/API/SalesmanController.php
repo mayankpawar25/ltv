@@ -343,8 +343,8 @@ class SalesmanController extends Controller
           $status = 401;
         }else{
             /*Notification*/
-            $title = sprintf(__('Shopkeeper Documents Uploaded'));
-            $message = 'For Shopkeeper '. $shopkeeper->name.' (Shop Name :'.$shopkeeper->shopname.') '.'All Documents Uploaded Successfully';
+            $title = sprintf(__('Dealer Documents Uploaded'));
+            $message = 'For Dealer '. $shopkeeper->name.' (Shop Name :'.$shopkeeper->shopname.') '.'All Documents Uploaded Successfully';
             salesmanNotification(Auth::id(),$title,$message); 
             $salesman = StaffUser::find(Auth::id());
             sendNotification($salesman->fcm_id,$title,$message);
@@ -356,7 +356,7 @@ class SalesmanController extends Controller
         }
       }
     }else{
-      $data['msg'] = 'Please check Shopkeeper';
+      $data['msg'] = 'Please check Dealer';
       $data['status'] = false;
       $status = 401;
     }

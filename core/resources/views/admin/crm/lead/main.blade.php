@@ -89,13 +89,13 @@ legend.scheduler-border {
                        <a class="nav-link {{ is_active_nav('tasks', $group_name) }}" href="{{ route('show_lead_page', $rec->id )}}?group=tasks">@lang('form.tasks')</a>
                     </li> -->
                     <li class="nav-item">
-                       <a class="nav-link {{ is_active_nav('notes', $group_name) }}" href="{{ route('show_lead_page', $rec->id )}}?group=notes">@lang('form.notes')</a>
+                       <a class="nav-link {{ is_active_nav('notes', $group_name) }}" href="{{ route('show_lead_page', $rec->id )}}?group=notes">@lang('form.followup_log')</a>
                     </li>            
                     <li class="nav-item">
                        <a class="nav-link {{ is_active_nav('reminders', $group_name) }}" href="{{ route('show_lead_page', $rec->id )}}?group=reminders">@lang('form.reminders')</a>
                     </li>
                     <li class="nav-item">
-                       <a class="nav-link {{ is_active_nav('activity_log', $group_name) }}" href="{{ route('show_lead_page', $rec->id )}}?group=activity_log">@lang('form.followup_log')</a>
+                       <a class="nav-link {{ is_active_nav('activity_log', $group_name) }}" href="{{ route('show_lead_page', $rec->id )}}?group=activity_log">Calling Followup Log</a>
                     </li>
                  </ul>
                  <br>
