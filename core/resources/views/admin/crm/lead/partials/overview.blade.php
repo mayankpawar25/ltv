@@ -4,7 +4,7 @@
       <div class="col-md-2"><strong>@lang('form.lead')</strong></div>      
       <div class="col-md-10">
          <div class="float-md-right">
-            <button type="button" class="btn btn-sm btn-primary mr-1" data-toggle="modal" data-target="#logTouchModal"> <i class="fas fa-address-book"></i> @lang('form.log_touch')</button>
+            <button type="button" class="btn btn-sm btn-primary mr-1" data-toggle="modal" data-target="#logTouchModal"> <i class="fas fa-address-book"></i> Calling followup</button>
 
             <div class="btn-group mr-1">
                @if(isset($rec->customer_id) && $rec->customer_id)

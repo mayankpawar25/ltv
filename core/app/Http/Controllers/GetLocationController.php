@@ -269,7 +269,7 @@ class GetLocationController extends Controller
         }
         /*client_id :-  2 == Lead*/
         else if($request->input('client_id') == 2){
-            $datas = Lead::where(['assigned_to' => $request->input('salesman_id')])->get();
+            $datas = Lead::where(['assigned_to' => $request->input('salesman_id')])->whereNULL('dealer_id')->whereNULL('customer_id')->get();
             $html .= '<option  value="">-- Select Leads --</option>';
             foreach ($datas as $lead) {
                 $sel = ($selected==$lead->id)?'selected':'';

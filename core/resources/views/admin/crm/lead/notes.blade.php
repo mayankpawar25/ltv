@@ -20,7 +20,7 @@
 		<div class="row">
 			<div class="col-md-6">
 					<div style="font-size: 13px;">
-						<?php echo anchor_link(__('form.note_by') . " ". $note->person_created->first_name . " ". $note->person_created->last_name, route('member_profile', $note->user_id )) ?>
+						<?php echo anchor_link(__('Followup by') . " ". $note->person_created->first_name . " ". $note->person_created->last_name, route('member_profile', $note->user_id )) ?>
 					</div>
 
 			</div>
