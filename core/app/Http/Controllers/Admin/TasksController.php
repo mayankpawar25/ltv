@@ -5,7 +5,7 @@ use App\Task;
 use App\Zipcode;
 use App\Vendor;
 use App\Models\StaffUser;
-use App\Shopkeeper,App\Lead,App\User;
+use App\Shopkeeper,App\Lead,App\User,App\TaskStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 use App\Http\Controllers\Controller;
@@ -211,24 +211,29 @@ class TasksController extends Controller
         $date = date('Y-m-d',strtotime($request->date));
       }
       $tasks = Task::where('salesman_id',$request->id)->where('task_date',$date)->get();
-      $assigned_to = StaffUser::find($request->id);
-      foreach ($tasks as $t_key => $task) {
-        $task->name = ucwords($task->name);
-        if($task->client_type_id == 1){ // shopkeepers = 1 
-            $client = Shopkeeper::find($task->client_id);
-            $task->client_type = 'Shopkeeper';
-            $task->client_name = $client->name.' ('.$client->shopname.')';
-        }else if($task->client_type_id == 2){  // Leads = 2
-            $client = Lead::find($task->client_id);
-            $task->client_type = 'Lead';
-            $task->client_name = $client->first_name.' '.$client->last_name.' ('.$client->company.')';
-        }else if($task->client_type_id == 3){  // Users = 3
-            $client = User::find($task->client_id);
-            $task->client_type = 'User';
-            $task->client_name = $client->first_name.' '.$client->last_name;
+      if(!$tasks->isEmpty()){
+        $assigned_to = StaffUser::find($request->id);
+        foreach ($tasks as $t_key => $task) {
+          $task->name = ucwords($task->name);
+          $task->client_type = '';
+          $task->client_name = '';
+          if($task->client_type_id == 1){ // shopkeepers = 1 
+              $client = Shopkeeper::find($task->client_id);
+              $task->client_type = 'Shopkeeper';
+              $task->client_name = $client->name.' ('.$client->shopname.')';
+          }else if($task->client_type_id == 2){  // Leads = 2
+              $client = Lead::find($task->client_id);
+              $task->client_type = 'Lead';
+              $task->client_name = $client->first_name.' '.$client->last_name.' ('.$client->company.')';
+          }else if($task->client_type_id == 3){  // Users = 3
+              $client = User::find($task->client_id);
+              $task->client_type = 'User';
+              $task->client_name = $client->first_name.' '.$client->last_name;
+          }
+          $task->salesman = $assigned_to->first_name.' '.$assigned_to->last_name;
+          $task->address = $client->address;
+          $task->status = TaskStatus::find($task->task_status_id)->name;
         }
-        $task->salesman = $assigned_to->first_name.' '.$assigned_to->last_name;
-        $task->address = $client->address;
       }
       echo json_encode($tasks);
     }

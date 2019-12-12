@@ -45,9 +45,9 @@
       var features = [];
       function initMap(date = 'Y-m-d') {
         map = new google.maps.Map(
-            document.getElementById('map'),
-            {center: new google.maps.LatLng(22.7529391,75.8915093), zoom: 13});
-        get_lat_long(date);
+          document.getElementById('map'),
+          {center: new google.maps.LatLng(22.7529391,75.8915093), zoom: 13});
+          get_lat_long(date);
         // console.log(features);
       }
 
@@ -86,134 +86,75 @@
             // console.log(coordinates);
             features.push(coordinates);
           });
-            console.log(features);
-                  
-            for (var i = 0; i < features.length; i++) {
-              if(features[i] != undefined){
-                var contentString = '';
-                contentString += '<div class="map-dec-tbl">'+
-                '<tr>'+
-                '<td colspan="2"><h2>'+features[i].name+'</h2></td>'+
-                '</tr>';
-                contentString +=        '<td width="73%"><p>Description: '+features[i].description+'</p>'+
-                            '<p><strong>'+features[i].client_type+' Name: </strong>'+features[i].client_name+'</p>'+
-                            '<p>Salesman Name.: '+features[i].salesman_name+'</p>'+
-                            '<p>Date.: '+features[i].task_date+'</p>'+
-                            '<p>Address.: '+features[i].address+'</p>'+
-                            '<p>Status.: '+features[i].status+'</p>'+
-                            '</td>'+
-                            '</tr></table></div></a>';
-            contentString +=    '</div>';
-          }
-
-                    if( $.trim(features[i].name).length > 0){
-
-                      /* Marker */
-                      const marker = new google.maps.Marker({
-                                    position: features[i].position,
-                                    icon: features[i].icon,
-                                    title: features[i].name,
-                                    fillColor: '#000000',
-                                    label: {
-                                      text: features[i].description,
-                                      color: 'white',
-                                      fontSize: '11px',
-                                      fontWeight: 'bold',
-                                    },
-                                    labelAnchor: new google.maps.Point(22, 0),
-                                    map: map
-                                  });
-
-
-
-                      
-                      const infowindow = new google.maps.InfoWindow({
-                                          content: contentString,
-                                          maxWidth: 300,
-                                          maxHeight: 400
-                                        });
-
-                      marker.addListener('click', function() {
-                        closeOtherInfo();
-                        infowindow.open(marker.get('map'), marker);
-                        InforObj[0] = infowindow;
-                      });
-
-                      marker.addListener('mouseover', function() {
-                        closeOtherInfo();
-                        infowindow.open(marker.get('map'), marker);
-                        InforObj[0] = infowindow;
-                      });
-                    }
-
-                    function closeOtherInfo() {
-                      if (InforObj.length > 0) {
-                          /* detach the info-window from the marker ... undocumented in the API docs */
-                          InforObj[0].set("marker", null);
-                          /* and close it */
-                          InforObj[0].close();
-                          /* blank the array */
-                          InforObj.length = 0;
-                      }
-                    }
-
-                  
-                  }
-                  console.log(marker);
-                
-
-
-
-
-            /*console.log(i);
-            console.log(date);*/
-            /*marker = new google.maps.Marker({
-              'position': new google.maps.LatLng(i.latitude, i.longitude),
-              'icon': iconBase + '/marker.png',
-              'map': map,
-              'id': i.id, 
-              'property_type': i.property_type, 
-              'sub_type': i.type, 
-              'title': i.title, 
-              'image': i.image,
-              'price': i.price,
-              'area': i.area,
-              'property': i.property,
-            });*/
-
-            /*var coordinates = {
-              'position': new google.maps.LatLng(i.latitude, i.longitude), 
-              'icon': iconBase + '/marker.png',
-              'map': map,
-              'id': i.id, 
-              'property_type': i.description, 
-              'sub_type': i.name, 
-              'title': 'Title', 
-              'image': 'Image',
-              'price': 'item.price',
-              'area': 'item.area',
-              'property': 'item.property',
+          for (var i = 0; i < features.length; i++) {
+            if(features[i] != undefined){
+              var contentString = '';
+              contentString += '<div class="map-dec-tbl">'+
+              '<tr>'+
+              '<td colspan="2"><h2>'+features[i].name+'</h2></td>'+
+              '</tr>';
+              contentString +=  '<td width="73%"><p><strong>Description</strong>: '+features[i].description+'</p>'+
+                          '<p><strong>'+features[i].client_type+' Name: </strong>'+features[i].client_name+'</p>'+
+                          '<p><strong>Salesman Name </strong>.: '+features[i].salesman_name+'</p>'+
+                          '<p><strong>Date </strong>: '+features[i].task_date+'</p>'+
+                          '<p><strong>Address </strong>: '+features[i].address+'</p>'+
+                          '<p><strong>Status </strong>: '+features[i].status+'</p>'+
+                          '</td>'+
+                          '</tr></table></div></a>';
+              contentString +=    '</div>';
             }
-            features.push(coordinates);*/
-          // });
-            // console.log(coordinates);
-            /*const infowindow = new google.maps.InfoWindow({
-              content: 'Sawan',
-              maxWidth: 300,
-              maxHeight: 400
-            });
 
-            marker.addListener('click', function() {
-              closeOtherInfo();
-              infowindow.open(marker.get('map'), marker);
-              InforObj[0] = infowindow;
-            });
+            if( $.trim(features[i].name).length > 0){
 
-            marker.addListener('mouseover', function() {
-              closeOtherInfo();
-              infowindow.open(marker.get('map'), marker);
-              InforObj[0] = infowindow;
-            });*/
+              /* Marker */
+              const marker = new google.maps.Marker({
+                            position: features[i].position,
+                            icon: features[i].icon,
+                            title: features[i].name,
+                            fillColor: '#000000',
+                            label: {
+                              text: features[i].description,
+                              color: 'white',
+                              fontSize: '11px',
+                              fontWeight: 'bold',
+                            },
+                            labelAnchor: new google.maps.Point(22, 0),
+                            map: map
+                          });
+
+
+
+              
+              const infowindow = new google.maps.InfoWindow({
+                                  content: contentString,
+                                  maxWidth: 300,
+                                  maxHeight: 400
+                                });
+
+              marker.addListener('click', function() {
+                closeOtherInfo();
+                infowindow.open(marker.get('map'), marker);
+                InforObj[0] = infowindow;
+              });
+
+              marker.addListener('mouseover', function() {
+                closeOtherInfo();
+                infowindow.open(marker.get('map'), marker);
+                InforObj[0] = infowindow;
+              });
+            }
+
+            function closeOtherInfo() {
+              if (InforObj.length > 0) {
+                  /* detach the info-window from the marker ... undocumented in the API docs */
+                  InforObj[0].set("marker", null);
+                  /* and close it */
+                  InforObj[0].close();
+                  /* blank the array */
+                  InforObj.length = 0;
+              }
+            }
+          }
         }).fail(function() {
           console.log("error");
         })
