@@ -61,8 +61,10 @@
                         <td>{{ ucfirst($show->client_name) }} : {{ $show->shop_name }} </td>
                        <?php }
                         ?></td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td><strong>Status</strong></td>
+    <td>
+   {{ $show->task_status_name }}
+   </td>
   </tr>
 </table>
 </div> 

@@ -95,7 +95,8 @@ class TasksController extends Controller
                           ->where('shopkeepers.id',$client_id)
                           ->join('shopkeepers', 't.salesman_id', '=', 'shopkeepers.salesman_id')
                           ->join('staff_users', 't.salesman_id', '=', 'staff_users.id')
-                          ->select('t.id', 't.name','t.description','t.task_date','t.to_time','t.from_time','t.salesman_id','t.client_type_id','t.client_id','shopkeepers.name as client_name','shopkeepers.shopname as shop_name','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
+                          ->join('task_statuses', 't.task_status_id', '=', 'task_statuses.id')
+                          ->select('t.id', 't.name','t.description','t.task_date','t.to_time','t.from_time','t.salesman_id','t.client_type_id','t.client_id','t.task_status_id','task_statuses.name as task_status_name','shopkeepers.name as client_name','shopkeepers.shopname as shop_name','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
                           ->first();
         }else if($type_id == 2){ 
              $data['show'] = DB::table('tasks As t')
@@ -103,7 +104,8 @@ class TasksController extends Controller
                           ->where('leads.id',$client_id)
                           ->join('leads', 't.salesman_id', '=', 'leads.assigned_to')
                           ->join('staff_users', 't.salesman_id', '=', 'staff_users.id')
-                          ->select('t.id', 't.name','t.description','t.task_date','t.to_time','t.from_time','t.salesman_id','t.client_type_id','t.client_id','leads.first_name as client_name','leads.last_name as client_last_name','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
+                          ->join('task_statuses', 't.task_status_id', '=', 'task_statuses.id')
+                          ->select('t.id', 't.name','t.description','t.task_date','t.to_time','t.from_time','t.salesman_id','t.client_type_id','t.client_id','t.task_status_id','task_statuses.name as task_status_name','leads.first_name as client_name','leads.last_name as client_last_name','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
                           ->first();
         }else {
           $data['show'] = DB::table('tasks As t')
@@ -111,7 +113,8 @@ class TasksController extends Controller
                          ->where('users.id',$client_id)
                          ->join('users', 't.salesman_id', '=', 'users.assigned_to')
                          ->join('staff_users', 't.salesman_id', '=', 'staff_users.id')
-                         ->select('t.id', 't.name','t.description','t.task_date','t.to_time','t.from_time','t.salesman_id','t.client_type_id','t.client_id','users.first_name as client_name','users.last_name as client_last_name','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
+                         ->join('task_statuses', 't.task_status_id', '=', 'task_statuses.id')
+                         ->select('t.id', 't.name','t.task_status_id','task_statuses.name as task_status_name','t.description','t.task_date','t.to_time','t.from_time','t.salesman_id','t.client_type_id','t.client_id','users.first_name as client_name','users.last_name as client_last_name','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name')
                          ->first();
         }
         /*die('test');*/
