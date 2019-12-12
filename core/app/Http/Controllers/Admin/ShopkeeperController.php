@@ -32,6 +32,7 @@ class ShopkeeperController extends Controller
         }else{
             $data['shopkeeper'] = Shopkeeper::where('salesman_id',auth()->user()->id)->paginate(20);
         }
+        $data['assigned_to'] = StaffUser::select(DB::raw('CONCAT(first_name," ",last_name) as name,id'))->where('role_id',1)->whereNULL('inactive')->get()->pluck('name','id')->toArray();
         $data['is_verified'] = ['0'=>'Not Verified','1'=>'Verified',2=>'Not Interested'];
         $data['status'] = ['0'=>'Inactive','1'=>'Active'];
         $data['group'] = UserGroup::get()->pluck('name', 'id')->toArray();
@@ -49,14 +50,20 @@ class ShopkeeperController extends Controller
         $customer_id = Input::get('customer_id');
         $status_id   = Input::get('status_id');
         $is_verified = Input::get('is_verified');
+        $assigned_to = Input::get('assigned_to');
         $groups      = Input::get('groups');
         $q           = Shopkeeper::query();
         $query       = Shopkeeper::orderBy($columns[$order[0]['column']]['name'], $order[0]['dir']);
 
         // Filtering Data
         if($status_id!=''){
-            $query->where('status', $status_id );
+            $query->whereIn('status', $status_id );
             $q->whereIn('status', $status_id );
+        }
+
+        if(!empty($assigned_to)){
+            $query->whereIn('salesman_id', $assigned_to);
+            $q->whereIn('salesman_id', $assigned_to);   
         }
 
         if($is_verified!=''){

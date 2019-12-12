@@ -148,31 +148,7 @@ div#data_filter {
  <script>
         $(function() {
             dataTable = $('#data').DataTable({
-                // dom: 'B<"toolbar">frtip',
-                // initComplete: function(){
-                //   $("div.toolbar")
-                //      .html('<button class="btn btn-light btn-sm" type="button" id="bulk_action">{{ __("form.bulk_action") }}</button>');           
-                // },  
-               /* dom: 'Bfrtip',*/
                 dom: 'lfBfrtip',
-              /*  buttons: [
-
-                    {
-                        init: function(api, node, config) {
-                            $(node).removeClass('btn-secondary')
-                        },
-                        className: "btn-light btn-sm",
-                        extend: 'collection',
-                        text: 'Export',
-                        buttons: [
-                            'copy',
-                            'excel',
-                            'csv',
-                            'pdf',
-                            'print'
-                        ]
-                    }
-                ],*/
                  buttons: [
                     {
                       extend: 'copyHtml5',
@@ -196,10 +172,6 @@ div#data_filter {
                     "lengthMenu": '_MENU_ ',
                     "search": '',
                     "searchPlaceholder": "{{ __('form.search') }}"
-                    // "paginate": {
-                    //     "previous": '<i class="fa fa-angle-left"></i>',
-                    //     "next": '<i class="fa fa-angle-right"></i>'
-                    // }
                 }
 
                 ,
@@ -209,13 +181,6 @@ div#data_filter {
                 //iDisplayLength: 5
                 "lengthMenu": [ [10, 20, 50, 100,150,200,250,300,350,450,500,-1], [10, 20, 50, 100,150,200,250,300,350,450,500,'All'] ],
                 pageLength: {{ Config::get('constants.RECORD_PER_PAGE') }},
-               // ordering: false,
-                // "columnDefs": [
-                //     { className: "text-right", "targets": [2,4] },
-                //     { className: "text-center", "targets": [5] }
-                //
-                //
-                // ],
                  ordering: true,
                   "columnDefs": [
                     { className: "text-right", "targets": [5] },
@@ -266,7 +231,6 @@ div#data_filter {
 
 
             $('select').change(function(){
-
                 dataTable.draw();
             });
 

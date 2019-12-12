@@ -103,7 +103,7 @@ class Shopkeeper extends Authenticatable
 
         return  DB::table('staff_users')
                 ->select(
-                    DB::raw("CONCAT(first_name,' ',last_name) AS name"),'id')->pluck('name', 'id')->toArray();
+                    DB::raw("CONCAT(first_name,' ',last_name) AS name"),'id')->where('role_id',1)->pluck('name', 'id')->toArray();
     }
 
     static function dropdown(){

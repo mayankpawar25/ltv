@@ -50,8 +50,13 @@ div#data_filter {
       <div class="col-sm-12">
         <div class="form-row">
           <div class="form-group col-md-2">
+             <label>@lang('form.assigned')</label>
+             <?php
+                echo form_dropdown('assigned_to', $assigned_to , []  , "class='form-control four-boot' multiple='true'");
+                ?>
+          </div>
+          <div class="form-group col-md-2">
              <label>@lang('form.status')</label>
-
              <?php
                 echo form_dropdown('status_id', $status , []  , "class='form-control four-boot' multiple='true'");
                 ?>
@@ -227,6 +232,7 @@ div#data_filter {
                 d.status_id   = $("select[name=status_id]").val();
                 d.is_verified = $('select[name=is_verified]').val();
                 d.groups = $('select[name=groups]').val();
+                d.assigned_to = $('select[name=assigned_to]').val();
             }
         }
     }).

@@ -34,7 +34,7 @@ class PaymentCollectionController extends Controller
   /*Show States List*/
 
   public function create(){
-    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::where('status','1')->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
     $data['states'] = ["" => __('form.nothing_selected')];
     $data['cities'] = ["" => __('form.nothing_selected')];
     $data['areas']  = ["" => __('form.nothing_selected')];    
@@ -90,23 +90,9 @@ class PaymentCollectionController extends Controller
 
     }
 
-
-    /*if($customer_id)
-    {
-        $q->whereHas('invoice', function ($q) use ($customer_id) {
-            $q->where('invoices.customer_id', '=', $customer_id);
-        });
-
-        $query->whereHas('invoice', function ($q) use ($customer_id) {
-            $q->where('invoices.customer_id', '=', $customer_id);
-        });
-
-    }*/
-
     $number_of_records  = $q->get()->count();
 
-    if($search_key)
-    {
+    if($search_key){
       $query->where(function ($k) use ($search_key) {
         $k->where('name', 'like', $search_key.'%')
         ->orWhere('mobile_no', 'like', $search_key.'%')
@@ -135,19 +121,7 @@ class PaymentCollectionController extends Controller
         })
         ->orwhereHas('city',function ($q) use ($search_key){
           $q->where('cities.name', 'like', $search_key.'%');
-        })
-        /*->orwhereHas('country',function ($q) use ($search_key){
-            $q->where('countries.name', 'like', $search_key.'%');
-        })
-        ->orwhereHas('state',function ($q) use ($search_key){
-            $q->where('states.name', 'like', $search_key.'%');
-        })
-        ->orwhereHas('city',function ($q) use ($search_key){
-            $q->where('cities.name', 'like', $search_key.'%');
-        })
-        ->orwhereHas('zipcode',function ($q) use ($search_key){
-            $q->where('zipcodes.area_name', 'like', $search_key.'%');
-        })*/;
+        });
       });
     }
 
@@ -222,9 +196,9 @@ class PaymentCollectionController extends Controller
   public function collectionForward(Request $request,$id){
     $data['carryfwd'] = true;
 
-    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
-    $data['states'] = ["" => __('form.nothing_selected')]  + State::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
-    $data['cities'] = ["" => __('form.nothing_selected')]  + City::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
+    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::where('status',1)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+    $data['states'] = ["" => __('form.nothing_selected')]  + State::where('status',1)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
+    $data['cities'] = ["" => __('form.nothing_selected')]  + City::where('status',1)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
 
     $data['collection'] = PaymentCollection::find($id);
     $data['assigned_to'] = StaffUser::where('level',1)->get();
@@ -370,9 +344,9 @@ class PaymentCollectionController extends Controller
     //            ->where('t.id',$token)
     //             ->select('t.id','t.name','t.mobile_no','t.alternate_no','t.collection_date','t.new_date','t.amount','t.status','t.collected_amount','t.balance_amount','staff_users.first_name as salesman_first_name','staff_users.last_name as salesman_last_name','t.staff_user_id')
     //             ->first();
-    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
-    $data['states'] = ["" => __('form.nothing_selected')]  + State::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
-    $data['cities'] = ["" => __('form.nothing_selected')]  + City::orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
+    $data['countries'] = ["" => __('form.nothing_selected')]  + Country::where('status',1)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();
+    $data['states'] = ["" => __('form.nothing_selected')]  + State::where('status',1)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
+    $data['cities'] = ["" => __('form.nothing_selected')]  + City::where('status',1)->orderBy('name', 'ASC')->pluck('name', 'id')->toArray();;
 
     $data['collection'] = PaymentCollection::find($token);
     $data['salesman'] = StaffUser::where('role_id',1)->where('level',1)->get();

@@ -69,10 +69,10 @@ div#admins-table_filter {
                 <thead>
                   <tr>
                    <!--  <th>Id</th> -->
-                    <th>{{__('form.collection_customer_name')}}</th>
-                    <th>{{__('form.shop_name')}}</th>
-                    <th>{{__('form.collection_customer_mobile')}}</th>
-                    <th>{{__('form.alt_number')}}</th>
+                    <th>{{__('form.name')}}</th>
+                    <th>{{__('form.company')}}</th>
+                    <th>{{__('form.mobile')}}</th>
+                    <th>{{__('form.alternate_number')}}</th>
                     <th>{{__('form.creation_date')}}</th>
                     <th>{{__('form.collection_due_date')}}</th>
                     <th>{{__('form.due')}} {{__('form.amount')}}</th>
@@ -176,7 +176,7 @@ $(function() {
       "columnDefs": [
         { className: "text-right", "targets": [14] },
         { "name": "name",   "targets": 0 },
-        { "name": "shopname",   "targets": 1 },
+        { "name": "shop_name",   "targets": 1 },
         { "name": "mobile_no",  "targets": 2 },
         { "name": "alternate_no", "targets": 3 ,visible:false },
         { "name": "collection_date",  "targets": 4 },
@@ -186,7 +186,7 @@ $(function() {
         { "name": "balance_amount",  "targets": 8},
         { "name": "country_id",  "targets": 9,visible:false},
         { "name": "state_id",  "targets": 10},
-        { "name": "city",  "targets": 11},
+        { "name": "city_id",  "targets": 11},
         { "name": "address",  "targets": 12,visible:false},
         { "name": "assigned_to",  "targets": 13,orderable:false},
         { "name": "status",  "targets": 14,orderable:false},

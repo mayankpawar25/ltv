@@ -219,7 +219,7 @@ class TasksController extends Controller
           $task->client_name = '';
           if($task->client_type_id == 1){ // shopkeepers = 1 
               $client = Shopkeeper::find($task->client_id);
-              $task->client_type = 'Shopkeeper';
+              $task->client_type = 'Dealer';
               $task->client_name = $client->name.' ('.$client->shopname.')';
           }else if($task->client_type_id == 2){  // Leads = 2
               $client = Lead::find($task->client_id);
