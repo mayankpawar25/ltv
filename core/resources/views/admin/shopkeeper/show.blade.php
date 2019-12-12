@@ -401,13 +401,16 @@
 			data: {id:id,is_verified:is_verified},
 		})
 		.done(function(resp) {
-			console.log(resp);
+			// console.log(resp);
+			location.reload(true);
 		})
 		.fail(function(resp) {
-			console.log(resp);
+			// console.log(resp);
+			location.reload(true);
 		})
 		.always(function(resp) {
-			console.log(resp);
+			// console.log(resp);
+			location.reload(true);
 		});
 	});
 

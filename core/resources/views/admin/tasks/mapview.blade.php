@@ -67,17 +67,22 @@
         .done(function(resp) {
           $.each(resp,function(index,i){
             var coordinates = {
-                                'position': new google.maps.LatLng(i.latitude, i.longitude), 
-                                'icon' : iconBase + '/marker.png',
-                                'id': i.id, 
-                                'name': i.name, 
-                                'description': i.description, 
-                                'task_date': i.task_date, 
-                                'from_time': i.from_time,
-                                'to_time': i.to_time,
-                                'task_status_id': i.task_status_id,
-                                'client_id': i.client_id,
-                              };
+                'position': new google.maps.LatLng(i.latitude, i.longitude), 
+                'icon' : iconBase + '/marker.png',
+                'id': i.id, 
+                'name': i.name, 
+                'description': i.description, 
+                'task_date': i.task_date, 
+                'from_time': i.from_time,
+                'to_time': i.to_time,
+                'task_status_id': i.task_status_id,
+                'client_name': i.client_name,
+                'client_type': i.client_type,
+                'address': i.address,
+                'created_at': i.created_at,
+                'salesman_name': i.salesman,
+                'status': i.status,
+              };
             // console.log(coordinates);
             features.push(coordinates);
           });
@@ -90,12 +95,12 @@
                 '<tr>'+
                 '<td colspan="2"><h2>'+features[i].name+'</h2></td>'+
                 '</tr>';
-
-                /* For other property types */
                 contentString +=        '<td width="73%"><p>Description: '+features[i].description+'</p>'+
-                            // '<p><strong>Property Name</strong></p>'+
+                            '<p><strong>'+features[i].client_type+' Name: </strong>'+features[i].client_name+'</p>'+
+                            '<p>Salesman Name.: '+features[i].salesman_name+'</p>'+
                             '<p>Date.: '+features[i].task_date+'</p>'+
-                            ''+
+                            '<p>Address.: '+features[i].address+'</p>'+
+                            '<p>Status.: '+features[i].status+'</p>'+
                             '</td>'+
                             '</tr></table></div></a>';
             contentString +=    '</div>';
