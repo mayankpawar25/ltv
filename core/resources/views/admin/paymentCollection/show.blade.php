@@ -152,46 +152,46 @@ div.dataTables_wrapper div.dataTables_filter {
                 <div class="card-body">
                   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered">
                     <tr>
-                      <td><strong>Name</strong></td>
+                      <td><strong>{{__('form.name')}}</strong></td>
                       <td>{{ $collections->name }}</td>
-                      <td><strong>Customer Mobile No </strong></td>
+                      <td><strong>{{__('form.shop_name')}}</strong></td>
                       <td>{{ $collections->mobile_no }}</td>
                     </tr>
                     <tr>
-                      <td><strong> Alternate No </strong></td>
+                      <td><strong>{{__('form.mobile')}}</strong></td>
+                      <td>{{ $collections->mobile_no }}</td>
+                      <td><strong>{{__('form.alternate_number')}}</strong></td>
                       <td>{{ $collections->alternate_no }}</td>
-                      <td><strong>Creation Date </strong></td>
-                      <td>{{ date('d M Y',strtotime($collections->collection_date)) }}</td>
                     </tr>
                     <tr>
-                      <td><strong>Address</strong></td>
+                      <td><strong>{{__('form.creation_date')}}</strong></td>
+                      <td>{{ date('d M Y',strtotime($collections->collection_date)) }}</td>
+                       <td><strong>{{ __('form.collection_due_date') }}</strong></td>
+                      <td>{{ date('d M Y',strtotime($collections->new_date)) }}</td>
+                    </tr>
+                    <tr>
+                      <td><strong>{{__('form.address')}}</strong></td>
                       <td>{{$collections->address}}</td>
-                      <td><strong> City</strong></td>
+                      <td><strong>{{__('form.city')}}</strong></td>
                       <td>{{ (isset($collections->city_id) && $collections->city !='')?$collections->city->name:'' }}</td>
                     </tr>
                     <tr>
-                      <td><strong>State</strong> </td>
+                      <td><strong>{{__('form.state')}}</strong> </td>
                       <td>{{(isset($collections->state_id) && $collections->state !='')?$collections->state->name:''}}</td>
-                      <td><strong> Country</strong></td>
+                      <td><strong>{{__('form.country')}}</strong></td>
                       <td>{{(isset($collections->country_id) && $collections->country !='')?$collections->country->name:'' }}</td>
                     </tr>
                     <tr>
-                      <td><strong>Collection Due Date </strong></td>
-                      <td>{{ date('d M Y',strtotime($collections->new_date)) }}</td>
-                      <td><strong>Assigned to </strong></td>
-                      <td>{{ $collections->assigned->first_name .' '.$collections->assigned->last_name }}</td>
-                    </tr>
-                    <tr>
-                      <td><strong> Due Amount </strong></td>
+                      <td><strong>{{__('form.due')}} {{__('form.amount')}}</strong></td>
                       <td>{{ $collections->amount }}</td>
-                      <td><strong> Balance Amount </strong></td>
+                      <td><strong>{{__('form.balance')}} {{__('form.amount')}}</strong></td>
                       <td>{{ $collections->balance_amount }}</td>
                     </tr>
                     <tr>
-                      <td><strong> Status </strong></td>
+                      <td><strong>{{__('form.status')}}</strong></td>
                       <td> @if($collections->status == 0) <span class="badge badge-danger">Open</span> @else <span class="badge badge-success">Closed</span> @endif</td>
-                      <td></td>
-                      <td></td>
+                      <td><strong>{{__('form.assigned_to')}}</strong></td>
+                      <td>{{ $collections->assigned->first_name .' '.$collections->assigned->last_name }}</td>
                     </tr>
                   </table>
                   

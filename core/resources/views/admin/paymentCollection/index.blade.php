@@ -70,7 +70,7 @@ div#admins-table_filter {
                   <tr>
                    <!--  <th>Id</th> -->
                     <th>{{__('form.name')}}</th>
-                    <th>{{__('form.company')}}</th>
+                    <th>{{__('form.shop_name')}}</th>
                     <th>{{__('form.mobile')}}</th>
                     <th>{{__('form.alternate_number')}}</th>
                     <th>{{__('form.creation_date')}}</th>

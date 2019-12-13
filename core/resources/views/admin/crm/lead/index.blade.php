@@ -96,7 +96,7 @@ div#data_filter {
        <div class="form-group col-md-2">
          <label>@lang('form.assigned_to')</label>
          <?php
-            echo form_dropdown('assigned_to', $data['assigned_to_list'] , '', "class='form-control four-boot multiple'");
+            echo form_dropdown('assigned_to', $data['assigned_to_list'] , '', "class='form-control four-boot' multiple='multiple' ");
             ?>
       </div>
 
@@ -143,6 +143,25 @@ div#data_filter {
 </div>
 <div class="clearfix"></div>
 </div>
+</div>
+
+<div id="confirmModal" class="modal " role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Confirmation</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" name="delete_url">
+        <h5 align="center" style="margin:0;">Are you sure you want to remove this data?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" name="ok_button" id="ok_button" class="btn btn-danger">OK</button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script> 
  <script>
@@ -233,7 +252,6 @@ div#data_filter {
             $('select').change(function(){
                 dataTable.draw();
             });
-
         });
 
 
@@ -244,8 +262,38 @@ div#data_filter {
            
         });
 
+        /*$(document).on('click','.delete_btn',function(){
+          if(confirm('Are You Sure want to delete??')){
+            return true;
+          }
+          return false;
+        });*/
 
-        
+        $(document).on('click', '.delete_btn', function(){
+          var href = $(this).attr('href');
+          $('#confirmModal input[name=delete_url]').val(href);
+          $('#confirmModal').modal('show');
+          return false;
+        });
+          
+        $('#ok_button').click(function(){
+          var url = $('input[name=delete_url]').val();
+          $.ajax({
+            url:url,
+            beforeSend:function(){
+              $('#ok_button').text('Deleting...');
+            },
+            success:function(data){
+              console.log(data);
+              setTimeout(function(){
+                $('#confirmModal').modal('hide');
+                $('#ok_button').text('Ok');
+                dataTable.draw();
+              }, 2000);
+            }
+          })
+        });
+
 
     </script>
 @endsection

@@ -93,9 +93,11 @@ class LeadController extends Controller {
 
         if($assigned_to!=''){
             if($assigned_to == 'unassigned'){
+                $q->whereNull('assigned_to');
                 $query->whereNull('assigned_to');
             }else{
-                $query->where('assigned_to', $assigned_to );
+                $q->whereIn('assigned_to',$assigned_to);
+                $query->whereIn('assigned_to',$assigned_to);
             }
         }
         if($additional_filter!='')
@@ -220,7 +222,7 @@ class LeadController extends Controller {
                     $row->status->name,
                     (isset($row->source)) ? $row->source->name : '',
                     ($row->last_contacted) ? Carbon::parse($row->last_contacted)->format("d-m-Y h:i A") : ''  ,
-                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_lead', $row->id),'','leads_delete').' '.
+                    anchor_link('<button class="btn btn-sm btn-danger pull-right"><span class="icon-trash icons" data-toggle="tooltip" title="Delete"></span></button>',route('delete_lead', $row->id),'','leads_delete','delete_btn').' '.
                     anchor_link('<button class="btn btn-sm btn-success pull-right"><span class="icon-pencil icons" data-toggle="tooltip" title="Edit"></span></button>',route('edit_lead_page', $row->id),'','leads_edit'),
 
                 );
@@ -436,7 +438,8 @@ class LeadController extends Controller {
         {
             $lead->delete();
             session()->flash('message', __('form.success_delete'));
-            return  redirect()->route('leads_list');
+            // return  redirect()->route('leads_list');
+            return response()->json(__('form.success_delete'),200);
         }       
         
     }

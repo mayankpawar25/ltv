@@ -3,6 +3,10 @@
 
 /*sandeep css*/
 /*.table-bordered .dataTable td:last-child*/
+div.dataTables_wrapper div.dataTables_processing {
+	top: 60%;
+    background-color:#e9ffe3;
+}
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: #f2f2f2;
