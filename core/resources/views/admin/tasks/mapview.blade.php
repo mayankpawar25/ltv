@@ -83,6 +83,7 @@
                     'created_at': i.created_at,
                     'salesman_name': i.salesman,
                     'status': i.status,
+                    'time':i.time
                   };
                   features.push(coordinates);
             });
@@ -97,6 +98,7 @@
                             '<p><strong>'+features[i].client_type+' Name: </strong>'+features[i].client_name+'</p>'+
                             '<p><strong>Salesman Name </strong>.: '+features[i].salesman_name+'</p>'+
                             '<p><strong>Date </strong>: '+features[i].task_date+'</p>'+
+                            '<p><strong>Time </strong>: '+features[i].time+'</p>'+
                             '<p><strong>Address </strong>: '+features[i].address+'</p>'+
                             '<p><strong>Status </strong>: '+features[i].status+'</p>'+
                             '</td>'+

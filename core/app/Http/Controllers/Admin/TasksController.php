@@ -232,6 +232,7 @@ class TasksController extends Controller
           }
           $task->salesman = $assigned_to->first_name.' '.$assigned_to->last_name;
           $task->address = $client->address;
+          $task->time = date('h:i A',strtotime($task->from_time)).' - '.date('h:i A',strtotime($task->to_time));
           $task->status = TaskStatus::find($task->task_status_id)->name;
         }
       }
